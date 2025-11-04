@@ -114,13 +114,15 @@ All colors MUST be HSL.
 }
 
 .assessment-slide {
-  @apply w-full min-h-screen p-12;
+  @apply w-full h-screen p-0;
   page-break-after: always;
+  display: flex;
+  flex-direction: column;
 }
 
 @media print {
   .assessment-slide {
-    @apply min-h-screen;
+    @apply h-screen;
     page-break-after: always;
     break-after: page;
   }
@@ -133,5 +135,9 @@ All colors MUST be HSL.
   body {
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
+  }
+  
+  .print\:hidden {
+    display: none !important;
   }
 }
