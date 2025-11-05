@@ -13,6 +13,13 @@ import bernardoMonteiro from "@/assets/bernardo-monteiro.jpg";
 import filipJauk from "@/assets/filip-jauk.jpg";
 import joaoDomingues from "@/assets/joao-domingues.jpg";
 import pedroBaischCommitted from "@/assets/pedro-baisch-committed.png";
+import ivyLeagueLogos from "@/assets/logos/ivy-league-logos.png";
+import bostonCollegeLogo from "@/assets/logos/boston-college.jpg";
+import ucfLogo from "@/assets/logos/ucf.png";
+import charlestonLogo from "@/assets/logos/charleston.png";
+import harvardLogo from "@/assets/logos/harvard.png";
+import yaleLogo from "@/assets/logos/yale.png";
+import accLogos from "@/assets/logos/acc-logos.png";
 
 interface AssessmentPreviewProps {
   data: AssessmentData;
@@ -144,59 +151,42 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
 
 // Slide Components
 const CoverSlide = ({ data }: { data: AssessmentData }) => {
-  // D1 Universities for the ticker
-  const d1Universities = [
-    { name: "Stanford", abbr: "SU", color: "bg-red-800" },
-    { name: "UCLA", abbr: "UCLA", color: "bg-blue-600" },
-    { name: "Duke", abbr: "DU", color: "bg-blue-800" },
-    { name: "UNC", abbr: "UNC", color: "bg-sky-500" },
-    { name: "Georgetown", abbr: "GU", color: "bg-slate-700" },
-    { name: "Syracuse", abbr: "SYR", color: "bg-orange-600" },
-    { name: "Indiana", abbr: "IU", color: "bg-red-700" },
-    { name: "Michigan", abbr: "UM", color: "bg-blue-700" },
-    { name: "Maryland", abbr: "UMD", color: "bg-red-600" },
-    { name: "Notre Dame", abbr: "ND", color: "bg-green-800" },
-    { name: "Virginia", abbr: "UVA", color: "bg-orange-700" },
-    { name: "Wake Forest", abbr: "WF", color: "bg-yellow-600" },
-    { name: "Clemson", abbr: "CU", color: "bg-orange-600" },
-    { name: "Florida State", abbr: "FSU", color: "bg-amber-700" },
-    { name: "Penn State", abbr: "PSU", color: "bg-blue-900" },
-    { name: "Ohio State", abbr: "OSU", color: "bg-red-700" },
-    { name: "USC", abbr: "USC", color: "bg-red-800" },
-    { name: "Washington", abbr: "UW", color: "bg-purple-700" },
-    { name: "Wisconsin", abbr: "UW", color: "bg-red-800" },
-    { name: "Boston College", abbr: "BC", color: "bg-amber-800" },
+  // University logos for the ticker
+  const universityLogos = [
+    harvardLogo, yaleLogo, bostonCollegeLogo, ucfLogo, charlestonLogo,
+    harvardLogo, yaleLogo, bostonCollegeLogo, ucfLogo, charlestonLogo,
+    harvardLogo, yaleLogo, bostonCollegeLogo, ucfLogo, charlestonLogo,
   ];
   
   return (
     <div className="w-full h-full relative bg-gradient-to-br from-gray-100 via-blue-50 to-cyan-50 overflow-hidden">
-      {/* University Logo Ticker at Top */}
-      <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-[hsl(var(--venture-navy))] via-blue-900 to-[hsl(var(--venture-navy))] py-4 overflow-hidden shadow-lg">
-        <div className="flex animate-scroll">
-          {/* First set of universities */}
-          {d1Universities.map((uni, idx) => (
+      {/* University Logo Ticker at Top - No background */}
+      <div className="absolute top-0 left-0 right-0 py-4 overflow-hidden">
+        <div className="flex animate-scroll items-center">
+          {/* First set of logos */}
+          {universityLogos.map((logo, idx) => (
             <div 
-              key={`uni-1-${idx}`}
-              className="flex-shrink-0 mx-3 group hover:scale-110 transition-transform duration-300"
+              key={`logo-1-${idx}`}
+              className="flex-shrink-0 mx-4 hover:scale-110 transition-transform duration-300"
             >
-              <div className={`${uni.color} w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg border-2 border-white/30 backdrop-blur-sm`}>
-                <span className="text-white font-black text-xs md:text-sm">
-                  {uni.abbr}
-                </span>
-              </div>
+              <img 
+                src={logo} 
+                alt={`University ${idx + 1}`}
+                className="h-12 md:h-14 w-auto object-contain"
+              />
             </div>
           ))}
           {/* Duplicate set for seamless loop */}
-          {d1Universities.map((uni, idx) => (
+          {universityLogos.map((logo, idx) => (
             <div 
-              key={`uni-2-${idx}`}
-              className="flex-shrink-0 mx-3 group hover:scale-110 transition-transform duration-300"
+              key={`logo-2-${idx}`}
+              className="flex-shrink-0 mx-4 hover:scale-110 transition-transform duration-300"
             >
-              <div className={`${uni.color} w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg border-2 border-white/30 backdrop-blur-sm`}>
-                <span className="text-white font-black text-xs md:text-sm">
-                  {uni.abbr}
-                </span>
-              </div>
+              <img 
+                src={logo} 
+                alt={`University ${idx + 1}`}
+                className="h-12 md:h-14 w-auto object-contain"
+              />
             </div>
           ))}
         </div>
@@ -254,7 +244,7 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
           }
         }
         .animate-scroll {
-          animation: scroll 40s linear infinite;
+          animation: scroll 30s linear infinite;
         }
         .animate-scroll:hover {
           animation-play-state: paused;
