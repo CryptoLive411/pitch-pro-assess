@@ -27,12 +27,13 @@ interface AssessmentEditorProps {
 }
 
 // Default template for department notes
-const DEFAULT_NOTES_TEMPLATE = `The Venture Soccer Department believes (NAME OF PLAYER) has the ability to successfully compete at the college level.
+const DEFAULT_NOTES_TEMPLATE = `The Venture Soccer Department believes (NAME OF PLAYER) has the ability to successfully compete at the college level starting (ENROLLMENT YEAR).
+
+Academically, (NAME OF PLAYER) is a strong student who maintains good academic standing and is well-prepared for the demands of college-level coursework.
 
 (NAME OF PLAYER) is a versatile player who has a good game understanding. He reads the game well and could fulfill multiple roles on the field.
 
-We recommend (NAME OF PLAYER) for the following Divisions:
-- Focus on NAIA teams with a strong roster.
+We recommend (NAME OF PLAYER) as an athlete to focus on (TARGET DIVISIONS) with a strong roster.
 
 It is important that (NAME OF PLAYER) picks the right environment and team to continue his development.`;
 
@@ -41,18 +42,30 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
   const [isSaving, setIsSaving] = useState(false);
   const [assessmentUrl, setAssessmentUrl] = useState<string | null>(null);
 
-  // Auto-update department notes when player name or divisions change
+  // Auto-update department notes when player name, enrollment year, or divisions change
   useEffect(() => {
-    if (data.playerName || data.targetDivisions.length > 0) {
+    if (data.playerName || data.enrollmentYear || data.targetDivisions.length > 0) {
       let updatedNotes = data.departmentNotes || DEFAULT_NOTES_TEMPLATE;
       
       // Replace player name
       updatedNotes = updatedNotes.replace(/\(NAME OF PLAYER\)/g, data.playerName || "(NAME OF PLAYER)");
       
-      // Update division focus
+      // Replace enrollment year
+      updatedNotes = updatedNotes.replace(/\(ENROLLMENT YEAR\)/g, data.enrollmentYear || "(ENROLLMENT YEAR)");
+      
+      // Update division focus - create natural language list
       if (data.targetDivisions.length > 0) {
-        const divisionText = data.targetDivisions.map(d => `- Focus on ${d} teams with a strong roster.`).join('\n');
-        updatedNotes = updatedNotes.replace(/- Focus on NAIA teams with a strong roster\./g, divisionText);
+        let divisionText = '';
+        if (data.targetDivisions.length === 1) {
+          divisionText = data.targetDivisions[0] + ' teams';
+        } else if (data.targetDivisions.length === 2) {
+          divisionText = data.targetDivisions[0] + ' and ' + data.targetDivisions[1] + ' teams';
+        } else {
+          const lastDivision = data.targetDivisions[data.targetDivisions.length - 1];
+          const otherDivisions = data.targetDivisions.slice(0, -1).join(', ');
+          divisionText = otherDivisions + ', and ' + lastDivision + ' teams';
+        }
+        updatedNotes = updatedNotes.replace(/\(TARGET DIVISIONS\)/g, divisionText);
       }
       
       // Only update if it changed
@@ -60,7 +73,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
         onChange({ ...data, departmentNotes: updatedNotes });
       }
     }
-  }, [data.playerName, data.targetDivisions]);
+  }, [data.playerName, data.enrollmentYear, data.targetDivisions]);
 
   // Create URL-friendly slug from player name
   const createSlug = (name: string) => {
