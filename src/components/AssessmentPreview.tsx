@@ -669,127 +669,74 @@ const TestimonialFilipSlide = () => (
 );
 
 const CommittedSlide = () => (
-  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] via-blue-900 to-[hsl(var(--venture-blue))] p-6 md:p-12 relative overflow-hidden">
+  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] via-blue-900 to-[hsl(var(--venture-blue))] p-6 md:p-8 relative overflow-hidden flex flex-col">
     {/* Animated background elements */}
-    <div className="absolute top-0 right-0 w-72 h-72 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 animate-pulse"></div>
-    <div className="absolute bottom-0 left-0 w-72 h-72 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 animate-pulse"></div>
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-white/5 to-transparent rounded-full blur-3xl"></div>
+    <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 animate-pulse"></div>
+    <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 animate-pulse"></div>
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-yellow-500/10 via-white/5 to-transparent rounded-full blur-3xl"></div>
     
-    <div className="relative z-10 h-full flex flex-col">
-      {/* Header with enhanced styling */}
-      <div className="text-center mb-8">
-        <div className="inline-block mb-4">
-          <div className="text-7xl md:text-9xl font-black text-white mb-2 animate-scale-in drop-shadow-2xl">350+</div>
-          <div className="h-2 bg-gradient-to-r from-transparent via-white to-transparent rounded-full"></div>
+    <div className="relative z-10 flex flex-col h-full">
+      {/* Compact Header */}
+      <div className="text-center mb-4 md:mb-6">
+        <div className="inline-block mb-2">
+          <div className="text-6xl md:text-8xl font-black text-white animate-scale-in drop-shadow-2xl">350+</div>
         </div>
-        <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-wide drop-shadow-lg mb-2">Athletes Placed</h2>
-        <p className="text-base md:text-lg text-white/80 font-semibold">Successfully committed to top US universities</p>
-        <div className="flex items-center justify-center gap-3 mt-4">
-          <div className="h-px w-12 bg-gradient-to-r from-transparent to-white/50"></div>
-          <span className="text-white/60 text-sm uppercase tracking-widest">Featured Success Stories</span>
-          <div className="h-px w-12 bg-gradient-to-l from-transparent to-white/50"></div>
-        </div>
+        <h2 className="text-2xl md:text-4xl font-black text-white uppercase tracking-wide drop-shadow-lg">Athletes Placed</h2>
+        <p className="text-sm md:text-base text-white/80 font-semibold mt-1">Successfully committed to top US universities</p>
       </div>
       
-      {/* 3 Featured Athletes Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto w-full">
-        <div className="group relative overflow-hidden rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/10 hover:border-white/30">
-          <img src={pedroBaischFinal} alt="Pedro Baisch - Merrimack College" className="w-full h-full object-contain bg-gradient-to-br from-blue-900 to-blue-800" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="absolute bottom-4 left-4 right-4">
-              <p className="text-white font-bold text-base md:text-lg">Pedro Baisch</p>
-              <p className="text-yellow-400 text-sm font-semibold">Merrimack College</p>
+      {/* Featured Athletes Grid - Optimized for full display */}
+      <div className="flex-1 flex items-center justify-center px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 max-w-7xl w-full h-fit max-h-[calc(100vh-300px)]">
+          <div className="group relative overflow-hidden rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-yellow-400/20 hover:border-yellow-400/50 bg-gradient-to-b from-blue-900 to-blue-950">
+            <div className="aspect-[3/4] relative">
+              <img src={pedroBaischFinal} alt="Pedro Baisch - Merrimack College" className="w-full h-full object-contain" />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <p className="text-white font-black text-lg md:text-xl mb-1">Pedro Baisch</p>
+                <p className="text-yellow-400 text-sm md:text-base font-bold">Merrimack College</p>
+                <div className="h-1 w-12 bg-yellow-400 rounded-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="group relative overflow-hidden rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-green-400/20 hover:border-green-400/50 bg-gradient-to-b from-green-950 to-black">
+            <div className="aspect-[3/4] relative">
+              <img src={miloPetersFinal} alt="Milo Peters - Ivy League" className="w-full h-full object-cover" />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <p className="text-white font-black text-lg md:text-xl mb-1">Milo Peters</p>
+                <p className="text-green-400 text-sm md:text-base font-bold">Dartmouth - Ivy League</p>
+                <p className="text-green-300/80 text-xs mt-1">6% Acceptance Rate</p>
+                <div className="h-1 w-12 bg-green-400 rounded-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="group relative overflow-hidden rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-red-400/20 hover:border-red-400/50 bg-gradient-to-b from-red-950 to-black">
+            <div className="aspect-[3/4] relative">
+              <img src={afonsoVaz} alt="Afonso Vaz - Davis & Elkins" className="w-full h-full object-cover" />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <p className="text-white font-black text-lg md:text-xl mb-1">Afonso Vaz</p>
+                <p className="text-red-400 text-sm md:text-base font-bold">Davis & Elkins</p>
+                <div className="h-1 w-12 bg-red-400 rounded-full mt-2 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </div>
             </div>
           </div>
         </div>
-        <div className="group relative overflow-hidden rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/10 hover:border-white/30">
-          <img src={miloPetersFinal} alt="Milo Peters - Ivy League" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="absolute bottom-4 left-4 right-4">
-              <p className="text-white font-bold text-base md:text-lg">Milo Peters</p>
-              <p className="text-yellow-400 text-sm font-semibold">Dartmouth - Ivy League</p>
-            </div>
-          </div>
-        </div>
-        <div className="group relative overflow-hidden rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/10 hover:border-white/30">
-          <img src={afonsoVaz} alt="Afonso Vaz - Davis & Elkins" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="absolute bottom-4 left-4 right-4">
-              <p className="text-white font-bold text-base md:text-lg">Afonso Vaz</p>
-              <p className="text-yellow-400 text-sm font-semibold">Davis & Elkins</p>
-            </div>
-          </div>
-        </div>
       </div>
       
-      {/* Bottom stats */}
-      <div className="mt-8 text-center">
-        <div className="inline-flex items-center gap-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-3">
-          <div className="text-white">
-            <span className="text-3xl font-black">+347</span>
-            <span className="text-sm ml-2 text-white/80">More Athletes Placed</span>
-          </div>
+      {/* Bottom Stats Bar */}
+      <div className="text-center mt-4">
+        <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-full px-6 py-2 hover:bg-white/20 transition-colors">
+          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          <span className="text-white font-black text-xl md:text-2xl">+347</span>
+          <span className="text-white/90 text-xs md:text-sm font-semibold uppercase tracking-wide">More Athletes Placed</span>
         </div>
-      </div>
-    </div>
-  </div>
-);
-
-const CostsSlide = () => (
-  <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 p-8 md:p-16">
-    <div className="h-full flex flex-col">
-      <div className="mb-6">
-        <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
-          INVESTMENT
-        </div>
-        <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase">Estimated Costs</h2>
-      </div>
-      
-      <div className="flex-1 bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-        <table className="w-full text-xs md:text-sm">
-          <thead className="bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white">
-            <tr>
-              <th className="text-left p-3 md:p-4 font-bold">ITEM</th>
-              <th className="text-center p-3 md:p-4 font-bold">AMOUNT</th>
-              <th className="text-right p-3 md:p-4 font-bold">STATUS</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-b hover:bg-blue-50/50 transition-colors">
-              <td className="p-3 md:p-4 font-semibold">SAT</td>
-              <td className="text-center p-3 md:p-4">$160</td>
-              <td className="text-right p-3 md:p-4">
-                <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">REQUIRED</span>
-              </td>
-            </tr>
-            <tr className="border-b bg-gray-50 hover:bg-blue-50/50 transition-colors">
-              <td className="p-3 md:p-4 font-semibold">Eligibility Center (NAIA)</td>
-              <td className="text-center p-3 md:p-4">$160</td>
-              <td className="text-right p-3 md:p-4">
-                <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">REQUIRED</span>
-              </td>
-            </tr>
-            <tr className="border-b hover:bg-blue-50/50 transition-colors">
-              <td className="p-3 md:p-4 font-semibold">VISA & SEVIS</td>
-              <td className="text-center p-3 md:p-4">$550</td>
-              <td className="text-right p-3 md:p-4">
-                <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">REQUIRED</span>
-              </td>
-            </tr>
-            <tr className="border-b bg-gray-50 hover:bg-blue-50/50 transition-colors">
-              <td className="p-3 md:p-4 font-semibold">Transcripts Evaluation</td>
-              <td className="text-center p-3 md:p-4">$160</td>
-              <td className="text-right p-3 md:p-4">
-                <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">REQUIRED</span>
-              </td>
-            </tr>
-            <tr className="hover:bg-blue-50/50 transition-colors">
-              <td className="p-3 md:p-4 font-bold text-[hsl(var(--venture-navy))]">University Yearly Budget</td>
-              <td className="text-center p-3 md:p-4 font-bold">$10K-$20K</td>
-              <td className="text-right p-3 md:p-4 text-xs text-gray-600">Depends on school</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>
@@ -817,6 +764,58 @@ const TestimonialGabrielSlide = () => (
             "I really enjoyed working with Joao. Without him I wouldn't have been able to have a full scholarship at such a great school at one of the best soccer programs. For everything that I have here in the US, he is the first man to say thank you! He was with me from the beginning and every time made sure that everything is perfect for my education and my soccer improvement."
           </blockquote>
         </div>
+      </div>
+    </div>
+  </div>
+);
+
+const CostsSlide = () => (
+  <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 p-8 md:p-16">
+    <div className="h-full flex flex-col">
+      <div className="mb-6">
+        <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
+          INVESTMENT
+        </div>
+        <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase">Estimated Costs</h2>
+      </div>
+      
+      <div className="flex-1 bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+        <table className="w-full text-xs md:text-sm">
+          <thead className="bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white">
+            <tr>
+              <th className="text-left p-3 md:p-4 font-bold">ITEM</th>
+              <th className="text-center p-3 md:p-4 font-bold">AMOUNT</th>
+              <th className="text-right p-3 md:p-4 font-bold">STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b bg-gray-50 hover:bg-blue-50/50 transition-colors">
+              <td className="p-3 md:p-4 font-bold text-[hsl(var(--venture-navy))]">Exams (SAT/ACT/TOEFL)</td>
+              <td className="text-center p-3 md:p-4 font-bold">$200-$400</td>
+              <td className="text-right p-3 md:p-4 text-xs text-gray-600">1-3 exams</td>
+            </tr>
+            <tr className="border-b bg-white hover:bg-blue-50/50 transition-colors">
+              <td className="p-3 md:p-4 font-bold text-[hsl(var(--venture-navy))]">Applications (4-6 unis)</td>
+              <td className="text-center p-3 md:p-4 font-bold">$300-$500</td>
+              <td className="text-right p-3 md:p-4 text-xs text-gray-600">Varies per school</td>
+            </tr>
+            <tr className="border-b bg-gray-50 hover:bg-blue-50/50 transition-colors">
+              <td className="p-3 md:p-4 font-bold text-[hsl(var(--venture-navy))]">Flight Ticket USA</td>
+              <td className="text-center p-3 md:p-4 font-bold">$600-$1,000</td>
+              <td className="text-right p-3 md:p-4 text-xs text-gray-600">One-way</td>
+            </tr>
+            <tr className="border-b bg-white hover:bg-blue-50/50 transition-colors">
+              <td className="p-3 md:p-4 font-bold text-[hsl(var(--venture-navy))]">VISA Approval</td>
+              <td className="text-center p-3 md:p-4 font-bold">$350</td>
+              <td className="text-right p-3 md:p-4 text-xs text-gray-600">F-1 Student Visa</td>
+            </tr>
+            <tr className="border-b bg-gray-50 hover:bg-blue-50/50 transition-colors">
+              <td className="p-3 md:p-4 font-bold text-[hsl(var(--venture-navy))]">University Yearly Budget</td>
+              <td className="text-center p-3 md:p-4 font-bold">$10K-$20K</td>
+              <td className="text-right p-3 md:p-4 text-xs text-gray-600">Depends on school</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
