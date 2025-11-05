@@ -50,6 +50,7 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
     { type: "testimonial-gabriel", title: "Testimonial - Gabriel" },
     { type: "packages", title: "Service Packages" },
     { type: "timeline", title: "Timeline" },
+    { type: "testimonials-slider", title: "More Testimonials" },
     { type: "contact", title: "Ready to Start?" },
     { type: "back-cover", title: "Back Cover" },
   ];
@@ -120,8 +121,9 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
             {currentSlide === 9 && <TestimonialGabrielSlide />}
             {currentSlide === 10 && <PackagesSlide />}
             {currentSlide === 11 && <TimelineSlide />}
-            {currentSlide === 12 && <ContactSlide />}
-            {currentSlide === 13 && <BackCoverSlide />}
+            {currentSlide === 12 && <TestimonialsSliderSlide />}
+            {currentSlide === 13 && <ContactSlide />}
+            {currentSlide === 14 && <BackCoverSlide />}
           </div>
         </div>
 
@@ -1481,6 +1483,177 @@ const TimelineSlide = () => {
   );
 };
 
+const TestimonialsSliderSlide = () => {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  
+  const testimonials = [
+    {
+      name: "Henrique Santos",
+      school: "NC State",
+      quote: "I have worked with agents and people that tried to help my soccer career for a big part of my life and the focus and the personal touch that I get from João is exceptional. Along with myself I owe a lot of my success to João as it's been a great journey since we started working together."
+    },
+    {
+      name: "Nico Torres", 
+      school: "Utah Valley",
+      quote: "Joao helped me find an incredible program in record time, my situation was not easy, and he was able in a couple of weeks to help me and give me the opportunity to compete at the best level in my last season."
+    },
+    {
+      name: "Umberto Pela",
+      school: "Lehigh",
+      quote: "Working with Joao and Luca has been a great experience. Even though we had 9 hours difference due to the time zone, they were always available to chat and share his thoughts. Him and Luca provided me with great opportunities, suggestions, and understood my needs perfectly."
+    },
+    {
+      name: "Jozo Cancar",
+      school: "Tyler JC",
+      quote: "I can live my dream because of one individual, who is essentially the reason I am in the US. He always thought I had potential and always had faith in me. Every time, he made sure to let me know that I meant more to him than just a soccer player."
+    },
+    {
+      name: "Diego Castillo",
+      school: "Utah Valley",
+      quote: "Working with Joao and Rodrigo in particular was the best decision I could have made. They made the process of finding a university fast and beneficial for me, thanks to them and their team I found a place which I can now call my new home."
+    },
+    {
+      name: "Alex Bamford",
+      school: "Marshall",
+      quote: "Joao was incredibly helpful in securing my move to Marshall university. He has a wide range of contacts across both d2 and d1 and having gone through the college game himself knows the system very well. He is also a great person who only wants the best for those he works with."
+    },
+    {
+      name: "Tadej Pitvoresk",
+      school: "Transfer Success",
+      quote: "Working with Joao was amazing! Not only I got a great agent that provided me with everything I needed and wanted, I also got a great friend! He did exactly everything that he said he would, gave me great options with schools, some great advices."
+    },
+    {
+      name: "Fernando Silva",
+      school: "UTRGV",
+      quote: "Delgado was a key person in the pathway I took for my life. Since the first day we met, he always showed me a high level of professionalism and excellence. And mainly and most important, a very honest and caring person."
+    },
+    {
+      name: "Quenzi Heuerman",
+      school: "Seton Hall",
+      quote: "Joao helped me from the start looking for a new school as I entered the transfer portal. He was consistent by always giving me great updates and getting me in touch with top schools. Thanks to his service, I was able to contact multiple top programs."
+    },
+    {
+      name: "Kostyantyn",
+      school: "Student Athlete",
+      quote: "When the first time I got on contact with Joao, I realized that he was the person I can trust. He didn't work with me as a businessman but as friend that look on everything from my perspective. Joao wasn't an agent for me but a friend that could help with everything!"
+    }
+  ];
+
+  const nextTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(nextTestimonial, 8000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="w-full h-full bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 p-6 md:p-8 relative overflow-hidden">
+      {/* Subtle background patterns */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[hsl(var(--venture-blue))]/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[hsl(var(--venture-navy))]/10 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="relative z-10 h-full flex flex-col">
+        {/* Header with Logo */}
+        <div className="flex items-start justify-between mb-6">
+          <div>
+            <div className="inline-block px-3 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-2">
+              TESTIMONIALS
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
+              Hear from Even More<br/>of Our Athletes
+            </h2>
+          </div>
+          <img 
+            src={ventureLogoCircle} 
+            alt="Venture USA" 
+            className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-90" 
+          />
+        </div>
+
+        {/* Testimonial Slider */}
+        <div className="flex-1 flex items-center justify-center">
+          <div className="relative w-full max-w-4xl">
+            {/* Main testimonial card */}
+            <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border-2 border-gray-100 relative overflow-hidden">
+              {/* Quote decoration */}
+              <div className="absolute top-6 left-6 text-8xl text-[hsl(var(--venture-blue))]/10 font-serif leading-none">
+                "
+              </div>
+              
+              <div className="relative z-10">
+                {/* Quote */}
+                <blockquote className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 italic">
+                  "{testimonials[currentTestimonial].quote}"
+                </blockquote>
+                
+                {/* Attribution */}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xl md:text-2xl font-black text-[hsl(var(--venture-navy))]">
+                      {testimonials[currentTestimonial].name}
+                    </p>
+                    <p className="text-sm md:text-base text-[hsl(var(--venture-blue))] font-semibold">
+                      {testimonials[currentTestimonial].school}
+                    </p>
+                  </div>
+                  
+                  {/* Counter */}
+                  <div className="text-sm text-gray-400 font-semibold">
+                    {currentTestimonial + 1} / {testimonials.length}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Navigation buttons */}
+            <button
+              onClick={prevTestimonial}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-[hsl(var(--venture-blue))] hover:text-white transition-all duration-200 group"
+            >
+              <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M15 19l-7-7 7-7"></path>
+              </svg>
+            </button>
+            
+            <button
+              onClick={nextTestimonial}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-[hsl(var(--venture-blue))] hover:text-white transition-all duration-200 group"
+            >
+              <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M9 5l7 7-7 7"></path>
+              </svg>
+            </button>
+
+            {/* Dots indicator */}
+            <div className="flex justify-center gap-2 mt-8">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    index === currentTestimonial 
+                      ? "bg-[hsl(var(--venture-blue))] w-8" 
+                      : "bg-gray-300 w-2 hover:bg-gray-400"
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const ContactSlide = () => (
   <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] relative overflow-hidden flex items-center justify-center">
     <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
@@ -1488,7 +1661,7 @@ const ContactSlide = () => (
     
     <div className="relative z-10 text-center px-8 space-y-8">
       <div className="w-24 h-24 md:w-32 md:h-32 mx-auto bg-white rounded-full flex items-center justify-center shadow-2xl mb-8">
-        <img src={ventureLogo} alt="Venture" className="w-16 h-16 md:w-20 md:h-20 object-contain" />
+        <img src={ventureLogoCircle} alt="Venture USA" className="w-20 h-20 md:w-24 md:h-24 object-contain" />
       </div>
       
       <h1 className="text-5xl md:text-7xl font-black text-white uppercase leading-tight">
@@ -1514,8 +1687,8 @@ const BackCoverSlide = () => (
     <div className="absolute -top-20 -left-20 w-96 h-96 bg-[hsl(var(--venture-blue))] rounded-full opacity-10"></div>
     
     <div className="relative z-10 flex flex-col items-center justify-center h-full px-8">
-      <div className="mb-8 w-32 h-32 bg-[hsl(var(--venture-navy))] rounded-full flex items-center justify-center shadow-2xl">
-        <img src={ventureLogo} alt="Venture" className="w-20 h-20 object-contain" />
+      <div className="mb-8 w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-2xl">
+        <img src={ventureLogoCircle} alt="Venture USA" className="w-24 h-24 object-contain" />
       </div>
       
       <h1 className="text-5xl md:text-7xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight mb-4 text-center">
