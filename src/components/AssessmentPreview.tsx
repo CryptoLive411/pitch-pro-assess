@@ -11,6 +11,7 @@ import henriqueSantos from "@/assets/henrique-santos.jpg";
 import bernardoMonteiro from "@/assets/bernardo-monteiro.jpg";
 import filipJauk from "@/assets/filip-jauk.jpg";
 import joaoDomingues from "@/assets/joao-domingues.jpg";
+import pedroBaischCommitted from "@/assets/pedro-baisch-committed.png";
 
 interface AssessmentPreviewProps {
   data: AssessmentData;
@@ -667,42 +668,80 @@ const TestimonialFilipSlide = () => (
 );
 
 const CommittedSlide = () => (
-  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] p-8 md:p-16 relative overflow-hidden">
-    <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-    <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] via-blue-900 to-[hsl(var(--venture-blue))] p-6 md:p-12 relative overflow-hidden">
+    {/* Animated background elements */}
+    <div className="absolute top-0 right-0 w-72 h-72 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 animate-pulse"></div>
+    <div className="absolute bottom-0 left-0 w-72 h-72 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 animate-pulse"></div>
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-white/5 to-transparent rounded-full blur-3xl"></div>
     
     <div className="relative z-10 h-full flex flex-col">
-      <div className="text-center mb-8">
-        <div className="text-6xl md:text-8xl font-black text-white mb-4 animate-scale-in">200+</div>
-        <h2 className="text-3xl md:text-5xl font-black text-white/90 uppercase tracking-wide">Athletes Placed</h2>
-        <p className="text-lg text-white/70 mt-2">Successfully committed to US universities</p>
+      {/* Header with enhanced styling */}
+      <div className="text-center mb-6">
+        <div className="inline-block mb-4">
+          <div className="text-7xl md:text-9xl font-black text-white mb-2 animate-scale-in drop-shadow-2xl">350+</div>
+          <div className="h-2 bg-gradient-to-r from-transparent via-white to-transparent rounded-full"></div>
+        </div>
+        <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-wide drop-shadow-lg mb-2">Athletes Placed</h2>
+        <p className="text-base md:text-lg text-white/80 font-semibold">Successfully committed to top US universities</p>
+        <div className="flex items-center justify-center gap-3 mt-4">
+          <div className="h-px w-12 bg-gradient-to-r from-transparent to-white/50"></div>
+          <span className="text-white/60 text-sm uppercase tracking-widest">Featured Athletes</span>
+          <div className="h-px w-12 bg-gradient-to-l from-transparent to-white/50"></div>
+        </div>
       </div>
       
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 flex-1">
-        <div className="group relative overflow-hidden rounded-xl shadow-2xl transform hover:scale-105 transition-transform">
+      {/* Image grid with better spacing and styling */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 flex-1 content-center max-h-[calc(100%-200px)]">
+        <div className="group relative overflow-hidden rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/10 hover:border-white/30">
           <img src={miloPeters} alt="Milo Peters - Ivy League" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute bottom-4 left-4 right-4">
+              <p className="text-white font-bold text-sm md:text-base">Milo Peters</p>
+              <p className="text-white/80 text-xs">Ivy League</p>
+            </div>
+          </div>
         </div>
-        <div className="group relative overflow-hidden rounded-xl shadow-2xl transform hover:scale-105 transition-transform">
+        <div className="group relative overflow-hidden rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/10 hover:border-white/30">
           <img src={top25} alt="Top 25 Athlete" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute bottom-4 left-4 right-4">
+              <p className="text-white font-bold text-sm md:text-base">Top 25 Recruit</p>
+              <p className="text-white/80 text-xs">D1 Soccer</p>
+            </div>
+          </div>
         </div>
-        <div className="group relative overflow-hidden rounded-xl shadow-2xl transform hover:scale-105 transition-transform">
+        <div className="group relative overflow-hidden rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/10 hover:border-white/30">
           <img src={henriqueSantos} alt="Henrique Santos" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute bottom-4 left-4 right-4">
+              <p className="text-white font-bold text-sm md:text-base">Henrique Santos</p>
+              <p className="text-white/80 text-xs">NC State</p>
+            </div>
+          </div>
         </div>
-        <div className="group relative overflow-hidden rounded-xl shadow-2xl transform hover:scale-105 transition-transform">
+        <div className="group relative overflow-hidden rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/10 hover:border-white/30">
           <img src={bernardoMonteiro} alt="Bernardo Monteiro" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute bottom-4 left-4 right-4">
+              <p className="text-white font-bold text-sm md:text-base">Bernardo Monteiro</p>
+              <p className="text-white/80 text-xs">FIU</p>
+            </div>
+          </div>
         </div>
-        <div className="group relative overflow-hidden rounded-xl shadow-2xl transform hover:scale-105 transition-transform">
-          <img src={filipJauk} alt="Filip Jauk" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div className="group relative overflow-hidden rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 border-2 border-white/10 hover:border-white/30">
+          <img src={pedroBaischCommitted} alt="Pedro Baisch" className="w-full h-full object-contain bg-gradient-to-br from-blue-900 to-blue-800" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute bottom-4 left-4 right-4">
+              <p className="text-white font-bold text-sm md:text-base">Pedro Baisch</p>
+              <p className="text-white/80 text-xs">Merrimack College</p>
+            </div>
+          </div>
         </div>
-        <div className="group relative overflow-hidden rounded-xl shadow-2xl flex items-center justify-center bg-white/10 backdrop-blur-sm border-2 border-white/20">
+        <div className="group relative overflow-hidden rounded-2xl shadow-2xl flex items-center justify-center bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border-2 border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-105">
           <div className="text-center p-4">
-            <div className="text-4xl font-black text-white mb-2">+195</div>
-            <p className="text-sm text-white/80 font-semibold">More Athletes</p>
+            <div className="text-5xl md:text-6xl font-black text-white mb-2 drop-shadow-lg">+345</div>
+            <p className="text-xs md:text-sm text-white/90 font-bold uppercase tracking-wide">More Athletes</p>
+            <p className="text-xs text-white/60 mt-1">Placed Since 2015</p>
           </div>
         </div>
       </div>
