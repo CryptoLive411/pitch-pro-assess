@@ -8,9 +8,9 @@ const Index = () => {
   const [assessmentData, setAssessmentData] = useState<AssessmentData>(
     location.state?.preservedData || {
       playerName: "",
-      enrollmentYear: "August 2027",
-      schoolYear: "Freshman",
-      gpa: "3.5+ GPA",
+      enrollmentYear: "",
+      schoolYear: "",
+      gpa: "",
       manager: "",
       budget: "",
       departmentNotes: "",

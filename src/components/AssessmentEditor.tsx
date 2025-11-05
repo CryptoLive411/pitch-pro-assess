@@ -165,9 +165,9 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
       // Clear form after successful save
       onChange({
         playerName: "",
-        enrollmentYear: "August 2027",
-        schoolYear: "Freshman",
-        gpa: "3.5+ GPA",
+        enrollmentYear: "",
+        schoolYear: "",
+        gpa: "",
         manager: "",
         budget: "",
         departmentNotes: "",
