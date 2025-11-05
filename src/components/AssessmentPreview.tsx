@@ -52,7 +52,6 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
     { type: "timeline", title: "Timeline" },
     { type: "testimonials-slider", title: "More Testimonials" },
     { type: "contact", title: "Ready to Start?" },
-    { type: "back-cover", title: "Back Cover" },
   ];
 
   const nextSlide = () => {
@@ -123,7 +122,6 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
             {currentSlide === 11 && <TimelineSlide />}
             {currentSlide === 12 && <TestimonialsSliderSlide />}
             {currentSlide === 13 && <ContactSlide />}
-            {currentSlide === 14 && <BackCoverSlide />}
           </div>
         </div>
 
@@ -1488,11 +1486,6 @@ const TestimonialsSliderSlide = () => {
   
   const testimonials = [
     {
-      name: "Henrique Santos",
-      school: "NC State",
-      quote: "I have worked with agents and people that tried to help my soccer career for a big part of my life and the focus and the personal touch that I get from João is exceptional. Along with myself I owe a lot of my success to João as it's been a great journey since we started working together."
-    },
-    {
       name: "Nico Torres", 
       school: "Utah Valley",
       quote: "Joao helped me find an incredible program in record time, my situation was not easy, and he was able in a couple of weeks to help me and give me the opportunity to compete at the best level in my last season."
@@ -1655,53 +1648,85 @@ const TestimonialsSliderSlide = () => {
 };
 
 const ContactSlide = () => (
-  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] relative overflow-hidden flex items-center justify-center">
-    <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-    <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+  <div className="w-full h-full bg-gradient-to-br from-slate-900 via-[hsl(var(--venture-navy))] to-blue-950 relative overflow-hidden">
+    {/* Modern geometric background */}
+    <div className="absolute inset-0">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[hsl(var(--venture-blue))]/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-3xl"></div>
+    </div>
     
-    <div className="relative z-10 text-center px-8 space-y-8">
-      <div className="w-24 h-24 md:w-32 md:h-32 mx-auto bg-white rounded-full flex items-center justify-center shadow-2xl mb-8">
-        <img src={ventureLogoCircle} alt="Venture USA" className="w-20 h-20 md:w-24 md:h-24 object-contain" />
+    {/* Grid pattern overlay */}
+    <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0" style={{
+        backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+        backgroundSize: '50px 50px'
+      }}></div>
+    </div>
+
+    <div className="relative z-10 h-full flex flex-col items-center justify-center px-8 py-12">
+      {/* Logo */}
+      <div className="mb-12 relative group">
+        <div className="absolute inset-0 bg-white/20 rounded-full blur-2xl animate-pulse"></div>
+        <div className="relative w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-2xl ring-4 ring-white/20">
+          <img src={ventureLogoCircle} alt="Venture USA" className="w-28 h-28 object-contain" />
+        </div>
       </div>
-      
-      <h1 className="text-5xl md:text-7xl font-black text-white uppercase leading-tight">
-        Ready to Start<br/>Your Journey?
+
+      {/* Main heading */}
+      <h1 className="text-5xl md:text-7xl font-black text-white uppercase text-center leading-none mb-6">
+        Ready to Start<br/>
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500">
+          Your Journey?
+        </span>
       </h1>
       
-      <div className="h-1 w-32 bg-white/80 rounded-full mx-auto"></div>
+      {/* Decorative line */}
+      <div className="flex items-center gap-3 mb-8">
+        <div className="h-px w-20 bg-gradient-to-r from-transparent to-white/50"></div>
+        <div className="w-2 h-2 bg-white rounded-full"></div>
+        <div className="h-px w-20 bg-gradient-to-l from-transparent to-white/50"></div>
+      </div>
       
-      <p className="text-xl md:text-2xl text-white/90 font-semibold max-w-2xl mx-auto">
+      {/* Subheading */}
+      <p className="text-xl md:text-2xl text-blue-100 font-semibold text-center max-w-2xl mb-12">
         Let's make your college soccer dream a reality
       </p>
-      
-      <div className="text-white/70 text-lg">
-        <p>Contact: nexusgloballc@gmail.com</p>
-      </div>
-    </div>
-  </div>
-);
 
-const BackCoverSlide = () => (
-  <div className="w-full h-full relative bg-gradient-to-br from-gray-100 via-blue-50 to-cyan-50 overflow-hidden">
-    <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-[hsl(var(--venture-navy))] rounded-full opacity-10"></div>
-    <div className="absolute -top-20 -left-20 w-96 h-96 bg-[hsl(var(--venture-blue))] rounded-full opacity-10"></div>
-    
-    <div className="relative z-10 flex flex-col items-center justify-center h-full px-8">
-      <div className="mb-8 w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-2xl">
-        <img src={ventureLogoCircle} alt="Venture USA" className="w-24 h-24 object-contain" />
+      {/* Contact cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl mb-8">
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+              <svg className="w-6 h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <div className="text-left">
+              <p className="text-white/70 text-sm font-semibold">Email Us</p>
+              <p className="text-white font-bold">nexusgloballc@gmail.com</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+              <svg className="w-6 h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+              </svg>
+            </div>
+            <div className="text-left">
+              <p className="text-white/70 text-sm font-semibold">Get Started</p>
+              <p className="text-white font-bold">Schedule Consultation</p>
+            </div>
+          </div>
+        </div>
       </div>
-      
-      <h1 className="text-5xl md:text-7xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight mb-4 text-center">
-        Thank You
-      </h1>
-      
-      <div className="h-1 w-32 bg-[hsl(var(--venture-blue))] rounded-full mb-6"></div>
-      
-      <p className="text-xl md:text-2xl text-gray-600 font-semibold text-center">
-        Venture USA Soccer
+
+      {/* CTA Note */}
+      <p className="text-white/60 text-sm text-center max-w-lg">
+        Join 350+ athletes who have successfully placed at top universities across the United States
       </p>
-      
-      <p className="text-gray-500 mt-4">College Soccer Placement Consulting</p>
     </div>
   </div>
 );
