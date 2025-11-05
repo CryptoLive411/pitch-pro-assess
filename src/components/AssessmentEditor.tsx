@@ -15,6 +15,7 @@ export interface AssessmentData {
   schoolYear: string;
   gpa: string;
   manager: string;
+  budget: string;
   departmentNotes: string;
   playerPhoto: string | null;
   targetDivisions: string[]; // Array of selected divisions
@@ -27,22 +28,29 @@ interface AssessmentEditorProps {
 }
 
 // Default template for department notes
-const DEFAULT_NOTES_TEMPLATE = `The Venture Soccer Department believes (NAME OF PLAYER) has the ability to successfully compete at the college level starting (ENROLLMENT YEAR).
+const DEFAULT_NOTES_TEMPLATE = `The Venture Soccer Department believes (NAME OF PLAYER) has the ability to successfully compete at the (TARGET DIVISIONS) level, with an estimated budget of (BUDGET) per year.
 
-Academically, (NAME OF PLAYER) is a strong student who maintains good academic standing and is well-prepared for the demands of college-level coursework.
+⚽ Soccer Ability & Development:
+(NAME OF PLAYER) is a versatile player with solid fundamentals and good game understanding. Continued development in technical skills, positioning, and consistency will help make an immediate impact at the college level.
 
-(NAME OF PLAYER) is a versatile player who has a good game understanding. He reads the game well and could fulfill multiple roles on the field.
+📚 Academic Standing:
+(NAME OF PLAYER) maintains strong academic eligibility with a (GPA) and is well-prepared for the demands of college-level coursework. Projected enrollment: (ENROLLMENT YEAR).
 
-We recommend (NAME OF PLAYER) as an athlete to focus on (TARGET DIVISIONS) with a strong roster.
+🎯 Recruitment Strategy & Pathway:
+Based on current level and budget, (NAME OF PLAYER) fits well into the (TARGET DIVISIONS) pathway. This provides an ideal entry point to adjust to the U.S. college soccer environment with strong opportunities for playing time and development.
 
-It is important that (NAME OF PLAYER) picks the right environment and team to continue his development.`;
+💰 Budget & Financial Planning:
+Estimated annual budget: (BUDGET) (covering tuition, housing, meals, insurance, and equipment). The Venture team will secure placement and pursue scholarship options to reduce total cost.
+
+🤝 Commitment to Placement:
+The Venture Soccer Department is confident in (NAME OF PLAYER)'s ability to compete, develop, and grow within the U.S. college system. We will support throughout the entire process—from initial placement to potential transfer opportunities at higher divisions.`;
 
 export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditorProps) => {
   const { toast } = useToast();
   const [isSaving, setIsSaving] = useState(false);
   const [assessmentUrl, setAssessmentUrl] = useState<string | null>(null);
 
-  // Auto-update department notes when player name, enrollment year, or divisions change
+  // Auto-update department notes when player name, enrollment year, budget, gpa, or divisions change
   useEffect(() => {
     // Start with the template if notes are empty
     let updatedNotes = data.departmentNotes || DEFAULT_NOTES_TEMPLATE;
@@ -53,17 +61,23 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
     // Replace enrollment year
     updatedNotes = updatedNotes.replace(/\(ENROLLMENT YEAR\)/g, data.enrollmentYear || "(ENROLLMENT YEAR)");
     
+    // Replace budget
+    updatedNotes = updatedNotes.replace(/\(BUDGET\)/g, data.budget || "(BUDGET)");
+    
+    // Replace GPA
+    updatedNotes = updatedNotes.replace(/\(GPA\)/g, data.gpa || "(GPA)");
+    
     // Update division focus - create natural language list
     if (data.targetDivisions.length > 0) {
       let divisionText = '';
       if (data.targetDivisions.length === 1) {
-        divisionText = data.targetDivisions[0] + ' teams';
+        divisionText = data.targetDivisions[0];
       } else if (data.targetDivisions.length === 2) {
-        divisionText = data.targetDivisions[0] + ' and ' + data.targetDivisions[1] + ' teams';
+        divisionText = data.targetDivisions[0] + ' and ' + data.targetDivisions[1];
       } else {
         const lastDivision = data.targetDivisions[data.targetDivisions.length - 1];
         const otherDivisions = data.targetDivisions.slice(0, -1).join(', ');
-        divisionText = otherDivisions + ', and ' + lastDivision + ' teams';
+        divisionText = otherDivisions + ', and ' + lastDivision;
       }
       updatedNotes = updatedNotes.replace(/\(TARGET DIVISIONS\)/g, divisionText);
     } else {
@@ -75,7 +89,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
     if (updatedNotes !== data.departmentNotes) {
       onChange({ ...data, departmentNotes: updatedNotes });
     }
-  }, [data.playerName, data.enrollmentYear, data.targetDivisions]);
+  }, [data.playerName, data.enrollmentYear, data.budget, data.gpa, data.targetDivisions]);
 
   // Create URL-friendly slug from player name
   const createSlug = (name: string) => {
@@ -120,7 +134,8 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
         position: '', // Add position field if needed
         target_divisions: data.targetDivisions,
         recommendation: data.manager,
-        department_notes: data.departmentNotes
+        department_notes: data.departmentNotes,
+        budget: data.budget
       };
 
       if (existing) {
@@ -280,7 +295,17 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
             />
           </div>
 
-          <div className="space-y-2 md:col-span-2">
+          <div className="space-y-2">
+            <Label htmlFor="budget">Estimated Budget</Label>
+            <Input
+              id="budget"
+              value={data.budget}
+              onChange={(e) => onChange({ ...data, budget: e.target.value })}
+              placeholder="Up to $20,000 USD per year"
+            />
+          </div>
+
+          <div className="space-y-2">
             <Label htmlFor="manager">Manager/Agent Name</Label>
             <Input
               id="manager"

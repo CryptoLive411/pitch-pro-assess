@@ -10,6 +10,7 @@ const Index = () => {
     schoolYear: "Freshman",
     gpa: "3.5+ GPA",
     manager: "",
+    budget: "",
     departmentNotes: "",
     playerPhoto: null,
     targetDivisions: [],

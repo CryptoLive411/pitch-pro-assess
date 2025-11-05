@@ -33,6 +33,7 @@ const Preview = () => {
               schoolYear: assessment.current_level || '',
               gpa: assessment.gpa || '',
               manager: assessment.recommendation || '',
+              budget: assessment.budget || '',
               departmentNotes: assessment.department_notes || '',
               playerPhoto: assessment.player_photo || null,
               targetDivisions: assessment.target_divisions || []

@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       assessments: {
         Row: {
+          budget: string | null
           created_at: string | null
           current_level: string | null
           department_notes: string | null
@@ -33,6 +34,7 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          budget?: string | null
           created_at?: string | null
           current_level?: string | null
           department_notes?: string | null
@@ -50,6 +52,7 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          budget?: string | null
           created_at?: string | null
           current_level?: string | null
           department_notes?: string | null
