@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { AssessmentData } from "./AssessmentEditor";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Download, ChevronLeft, ChevronRight } from "lucide-react";
@@ -12,7 +12,9 @@ interface AssessmentPreviewProps {
 }
 
 export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const location = useLocation();
+  const initialSlide = location.state?.returnToSlide ?? 0;
+  const [currentSlide, setCurrentSlide] = useState(initialSlide);
   
   const slides = [
     { type: "cover", title: "Cover" },
@@ -400,7 +402,7 @@ const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
             <Link
               key={division}
               to={`/division/${divisionSlug}`}
-              state={{ fromPreview: true }}
+              state={{ fromSlide: 3, data: data }}
               className={`group relative overflow-hidden rounded-2xl transition-all duration-500 block ${
                 isSelected
                   ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-[1.02]' 
