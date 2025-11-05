@@ -669,14 +669,17 @@ const TestimonialFilipSlide = () => (
 );
 
 const CommittedSlide = () => (
-  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] via-blue-900 to-[hsl(var(--venture-blue))] p-4 md:p-6 relative overflow-hidden flex flex-col">
-    {/* Enhanced animated background */}
-    <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-500/10 rounded-full -translate-y-1/2 translate-x-1/2 animate-pulse"></div>
-    <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full translate-y-1/2 -translate-x-1/2 animate-pulse"></div>
-    <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-green-500/5 rounded-full blur-3xl"></div>
-    <div className="absolute bottom-1/3 left-1/4 w-64 h-64 bg-red-500/5 rounded-full blur-3xl"></div>
+  <div className="w-full h-full bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-900 p-4 md:p-6 relative overflow-hidden flex flex-col">
+    {/* Enhanced animated background with better colors */}
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-yellow-500/10 via-transparent to-transparent"></div>
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-green-500/10 via-transparent to-transparent"></div>
+    <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse"></div>
+    <div className="absolute bottom-1/4 left-1/3 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
     
-    <div className="relative z-10 flex flex-col h-full pb-4">
+    {/* Subtle grid pattern overlay */}
+    <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '50px 50px' }}></div>
+    
+    <div className="relative z-10 flex flex-col h-full pb-6">
       {/* Compact Header */}
       <div className="text-center mb-3">
         <div className="inline-block">
@@ -735,8 +738,8 @@ const CommittedSlide = () => (
         </div>
       </div>
       
-      {/* Stats Bar - Fixed positioning */}
-      <div className="text-center mt-4">
+      {/* Stats Bar - Lifted higher */}
+      <div className="text-center mt-6 mb-2">
         <div className="inline-flex items-center gap-3 bg-gradient-to-r from-white/10 via-white/20 to-white/10 backdrop-blur-sm border-2 border-white/30 rounded-full px-6 md:px-8 py-2 md:py-3 shadow-xl">
           <div className="flex gap-1">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
