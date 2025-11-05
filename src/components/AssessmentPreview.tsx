@@ -621,7 +621,7 @@ const TestimonialJoaoSlide = () => (
           <img 
             src={henriqueSantos} 
             alt="Henrique Santos" 
-            className="relative rounded-2xl shadow-2xl w-full h-[500px] object-contain border-4 border-white bg-gray-100"
+            className="relative rounded-2xl shadow-2xl w-full h-[500px] object-contain border-4 border-white"
           />
         </div>
         <div className="space-y-6">
@@ -658,7 +658,7 @@ const TestimonialFilipSlide = () => (
           <img 
             src={bernardoMonteiro} 
             alt="Bernardo Monteiro" 
-            className="relative rounded-2xl shadow-2xl w-full h-[500px] object-contain border-4 border-white bg-gray-100"
+            className="relative rounded-2xl shadow-2xl w-full h-[500px] object-contain border-4 border-white"
           />
         </div>
       </div>
@@ -779,7 +779,7 @@ const TestimonialGabrielSlide = () => (
           <img 
             src={filipJauk} 
             alt="Filip Jauk" 
-            className="relative rounded-2xl shadow-2xl w-full h-[500px] object-contain border-4 border-white bg-gray-100"
+            className="relative rounded-2xl shadow-2xl w-full h-[500px] object-contain border-4 border-white"
           />
         </div>
         <div className="space-y-6">
