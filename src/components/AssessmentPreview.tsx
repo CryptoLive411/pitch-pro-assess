@@ -676,7 +676,7 @@ const CommittedSlide = () => (
     <div className="absolute top-1/3 right-1/4 w-64 h-64 bg-green-500/5 rounded-full blur-3xl"></div>
     <div className="absolute bottom-1/3 left-1/4 w-64 h-64 bg-red-500/5 rounded-full blur-3xl"></div>
     
-    <div className="relative z-10 flex flex-col h-full">
+    <div className="relative z-10 flex flex-col h-full pb-4">
       {/* Compact Header */}
       <div className="text-center mb-3">
         <div className="inline-block">
@@ -690,8 +690,8 @@ const CommittedSlide = () => (
         </div>
       </div>
       
-      {/* Featured Athletes Grid - Lifted Higher */}
-      <div className="flex-1 flex items-center justify-center px-2 pb-8">
+      {/* Featured Athletes Grid */}
+      <div className="flex-1 flex items-center justify-center px-2">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5 max-w-6xl w-full">
           <div className="group relative overflow-hidden rounded-3xl shadow-2xl transform hover:scale-105 hover:-translate-y-2 transition-all duration-300 border-4 border-yellow-400/30 hover:border-yellow-400/70 bg-gradient-to-b from-blue-900 to-blue-950">
             <div className="aspect-[3/4] relative">
@@ -709,7 +709,7 @@ const CommittedSlide = () => (
           <div className="group relative overflow-hidden rounded-3xl shadow-2xl transform hover:scale-105 hover:-translate-y-2 transition-all duration-300 border-4 border-green-400/30 hover:border-green-400/70 bg-gradient-to-b from-green-950 to-black">
             <div className="aspect-[3/4] relative">
               <img src={miloPetersFinal} alt="Milo Peters" className="w-full h-full object-cover" />
-              <div className="absolute top-4 right-4 bg-green-400 text-black px-3 py-1 rounded-full text-xs font-black uppercase">Ivy League</div>
+              <div className="absolute top-4 right-4 bg-green-400 text-black px-3 py-1 rounded-full text-xs font-black uppercase">Dartmouth</div>
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-green-900/95 via-transparent to-transparent">
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
@@ -735,16 +735,16 @@ const CommittedSlide = () => (
         </div>
       </div>
       
-      {/* Stats Bar */}
-      <div className="text-center pb-2">
-        <div className="inline-flex items-center gap-3 bg-gradient-to-r from-white/10 via-white/20 to-white/10 backdrop-blur-sm border-2 border-white/30 rounded-full px-8 py-3 shadow-xl">
+      {/* Stats Bar - Fixed positioning */}
+      <div className="text-center mt-4">
+        <div className="inline-flex items-center gap-3 bg-gradient-to-r from-white/10 via-white/20 to-white/10 backdrop-blur-sm border-2 border-white/30 rounded-full px-6 md:px-8 py-2 md:py-3 shadow-xl">
           <div className="flex gap-1">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
             <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
             <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
           </div>
-          <span className="text-white font-black text-2xl">+347</span>
-          <span className="text-white/95 text-sm font-bold uppercase">More Success Stories</span>
+          <span className="text-white font-black text-xl md:text-2xl">+347</span>
+          <span className="text-white/95 text-xs md:text-sm font-bold uppercase">More Success Stories</span>
         </div>
       </div>
     </div>
