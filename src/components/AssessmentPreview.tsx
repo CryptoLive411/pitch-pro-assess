@@ -1001,11 +1001,11 @@ const CostsSlide = () => {
         </div>
         
         {/* Modern Card Grid */}
-        <div className="flex-1 grid grid-cols-1 gap-3 content-start overflow-y-auto pr-2">
+        <div className="flex-1 grid grid-cols-1 gap-3 content-start overflow-y-auto pr-2 pb-2">
           {costItems.map((item, index) => (
             <div 
               key={item.id}
-              className="group relative bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-[hsl(var(--venture-blue))]/30 overflow-hidden"
+              className="group relative bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-[hsl(var(--venture-blue))]/30"
             >
               {/* Gradient accent bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-blue))] to-[hsl(var(--venture-navy))]"></div>
