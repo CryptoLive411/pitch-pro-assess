@@ -159,7 +159,7 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
 
 // Slide Components
 const CoverSlide = ({ data }: { data: AssessmentData }) => {
-  // University logos for the ticker - all 15 logos
+  // University logos for the ticker - all 16 logos
   const universityLogos = [
     princetonLogo, creightonLogo, ncStateLogo, charlestonLogo,
     providenceLogo, caltechLogo, wakeForestLogo, ucfLogo, 
@@ -168,23 +168,39 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
   ];
   
   return (
-    <div className="w-full h-full relative overflow-hidden font-inter">
-      {/* Modern gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-950"></div>
-      
-      {/* Subtle overlay patterns */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-blue-500/10 to-transparent"></div>
-        <div className="absolute bottom-0 right-0 w-2/3 h-2/3 bg-gradient-to-tl from-indigo-500/10 to-transparent"></div>
+    <div className="w-full h-full relative overflow-hidden">
+      {/* Deep space gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-slate-950 to-blue-950">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.2),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(14,165,233,0.15),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(99,102,241,0.1),transparent_40%)]"></div>
       </div>
 
-      {/* Decorative geometric shapes - positioned away from text */}
-      <div className="absolute top-20 right-10 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 left-10 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl"></div>
+      {/* Floating particles effect */}
+      <div className="absolute inset-0 overflow-hidden opacity-30">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-blue-400 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 3}s`,
+            }}
+          />
+        ))}
+      </div>
 
-      {/* University Logo Ticker at Top - Continuous seamless scroll with COLOR */}
-      <div className="absolute top-0 left-0 right-0 py-4 overflow-hidden bg-white/5 backdrop-blur-sm border-b border-white/10">
-        <div className="flex animate-scroll-continuous items-center gap-8">
+      {/* Diagonal light streaks */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-blue-400 to-transparent"></div>
+        <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-cyan-400 to-transparent"></div>
+      </div>
+
+      {/* University Logo Ticker at Top - Continuous seamless scroll */}
+      <div className="absolute top-2 left-0 right-0 py-3 overflow-hidden border-y border-blue-500/20 bg-black/20 backdrop-blur-sm">
+        <div className="flex animate-scroll-continuous items-center gap-6">
           {/* Repeat logos 4 times for truly seamless infinite scroll */}
           {[...Array(4)].map((_, setIdx) => (
             universityLogos.map((logo, idx) => (
@@ -195,7 +211,7 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
                 <img 
                   src={logo} 
                   alt={`University ${idx + 1}`}
-                  className="h-12 w-auto object-contain drop-shadow-lg"
+                  className="h-10 w-auto object-contain filter brightness-0 invert opacity-90 hover:opacity-100"
                 />
               </div>
             ))
@@ -204,60 +220,89 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
       </div>
       
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-8">
-        {/* Venture Logo - cleaner style */}
-        <div className="mb-10 relative group">
-          {/* Soft glow */}
-          <div className="absolute -inset-6 bg-gradient-to-r from-blue-600/30 to-indigo-600/30 rounded-full blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 pt-12">
+        {/* Venture Logo with holographic glow */}
+        <div className="mb-8 relative group">
+          {/* Animated holographic rings */}
+          <div className="absolute inset-0 rounded-full animate-ping-slow opacity-30">
+            <div className="w-full h-full rounded-full border-2 border-blue-400"></div>
+          </div>
+          <div className="absolute inset-0 rounded-full animate-ping-slow opacity-20" style={{animationDelay: '1s'}}>
+            <div className="w-full h-full rounded-full border-2 border-cyan-400"></div>
+          </div>
           
-          {/* Logo container */}
-          <div className="relative w-44 h-44 md:w-52 md:h-52 rounded-full shadow-2xl group-hover:scale-105 transition-all duration-500 bg-white/10 backdrop-blur-md border border-white/20 p-2">
+          {/* Multi-layer glow effect */}
+          <div className="absolute -inset-8 rounded-full bg-blue-500 opacity-20 blur-3xl"></div>
+          <div className="absolute -inset-6 rounded-full bg-cyan-400 opacity-15 blur-2xl"></div>
+          <div className="absolute -inset-4 rounded-full bg-blue-400 opacity-25 blur-xl"></div>
+          
+          {/* Logo container with animated border */}
+          <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full shadow-2xl group-hover:scale-105 transition-all duration-700">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-600/30 via-cyan-500/20 to-blue-700/30 animate-spin-slow"></div>
+            <div className="absolute inset-1 rounded-full bg-gradient-to-br from-slate-900 to-blue-950 backdrop-blur"></div>
             <img 
               src={ventureLogoCircle} 
               alt="Venture USA" 
-              className="w-full h-full object-contain rounded-full" 
+              className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] object-contain rounded-full" 
             />
           </div>
         </div>
         
-        {/* Title with new font */}
-        <div className="mb-8 text-center">
-          <h1 className="font-bebas text-7xl md:text-9xl text-white uppercase tracking-wider leading-none mb-2">
+        {/* Title with electric glow effect */}
+        <div className="relative mb-6">
+          <div className="absolute inset-0 blur-2xl">
+            <h1 className="text-6xl md:text-8xl font-black text-blue-500 uppercase tracking-tighter text-center leading-none opacity-50">
+              ASSESSMENT REPORT
+            </h1>
+          </div>
+          <h1 className="relative text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-blue-100 to-blue-300 uppercase tracking-tighter text-center leading-none">
             ASSESSMENT
           </h1>
-          <h1 className="font-bebas text-7xl md:text-9xl bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent uppercase tracking-wider leading-none">
+          <h1 className="relative text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-blue-300 via-cyan-200 to-white uppercase tracking-tighter text-center leading-none -mt-2">
             REPORT
           </h1>
+          
+          {/* Animated underline */}
+          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-2/3 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-400 animate-pulse"></div>
+          </div>
         </div>
         
-        {/* Divider */}
-        <div className="w-32 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent mb-6"></div>
+        {/* Divider with glow */}
+        <div className="relative my-6">
+          <div className="h-px w-64 bg-gradient-to-r from-transparent via-blue-400 to-transparent"></div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-blue-400 blur-sm"></div>
+        </div>
         
-        <p className="font-inter text-lg md:text-xl text-blue-200 font-light text-center tracking-wide mb-8">
+        <p className="text-lg md:text-xl text-blue-300/80 font-light text-center max-w-2xl tracking-wider mb-2">
           College Soccer Placement Consulting
         </p>
         
-        {/* Player Name with modern card */}
+        {/* Player Name with futuristic card */}
         {data.playerName && (
-          <div className="relative group">
+          <div className="mt-6 relative group">
             {/* Card glow */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 rounded-2xl blur-lg opacity-40 group-hover:opacity-60 transition-opacity"></div>
             
             {/* Card */}
-            <div className="relative bg-white/10 backdrop-blur-xl rounded-xl border border-white/20 shadow-2xl px-12 py-6">
-              <p className="font-bebas text-4xl md:text-5xl text-white uppercase tracking-widest text-center">
+            <div className="relative bg-gradient-to-br from-slate-900/90 to-blue-950/90 backdrop-blur-xl rounded-xl border border-blue-400/30 shadow-2xl overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-transparent to-cyan-600/10"></div>
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent"></div>
+              <p className="relative text-3xl md:text-4xl font-black text-white uppercase tracking-widest text-center px-10 py-5">
                 {data.playerName}
               </p>
             </div>
           </div>
         )}
 
-        {/* Bottom accent dots */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3">
-          <div className="w-2 h-2 rounded-full bg-blue-400"></div>
-          <div className="w-2 h-2 rounded-full bg-indigo-400"></div>
-          <div className="w-2 h-2 rounded-full bg-blue-400"></div>
-        </div>
+        {/* Decorative scanner line */}
+        <div className="absolute bottom-16 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-50 animate-pulse"></div>
+        
+        {/* Corner accents */}
+        <div className="absolute top-4 left-4 w-12 h-12 border-l-2 border-t-2 border-blue-400/30"></div>
+        <div className="absolute top-4 right-4 w-12 h-12 border-r-2 border-t-2 border-blue-400/30"></div>
+        <div className="absolute bottom-4 left-4 w-12 h-12 border-l-2 border-b-2 border-blue-400/30"></div>
+        <div className="absolute bottom-4 right-4 w-12 h-12 border-r-2 border-b-2 border-blue-400/30"></div>
       </div>
       
       <style>{`
@@ -270,7 +315,31 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
           }
         }
         .animate-scroll-continuous {
-          animation: scroll-continuous 50s linear infinite;
+          animation: scroll-continuous 60s linear infinite;
+        }
+        @keyframes ping-slow {
+          0%, 100% {
+            transform: scale(1);
+            opacity: 0.3;
+          }
+          50% {
+            transform: scale(1.2);
+            opacity: 0;
+          }
+        }
+        .animate-ping-slow {
+          animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes spin-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 8s linear infinite;
         }
       `}</style>
     </div>
