@@ -155,16 +155,18 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
   ];
   
   return (
-    <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100">
-      {/* Subtle geometric patterns in background */}
-      <div className="absolute inset-0 opacity-[0.03]">
+    <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-slate-100 via-blue-50/30 to-slate-50">
+      {/* Geometric patterns - multiple layers */}
+      <div className="absolute inset-0 opacity-[0.04]">
         <div className="absolute top-0 left-0 w-96 h-96 border-2 border-slate-900 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
         <div className="absolute top-1/4 right-0 w-64 h-64 border-2 border-slate-900 rounded-full transform translate-x-1/2"></div>
         <div className="absolute bottom-0 left-1/3 w-80 h-80 border-2 border-slate-900 rounded-full transform translate-y-1/2"></div>
+        <div className="absolute top-1/2 left-1/4 w-40 h-40 border-2 border-slate-900 rotate-45"></div>
+        <div className="absolute top-1/3 right-1/4 w-60 h-60 border-2 border-slate-900 rotate-12"></div>
       </div>
       
       {/* Diagonal lines pattern */}
-      <div className="absolute inset-0 opacity-[0.02]"
+      <div className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: `repeating-linear-gradient(
             45deg,
@@ -176,9 +178,49 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
         }}
       ></div>
       
-      {/* Subtle gradient orbs */}
-      <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-radial from-slate-300/20 to-transparent rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-radial from-slate-400/20 to-transparent rounded-full blur-3xl"></div>
+      {/* Grid pattern overlay */}
+      <div className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `
+            linear-gradient(#1e293b 1px, transparent 1px),
+            linear-gradient(90deg, #1e293b 1px, transparent 1px)
+          `,
+          backgroundSize: '100px 100px'
+        }}
+      ></div>
+      
+      {/* Dots pattern */}
+      <div className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage: `radial-gradient(circle, #1e293b 1px, transparent 1px)`,
+          backgroundSize: '30px 30px'
+        }}
+      ></div>
+      
+      {/* Gradient orbs - more colorful */}
+      <div className="absolute top-20 right-20 w-[500px] h-[500px] bg-gradient-radial from-blue-200/20 via-slate-200/10 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-radial from-slate-300/25 via-blue-100/15 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-gradient-radial from-slate-200/15 to-transparent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+      
+      {/* Floating hexagon shapes */}
+      <div className="absolute top-1/4 left-1/4 w-32 h-32 opacity-[0.03]">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="none" stroke="currentColor" strokeWidth="2"/>
+        </svg>
+      </div>
+      <div className="absolute bottom-1/3 right-1/4 w-24 h-24 opacity-[0.03] rotate-45">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="none" stroke="currentColor" strokeWidth="2"/>
+        </svg>
+      </div>
+      
+      {/* Soccer ball pattern elements */}
+      <div className="absolute top-1/3 right-1/3 w-16 h-16 opacity-[0.02] rotate-12">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="2"/>
+          <path d="M50 5 L50 95 M5 50 L95 50 M15 15 L85 85 M85 15 L15 85" stroke="currentColor" strokeWidth="1"/>
+        </svg>
+      </div>
       
       {/* University Logo Ticker at Top - Continuous seamless scroll */}
       <div className="absolute top-0 left-0 right-0 py-3 overflow-hidden border-b border-slate-200 bg-white shadow-sm z-20">
