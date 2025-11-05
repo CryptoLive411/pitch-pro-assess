@@ -257,33 +257,77 @@ const PlayerInfoSlide = ({ data }: { data: AssessmentData }) => (
 
 const RecommendationSlide = ({ data }: { data: AssessmentData }) => (
   <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] relative overflow-hidden">
-    {/* Decorative circles */}
-    <div className="absolute top-10 right-10 w-64 h-64 bg-white/5 rounded-full"></div>
-    <div className="absolute bottom-10 left-10 w-96 h-96 bg-white/5 rounded-full"></div>
+    {/* Animated decorative elements */}
+    <div className="absolute top-10 right-10 w-64 h-64 bg-white/5 rounded-full animate-pulse"></div>
+    <div className="absolute bottom-10 left-10 w-96 h-96 bg-white/5 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+    <div className="absolute top-1/3 left-1/4 w-48 h-48 bg-white/3 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+    <div className="absolute bottom-1/4 right-1/3 w-32 h-32 bg-white/3 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+    
+    {/* Floating dots */}
+    <div className="absolute top-20 left-20 w-2 h-2 bg-white/30 rounded-full"></div>
+    <div className="absolute top-40 right-32 w-2 h-2 bg-white/30 rounded-full"></div>
+    <div className="absolute bottom-32 left-40 w-2 h-2 bg-white/30 rounded-full"></div>
+    <div className="absolute bottom-20 right-20 w-2 h-2 bg-white/30 rounded-full"></div>
+    
+    {/* Diagonal lines pattern */}
+    <div className="absolute inset-0 opacity-5">
+      <div className="absolute top-0 left-0 w-full h-px bg-white transform -rotate-45 origin-top-left" style={{ width: '141%' }}></div>
+      <div className="absolute top-20 left-0 w-full h-px bg-white transform -rotate-45 origin-top-left" style={{ width: '141%' }}></div>
+      <div className="absolute top-40 left-0 w-full h-px bg-white transform -rotate-45 origin-top-left" style={{ width: '141%' }}></div>
+    </div>
     
     <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 md:px-16 text-center">
       <div className="space-y-8 max-w-4xl">
-        <div className="inline-block px-6 py-2 bg-white/10 backdrop-blur text-white text-sm font-bold rounded-full mb-4">
-          OUR RECOMMENDATION
+        {/* Badge with glow */}
+        <div className="inline-block relative animate-fade-in">
+          <div className="absolute inset-0 bg-white/20 rounded-full blur-xl"></div>
+          <div className="relative px-6 py-2 bg-white/10 backdrop-blur text-white text-sm font-bold rounded-full mb-4 border border-white/20">
+            OUR RECOMMENDATION
+          </div>
         </div>
         
-        <h2 className="text-4xl md:text-6xl font-black text-white mb-8">
-          {data.playerName || "Player Name"}
-        </h2>
+        {/* Player name with underline effect */}
+        <div className="relative animate-fade-in">
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-8">
+            {data.playerName || "Player Name"}
+          </h2>
+          <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white/30 rounded-full"></div>
+        </div>
         
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          {data.targetDivisions.map((division) => (
-            <div key={division} className="px-8 py-4 bg-white text-[hsl(var(--venture-navy))] rounded-2xl shadow-xl font-black text-2xl md:text-3xl transform hover:scale-105 transition-transform">
-              {division}
+        {/* Division cards with enhanced styling */}
+        <div className="flex flex-wrap justify-center gap-4 mb-8 animate-fade-in">
+          {data.targetDivisions.map((division, idx) => (
+            <div key={division} className="relative group" style={{ animationDelay: `${idx * 100}ms` }}>
+              {/* Glow effect behind card */}
+              <div className="absolute inset-0 bg-white/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="absolute inset-0 bg-white/10 rounded-2xl blur-2xl scale-110"></div>
+              
+              {/* Corner accents */}
+              <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-white/40 rounded-tl-lg"></div>
+              <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-white/40 rounded-tr-lg"></div>
+              <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-white/40 rounded-bl-lg"></div>
+              <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-white/40 rounded-br-lg"></div>
+              
+              {/* Main card */}
+              <div className="relative px-8 py-4 bg-white text-[hsl(var(--venture-navy))] rounded-2xl shadow-2xl font-black text-2xl md:text-3xl transform group-hover:scale-105 transition-all duration-300 border-2 border-white/20">
+                {division}
+              </div>
             </div>
           ))}
         </div>
         
-        <p className="text-xl md:text-2xl text-white/90 font-semibold">
+        {/* Decorative divider */}
+        <div className="flex items-center justify-center gap-3 my-6 animate-fade-in">
+          <div className="w-12 h-px bg-white/30"></div>
+          <div className="w-2 h-2 bg-white/50 rounded-full"></div>
+          <div className="w-12 h-px bg-white/30"></div>
+        </div>
+        
+        <p className="text-xl md:text-2xl text-white/90 font-semibold animate-fade-in">
           Player Assessment & Recommendation
         </p>
         
-        <p className="text-lg text-white/70">
+        <p className="text-lg text-white/70 animate-fade-in">
           Presented by <span className="font-bold text-white">Venture USA</span>
         </p>
       </div>
