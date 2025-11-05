@@ -62,9 +62,9 @@ serve(async (req) => {
 
           console.log(`Found "Assessment Needed" stage (ID: ${assessmentStage.id}) for ${user.name}`);
 
-          // Fetch deals in this stage
+          // Fetch deals in this stage (only open deals, not won or lost)
           const dealsResponse = await fetch(
-            `https://${PIPEDRIVE_DOMAIN}/api/v1/deals?stage_id=${assessmentStage.id}&api_token=${user.token}`,
+            `https://${PIPEDRIVE_DOMAIN}/api/v1/deals?stage_id=${assessmentStage.id}&status=open&api_token=${user.token}`,
             { method: 'GET' }
           );
 
@@ -76,12 +76,12 @@ serve(async (req) => {
           const dealsData = await dealsResponse.json();
           
           if (dealsData.data && Array.isArray(dealsData.data)) {
-            // Double-check that we only add deals from the "Assessment Needed" stage
+            // Double-check: only include open deals from "Assessment Needed" stage
             const filteredDeals = dealsData.data.filter(
-              (deal: any) => deal.stage_id === assessmentStage.id
+              (deal: any) => deal.stage_id === assessmentStage.id && deal.status === 'open'
             );
             
-            console.log(`Fetched ${filteredDeals.length} deals from "Assessment Needed" for ${user.name}`);
+            console.log(`Fetched ${filteredDeals.length} open deals from "Assessment Needed" for ${user.name}`);
             
             for (const deal of filteredDeals) {
               allDeals.push({
