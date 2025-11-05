@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Trophy, DollarSign, GraduationCap, Users, Target } from "lucide-react";
-import ventureLogo from "@/assets/venture-logo-white.png";
+import ventureLogoCircle from "@/assets/venture-logo-circle.png";
 
 const divisionData = {
   "ncaa-d1": {
@@ -20,9 +20,8 @@ const divisionData = {
     academicRequirements: "Minimum 2.3 GPA in core courses, qualifying SAT/ACT scores",
     differences: [
       "Unlike D2/D3, offers full athletic scholarships",
-      "Highest time commitment - essentially a full-time job",
+      "Highest time commitment with rigorous training schedules",
       "More travel and national competition schedule",
-      "Larger roster sizes and more competitive tryouts",
     ],
     idealFor: "Elite athletes seeking the highest competition level, professional aspirations, and full scholarship opportunities",
   },
@@ -185,14 +184,14 @@ export default function DivisionInfo() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             <Button 
-              onClick={() => navigate(-1)} 
+              onClick={() => navigate("/")} 
               variant="ghost"
               className="gap-2 text-white hover:bg-white/10"
             >
               <ArrowLeft className="h-4 w-4" />
               Back
             </Button>
-            <img src={ventureLogo} alt="Venture USA" className="h-8" />
+            <img src={ventureLogoCircle} alt="Venture USA" className="h-12 w-12 rounded-full" />
           </div>
         </div>
       </header>
@@ -290,7 +289,7 @@ export default function DivisionInfo() {
               Contact Venture USA to discuss your college soccer placement options
             </p>
             <Button 
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/")}
               className="bg-[hsl(var(--venture-navy))] hover:bg-[hsl(var(--venture-blue))] text-white px-8 py-6 text-lg"
             >
               Return to Assessment
