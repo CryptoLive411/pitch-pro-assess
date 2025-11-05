@@ -155,9 +155,33 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
   ];
   
   return (
-    <div className="w-full h-full relative overflow-hidden bg-gradient-to-b from-slate-50 to-slate-100">
+    <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100">
+      {/* Subtle geometric patterns in background */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute top-0 left-0 w-96 h-96 border-2 border-slate-900 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute top-1/4 right-0 w-64 h-64 border-2 border-slate-900 rounded-full transform translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-1/3 w-80 h-80 border-2 border-slate-900 rounded-full transform translate-y-1/2"></div>
+      </div>
+      
+      {/* Diagonal lines pattern */}
+      <div className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 50px,
+            #1e293b 50px,
+            #1e293b 51px
+          )`
+        }}
+      ></div>
+      
+      {/* Subtle gradient orbs */}
+      <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-radial from-slate-300/20 to-transparent rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-radial from-slate-400/20 to-transparent rounded-full blur-3xl"></div>
+      
       {/* University Logo Ticker at Top - Continuous seamless scroll */}
-      <div className="absolute top-0 left-0 right-0 py-3 overflow-hidden border-b border-slate-200 bg-white shadow-sm">
+      <div className="absolute top-0 left-0 right-0 py-3 overflow-hidden border-b border-slate-200 bg-white shadow-sm z-20">
         <div className="flex animate-scroll-continuous items-center gap-6">
           {/* Repeat logos 4 times for truly seamless infinite scroll */}
           {[...Array(4)].map((_, setIdx) => (
@@ -179,34 +203,71 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
       
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 pt-20">
-        {/* Venture Logo - Clean and Professional */}
-        <div className="mb-12">
-          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-white shadow-lg border border-slate-200 p-4">
-            <img 
-              src={ventureLogoCircle} 
-              alt="Venture USA" 
-              className="w-full h-full object-contain" 
-            />
+        {/* Venture Logo - Enhanced with Multiple Layers */}
+        <div className="mb-12 relative group">
+          {/* Outer glow ring - animated */}
+          <div className="absolute inset-0 w-32 h-32 md:w-40 md:h-40 mx-auto">
+            <div className="absolute inset-0 rounded-full border-4 border-slate-900/20 animate-ping-slow"></div>
+            <div className="absolute inset-0 rounded-full border-2 border-slate-900/10 animate-ping-slow" style={{animationDelay: '1s'}}></div>
           </div>
+          
+          {/* Shadow layers for depth */}
+          <div className="absolute inset-0 w-32 h-32 md:w-40 md:h-40 mx-auto">
+            <div className="absolute inset-0 rounded-full bg-slate-900/5 blur-2xl transform translate-y-2"></div>
+            <div className="absolute inset-0 rounded-full bg-slate-900/10 blur-xl"></div>
+          </div>
+          
+          {/* Main logo container with gradient border */}
+          <div className="relative w-32 h-32 md:w-40 md:h-40 p-1 rounded-full bg-gradient-to-br from-slate-900 via-slate-700 to-slate-900 shadow-2xl group-hover:scale-105 transition-all duration-300">
+            <div className="w-full h-full rounded-full bg-white shadow-inner p-4 border-2 border-slate-100">
+              <img 
+                src={ventureLogoCircle} 
+                alt="Venture USA" 
+                className="w-full h-full object-contain drop-shadow-lg" 
+              />
+            </div>
+          </div>
+          
+          {/* Corner accents */}
+          <div className="absolute -top-2 -left-2 w-4 h-4 border-t-4 border-l-4 border-slate-900 opacity-30"></div>
+          <div className="absolute -top-2 -right-2 w-4 h-4 border-t-4 border-r-4 border-slate-900 opacity-30"></div>
+          <div className="absolute -bottom-2 -left-2 w-4 h-4 border-b-4 border-l-4 border-slate-900 opacity-30"></div>
+          <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-4 border-r-4 border-slate-900 opacity-30"></div>
         </div>
         
         {/* Title - Clean and Professional */}
-        <div className="mb-6">
-          <h1 className="text-5xl md:text-7xl font-bold text-slate-900 text-center leading-tight mb-2">
+        <div className="mb-6 relative">
+          {/* Subtle text shadow for depth */}
+          <div className="absolute inset-0 blur-sm">
+            <h1 className="text-5xl md:text-7xl font-bold text-slate-300 text-center leading-tight mb-2">
+              ASSESSMENT REPORT
+            </h1>
+          </div>
+          <h1 className="relative text-5xl md:text-7xl font-bold text-slate-900 text-center leading-tight mb-2">
             ASSESSMENT REPORT
           </h1>
-          <div className="h-1 w-48 mx-auto bg-slate-900 rounded-full"></div>
+          <div className="relative h-1 w-48 mx-auto bg-gradient-to-r from-transparent via-slate-900 to-transparent rounded-full shadow-lg"></div>
         </div>
         
         <p className="text-xl md:text-2xl text-slate-600 font-medium text-center mb-12 tracking-wide">
           College Soccer Placement Consulting
         </p>
         
-        {/* Player Name - Clean Professional Card */}
+        {/* Player Name - Enhanced Professional Card */}
         {data.playerName && (
-          <div className="mt-4">
-            <div className="bg-white rounded-lg border-2 border-slate-900 shadow-lg px-12 py-6">
-              <p className="text-3xl md:text-4xl font-bold text-slate-900 text-center uppercase tracking-wide">
+          <div className="mt-4 relative group">
+            {/* Card shadow layers */}
+            <div className="absolute inset-0 bg-slate-900/10 blur-xl rounded-lg transform translate-y-2"></div>
+            <div className="absolute inset-0 bg-slate-900/5 blur-2xl rounded-lg transform translate-y-3"></div>
+            
+            <div className="relative bg-gradient-to-br from-white via-white to-slate-50 rounded-lg border-2 border-slate-900 shadow-xl px-12 py-6 group-hover:scale-[1.02] transition-transform duration-300">
+              {/* Corner decorations */}
+              <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-slate-900"></div>
+              <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-slate-900"></div>
+              <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-slate-900"></div>
+              <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-slate-900"></div>
+              
+              <p className="relative text-3xl md:text-4xl font-bold text-slate-900 text-center uppercase tracking-wide">
                 {data.playerName}
               </p>
             </div>
@@ -225,6 +286,19 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
         }
         .animate-scroll-continuous {
           animation: scroll-continuous 60s linear infinite;
+        }
+        @keyframes ping-slow {
+          0%, 100% {
+            transform: scale(1);
+            opacity: 0.3;
+          }
+          50% {
+            transform: scale(1.15);
+            opacity: 0;
+          }
+        }
+        .animate-ping-slow {
+          animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
         }
       `}</style>
     </div>
