@@ -269,13 +269,13 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-blue-400 blur-sm"></div>
         </div>
         
-        <p className="text-lg md:text-xl text-blue-200/80 font-light text-center max-w-2xl tracking-wider mb-4">
+        <p className="text-lg md:text-xl text-blue-200/80 font-light text-center max-w-2xl tracking-wider mb-6">
           College Soccer Placement Consulting
         </p>
         
         {/* Player Name with modern card */}
         {data.playerName && (
-          <div className="mt-4 mb-8 relative group">
+          <div className="mt-2 mb-16 relative group">
             {/* Card glow */}
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-500 to-blue-600 rounded-2xl blur-lg opacity-40 group-hover:opacity-60 transition-opacity"></div>
             
