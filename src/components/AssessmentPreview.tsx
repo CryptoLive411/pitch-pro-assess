@@ -13,13 +13,15 @@ import bernardoMonteiro from "@/assets/bernardo-monteiro.jpg";
 import filipJauk from "@/assets/filip-jauk.jpg";
 import joaoDomingues from "@/assets/joao-domingues.jpg";
 import pedroBaischCommitted from "@/assets/pedro-baisch-committed.png";
-import ivyLeagueLogos from "@/assets/logos/ivy-league-logos.png";
-import bostonCollegeLogo from "@/assets/logos/boston-college.jpg";
-import ucfLogo from "@/assets/logos/ucf.png";
-import charlestonLogo from "@/assets/logos/charleston.png";
-import harvardLogo from "@/assets/logos/harvard.png";
-import yaleLogo from "@/assets/logos/yale.png";
-import accLogos from "@/assets/logos/acc-logos.png";
+import princetonLogo from "@/assets/logos/princeton.png";
+import creightonLogo from "@/assets/logos/creighton.png";
+import ncStateLogo from "@/assets/logos/nc-state.png";
+import bostonCollegeLogo from "@/assets/logos/boston-college-new.png";
+import providenceLogo from "@/assets/logos/providence.png";
+import caltechLogo from "@/assets/logos/caltech.png";
+import wakeForestLogo from "@/assets/logos/wake-forest.png";
+import ucfLogo from "@/assets/logos/ucf-new.png";
+import coastalCarolinaLogo from "@/assets/logos/coastal-carolina.svg";
 
 interface AssessmentPreviewProps {
   data: AssessmentData;
@@ -153,26 +155,40 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
 const CoverSlide = ({ data }: { data: AssessmentData }) => {
   // University logos for the ticker
   const universityLogos = [
-    harvardLogo, yaleLogo, bostonCollegeLogo, ucfLogo, charlestonLogo,
-    harvardLogo, yaleLogo, bostonCollegeLogo, ucfLogo, charlestonLogo,
-    harvardLogo, yaleLogo, bostonCollegeLogo, ucfLogo, charlestonLogo,
+    princetonLogo, creightonLogo, ncStateLogo, bostonCollegeLogo,
+    providenceLogo, caltechLogo, wakeForestLogo, ucfLogo, coastalCarolinaLogo,
   ];
   
   return (
-    <div className="w-full h-full relative bg-gradient-to-br from-gray-100 via-blue-50 to-cyan-50 overflow-hidden">
-      {/* University Logo Ticker at Top - No background */}
-      <div className="absolute top-0 left-0 right-0 py-4 overflow-hidden">
-        <div className="flex animate-scroll items-center">
+    <div className="w-full h-full relative overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(59,130,246,0.15),transparent)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(14,165,233,0.1),transparent)]"></div>
+      </div>
+
+      {/* Animated grid pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `linear-gradient(hsl(var(--venture-blue)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--venture-blue)) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }}></div>
+      </div>
+
+      {/* University Logo Ticker at Top */}
+      <div className="absolute top-8 left-0 right-0 py-6 overflow-hidden">
+        <div className="flex animate-scroll items-center gap-12">
           {/* First set of logos */}
           {universityLogos.map((logo, idx) => (
             <div 
               key={`logo-1-${idx}`}
-              className="flex-shrink-0 mx-4 hover:scale-110 transition-transform duration-300"
+              className="flex-shrink-0 hover:scale-110 transition-all duration-300 hover:brightness-110"
             >
               <img 
                 src={logo} 
                 alt={`University ${idx + 1}`}
-                className="h-12 md:h-14 w-auto object-contain"
+                className="h-16 w-auto object-contain filter drop-shadow-2xl"
+                style={{ mixBlendMode: 'screen' }}
               />
             </div>
           ))}
@@ -180,58 +196,87 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
           {universityLogos.map((logo, idx) => (
             <div 
               key={`logo-2-${idx}`}
-              className="flex-shrink-0 mx-4 hover:scale-110 transition-transform duration-300"
+              className="flex-shrink-0 hover:scale-110 transition-all duration-300 hover:brightness-110"
             >
               <img 
                 src={logo} 
                 alt={`University ${idx + 1}`}
-                className="h-12 md:h-14 w-auto object-contain"
+                className="h-16 w-auto object-contain filter drop-shadow-2xl"
+                style={{ mixBlendMode: 'screen' }}
+              />
+            </div>
+          ))}
+          {/* Third set for seamless loop */}
+          {universityLogos.map((logo, idx) => (
+            <div 
+              key={`logo-3-${idx}`}
+              className="flex-shrink-0 hover:scale-110 transition-all duration-300 hover:brightness-110"
+            >
+              <img 
+                src={logo} 
+                alt={`University ${idx + 1}`}
+                className="h-16 w-auto object-contain filter drop-shadow-2xl"
+                style={{ mixBlendMode: 'screen' }}
               />
             </div>
           ))}
         </div>
       </div>
       
-      {/* Decorative curved shape */}
-      <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[hsl(var(--venture-navy))] rounded-full opacity-10"></div>
-      <div className="absolute -top-20 -right-20 w-96 h-96 bg-[hsl(var(--venture-blue))] rounded-full opacity-10"></div>
-      
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 pt-20">
-        {/* Venture Logo with Glow Effect */}
-        <div className="mb-8 relative group animate-scale-in">
-          {/* Glowing rings */}
-          <div className="absolute inset-0 rounded-full bg-[hsl(var(--venture-blue))] opacity-30 blur-2xl animate-pulse"></div>
-          <div className="absolute inset-0 rounded-full bg-[hsl(var(--venture-blue))] opacity-20 blur-3xl scale-110 animate-pulse"></div>
-          <div className="absolute inset-0 rounded-full bg-white opacity-40 blur-xl scale-90 animate-pulse"></div>
+      {/* Main content */}
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 pt-24">
+        {/* Venture Logo with advanced glow */}
+        <div className="mb-12 relative group">
+          {/* Multiple layered glows */}
+          <div className="absolute inset-0 rounded-full bg-blue-500 opacity-40 blur-3xl animate-pulse"></div>
+          <div className="absolute inset-0 rounded-full bg-cyan-400 opacity-30 blur-2xl scale-110 animate-pulse" style={{animationDelay: '0.5s'}}></div>
+          <div className="absolute inset-0 rounded-full bg-blue-400 opacity-50 blur-xl scale-90"></div>
           
-          {/* Logo container */}
-          <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full shadow-2xl group-hover:scale-105 transition-transform duration-300">
+          {/* Logo container with border glow */}
+          <div className="relative w-44 h-44 md:w-56 md:h-56 rounded-full shadow-2xl group-hover:scale-105 transition-all duration-500 ring-2 ring-blue-400/30 ring-offset-4 ring-offset-transparent">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-600/20 to-cyan-400/20 animate-pulse"></div>
             <img 
               src={ventureLogoCircle} 
               alt="Venture USA" 
-              className="w-full h-full object-contain rounded-full" 
+              className="w-full h-full object-contain rounded-full relative z-10" 
             />
           </div>
         </div>
         
-        <h1 className="text-5xl md:text-7xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight mb-4 text-center animate-fade-in">
-          ASSESSMENT REPORT
-        </h1>
+        {/* Title with modern styling */}
+        <div className="relative mb-4">
+          <h1 className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-cyan-200 uppercase tracking-tighter text-center leading-tight">
+            ASSESSMENT
+          </h1>
+          <h1 className="text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 via-blue-100 to-white uppercase tracking-tighter text-center leading-tight">
+            REPORT
+          </h1>
+          {/* Subtle underline glow */}
+          <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3/4 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent blur-sm"></div>
+        </div>
         
-        <div className="h-1 w-32 bg-[hsl(var(--venture-blue))] rounded-full mb-6 animate-fade-in"></div>
+        <div className="h-px w-48 bg-gradient-to-r from-transparent via-blue-400 to-transparent mb-8"></div>
         
-        <p className="text-xl md:text-2xl text-gray-600 font-semibold text-center max-w-2xl animate-fade-in">
+        <p className="text-xl md:text-2xl text-blue-200/90 font-light text-center max-w-2xl tracking-wide mb-2">
           College Soccer Placement Consulting
         </p>
         
-        {/* Player Name */}
+        {/* Player Name with premium styling */}
         {data.playerName && (
-          <div className="mt-6 animate-fade-in">
-            <p className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-blue))] uppercase tracking-wide text-center">
+          <div className="mt-8 relative">
+            <div className="absolute inset-0 bg-blue-500/20 blur-2xl rounded-full"></div>
+            <p className="relative text-4xl md:text-5xl font-black text-white uppercase tracking-widest text-center px-8 py-4 rounded-xl border border-blue-400/30 bg-gradient-to-r from-blue-950/50 to-slate-950/50 backdrop-blur-sm shadow-2xl">
               {data.playerName}
             </p>
           </div>
         )}
+
+        {/* Decorative bottom accent */}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex gap-2">
+          <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
+          <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" style={{animationDelay: '0.3s'}}></div>
+          <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" style={{animationDelay: '0.6s'}}></div>
+        </div>
       </div>
       
       <style>{`
@@ -240,11 +285,11 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-50%);
+            transform: translateX(-33.33%);
           }
         }
         .animate-scroll {
-          animation: scroll 30s linear infinite;
+          animation: scroll 40s linear infinite;
         }
         .animate-scroll:hover {
           animation-play-state: paused;
