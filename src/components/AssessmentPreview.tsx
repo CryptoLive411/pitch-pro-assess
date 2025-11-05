@@ -155,70 +155,127 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
   ];
   
   return (
-    <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-slate-100 via-blue-50/30 to-slate-50">
-      {/* Geometric patterns - multiple layers */}
-      <div className="absolute inset-0 opacity-[0.04]">
+    <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-slate-100 via-blue-50 to-slate-50">
+      {/* Large gradient orbs with color - creating depth */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-conic from-blue-200/30 via-slate-200/20 to-blue-300/30 rounded-full blur-3xl transform translate-x-1/4 -translate-y-1/4"></div>
+      <div className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-gradient-conic from-slate-300/30 via-blue-100/20 to-slate-200/30 rounded-full blur-3xl transform -translate-x-1/4 translate-y-1/4"></div>
+      <div className="absolute top-1/2 right-1/3 w-[400px] h-[400px] bg-gradient-radial from-blue-300/25 via-transparent to-transparent rounded-full blur-2xl"></div>
+      
+      {/* Geometric shapes - circles */}
+      <div className="absolute inset-0 opacity-[0.06]">
         <div className="absolute top-0 left-0 w-96 h-96 border-2 border-slate-900 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute top-1/4 right-0 w-64 h-64 border-2 border-slate-900 rounded-full transform translate-x-1/2"></div>
+        <div className="absolute top-1/4 right-0 w-64 h-64 border-2 border-blue-900 rounded-full transform translate-x-1/2"></div>
         <div className="absolute bottom-0 left-1/3 w-80 h-80 border-2 border-slate-900 rounded-full transform translate-y-1/2"></div>
-        <div className="absolute top-1/2 left-1/4 w-40 h-40 border-2 border-slate-900 rotate-45"></div>
-        <div className="absolute top-1/3 right-1/4 w-60 h-60 border-2 border-slate-900 rotate-12"></div>
+        <div className="absolute top-1/2 right-1/4 w-48 h-48 border-2 border-blue-800 rounded-full"></div>
+        <div className="absolute bottom-1/3 left-1/4 w-56 h-56 border border-slate-800 rounded-full"></div>
       </div>
       
-      {/* Diagonal lines pattern */}
+      {/* Geometric shapes - squares and rectangles */}
+      <div className="absolute inset-0 opacity-[0.05]">
+        <div className="absolute top-1/2 left-1/4 w-40 h-40 border-2 border-slate-900 rotate-45"></div>
+        <div className="absolute top-1/3 right-1/4 w-60 h-60 border-2 border-blue-900 rotate-12"></div>
+        <div className="absolute bottom-1/4 right-1/3 w-32 h-32 border border-slate-800 -rotate-12"></div>
+        <div className="absolute top-2/3 left-1/3 w-28 h-28 border border-blue-800 rotate-45"></div>
+      </div>
+      
+      {/* Diagonal stripes - multiple angles */}
       <div className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: `repeating-linear-gradient(
             45deg,
             transparent,
-            transparent 50px,
-            #1e293b 50px,
-            #1e293b 51px
+            transparent 60px,
+            #1e293b 60px,
+            #1e293b 61px
+          )`
+        }}
+      ></div>
+      <div className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 80px,
+            #3b82f6 80px,
+            #3b82f6 81px
           )`
         }}
       ></div>
       
       {/* Grid pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.02]"
+      <div className="absolute inset-0 opacity-[0.025]"
         style={{
           backgroundImage: `
             linear-gradient(#1e293b 1px, transparent 1px),
             linear-gradient(90deg, #1e293b 1px, transparent 1px)
           `,
-          backgroundSize: '100px 100px'
+          backgroundSize: '80px 80px'
         }}
       ></div>
       
-      {/* Dots pattern */}
+      {/* Dots pattern - varied sizes */}
       <div className="absolute inset-0 opacity-[0.04]"
         style={{
-          backgroundImage: `radial-gradient(circle, #1e293b 1px, transparent 1px)`,
-          backgroundSize: '30px 30px'
+          backgroundImage: `radial-gradient(circle, #1e293b 1.5px, transparent 1.5px)`,
+          backgroundSize: '40px 40px'
+        }}
+      ></div>
+      <div className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `radial-gradient(circle, #3b82f6 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+          backgroundPosition: '30px 30px'
         }}
       ></div>
       
-      {/* Gradient orbs - more colorful */}
-      <div className="absolute top-20 right-20 w-[500px] h-[500px] bg-gradient-radial from-blue-200/20 via-slate-200/10 to-transparent rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-radial from-slate-300/25 via-blue-100/15 to-transparent rounded-full blur-3xl"></div>
-      <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-gradient-radial from-slate-200/15 to-transparent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
-      
-      {/* Floating hexagon shapes */}
-      <div className="absolute top-1/4 left-1/4 w-32 h-32 opacity-[0.03]">
-        <svg viewBox="0 0 100 100" className="w-full h-full">
+      {/* Hexagon shapes scattered */}
+      <div className="absolute top-1/4 left-1/4 w-32 h-32 opacity-[0.04] animate-pulse-slow">
+        <svg viewBox="0 0 100 100" className="w-full h-full text-slate-900">
           <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="none" stroke="currentColor" strokeWidth="2"/>
         </svg>
       </div>
-      <div className="absolute bottom-1/3 right-1/4 w-24 h-24 opacity-[0.03] rotate-45">
-        <svg viewBox="0 0 100 100" className="w-full h-full">
+      <div className="absolute bottom-1/3 right-1/4 w-24 h-24 opacity-[0.04] rotate-45">
+        <svg viewBox="0 0 100 100" className="w-full h-full text-blue-900">
+          <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="none" stroke="currentColor" strokeWidth="2"/>
+        </svg>
+      </div>
+      <div className="absolute top-2/3 left-1/2 w-20 h-20 opacity-[0.03] -rotate-12">
+        <svg viewBox="0 0 100 100" className="w-full h-full text-slate-800">
           <polygon points="50 1 95 25 95 75 50 99 5 75 5 25" fill="none" stroke="currentColor" strokeWidth="2"/>
         </svg>
       </div>
       
-      {/* Soccer ball pattern elements */}
-      <div className="absolute top-1/3 right-1/3 w-16 h-16 opacity-[0.02] rotate-12">
-        <svg viewBox="0 0 100 100" className="w-full h-full">
+      {/* Star/burst patterns */}
+      <div className="absolute top-1/3 right-1/3 w-20 h-20 opacity-[0.03]">
+        <svg viewBox="0 0 100 100" className="w-full h-full text-blue-900">
+          <path d="M50 10 L60 40 L90 40 L65 60 L75 90 L50 70 L25 90 L35 60 L10 40 L40 40 Z" fill="none" stroke="currentColor" strokeWidth="2"/>
+        </svg>
+      </div>
+      
+      {/* Soccer/sports themed elements */}
+      <div className="absolute top-1/4 right-1/2 w-16 h-16 opacity-[0.03] rotate-12">
+        <svg viewBox="0 0 100 100" className="w-full h-full text-slate-900">
           <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="2"/>
-          <path d="M50 5 L50 95 M5 50 L95 50 M15 15 L85 85 M85 15 L15 85" stroke="currentColor" strokeWidth="1"/>
+          <path d="M50 5 L50 95 M5 50 L95 50" stroke="currentColor" strokeWidth="1"/>
+          <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="1"/>
+        </svg>
+      </div>
+      <div className="absolute bottom-1/4 left-1/3 w-14 h-14 opacity-[0.03] -rotate-45">
+        <svg viewBox="0 0 100 100" className="w-full h-full text-blue-800">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="2"/>
+          <polygon points="50 15 35 35 35 65 50 85 65 65 65 35" fill="none" stroke="currentColor" strokeWidth="1.5"/>
+        </svg>
+      </div>
+      
+      {/* Triangle patterns */}
+      <div className="absolute top-1/2 left-1/5 w-24 h-24 opacity-[0.03] rotate-30">
+        <svg viewBox="0 0 100 100" className="w-full h-full text-slate-900">
+          <polygon points="50 10 90 90 10 90" fill="none" stroke="currentColor" strokeWidth="2"/>
+        </svg>
+      </div>
+      <div className="absolute bottom-1/3 right-1/5 w-20 h-20 opacity-[0.03] -rotate-15">
+        <svg viewBox="0 0 100 100" className="w-full h-full text-blue-900">
+          <polygon points="50 10 90 90 10 90" fill="none" stroke="currentColor" strokeWidth="2"/>
         </svg>
       </div>
       
@@ -341,6 +398,17 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
         }
         .animate-ping-slow {
           animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes pulse-slow {
+          0%, 100% {
+            opacity: 0.04;
+          }
+          50% {
+            opacity: 0.08;
+          }
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 4s ease-in-out infinite;
         }
       `}</style>
     </div>
