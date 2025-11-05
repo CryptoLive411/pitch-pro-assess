@@ -143,51 +143,103 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
 };
 
 // Slide Components
-const CoverSlide = ({ data }: { data: AssessmentData }) => (
-  <div className="w-full h-full relative bg-gradient-to-br from-gray-100 via-blue-50 to-cyan-50 overflow-hidden">
-    {/* Decorative curved shape */}
-    <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[hsl(var(--venture-navy))] rounded-full opacity-10"></div>
-    <div className="absolute -top-20 -right-20 w-96 h-96 bg-[hsl(var(--venture-blue))] rounded-full opacity-10"></div>
-    
-    <div className="relative z-10 flex flex-col items-center justify-center h-full px-8">
-      {/* Venture Logo with Glow Effect */}
-      <div className="mb-8 relative group animate-scale-in">
-        {/* Glowing rings */}
-        <div className="absolute inset-0 rounded-full bg-[hsl(var(--venture-blue))] opacity-30 blur-2xl animate-pulse"></div>
-        <div className="absolute inset-0 rounded-full bg-[hsl(var(--venture-blue))] opacity-20 blur-3xl scale-110 animate-pulse"></div>
-        <div className="absolute inset-0 rounded-full bg-white opacity-40 blur-xl scale-90 animate-pulse"></div>
+const CoverSlide = ({ data }: { data: AssessmentData }) => {
+  // D1 Universities for the ticker
+  const d1Universities = [
+    "STANFORD", "UCLA", "DUKE", "UNC", "GEORGETOWN", "SYRACUSE", 
+    "INDIANA", "MICHIGAN", "MARYLAND", "NOTRE DAME", "VIRGINIA", 
+    "WAKE FOREST", "CLEMSON", "FLORIDA STATE", "PENN STATE", "OHIO STATE",
+    "USC", "WASHINGTON", "WISCONSIN", "BOSTON COLLEGE", "DARTMOUTH"
+  ];
+  
+  return (
+    <div className="w-full h-full relative bg-gradient-to-br from-gray-100 via-blue-50 to-cyan-50 overflow-hidden">
+      {/* Decorative curved shape */}
+      <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[hsl(var(--venture-navy))] rounded-full opacity-10"></div>
+      <div className="absolute -top-20 -right-20 w-96 h-96 bg-[hsl(var(--venture-blue))] rounded-full opacity-10"></div>
+      
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-8">
+        {/* Venture Logo with Glow Effect */}
+        <div className="mb-8 relative group animate-scale-in">
+          {/* Glowing rings */}
+          <div className="absolute inset-0 rounded-full bg-[hsl(var(--venture-blue))] opacity-30 blur-2xl animate-pulse"></div>
+          <div className="absolute inset-0 rounded-full bg-[hsl(var(--venture-blue))] opacity-20 blur-3xl scale-110 animate-pulse"></div>
+          <div className="absolute inset-0 rounded-full bg-white opacity-40 blur-xl scale-90 animate-pulse"></div>
+          
+          {/* Logo container */}
+          <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full shadow-2xl group-hover:scale-105 transition-transform duration-300">
+            <img 
+              src={ventureLogoCircle} 
+              alt="Venture USA" 
+              className="w-full h-full object-contain rounded-full" 
+            />
+          </div>
+        </div>
         
-        {/* Logo container */}
-        <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full shadow-2xl group-hover:scale-105 transition-transform duration-300">
-          <img 
-            src={ventureLogoCircle} 
-            alt="Venture USA" 
-            className="w-full h-full object-contain rounded-full" 
-          />
+        <h1 className="text-5xl md:text-7xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight mb-4 text-center animate-fade-in">
+          ASSESSMENT REPORT
+        </h1>
+        
+        <div className="h-1 w-32 bg-[hsl(var(--venture-blue))] rounded-full mb-6 animate-fade-in"></div>
+        
+        <p className="text-xl md:text-2xl text-gray-600 font-semibold text-center max-w-2xl animate-fade-in">
+          College Soccer Placement Consulting
+        </p>
+        
+        {/* Player Name */}
+        {data.playerName && (
+          <div className="mt-6 animate-fade-in">
+            <p className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-blue))] uppercase tracking-wide text-center">
+              {data.playerName}
+            </p>
+          </div>
+        )}
+      </div>
+      
+      {/* University Logo Ticker at Bottom */}
+      <div className="absolute bottom-0 left-0 right-0 bg-[hsl(var(--venture-navy))] py-3 overflow-hidden">
+        <div className="flex animate-scroll">
+          {/* First set of universities */}
+          {d1Universities.map((uni, idx) => (
+            <div 
+              key={`uni-1-${idx}`}
+              className="flex-shrink-0 mx-4 md:mx-6 px-4 md:px-6 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg"
+            >
+              <span className="text-white font-black text-sm md:text-base tracking-wider whitespace-nowrap">
+                {uni}
+              </span>
+            </div>
+          ))}
+          {/* Duplicate set for seamless loop */}
+          {d1Universities.map((uni, idx) => (
+            <div 
+              key={`uni-2-${idx}`}
+              className="flex-shrink-0 mx-4 md:mx-6 px-4 md:px-6 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg"
+            >
+              <span className="text-white font-black text-sm md:text-base tracking-wider whitespace-nowrap">
+                {uni}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
       
-      <h1 className="text-5xl md:text-7xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight mb-4 text-center animate-fade-in">
-        ASSESSMENT REPORT
-      </h1>
-      
-      <div className="h-1 w-32 bg-[hsl(var(--venture-blue))] rounded-full mb-6 animate-fade-in"></div>
-      
-      <p className="text-xl md:text-2xl text-gray-600 font-semibold text-center max-w-2xl animate-fade-in">
-        College Soccer Placement Consulting
-      </p>
-      
-      {/* Player Name */}
-      {data.playerName && (
-        <div className="mt-6 animate-fade-in">
-          <p className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-blue))] uppercase tracking-wide text-center">
-            {data.playerName}
-          </p>
-        </div>
-      )}
+      <style>{`
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-scroll {
+          animation: scroll 60s linear infinite;
+        }
+      `}</style>
     </div>
-  </div>
-);
+  );
+};
 
 const PlayerInfoSlide = ({ data }: { data: AssessmentData }) => (
   <div className="w-full h-full bg-gradient-to-br from-white to-blue-50 relative overflow-hidden">
