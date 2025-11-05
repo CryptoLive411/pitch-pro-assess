@@ -1080,52 +1080,243 @@ const CostsSlide = () => {
   );
 };
 
-const PackagesSlide = () => (
-  <div className="w-full h-full bg-gradient-to-br from-white to-blue-50 p-8 md:p-12">
-    <div className="h-full flex flex-col">
-      <div className="mb-6">
-        <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
-          SERVICE OPTIONS
-        </div>
-        <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase">Service Packages</h2>
+const PackagesSlide = () => {
+  const [showInfo, setShowInfo] = useState<string | null>(null);
+  
+  const services = [
+    {
+      id: 'english',
+      name: 'English Exam Support',
+      description: 'Comprehensive preparation and guidance for English proficiency exams like TOEFL, helping you achieve the scores needed for university admission.',
+      pkg1: true,
+      pkg2: false,
+      pkg3: false
+    },
+    {
+      id: 'video',
+      name: 'Video Editing',
+      description: 'Professional editing of your soccer highlight videos to showcase your skills to college coaches in the most compelling way.',
+      pkg1: true,
+      pkg2: true,
+      pkg3: false
+    },
+    {
+      id: 'admissions',
+      name: 'Admissions Support',
+      description: 'Expert assistance with college applications, essays, and all required documentation to maximize your chances of acceptance.',
+      pkg1: true,
+      pkg2: true,
+      pkg3: false
+    },
+    {
+      id: 'translation',
+      name: 'Translation Services',
+      description: 'Professional translation of documents, transcripts, and communications to ensure accurate and effective communication.',
+      pkg1: true,
+      pkg2: false,
+      pkg3: false
+    },
+    {
+      id: 'coach',
+      name: 'Coach Connections',
+      description: 'Direct introductions and ongoing communication with college coaches who match your athletic and academic profile.',
+      pkg1: true,
+      pkg2: true,
+      pkg3: true
+    },
+    {
+      id: 'eligibility',
+      name: 'Eligibility Center',
+      description: 'Complete support with NCAA Eligibility Center registration and requirements to ensure you can compete collegiately.',
+      pkg1: true,
+      pkg2: false,
+      pkg3: false
+    },
+    {
+      id: 'scholarship',
+      name: 'Scholarship Offers',
+      description: 'Strategic guidance to secure the best possible scholarship offers and financial aid packages from universities.',
+      pkg1: true,
+      pkg2: true,
+      pkg3: true
+    },
+    {
+      id: 'visa',
+      name: 'VISA Support',
+      description: 'Complete assistance with F-1 Student Visa application process, documentation, and interview preparation.',
+      pkg1: true,
+      pkg2: true,
+      pkg3: false
+    },
+    {
+      id: 'arrival',
+      name: 'USA Arrival Support',
+      description: 'Help with logistics and orientation when arriving in the USA, ensuring a smooth transition to your new university.',
+      pkg1: true,
+      pkg2: true,
+      pkg3: false
+    },
+    {
+      id: 'placement',
+      name: 'University Placement',
+      description: 'End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.',
+      pkg1: true,
+      pkg2: true,
+      pkg3: true
+    }
+  ];
+
+  return (
+    <div className="w-full h-full bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 p-6 md:p-8 relative overflow-hidden">
+      {/* Subtle background patterns */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[hsl(var(--venture-blue))]/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[hsl(var(--venture-navy))]/10 rounded-full blur-3xl"></div>
       </div>
-      
-      <div className="flex-1 bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-        <table className="w-full text-xs md:text-sm">
-          <thead className="bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white">
-            <tr>
-              <th className="text-left p-2 md:p-3 font-bold">SERVICE</th>
-              <th className="text-center p-2 md:p-3 font-bold">PACKAGE 1</th>
-              <th className="text-center p-2 md:p-3 font-bold">PACKAGE 2</th>
-              <th className="text-center p-2 md:p-3 font-bold">PACKAGE 3</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ["English Exam Support","✓","✗","✗"],
-              ["Video Editing","✓","✓","✗"],
-              ["Admissions Support","✓","✓","✗"],
-              ["Translation Services","✓","✗","✗"],
-              ["Coach Connections","✓","✓","✓"],
-              ["Eligibility Center","✓","✗","✗"],
-              ["Scholarship Offers","✓","✓","✓"],
-              ["VISA Support","✓","✓","✗"],
-              ["USA Arrival Support","✓","✓","✗"],
-              ["University Placement","✓","✓","✓"]
-            ].map((r,i)=>(
-              <tr key={i} className={`border-b ${i%2===0?"bg-gray-50":"bg-white"} hover:bg-blue-50/50 transition-colors`}>
-                <td className="p-2 md:p-3 font-semibold">{r[0]}</td>
-                <td className="text-center p-2 md:p-3 text-lg">{r[1]}</td>
-                <td className="text-center p-2 md:p-3 text-lg">{r[2]}</td>
-                <td className="text-center p-2 md:p-3 text-lg">{r[3]}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+      <div className="relative z-10 h-full flex flex-col">
+        {/* Header with Logo */}
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <div className="inline-block px-3 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-2">
+              SERVICE OPTIONS
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
+              Service Packages
+            </h2>
+            <p className="text-sm text-gray-600 mt-1">Choose the right package for your journey</p>
+          </div>
+          <img 
+            src={ventureLogoCircle} 
+            alt="Venture USA" 
+            className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-90" 
+          />
+        </div>
+        
+        {/* Package headers */}
+        <div className="grid grid-cols-4 gap-2 mb-3">
+          <div className="text-xs font-bold text-gray-600">SERVICE</div>
+          <div className="text-center">
+            <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-lg px-2 py-2">
+              <div className="text-xs font-black">PACKAGE 1</div>
+              <div className="text-[10px] opacity-80">Full Service</div>
+            </div>
+          </div>
+          <div className="text-center">
+            <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-lg px-2 py-2">
+              <div className="text-xs font-black">PACKAGE 2</div>
+              <div className="text-[10px] opacity-80">Standard</div>
+            </div>
+          </div>
+          <div className="text-center">
+            <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white rounded-lg px-2 py-2">
+              <div className="text-xs font-black">PACKAGE 3</div>
+              <div className="text-[10px] opacity-80">Essential</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Services Grid */}
+        <div className="flex-1 overflow-y-auto pr-2 pb-2 space-y-2">
+          {services.map((service, index) => (
+            <div key={service.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200">
+              <div className="grid grid-cols-4 gap-2 p-3 items-center">
+                {/* Service name with info button */}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs md:text-sm font-bold text-[hsl(var(--venture-navy))]">
+                    {service.name}
+                  </span>
+                  <button
+                    onClick={() => setShowInfo(showInfo === service.id ? null : service.id)}
+                    className="flex-shrink-0 w-6 h-6 rounded-full bg-[hsl(var(--venture-blue))]/10 hover:bg-[hsl(var(--venture-blue))]/20 flex items-center justify-center transition-all duration-200"
+                  >
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      className="h-3 w-3 text-[hsl(var(--venture-blue))]" 
+                      viewBox="0 0 20 20" 
+                      fill="currentColor"
+                    >
+                      <path 
+                        fillRule="evenodd" 
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" 
+                        clipRule="evenodd" 
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                {/* Package checkmarks */}
+                <div className="flex justify-center">
+                  {service.pkg1 ? (
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md">
+                      <svg className="w-4 h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M5 13l4 4L19 7"></path>
+                      </svg>
+                    </div>
+                  ) : (
+                    <div className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M6 18L18 6M6 6l12 12"></path>
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <div className="flex justify-center">
+                  {service.pkg2 ? (
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md">
+                      <svg className="w-4 h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M5 13l4 4L19 7"></path>
+                      </svg>
+                    </div>
+                  ) : (
+                    <div className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M6 18L18 6M6 6l12 12"></path>
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <div className="flex justify-center">
+                  {service.pkg3 ? (
+                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md">
+                      <svg className="w-4 h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M5 13l4 4L19 7"></path>
+                      </svg>
+                    </div>
+                  ) : (
+                    <div className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center">
+                      <svg className="w-4 h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M6 18L18 6M6 6l12 12"></path>
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Info panel */}
+              {showInfo === service.id && (
+                <div className="px-3 pb-3 col-span-4">
+                  <div className="bg-gradient-to-r from-[hsl(var(--venture-blue))]/10 to-blue-50 rounded-lg p-3 border-l-4 border-[hsl(var(--venture-blue))]">
+                    <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Footer note */}
+        <div className="mt-3 bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-gray-200">
+          <p className="text-xs md:text-sm text-gray-600 text-center">
+            <span className="font-bold text-[hsl(var(--venture-navy))]">Contact us</span> to discuss which package best fits your needs and goals.
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const TimelineSlide = () => (
   <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 p-8 md:p-16">
