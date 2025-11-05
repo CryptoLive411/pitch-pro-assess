@@ -3,6 +3,7 @@ import { AssessmentData } from "./AssessmentEditor";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Download, ChevronLeft, ChevronRight } from "lucide-react";
 import ventureLogo from "@/assets/venture-logo-white.png";
+import ventureLogoCircle from "@/assets/venture-logo-circle.png";
 
 interface AssessmentPreviewProps {
   data: AssessmentData;
@@ -138,9 +139,21 @@ const CoverSlide = () => (
     <div className="absolute -top-20 -right-20 w-96 h-96 bg-[hsl(var(--venture-blue))] rounded-full opacity-10"></div>
     
     <div className="relative z-10 flex flex-col items-center justify-center h-full px-8">
-      {/* Venture Logo */}
-      <div className="mb-8 w-32 h-32 bg-[hsl(var(--venture-navy))] rounded-full flex items-center justify-center shadow-2xl animate-scale-in">
-        <img src={ventureLogo} alt="Venture" className="w-20 h-20 object-contain" />
+      {/* Venture Logo with Glow Effect */}
+      <div className="mb-8 relative group animate-scale-in">
+        {/* Glowing rings */}
+        <div className="absolute inset-0 rounded-full bg-[hsl(var(--venture-blue))] opacity-30 blur-2xl animate-pulse"></div>
+        <div className="absolute inset-0 rounded-full bg-[hsl(var(--venture-blue))] opacity-20 blur-3xl scale-110 animate-pulse"></div>
+        <div className="absolute inset-0 rounded-full bg-white opacity-40 blur-xl scale-90 animate-pulse"></div>
+        
+        {/* Logo container */}
+        <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full shadow-2xl group-hover:scale-105 transition-transform duration-300">
+          <img 
+            src={ventureLogoCircle} 
+            alt="Venture USA" 
+            className="w-full h-full object-contain rounded-full" 
+          />
+        </div>
       </div>
       
       <h1 className="text-5xl md:text-7xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight mb-4 text-center animate-fade-in">
