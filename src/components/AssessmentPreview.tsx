@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AssessmentData } from "./AssessmentEditor";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Download, ChevronLeft, ChevronRight } from "lucide-react";
+import ventureLogo from "@/assets/venture-logo-white.png";
 
 interface AssessmentPreviewProps {
   data: AssessmentData;
@@ -12,20 +13,20 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   
   const slides = [
-    { type: "cover", editable: false },
-    { type: "player-info", editable: true },
-    { type: "recommendation", editable: true },
-    { type: "department-notes", editable: true },
-    { type: "testimonials-1", editable: false },
-    { type: "target-divisions", editable: true },
-    { type: "committed", editable: false },
-    { type: "costs", editable: false },
-    { type: "testimonial-2", editable: false },
-    { type: "packages", editable: false },
-    { type: "logos", editable: false },
-    { type: "timeline", editable: false },
-    { type: "join", editable: false },
-    { type: "back-cover", editable: false },
+    { type: "cover", title: "Cover" },
+    { type: "player-info", title: "Player Information" },
+    { type: "recommendation", title: "Recommendation" },
+    { type: "target-divisions", title: "Target Divisions" },
+    { type: "department-notes", title: "Department Notes" },
+    { type: "testimonial-joao", title: "Testimonial - Joao" },
+    { type: "testimonial-filip", title: "Testimonial - Filip" },
+    { type: "committed", title: "Success Stats" },
+    { type: "costs", title: "Estimated Costs" },
+    { type: "testimonial-gabriel", title: "Testimonial - Gabriel" },
+    { type: "packages", title: "Service Packages" },
+    { type: "timeline", title: "Timeline" },
+    { type: "contact", title: "Ready to Start?" },
+    { type: "back-cover", title: "Back Cover" },
   ];
 
   const nextSlide = () => {
@@ -41,19 +42,25 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Top Navigation */}
-      <div className="print:hidden bg-[#1e3a5f] text-white p-4 sticky top-0 z-50 shadow-lg">
+      <div className="print:hidden bg-[hsl(var(--venture-navy))] text-white p-4 sticky top-0 z-50 shadow-xl">
         <div className="container mx-auto flex items-center justify-between">
-          <Button variant="secondary" onClick={onBack} className="gap-2">
+          <Button 
+            onClick={onBack} 
+            className="gap-2 bg-white/10 hover:bg-white/20 border border-white/20"
+          >
             <ArrowLeft className="h-4 w-4" />
             Back to Editor
           </Button>
           <div className="flex items-center gap-4">
-            <span className="text-sm font-medium">
-              Slide {currentSlide + 1} of {slides.length}
+            <span className="text-sm font-semibold tracking-wide">
+              {slides[currentSlide].title} • {currentSlide + 1} / {slides.length}
             </span>
-            <Button variant="secondary" onClick={handlePrint} className="gap-2">
+            <Button 
+              onClick={handlePrint} 
+              className="gap-2 bg-white/10 hover:bg-white/20 border border-white/20"
+            >
               <Download className="h-4 w-4" />
               Export PDF
             </Button>
@@ -62,53 +69,58 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
       </div>
 
       {/* Slide Container */}
-      <div className="relative flex items-center justify-center min-h-[calc(100vh-72px)] p-8">
+      <div className="relative flex items-center justify-center min-h-[calc(100vh-72px)] p-4 md:p-8">
         {/* Previous Button */}
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
-          className="print:hidden absolute left-8 z-10 w-16 h-16 rounded-full bg-white shadow-2xl hover:bg-gray-100"
+          className="print:hidden absolute left-2 md:left-8 z-10 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur shadow-xl hover:bg-white hover:scale-110 transition-all duration-200"
           onClick={prevSlide}
         >
-          <ChevronLeft className="h-8 w-8" />
+          <ChevronLeft className="h-6 w-6 md:h-8 md:w-8 text-[hsl(var(--venture-navy))]" />
         </Button>
 
-        {/* Slide Card */}
-        <div className="relative w-full max-w-7xl aspect-[16/9] bg-white rounded-2xl shadow-2xl overflow-hidden">
-          {currentSlide === 0 && <CoverSlide />}
-          {currentSlide === 1 && <PlayerInfoSlide data={data} />}
-          {currentSlide === 2 && <RecommendationSlide data={data} />}
-          {currentSlide === 3 && <DepartmentNotesSlide data={data} />}
-          {currentSlide === 4 && <TestimonialsSlide1 />}
-          {currentSlide === 5 && <TargetDivisionsSlide data={data} />}
-          {currentSlide === 6 && <CommittedSlide />}
-          {currentSlide === 7 && <CostsSlide />}
-          {currentSlide === 8 && <TestimonialSlide2 />}
-          {currentSlide === 9 && <PackagesSlide />}
-          {currentSlide === 10 && <LogosSlide />}
-          {currentSlide === 11 && <TimelineSlide />}
-          {currentSlide === 12 && <JoinSlide />}
-          {currentSlide === 13 && <BackCoverSlide />}
+        {/* Slide Card with Animation */}
+        <div className="relative w-full max-w-7xl aspect-[16/9] bg-white rounded-xl md:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-3xl">
+          <div className="w-full h-full animate-fade-in">
+            {currentSlide === 0 && <CoverSlide />}
+            {currentSlide === 1 && <PlayerInfoSlide data={data} />}
+            {currentSlide === 2 && <RecommendationSlide data={data} />}
+            {currentSlide === 3 && <TargetDivisionsSlide data={data} />}
+            {currentSlide === 4 && <DepartmentNotesSlide data={data} />}
+            {currentSlide === 5 && <TestimonialJoaoSlide />}
+            {currentSlide === 6 && <TestimonialFilipSlide />}
+            {currentSlide === 7 && <CommittedSlide />}
+            {currentSlide === 8 && <CostsSlide />}
+            {currentSlide === 9 && <TestimonialGabrielSlide />}
+            {currentSlide === 10 && <PackagesSlide />}
+            {currentSlide === 11 && <TimelineSlide />}
+            {currentSlide === 12 && <ContactSlide />}
+            {currentSlide === 13 && <BackCoverSlide />}
+          </div>
         </div>
 
         {/* Next Button */}
         <Button
-          variant="outline"
+          variant="ghost"
           size="icon"
-          className="print:hidden absolute right-8 z-10 w-16 h-16 rounded-full bg-white shadow-2xl hover:bg-gray-100"
+          className="print:hidden absolute right-2 md:right-8 z-10 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur shadow-xl hover:bg-white hover:scale-110 transition-all duration-200"
           onClick={nextSlide}
         >
-          <ChevronRight className="h-8 w-8" />
+          <ChevronRight className="h-6 w-6 md:h-8 md:w-8 text-[hsl(var(--venture-navy))]" />
         </Button>
       </div>
 
       {/* Slide Indicators */}
       <div className="print:hidden flex justify-center gap-2 pb-8">
-        {slides.map((_, idx) => (
+        {slides.map((slide, idx) => (
           <button
             key={idx}
-            className={`w-3 h-3 rounded-full transition-all ${
-              idx === currentSlide ? "bg-[#1e3a5f] w-8" : "bg-gray-400"
+            title={slide.title}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              idx === currentSlide 
+                ? "bg-[hsl(var(--venture-navy))] w-8" 
+                : "bg-gray-300 w-2 hover:bg-gray-400"
             }`}
             onClick={() => setCurrentSlide(idx)}
           />
@@ -120,55 +132,101 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
 
 // Slide Components
 const CoverSlide = () => (
-  <div className="w-full h-full relative bg-gradient-to-br from-cyan-50 via-cyan-100 to-blue-100">
-    <div className="absolute bottom-0 left-0 w-full h-2/3 bg-[#1e3a5f] rounded-tr-[200px]"></div>
-    <div className="relative z-10 flex flex-col items-center justify-center h-full">
-      <div className="w-40 h-40 mb-8 bg-white rounded-full flex items-center justify-center">
-        <div className="w-32 h-32 bg-[#1e3a5f] rounded-full flex items-center justify-center text-white font-black text-4xl">V</div>
+  <div className="w-full h-full relative bg-gradient-to-br from-gray-100 via-blue-50 to-cyan-50 overflow-hidden">
+    {/* Decorative curved shape */}
+    <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[hsl(var(--venture-navy))] rounded-full opacity-10"></div>
+    <div className="absolute -top-20 -right-20 w-96 h-96 bg-[hsl(var(--venture-blue))] rounded-full opacity-10"></div>
+    
+    <div className="relative z-10 flex flex-col items-center justify-center h-full px-8">
+      {/* Venture Logo */}
+      <div className="mb-8 w-32 h-32 bg-[hsl(var(--venture-navy))] rounded-full flex items-center justify-center shadow-2xl animate-scale-in">
+        <img src={ventureLogo} alt="Venture" className="w-20 h-20 object-contain" />
       </div>
-      <h1 className="text-7xl font-black text-[#1e3a5f] uppercase tracking-tight mb-2">
+      
+      <h1 className="text-5xl md:text-7xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight mb-4 text-center animate-fade-in">
         ASSESSMENT REPORT
       </h1>
-      <div className="text-5xl font-black text-[#1e3a5f] uppercase tracking-widest">
-        VENTURE
-      </div>
+      
+      <div className="h-1 w-32 bg-[hsl(var(--venture-blue))] rounded-full mb-6 animate-fade-in"></div>
+      
+      <p className="text-xl md:text-2xl text-gray-600 font-semibold text-center max-w-2xl animate-fade-in">
+        College Soccer Placement Consulting
+      </p>
     </div>
   </div>
 );
 
 const PlayerInfoSlide = ({ data }: { data: AssessmentData }) => (
-  <div className="w-full h-full bg-[#e8f4f8] relative overflow-hidden">
-    <div className="absolute top-0 right-0 w-1/2 h-full bg-[#1e3a5f] rounded-bl-[200px]"></div>
-    <div className="absolute top-0 left-0 bg-[#1e3a5f] w-32 h-32 rounded-br-full"></div>
-
-    <div className="relative z-10 flex items-center h-full px-16 gap-12">
-      <div className="flex-1 flex justify-center">
+  <div className="w-full h-full bg-gradient-to-br from-white to-blue-50 relative overflow-hidden">
+    {/* Decorative elements */}
+    <div className="absolute top-0 right-0 w-1/3 h-full bg-[hsl(var(--venture-navy))] opacity-5 rounded-bl-[100px]"></div>
+    
+    <div className="relative z-10 flex flex-col md:flex-row items-center h-full px-8 md:px-16 py-8 gap-8">
+      {/* Player Photo */}
+      <div className="flex-1 flex justify-center items-center">
         {data.playerPhoto ? (
-          <div className="bg-[#1e3a5f] p-4 rounded-[32px] shadow-2xl">
-            <img
-              src={data.playerPhoto}
-              alt={data.playerName}
-              className="w-[350px] h-[450px] object-cover rounded-[24px]"
-            />
+          <div className="relative group">
+            <div className="absolute inset-0 bg-[hsl(var(--venture-blue))] rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+            <div className="relative bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] p-2 rounded-3xl shadow-2xl">
+              <img
+                src={data.playerPhoto}
+                alt={data.playerName}
+                className="w-64 h-80 md:w-80 md:h-96 object-cover rounded-2xl"
+              />
+            </div>
           </div>
         ) : (
-          <div className="bg-[#1e3a5f] p-4 rounded-[32px] shadow-2xl">
-            <div className="w-[350px] h-[450px] bg-white rounded-[24px] flex items-center justify-center">
-              <span className="text-gray-400 text-xl">No Photo</span>
+          <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] p-2 rounded-3xl shadow-2xl">
+            <div className="w-64 h-80 md:w-80 md:h-96 bg-white/90 rounded-2xl flex items-center justify-center">
+              <span className="text-gray-400 text-lg font-semibold">Player Photo</span>
             </div>
           </div>
         )}
       </div>
 
-      <div className="flex-1 text-white text-right space-y-6 pr-12">
-        <h2 className="text-6xl font-black leading-none mb-8">
-          {data.playerName || "(NAME OF PLAYER)"}
-        </h2>
-        <div className="space-y-4 text-xl">
-          <p>• <span className="font-bold">Enrollment year/options:</span><br/>{data.enrollmentYear || "August 2027"}</p>
-          <p>• <span className="font-bold">School Year:</span> {data.schoolYear || "Freshman"}</p>
-          <p>• <span className="font-bold">High School GPA:</span> {data.gpa || "3.5+ GPA"}</p>
-          <p>• <span className="font-bold">Manager:</span> {data.manager || "(NAME of AGENT)"}</p>
+      {/* Player Info */}
+      <div className="flex-1 space-y-6">
+        <div className="space-y-2">
+          <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-2">
+            PLAYER PROFILE
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black text-[hsl(var(--venture-navy))] leading-tight">
+            {data.playerName || "Player Name"}
+          </h2>
+        </div>
+        
+        <div className="space-y-4 text-base md:text-lg">
+          <div className="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2"></div>
+            <div>
+              <span className="font-bold text-[hsl(var(--venture-navy))]">Enrollment:</span>
+              <p className="text-gray-700">{data.enrollmentYear || "August 2027"}</p>
+            </div>
+          </div>
+          
+          <div className="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2"></div>
+            <div>
+              <span className="font-bold text-[hsl(var(--venture-navy))]">School Year:</span>
+              <p className="text-gray-700">{data.schoolYear || "Freshman"}</p>
+            </div>
+          </div>
+          
+          <div className="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2"></div>
+            <div>
+              <span className="font-bold text-[hsl(var(--venture-navy))]">GPA:</span>
+              <p className="text-gray-700">{data.gpa || "3.5+"}</p>
+            </div>
+          </div>
+          
+          <div className="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2"></div>
+            <div>
+              <span className="font-bold text-[hsl(var(--venture-navy))]">Manager:</span>
+              <p className="text-gray-700">{data.manager || "Venture Team"}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -176,63 +234,45 @@ const PlayerInfoSlide = ({ data }: { data: AssessmentData }) => (
 );
 
 const RecommendationSlide = ({ data }: { data: AssessmentData }) => (
-  <div className="w-full h-full bg-white relative overflow-hidden">
-    <div className="absolute top-0 right-0 w-2/3 h-40 bg-[#1e3a5f] rounded-bl-full"></div>
+  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] relative overflow-hidden">
+    {/* Decorative circles */}
+    <div className="absolute top-10 right-10 w-64 h-64 bg-white/5 rounded-full"></div>
+    <div className="absolute bottom-10 left-10 w-96 h-96 bg-white/5 rounded-full"></div>
     
-    <div className="relative z-10 flex flex-col items-center justify-center h-full px-16 space-y-8">
-      <div className="text-center">
-        <div className="text-5xl font-black text-[#1e3a5f] mb-6">{data.playerName || "PLAYER NAME"}</div>
-        <div className="inline-block bg-[#1e3a5f] text-white px-16 py-8 rounded-2xl mb-8">
-          <div className="text-4xl font-black">
-            {data.targetDivisions.naia && "NAIA"}
-            {data.targetDivisions.ncaa && (data.targetDivisions.naia ? " / NCAA" : "NCAA")}
-            {data.targetDivisions.jucaa && " / JUCAA"}
-          </div>
+    <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 md:px-16 text-center">
+      <div className="space-y-8 max-w-4xl">
+        <div className="inline-block px-6 py-2 bg-white/10 backdrop-blur text-white text-sm font-bold rounded-full mb-4">
+          OUR RECOMMENDATION
         </div>
-        <div className="text-3xl font-bold text-gray-600 mb-4">Player's recommendation</div>
-        <div className="text-2xl text-gray-500">Presented by <span className="font-bold">venture</span></div>
-      </div>
-    </div>
-  </div>
-);
-
-const DepartmentNotesSlide = ({ data }: { data: AssessmentData }) => (
-  <div className="w-full h-full bg-[#e8f4f8] relative overflow-hidden">
-    <div className="absolute top-0 left-0 bg-[#1e3a5f] w-32 h-32 rounded-br-full"></div>
-    <div className="absolute bottom-0 right-0 w-3/4 h-3/4 bg-gradient-to-tl from-[#1e3a5f] to-[#2a4f7f] rounded-tl-[200px]"></div>
-
-    <div className="relative z-10 px-16 py-12 h-full flex flex-col">
-      <h2 className="text-4xl font-black text-[#1e3a5f] mb-8">
-        Venture Soccer Department<br />Recommendations
-      </h2>
-      
-      <div className="flex-1 bg-white rounded-2xl p-8 shadow-xl overflow-auto">
-        {data.departmentNotes.split('\n\n').map((paragraph, idx) => (
-          <p key={idx} className="text-base leading-relaxed text-gray-800 mb-3">
-            • {paragraph}
-          </p>
-        ))}
-      </div>
-    </div>
-  </div>
-);
-
-const TestimonialsSlide1 = () => (
-  <div className="w-full h-full bg-white relative overflow-hidden">
-    <div className="absolute top-0 left-0 w-full h-24 bg-[#1e3a5f]"></div>
-
-    <div className="relative z-10 pt-32 px-16 pb-12 grid grid-cols-2 gap-8">
-      <div className="space-y-4">
-        <h3 className="text-2xl font-black text-[#1e3a5f]">JOAO DOMINGUES</h3>
-        <p className="text-sm text-gray-700 leading-relaxed">
-          FIU VENTURE USA HAD AN IMPORTANT IMPACT IN MY LIFE HELPING ME GET A GOOD UNIVERSITY TO PLAY SOCCER WHILE STUDYING. DURING THE PROCESS, IT WAS NOTICED THEIR HARD WORK ON GETTING THE BEST UNIVERSITIES POSSIBLE. ALSO, THEY HAVE VERY HONEST PEOPLE, AND HE ALWAYS TOLD ME THE REAL TRUTH ABOUT THE POSITIVE AND NEGATIVE THINGS OF THE DIFFERENT UNIVERSITIES, COACHES AND FACILITIES. NOW I STILL KEEP A VERY GOOD CONNECTION WITH THEM. AT THIS POINT HE IS NOT ONLY AN "AGENT" BUT A FRIEND THAT I AM REALLY THANKFUL FOR ALL THE HELP.
+        
+        <h2 className="text-4xl md:text-6xl font-black text-white mb-8">
+          {data.playerName || "Player Name"}
+        </h2>
+        
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
+          {data.targetDivisions.naia && (
+            <div className="px-8 py-4 bg-white text-[hsl(var(--venture-navy))] rounded-2xl shadow-xl font-black text-2xl md:text-3xl transform hover:scale-105 transition-transform">
+              NAIA
+            </div>
+          )}
+          {data.targetDivisions.ncaa && (
+            <div className="px-8 py-4 bg-white text-[hsl(var(--venture-navy))] rounded-2xl shadow-xl font-black text-2xl md:text-3xl transform hover:scale-105 transition-transform">
+              NCAA
+            </div>
+          )}
+          {data.targetDivisions.jucaa && (
+            <div className="px-8 py-4 bg-white text-[hsl(var(--venture-navy))] rounded-2xl shadow-xl font-black text-2xl md:text-3xl transform hover:scale-105 transition-transform">
+              JUCAA
+            </div>
+          )}
+        </div>
+        
+        <p className="text-xl md:text-2xl text-white/90 font-semibold">
+          Player Assessment & Recommendation
         </p>
-      </div>
-
-      <div className="space-y-4">
-        <h3 className="text-2xl font-black text-[#1e3a5f]">FILIP JAUK</h3>
-        <p className="text-sm text-gray-700 leading-relaxed">
-          I REALLY ENJOYED WORKING WITH VENTURE SOCCER. WITHOUT THEM I WOULDN'T HAVE BEEN ABLE TO HAVE A FULL SCHOLARSHIP AT SUCH A GREAT SCHOOL AT ONE OF THE BEST SOCCER PROGRAMS. THEY WERE WITH ME FROM THE BEGINNING AND EVERY TIME MADE SURE THAT EVERYTHING IS PERFECT FOR MY EDUCATION AND MY SOCCER IMPROVEMENT. AM REALLY THANKFUL FOR ALL THE HELP.
+        
+        <p className="text-lg text-white/70">
+          Presented by <span className="font-bold text-white">Venture USA</span>
         </p>
       </div>
     </div>
@@ -240,76 +280,222 @@ const TestimonialsSlide1 = () => (
 );
 
 const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
-  <div className="w-full h-full bg-[#e8f4f8] relative overflow-hidden">
-    <div className="absolute top-0 left-0 bg-[#1e3a5f] w-32 h-32 rounded-br-full"></div>
-    <div className="absolute bottom-0 right-0 w-2/3 h-2/3 bg-[#1e3a5f] rounded-tl-[200px]"></div>
-
-    <div className="relative z-10 px-16 py-12 h-full flex flex-col justify-center">
-      <h2 className="text-5xl font-black text-[#1e3a5f] mb-12 uppercase">Target Divisions</h2>
+  <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 relative overflow-hidden p-8 md:p-16">
+    <div className="h-full flex flex-col">
+      <div className="mb-8">
+        <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
+          PLACEMENT TARGETS
+        </div>
+        <h2 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))] uppercase">
+          Target Divisions
+        </h2>
+      </div>
       
-      <div className="grid grid-cols-3 gap-8">
-        <div className="bg-white rounded-2xl p-8 shadow-xl text-center">
-          <div className={`w-24 h-24 mx-auto mb-4 border-8 rounded-2xl flex items-center justify-center ${
-            data.targetDivisions.naia ? 'border-[#1e3a5f] bg-[#1e3a5f]' : 'border-gray-300'
-          }`}>
-            {data.targetDivisions.naia && <span className="text-white text-4xl font-black">✓</span>}
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* NAIA */}
+        <div className={`group relative overflow-hidden rounded-2xl p-8 transition-all duration-300 ${
+          data.targetDivisions.naia 
+            ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-105' 
+            : 'bg-white shadow-lg hover:shadow-xl'
+        }`}>
+          <div className="text-center space-y-6">
+            <div className={`w-20 h-20 mx-auto rounded-2xl flex items-center justify-center text-4xl font-black transition-colors ${
+              data.targetDivisions.naia 
+                ? 'bg-white/20 text-white' 
+                : 'bg-gray-100 text-gray-400'
+            }`}>
+              {data.targetDivisions.naia ? '✓' : ''}
+            </div>
+            <h3 className={`text-3xl md:text-4xl font-black ${
+              data.targetDivisions.naia ? 'text-white' : 'text-[hsl(var(--venture-navy))]'
+            }`}>
+              NAIA
+            </h3>
+            {data.targetDivisions.naia && (
+              <p className="text-white/80 text-sm">Recommended Division</p>
+            )}
           </div>
-          <h3 className="text-4xl font-black text-[#1e3a5f]">NAIA</h3>
         </div>
 
-        <div className="bg-white rounded-2xl p-8 shadow-xl text-center">
-          <div className={`w-24 h-24 mx-auto mb-4 border-8 rounded-2xl flex items-center justify-center ${
-            data.targetDivisions.ncaa ? 'border-[#1e3a5f] bg-[#1e3a5f]' : 'border-gray-300'
-          }`}>
-            {data.targetDivisions.ncaa && <span className="text-white text-4xl font-black">✓</span>}
+        {/* NCAA */}
+        <div className={`group relative overflow-hidden rounded-2xl p-8 transition-all duration-300 ${
+          data.targetDivisions.ncaa 
+            ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-105' 
+            : 'bg-white shadow-lg hover:shadow-xl'
+        }`}>
+          <div className="text-center space-y-6">
+            <div className={`w-20 h-20 mx-auto rounded-2xl flex items-center justify-center text-4xl font-black transition-colors ${
+              data.targetDivisions.ncaa 
+                ? 'bg-white/20 text-white' 
+                : 'bg-gray-100 text-gray-400'
+            }`}>
+              {data.targetDivisions.ncaa ? '✓' : ''}
+            </div>
+            <h3 className={`text-3xl md:text-4xl font-black ${
+              data.targetDivisions.ncaa ? 'text-white' : 'text-[hsl(var(--venture-navy))]'
+            }`}>
+              NCAA
+            </h3>
+            {data.targetDivisions.ncaa && (
+              <p className="text-white/80 text-sm">Recommended Division</p>
+            )}
           </div>
-          <h3 className="text-4xl font-black text-[#1e3a5f]">NCAA</h3>
         </div>
 
-        <div className="bg-white rounded-2xl p-8 shadow-xl text-center">
-          <div className={`w-24 h-24 mx-auto mb-4 border-8 rounded-2xl flex items-center justify-center ${
-            data.targetDivisions.jucaa ? 'border-[#1e3a5f] bg-[#1e3a5f]' : 'border-gray-300'
-          }`}>
-            {data.targetDivisions.jucaa && <span className="text-white text-4xl font-black">✓</span>}
+        {/* JUCAA */}
+        <div className={`group relative overflow-hidden rounded-2xl p-8 transition-all duration-300 ${
+          data.targetDivisions.jucaa 
+            ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-105' 
+            : 'bg-white shadow-lg hover:shadow-xl'
+        }`}>
+          <div className="text-center space-y-6">
+            <div className={`w-20 h-20 mx-auto rounded-2xl flex items-center justify-center text-4xl font-black transition-colors ${
+              data.targetDivisions.jucaa 
+                ? 'bg-white/20 text-white' 
+                : 'bg-gray-100 text-gray-400'
+            }`}>
+              {data.targetDivisions.jucaa ? '✓' : ''}
+            </div>
+            <h3 className={`text-3xl md:text-4xl font-black ${
+              data.targetDivisions.jucaa ? 'text-white' : 'text-[hsl(var(--venture-navy))]'
+            }`}>
+              JUCAA
+            </h3>
+            {data.targetDivisions.jucaa && (
+              <p className="text-white/80 text-sm">Recommended Division</p>
+            )}
           </div>
-          <h3 className="text-4xl font-black text-[#1e3a5f]">JUCAA</h3>
         </div>
       </div>
     </div>
   </div>
 );
 
+const DepartmentNotesSlide = ({ data }: { data: AssessmentData }) => (
+  <div className="w-full h-full bg-gradient-to-br from-white to-blue-50 relative overflow-hidden p-8 md:p-16">
+    <div className="h-full flex flex-col">
+      <div className="mb-6">
+        <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
+          DEPARTMENT ASSESSMENT
+        </div>
+        <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))]">
+          Venture Soccer Department
+          <br />
+          <span className="text-[hsl(var(--venture-blue))]">Recommendations</span>
+        </h2>
+      </div>
+      
+      <div className="flex-1 bg-white rounded-2xl p-6 md:p-8 shadow-xl overflow-auto border border-gray-100">
+        <div className="space-y-4">
+          {data.departmentNotes.split('\n\n').map((paragraph, idx) => (
+            <div key={idx} className="flex gap-3 items-start group hover:bg-blue-50/50 p-3 rounded-lg transition-colors">
+              <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2 flex-shrink-0"></div>
+              <p className="text-sm md:text-base leading-relaxed text-gray-700">
+                {paragraph}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const TestimonialJoaoSlide = () => (
+  <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 p-8 md:p-16 flex items-center justify-center">
+    <div className="max-w-4xl space-y-6">
+      <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
+        SUCCESS STORY
+      </div>
+      <h3 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))]">JOAO DOMINGUES</h3>
+      <p className="text-sm font-semibold text-[hsl(var(--venture-blue))]">Florida International University</p>
+      <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed border-l-4 border-[hsl(var(--venture-blue))] pl-6 italic">
+        "Venture USA had an important impact in my life helping me get a good university to play soccer while studying. During the process, it was noticed their hard work on getting the best universities possible. Also, they have very honest people, and they always told me the real truth about the positive and negative things of the different universities, coaches and facilities. Now I still keep a very good connection with them. At this point they are not only an 'agent' but a friend that I am really thankful for all the help."
+      </blockquote>
+    </div>
+  </div>
+);
+
+const TestimonialFilipSlide = () => (
+  <div className="w-full h-full bg-gradient-to-br from-white to-blue-50 p-8 md:p-16 flex items-center justify-center">
+    <div className="max-w-4xl space-y-6">
+      <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
+        SUCCESS STORY
+      </div>
+      <h3 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))]">FILIP JAUK</h3>
+      <p className="text-sm font-semibold text-[hsl(var(--venture-blue))]">Florida Atlantic University</p>
+      <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed border-l-4 border-[hsl(var(--venture-blue))] pl-6 italic">
+        "I really enjoyed working with Venture Soccer. Without them I wouldn't have been able to have a full scholarship at such a great school at one of the best soccer programs. They were with me from the beginning and every time made sure that everything is perfect for my education and my soccer improvement. I am really thankful for all the help."
+      </blockquote>
+    </div>
+  </div>
+);
+
 const CommittedSlide = () => (
-  <div className="w-full h-full bg-gradient-to-br from-cyan-50 to-blue-50 flex items-center justify-center">
-    <div className="text-center">
-      <div className="text-8xl font-black text-[#1e3a5f] mb-6">200+</div>
-      <h2 className="text-5xl font-black text-[#0099cc] uppercase">Committed</h2>
+  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] flex items-center justify-center relative overflow-hidden">
+    <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+    <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+    <div className="text-center relative z-10">
+      <div className="text-7xl md:text-9xl font-black text-white mb-6 animate-scale-in">200+</div>
+      <h2 className="text-4xl md:text-6xl font-black text-white/90 uppercase tracking-wide">Athletes Placed</h2>
+      <p className="text-xl text-white/70 mt-4">Successfully committed to US universities</p>
     </div>
   </div>
 );
 
 const CostsSlide = () => (
-  <div className="w-full h-full bg-[#e8f4f8] relative overflow-hidden">
-    <div className="absolute top-0 left-0 w-full h-24 bg-[#1e3a5f]"></div>
-
-    <div className="relative z-10 pt-32 px-16 pb-12">
-      <h2 className="text-4xl font-black text-[#1e3a5f] mb-8 uppercase">Estimated Costs</h2>
+  <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 p-8 md:p-16">
+    <div className="h-full flex flex-col">
+      <div className="mb-6">
+        <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
+          INVESTMENT
+        </div>
+        <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase">Estimated Costs</h2>
+      </div>
       
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-        <table className="w-full text-sm">
-          <thead className="bg-[#1e3a5f] text-white">
+      <div className="flex-1 bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+        <table className="w-full text-xs md:text-sm">
+          <thead className="bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white">
             <tr>
-              <th className="text-left p-3 font-bold">PRICE</th>
-              <th className="text-center p-3 font-bold">AMOUNT</th>
-              <th className="text-right p-3 font-bold">STATUS</th>
+              <th className="text-left p-3 md:p-4 font-bold">ITEM</th>
+              <th className="text-center p-3 md:p-4 font-bold">AMOUNT</th>
+              <th className="text-right p-3 md:p-4 font-bold">STATUS</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b"><td className="p-3">SAT</td><td className="text-center p-3">160</td><td className="text-right p-3"><span className="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">REQUIRED</span></td></tr>
-            <tr className="border-b bg-gray-50"><td className="p-3">ELIGIBILITY CENTER (NAIA)</td><td className="text-center p-3">160</td><td className="text-right p-3"><span className="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">REQUIRED</span></td></tr>
-            <tr className="border-b"><td className="p-3">VISA & SEVIS</td><td className="text-center p-3">550</td><td className="text-right p-3"><span className="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">REQUIRED</span></td></tr>
-            <tr className="border-b bg-gray-50"><td className="p-3">TRANSCRIPTS EVALUATION</td><td className="text-center p-3">160</td><td className="text-right p-3"><span className="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">REQUIRED</span></td></tr>
-            <tr className="border-b"><td className="p-3 font-bold">UNIVERSITY YEARLY BUDGET</td><td className="text-center p-3">$10K-$20K</td><td className="text-right p-3 text-xs">DEPENDS ON SCHOOL</td></tr>
+            <tr className="border-b hover:bg-blue-50/50 transition-colors">
+              <td className="p-3 md:p-4 font-semibold">SAT</td>
+              <td className="text-center p-3 md:p-4">$160</td>
+              <td className="text-right p-3 md:p-4">
+                <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">REQUIRED</span>
+              </td>
+            </tr>
+            <tr className="border-b bg-gray-50 hover:bg-blue-50/50 transition-colors">
+              <td className="p-3 md:p-4 font-semibold">Eligibility Center (NAIA)</td>
+              <td className="text-center p-3 md:p-4">$160</td>
+              <td className="text-right p-3 md:p-4">
+                <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">REQUIRED</span>
+              </td>
+            </tr>
+            <tr className="border-b hover:bg-blue-50/50 transition-colors">
+              <td className="p-3 md:p-4 font-semibold">VISA & SEVIS</td>
+              <td className="text-center p-3 md:p-4">$550</td>
+              <td className="text-right p-3 md:p-4">
+                <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">REQUIRED</span>
+              </td>
+            </tr>
+            <tr className="border-b bg-gray-50 hover:bg-blue-50/50 transition-colors">
+              <td className="p-3 md:p-4 font-semibold">Transcripts Evaluation</td>
+              <td className="text-center p-3 md:p-4">$160</td>
+              <td className="text-right p-3 md:p-4">
+                <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">REQUIRED</span>
+              </td>
+            </tr>
+            <tr className="hover:bg-blue-50/50 transition-colors">
+              <td className="p-3 md:p-4 font-bold text-[hsl(var(--venture-navy))]">University Yearly Budget</td>
+              <td className="text-center p-3 md:p-4 font-bold">$10K-$20K</td>
+              <td className="text-right p-3 md:p-4 text-xs text-gray-600">Depends on school</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -317,38 +503,60 @@ const CostsSlide = () => (
   </div>
 );
 
-const TestimonialSlide2 = () => (
-  <div className="w-full h-full bg-white flex items-center justify-center px-16">
+const TestimonialGabrielSlide = () => (
+  <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 p-8 md:p-16 flex items-center justify-center">
     <div className="max-w-4xl space-y-6">
-      <h3 className="text-3xl font-black text-[#1e3a5f]">GABRIEL / FABIO</h3>
-      <p className="text-lg text-gray-700 leading-relaxed">
-        GOING TO THE US IS NOT AN EASY MOVE, BUT JOAO AND VENTURE SOCCER MADE ME FEEL COMFORTABLE EVEN WHEN I WAS NOT SURE OF MY DECISION. THEY ALWAYS SUPPORTED ME AND PUSHED ME BACK UP WHEN I NEEDED TO. IT'S MUCH MORE THAN A RELATIONSHIP BETWEEN PLAYER AND COMPANY. FOR ME IT WAS LIKE A SECOND FAMILY, AND I WON'T FORGET THE WORK AND TRUST THEY PUT ON ME, WITHOUT THEM I WOULDN'T BE LIVING MY DREAM.
-      </p>
-      <div className="text-2xl font-black text-[#0099cc]">HOFSTRA NCAA</div>
+      <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
+        SUCCESS STORY
+      </div>
+      <h3 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))]">GABRIEL / FABIO</h3>
+      <p className="text-sm font-semibold text-[hsl(var(--venture-blue))]">Hofstra University - NCAA</p>
+      <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed border-l-4 border-[hsl(var(--venture-blue))] pl-6 italic">
+        "Going to the US is not an easy move, but Joao and Venture Soccer made me feel comfortable even when I was not sure of my decision. They always supported me and pushed me back up when I needed to. It's much more than a relationship between player and company. For me it was like a second family, and I won't forget the work and trust they put on me. Without them I wouldn't be living my dream."
+      </blockquote>
     </div>
   </div>
 );
 
 const PackagesSlide = () => (
-  <div className="w-full h-full bg-[#e8f4f8] relative overflow-hidden">
-    <div className="absolute top-0 left-0 w-full h-24 bg-[#1e3a5f]"></div>
-
-    <div className="relative z-10 pt-32 px-12 pb-8">
-      <h2 className="text-3xl font-black text-[#1e3a5f] mb-6">PACKAGES</h2>
+  <div className="w-full h-full bg-gradient-to-br from-white to-blue-50 p-8 md:p-12">
+    <div className="h-full flex flex-col">
+      <div className="mb-6">
+        <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
+          SERVICE OPTIONS
+        </div>
+        <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase">Service Packages</h2>
+      </div>
       
-      <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-        <table className="w-full text-xs">
-          <thead className="bg-[#1e3a5f] text-white">
+      <div className="flex-1 bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+        <table className="w-full text-xs md:text-sm">
+          <thead className="bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white">
             <tr>
-              <th className="text-left p-2 font-bold">SERVICE</th>
-              <th className="text-center p-2 font-bold">PKG 1</th>
-              <th className="text-center p-2 font-bold">PKG 2</th>
-              <th className="text-center p-2 font-bold">PKG 3</th>
+              <th className="text-left p-2 md:p-3 font-bold">SERVICE</th>
+              <th className="text-center p-2 md:p-3 font-bold">PACKAGE 1</th>
+              <th className="text-center p-2 md:p-3 font-bold">PACKAGE 2</th>
+              <th className="text-center p-2 md:p-3 font-bold">PACKAGE 3</th>
             </tr>
           </thead>
           <tbody>
-            {[["ENGLISH EXAM","✓","✗","✗"],["VIDEO EDITING","✓","✓","✗"],["ADMISSIONS","✓","✓","✗"],["TRANSLATION","✓","✗","✗"],["COACHES","✓","✓","✓"],["ELIGIBILITY","✓","✗","✗"],["OFFERS","✓","✓","✓"],["VISA","✓","✓","✗"],["USA SUPPORT","✓","✓","✗"],["PLACEMENT","✓","✓","✓"]].map((r,i)=>(
-              <tr key={i} className={i%2===0?"bg-gray-50":""}><td className="p-2">{r[0]}</td><td className="text-center p-2">{r[1]}</td><td className="text-center p-2">{r[2]}</td><td className="text-center p-2">{r[3]}</td></tr>
+            {[
+              ["English Exam Support","✓","✗","✗"],
+              ["Video Editing","✓","✓","✗"],
+              ["Admissions Support","✓","✓","✗"],
+              ["Translation Services","✓","✗","✗"],
+              ["Coach Connections","✓","✓","✓"],
+              ["Eligibility Center","✓","✗","✗"],
+              ["Scholarship Offers","✓","✓","✓"],
+              ["VISA Support","✓","✓","✗"],
+              ["USA Arrival Support","✓","✓","✗"],
+              ["University Placement","✓","✓","✓"]
+            ].map((r,i)=>(
+              <tr key={i} className={`border-b ${i%2===0?"bg-gray-50":"bg-white"} hover:bg-blue-50/50 transition-colors`}>
+                <td className="p-2 md:p-3 font-semibold">{r[0]}</td>
+                <td className="text-center p-2 md:p-3 text-lg">{r[1]}</td>
+                <td className="text-center p-2 md:p-3 text-lg">{r[2]}</td>
+                <td className="text-center p-2 md:p-3 text-lg">{r[3]}</td>
+              </tr>
             ))}
           </tbody>
         </table>
@@ -357,32 +565,36 @@ const PackagesSlide = () => (
   </div>
 );
 
-const LogosSlide = () => (
-  <div className="w-full h-full bg-gradient-to-br from-cyan-50 to-blue-50 px-16 py-12">
-    <h2 className="text-4xl font-black text-[#1e3a5f] text-center mb-12">Our Network</h2>
-    <div className="grid grid-cols-4 gap-6">
-      {Array.from({length:12}).map((_,i)=>(
-        <div key={i} className="bg-white rounded-xl p-4 shadow-lg flex items-center justify-center">
-          <div className="text-center"><div className="text-2xl font-black text-[#1e3a5f]">NCAA</div></div>
-        </div>
-      ))}
-    </div>
-  </div>
-);
+const TimelineSlide = () => (
 
 const TimelineSlide = () => (
-  <div className="w-full h-full bg-[#e8f4f8] relative overflow-hidden">
-    <div className="absolute top-0 left-0 w-full h-24 bg-[#1e3a5f]"></div>
-
-    <div className="relative z-10 pt-32 px-16 pb-12">
-      <h2 className="text-4xl font-black text-[#1e3a5f] mb-4">STEP BY STEP</h2>
-      <h3 className="text-2xl font-bold text-[#0099cc] mb-8">2025 - 2027</h3>
+  <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 p-8 md:p-16">
+    <div className="h-full flex flex-col">
+      <div className="mb-8">
+        <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
+          YOUR JOURNEY
+        </div>
+        <h2 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))] uppercase mb-2">Step by Step</h2>
+        <p className="text-xl font-bold text-[hsl(var(--venture-blue))]">2025 - 2027</p>
+      </div>
       
-      <div className="grid grid-cols-2 gap-4">
-        {["START PROCESS","COACHES MEETINGS","VIDEO EDITING","RECRUITMENT","TRANSCRIPTS","CONNECTIONS","APPLICATIONS","TRAVEL PREP","START COLLEGE"].map((s,i)=>(
-          <div key={i} className="bg-white rounded-xl p-4 flex items-center gap-3 border-l-4 border-[#1e3a5f]">
-            <div className="w-8 h-8 bg-[#1e3a5f] text-white rounded-full flex items-center justify-center text-sm font-black">{i+1}</div>
-            <span className="text-sm font-bold">• {s}</span>
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 content-start">
+        {[
+          "Start Process",
+          "Coach Meetings",
+          "Video Editing",
+          "Active Recruitment",
+          "Transcript Evaluation",
+          "University Connections",
+          "Applications Submitted",
+          "Travel Preparation",
+          "Start College Journey"
+        ].map((step,i)=>(
+          <div key={i} className="group bg-white rounded-xl p-4 md:p-5 flex items-center gap-4 shadow-sm hover:shadow-lg border-l-4 border-[hsl(var(--venture-blue))] transition-all hover:scale-105">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-full flex items-center justify-center text-base md:text-lg font-black shadow-lg flex-shrink-0">
+              {i+1}
+            </div>
+            <span className="text-sm md:text-base font-bold text-gray-700">{step}</span>
           </div>
         ))}
       </div>
@@ -390,22 +602,54 @@ const TimelineSlide = () => (
   </div>
 );
 
-const JoinSlide = () => (
-  <div className="w-full h-full bg-gradient-to-br from-[#1e3a5f] to-[#2a4f7f] flex flex-col items-center justify-center">
-    <h1 className="text-7xl font-black text-white uppercase mb-8">Join Our<br/>Team</h1>
-    <div className="h-2 w-40 bg-white/80 rounded-full"></div>
+const ContactSlide = () => (
+  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] relative overflow-hidden flex items-center justify-center">
+    <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+    <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+    
+    <div className="relative z-10 text-center px-8 space-y-8">
+      <div className="w-24 h-24 md:w-32 md:h-32 mx-auto bg-white rounded-full flex items-center justify-center shadow-2xl mb-8">
+        <img src={ventureLogo} alt="Venture" className="w-16 h-16 md:w-20 md:h-20 object-contain" />
+      </div>
+      
+      <h1 className="text-5xl md:text-7xl font-black text-white uppercase leading-tight">
+        Ready to Start<br/>Your Journey?
+      </h1>
+      
+      <div className="h-1 w-32 bg-white/80 rounded-full mx-auto"></div>
+      
+      <p className="text-xl md:text-2xl text-white/90 font-semibold max-w-2xl mx-auto">
+        Let's make your college soccer dream a reality
+      </p>
+      
+      <div className="text-white/70 text-lg">
+        <p>Contact: nexusgloballc@gmail.com</p>
+      </div>
+    </div>
   </div>
 );
 
 const BackCoverSlide = () => (
-  <div className="w-full h-full relative bg-gradient-to-br from-cyan-50 via-cyan-100 to-blue-100">
-    <div className="absolute bottom-0 left-0 w-full h-2/3 bg-[#1e3a5f] rounded-tr-[200px]"></div>
-    <div className="relative z-10 flex flex-col items-center justify-center h-full">
-      <div className="w-40 h-40 mb-8 bg-white rounded-full flex items-center justify-center">
-        <div className="w-32 h-32 bg-[#1e3a5f] rounded-full flex items-center justify-center text-white font-black text-4xl">V</div>
+  <div className="w-full h-full relative bg-gradient-to-br from-gray-100 via-blue-50 to-cyan-50 overflow-hidden">
+    <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-[hsl(var(--venture-navy))] rounded-full opacity-10"></div>
+    <div className="absolute -top-20 -left-20 w-96 h-96 bg-[hsl(var(--venture-blue))] rounded-full opacity-10"></div>
+    
+    <div className="relative z-10 flex flex-col items-center justify-center h-full px-8">
+      <div className="mb-8 w-32 h-32 bg-[hsl(var(--venture-navy))] rounded-full flex items-center justify-center shadow-2xl">
+        <img src={ventureLogo} alt="Venture" className="w-20 h-20 object-contain" />
       </div>
-      <h1 className="text-7xl font-black text-[#1e3a5f] uppercase">ASSESSMENT REPORT</h1>
-      <div className="text-5xl font-black text-[#1e3a5f] uppercase">VENTURE</div>
+      
+      <h1 className="text-5xl md:text-7xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight mb-4 text-center">
+        Thank You
+      </h1>
+      
+      <div className="h-1 w-32 bg-[hsl(var(--venture-blue))] rounded-full mb-6"></div>
+      
+      <p className="text-xl md:text-2xl text-gray-600 font-semibold text-center">
+        Venture USA Soccer
+      </p>
+      
+      <p className="text-gray-500 mt-4">College Soccer Placement Consulting</p>
     </div>
   </div>
 );
