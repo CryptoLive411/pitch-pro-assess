@@ -155,6 +155,57 @@ serve(async (req) => {
       const data = await response.json();
       console.log(`Note added successfully:`, data);
 
+      // Move deal to next stage after "Assessment Needed"
+      try {
+        const stagesResponse = await fetch(
+          `https://${PIPEDRIVE_DOMAIN}/api/v1/stages?api_token=${user.token}`,
+          { method: 'GET' }
+        );
+
+        if (stagesResponse.ok) {
+          const stagesData = await stagesResponse.json();
+          const assessmentNeededStage = stagesData.data?.find(
+            (stage: any) => stage.name.trim().toLowerCase() === 'assessment needed'
+          );
+          
+          if (assessmentNeededStage) {
+            const currentOrderNr = assessmentNeededStage.order_nr;
+            const nextStage = stagesData.data?.find(
+              (stage: any) => stage.order_nr === currentOrderNr + 1 && stage.pipeline_id === assessmentNeededStage.pipeline_id
+            );
+            
+            if (nextStage) {
+              console.log(`Moving deal ${dealId} to stage "${nextStage.name}" (ID: ${nextStage.id})`);
+              
+              const updateResponse = await fetch(
+                `https://${PIPEDRIVE_DOMAIN}/api/v1/deals/${dealId}?api_token=${user.token}`,
+                {
+                  method: 'PUT',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    stage_id: nextStage.id,
+                  }),
+                }
+              );
+              
+              if (updateResponse.ok) {
+                const updateData = await updateResponse.json();
+                console.log('Deal stage updated successfully:', updateData);
+              } else {
+                console.error('Failed to update deal stage:', await updateResponse.text());
+              }
+            } else {
+              console.log('No next stage found after "Assessment Needed"');
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error moving deal to next stage:', error);
+        // Don't fail the entire request if stage update fails
+      }
+
       return new Response(
         JSON.stringify({ success: true, data }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
