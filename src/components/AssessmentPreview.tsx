@@ -669,9 +669,9 @@ const TestimonialFilipSlide = () => (
 );
 
 const CommittedSlide = () => (
-  <div className="w-full h-full bg-gradient-to-br from-gray-900 via-slate-900 to-zinc-900 p-4 md:p-6 relative overflow-hidden flex flex-col">
-    {/* Modern layered background */}
-    <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 via-transparent to-purple-600/10"></div>
+  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] via-blue-900 to-[hsl(var(--venture-blue))] p-4 md:p-6 relative overflow-hidden flex flex-col">
+    {/* Modern layered background with Venture colors */}
+    <div className="absolute inset-0 bg-gradient-to-tr from-[hsl(var(--venture-blue))]/20 via-transparent to-blue-500/10"></div>
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-emerald-500/8 via-transparent to-transparent"></div>
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-amber-500/8 via-transparent to-transparent"></div>
     
@@ -691,12 +691,9 @@ const CommittedSlide = () => (
     }}></div>
     
     <div className="relative z-10 flex flex-col h-full pb-2">
-      {/* Header */}
-      <div className="text-center mb-2">
-        <div className="inline-block mb-1">
-          <div className="text-5xl md:text-7xl font-black bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent animate-scale-in drop-shadow-2xl">350+</div>
-        </div>
-        <h2 className="text-2xl md:text-4xl font-black bg-gradient-to-r from-yellow-400 via-white to-green-400 bg-clip-text text-transparent uppercase tracking-wide drop-shadow-lg mb-1">The Athlete First</h2>
+      {/* Header - Without 350+ */}
+      <div className="text-center mb-3">
+        <h2 className="text-2xl md:text-4xl font-black bg-gradient-to-r from-yellow-400 via-white to-green-400 bg-clip-text text-transparent uppercase tracking-wide drop-shadow-lg mb-2">The Athlete First</h2>
         <div className="flex items-center justify-center gap-2">
           <div className="h-0.5 w-12 bg-gradient-to-r from-transparent via-yellow-400 to-transparent rounded-full"></div>
           <div className="h-0.5 w-12 bg-gradient-to-r from-transparent via-green-400 to-transparent rounded-full"></div>
@@ -707,7 +704,7 @@ const CommittedSlide = () => (
       {/* Featured Athletes Grid */}
       <div className="flex-1 flex items-center justify-center px-2 py-2">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5 max-w-6xl w-full">
-          <div className="group relative overflow-hidden rounded-3xl shadow-2xl shadow-yellow-500/20 transform hover:scale-105 hover:-translate-y-2 transition-all duration-300 border-2 border-yellow-400/40 hover:border-yellow-400/80 bg-gradient-to-b from-gray-900 to-gray-950">
+          <div className="group relative overflow-hidden rounded-3xl shadow-2xl shadow-yellow-500/20 transform hover:scale-105 hover:-translate-y-2 transition-all duration-300 border-2 border-yellow-400/40 hover:border-yellow-400/80 bg-gradient-to-b from-[hsl(var(--venture-navy))]/80 to-blue-950">
             <div className="aspect-[3/4] relative">
               <img src={pedroBaischFinal} alt="Pedro Baisch" className="w-full h-full object-contain" />
               <div className="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-amber-500 text-black px-3 py-1.5 rounded-full text-xs font-black uppercase shadow-lg">Merrimack</div>
@@ -720,7 +717,7 @@ const CommittedSlide = () => (
             </div>
           </div>
           
-          <div className="group relative overflow-hidden rounded-3xl shadow-2xl shadow-green-500/20 transform hover:scale-105 hover:-translate-y-2 transition-all duration-300 border-2 border-green-400/40 hover:border-green-400/80 bg-gradient-to-b from-gray-900 to-gray-950">
+          <div className="group relative overflow-hidden rounded-3xl shadow-2xl shadow-green-500/20 transform hover:scale-105 hover:-translate-y-2 transition-all duration-300 border-2 border-green-400/40 hover:border-green-400/80 bg-gradient-to-b from-[hsl(var(--venture-navy))]/80 to-blue-950">
             <div className="aspect-[3/4] relative">
               <img src={miloPetersFinal} alt="Milo Peters" className="w-full h-full object-cover" />
               <div className="absolute top-4 right-4 bg-gradient-to-r from-green-400 to-emerald-500 text-black px-3 py-1.5 rounded-full text-xs font-black uppercase shadow-lg">Dartmouth</div>
@@ -734,7 +731,7 @@ const CommittedSlide = () => (
             </div>
           </div>
           
-          <div className="group relative overflow-hidden rounded-3xl shadow-2xl shadow-red-500/20 transform hover:scale-105 hover:-translate-y-2 transition-all duration-300 border-2 border-red-400/40 hover:border-red-400/80 bg-gradient-to-b from-gray-900 to-gray-950">
+          <div className="group relative overflow-hidden rounded-3xl shadow-2xl shadow-red-500/20 transform hover:scale-105 hover:-translate-y-2 transition-all duration-300 border-2 border-red-400/40 hover:border-red-400/80 bg-gradient-to-b from-[hsl(var(--venture-navy))]/80 to-blue-950">
             <div className="aspect-[3/4] relative">
               <img src={afonsoVaz} alt="Afonso Vaz" className="w-full h-full object-cover" />
               <div className="absolute top-4 right-4 bg-gradient-to-r from-red-400 to-rose-500 text-white px-3 py-1.5 rounded-full text-xs font-black uppercase shadow-lg">D&E</div>
@@ -749,9 +746,9 @@ const CommittedSlide = () => (
         </div>
       </div>
       
-      {/* Stats Bar - Moved up significantly */}
-      <div className="text-center mt-3">
-        <div className="inline-flex items-center gap-3 bg-gradient-to-r from-gray-800/80 via-gray-700/80 to-gray-800/80 backdrop-blur-md border border-white/20 rounded-full px-6 md:px-8 py-2 shadow-2xl">
+      {/* Stats Bar - Moved up more */}
+      <div className="text-center mt-6">
+        <div className="inline-flex items-center gap-3 bg-gradient-to-r from-[hsl(var(--venture-navy))]/80 via-[hsl(var(--venture-blue))]/80 to-[hsl(var(--venture-navy))]/80 backdrop-blur-md border border-white/20 rounded-full px-6 md:px-8 py-2 shadow-2xl">
           <div className="flex gap-1">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50"></div>
             <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse shadow-lg shadow-yellow-400/50" style={{ animationDelay: '0.2s' }}></div>
