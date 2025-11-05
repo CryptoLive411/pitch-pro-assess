@@ -486,29 +486,120 @@ const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
 );
 
 const DepartmentNotesSlide = ({ data }: { data: AssessmentData }) => (
-  <div className="w-full h-full bg-gradient-to-br from-white to-blue-50 relative overflow-hidden p-8 md:p-16">
-    <div className="h-full flex flex-col">
-      <div className="mb-6">
-        <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
-          DEPARTMENT ASSESSMENT
+  <div className="w-full h-full bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 relative overflow-hidden p-6 md:p-12">
+    {/* Decorative Background Elements */}
+    <div className="absolute top-10 right-10 w-64 h-64 opacity-5">
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="1" className="text-[hsl(var(--venture-navy))]" />
+        <path d="M50 5 L50 95 M5 50 L95 50" stroke="currentColor" strokeWidth="1" className="text-[hsl(var(--venture-navy))]" />
+      </svg>
+    </div>
+    <div className="absolute bottom-10 left-10 w-48 h-48 opacity-5">
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" fill="currentColor" className="text-[hsl(var(--venture-blue))]"/>
+      </svg>
+    </div>
+
+    <div className="h-full flex flex-col relative z-10">
+      {/* Header Section with Icon */}
+      <div className="mb-6 flex items-start gap-4">
+        <div className="flex-shrink-0 w-14 h-14 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-2xl flex items-center justify-center shadow-lg">
+          <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+          </svg>
         </div>
-        <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))]">
-          Venture Soccer Department
-          <br />
-          <span className="text-[hsl(var(--venture-blue))]">Recommendations</span>
-        </h2>
+        <div className="flex-1">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-gradient-to-r from-[hsl(var(--venture-blue))]/10 to-[hsl(var(--venture-navy))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-3 border border-[hsl(var(--venture-blue))]/20">
+            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+              <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm9.707 5.707a1 1 0 00-1.414-1.414L9 12.586l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+            </svg>
+            SCOUTING REPORT
+          </div>
+          <h2 className="text-2xl md:text-4xl font-black text-[hsl(var(--venture-navy))] leading-tight">
+            Department Assessment
+          </h2>
+          <p className="text-sm md:text-base text-[hsl(var(--venture-blue))] font-bold mt-1">
+            Professional Evaluation & Recommendations
+          </p>
+        </div>
       </div>
       
-      <div className="flex-1 bg-white rounded-2xl p-6 md:p-8 shadow-xl overflow-auto border border-gray-100">
-        <div className="space-y-4">
-          {data.departmentNotes.split('\n\n').map((paragraph, idx) => (
-            <div key={idx} className="flex gap-3 items-start group hover:bg-blue-50/50 p-3 rounded-lg transition-colors">
-              <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2 flex-shrink-0"></div>
-              <p className="text-sm md:text-base leading-relaxed text-gray-700">
-                {paragraph}
-              </p>
+      {/* Main Content Card with Scouting Report Theme */}
+      <div className="flex-1 relative overflow-hidden">
+        <div className="h-full bg-white rounded-2xl shadow-2xl border-2 border-blue-100 overflow-hidden">
+          {/* Top accent bar */}
+          <div className="h-2 bg-gradient-to-r from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-blue))] to-[hsl(var(--venture-navy))]"></div>
+          
+          <div className="p-6 md:p-8 h-[calc(100%-0.5rem)] overflow-auto">
+            {/* Report Header */}
+            <div className="flex items-center gap-3 mb-6 pb-4 border-b-2 border-dashed border-blue-200">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 text-xs text-gray-500 mb-1">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span>Prepared by Venture Soccer Department</span>
+                </div>
+                <h3 className="text-lg md:text-xl font-black text-[hsl(var(--venture-navy))]">
+                  Player Evaluation Summary
+                </h3>
+              </div>
+              <div className="flex-shrink-0 px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-lg border border-green-200">
+                ASSESSED
+              </div>
             </div>
-          ))}
+
+            {/* Notes Content with Enhanced Design */}
+            <div className="space-y-4">
+              {data.departmentNotes.split('\n\n').map((paragraph, idx) => (
+                <div 
+                  key={idx} 
+                  className="group relative"
+                >
+                  <div className="flex gap-4 items-start p-4 rounded-xl bg-gradient-to-r from-blue-50/50 to-transparent border-l-4 border-[hsl(var(--venture-blue))] hover:shadow-md hover:bg-blue-50/80 transition-all duration-200">
+                    {/* Icon/Number Badge */}
+                    <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-[hsl(var(--venture-blue))]/20 to-[hsl(var(--venture-navy))]/10 rounded-lg flex items-center justify-center border border-[hsl(var(--venture-blue))]/30">
+                      <span className="text-[hsl(var(--venture-blue))] font-black text-sm">{idx + 1}</span>
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="flex-1 pt-1">
+                      <p className="text-sm md:text-base leading-relaxed text-gray-700 font-medium">
+                        {paragraph}
+                      </p>
+                    </div>
+
+                    {/* Checkmark indicator */}
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[hsl(var(--venture-blue))]/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg className="w-3 h-3 text-[hsl(var(--venture-blue))]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Signature/Seal */}
+            <div className="mt-8 pt-6 border-t-2 border-dashed border-blue-200 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-[hsl(var(--venture-navy))]">Official Assessment</p>
+                  <p className="text-xs text-gray-500">Venture USA Soccer Department</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-xs font-bold text-[hsl(var(--venture-blue))]">Recruitment Ready</p>
+                <p className="text-xs text-gray-500">Verified Evaluation</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
