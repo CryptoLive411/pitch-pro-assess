@@ -1318,40 +1318,168 @@ const PackagesSlide = () => {
   );
 };
 
-const TimelineSlide = () => (
-  <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 p-8 md:p-16">
-    <div className="h-full flex flex-col">
-      <div className="mb-8">
-        <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
-          YOUR JOURNEY
-        </div>
-        <h2 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))] uppercase mb-2">Step by Step</h2>
-        <p className="text-xl font-bold text-[hsl(var(--venture-blue))]">2025 - 2027</p>
+const TimelineSlide = () => {
+  const [showInfo, setShowInfo] = useState<string | null>(null);
+  
+  const steps = [
+    {
+      id: 'start',
+      name: 'Start Process',
+      description: 'Initial consultation to understand your goals, assess your profile, and create a personalized roadmap for your college soccer journey.',
+      timeframe: 'Week 1-2'
+    },
+    {
+      id: 'coach',
+      name: 'Coach Meetings',
+      description: 'Direct connections with college coaches across multiple divisions, introducing your athletic and academic profile to programs that match your goals.',
+      timeframe: 'Month 1-3'
+    },
+    {
+      id: 'video',
+      name: 'Video Editing',
+      description: 'Professional editing of your soccer highlight videos to showcase your skills, positioning, and game intelligence to college coaches.',
+      timeframe: 'Month 1-2'
+    },
+    {
+      id: 'recruitment',
+      name: 'Active Recruitment',
+      description: 'Ongoing communication with college coaches, managing interest from programs, and coordinating campus visits or virtual meetings.',
+      timeframe: 'Month 2-8'
+    },
+    {
+      id: 'transcript',
+      name: 'Transcript Evaluation',
+      description: 'Complete academic evaluation and transcript preparation to meet NCAA eligibility requirements and university admission standards.',
+      timeframe: 'Month 3-4'
+    },
+    {
+      id: 'connections',
+      name: 'University Connections',
+      description: 'Building strong relationships with universities that are the best fit for your athletic ability, academic interests, and scholarship needs.',
+      timeframe: 'Month 4-8'
+    },
+    {
+      id: 'applications',
+      name: 'Applications Submitted',
+      description: 'Complete and submit applications to selected universities with all required documents, essays, and supporting materials.',
+      timeframe: 'Month 6-9'
+    },
+    {
+      id: 'travel',
+      name: 'Travel Preparation',
+      description: 'Visa processing, flight arrangements, accommodation planning, and all logistics for your move to the United States.',
+      timeframe: 'Month 10-12'
+    },
+    {
+      id: 'journey',
+      name: 'Start College Journey',
+      description: 'Arrival at your university, orientation, meeting your team, and beginning your college soccer and academic career in the USA.',
+      timeframe: 'August'
+    }
+  ];
+
+  return (
+    <div className="w-full h-full bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 p-6 md:p-8 relative overflow-hidden">
+      {/* Subtle background patterns */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[hsl(var(--venture-blue))]/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[hsl(var(--venture-navy))]/10 rounded-full blur-3xl"></div>
       </div>
-      
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 content-start">
-        {[
-          "Start Process",
-          "Coach Meetings",
-          "Video Editing",
-          "Active Recruitment",
-          "Transcript Evaluation",
-          "University Connections",
-          "Applications Submitted",
-          "Travel Preparation",
-          "Start College Journey"
-        ].map((step,i)=>(
-          <div key={i} className="group bg-white rounded-xl p-4 md:p-5 flex items-center gap-4 shadow-sm hover:shadow-lg border-l-4 border-[hsl(var(--venture-blue))] transition-all hover:scale-105">
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-full flex items-center justify-center text-base md:text-lg font-black shadow-lg flex-shrink-0">
-              {i+1}
+
+      <div className="relative z-10 h-full flex flex-col">
+        {/* Header with Logo */}
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <div className="inline-block px-3 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-2">
+              YOUR JOURNEY
             </div>
-            <span className="text-sm md:text-base font-bold text-gray-700">{step}</span>
+            <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
+              Step by Step
+            </h2>
+            <p className="text-sm text-gray-600 mt-1">2025 - 2027 Timeline</p>
           </div>
-        ))}
+          <img 
+            src={ventureLogoCircle} 
+            alt="Venture USA" 
+            className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-90" 
+          />
+        </div>
+        
+        {/* Timeline Steps */}
+        <div className="flex-1 overflow-y-auto pr-2 pb-2">
+          <div className="relative">
+            {/* Vertical timeline line */}
+            <div className="absolute left-[18px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-blue))] to-[hsl(var(--venture-navy))]"></div>
+            
+            <div className="space-y-3">
+              {steps.map((step, index) => (
+                <div key={step.id} className="relative pl-12">
+                  {/* Timeline dot */}
+                  <div className="absolute left-0 top-3 w-9 h-9 rounded-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] flex items-center justify-center text-white font-black text-xs shadow-lg z-10">
+                    {index + 1}
+                  </div>
+                  
+                  {/* Step card */}
+                  <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border-l-4 border-[hsl(var(--venture-blue))]">
+                    <div className="p-3 md:p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1">
+                          <h3 className="text-base md:text-lg font-black text-[hsl(var(--venture-navy))] mb-1">
+                            {step.name}
+                          </h3>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-gray-500 font-semibold">{step.timeframe}</span>
+                          </div>
+                        </div>
+                        
+                        {/* Info button */}
+                        <button
+                          onClick={() => setShowInfo(showInfo === step.id ? null : step.id)}
+                          className="flex-shrink-0 w-7 h-7 rounded-full bg-[hsl(var(--venture-blue))]/10 hover:bg-[hsl(var(--venture-blue))]/20 flex items-center justify-center transition-all duration-200"
+                        >
+                          <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            className="h-4 w-4 text-[hsl(var(--venture-blue))]" 
+                            viewBox="0 0 20 20" 
+                            fill="currentColor"
+                          >
+                            <path 
+                              fillRule="evenodd" 
+                              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" 
+                              clipRule="evenodd" 
+                            />
+                          </svg>
+                        </button>
+                      </div>
+
+                      {/* Info panel */}
+                      {showInfo === step.id && (
+                        <div className="mt-3">
+                          <div className="bg-gradient-to-r from-[hsl(var(--venture-blue))]/10 to-blue-50 rounded-lg p-3 border-l-4 border-[hsl(var(--venture-blue))]">
+                            <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
+                              {step.description}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Footer note */}
+        <div className="mt-3 bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-gray-200">
+          <p className="text-xs md:text-sm text-gray-600 text-center">
+            <span className="font-bold text-[hsl(var(--venture-navy))]">Timeline may vary</span> based on individual circumstances and university schedules.
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const ContactSlide = () => (
   <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] relative overflow-hidden flex items-center justify-center">
