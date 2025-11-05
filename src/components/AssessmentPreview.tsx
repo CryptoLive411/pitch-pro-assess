@@ -272,21 +272,11 @@ const RecommendationSlide = ({ data }: { data: AssessmentData }) => (
         </h2>
         
         <div className="flex flex-wrap justify-center gap-4 mb-8">
-          {data.targetDivisions.naia && (
-            <div className="px-8 py-4 bg-white text-[hsl(var(--venture-navy))] rounded-2xl shadow-xl font-black text-2xl md:text-3xl transform hover:scale-105 transition-transform">
-              NAIA
+          {data.targetDivisions.map((division) => (
+            <div key={division} className="px-8 py-4 bg-white text-[hsl(var(--venture-navy))] rounded-2xl shadow-xl font-black text-2xl md:text-3xl transform hover:scale-105 transition-transform">
+              {division}
             </div>
-          )}
-          {data.targetDivisions.ncaa && (
-            <div className="px-8 py-4 bg-white text-[hsl(var(--venture-navy))] rounded-2xl shadow-xl font-black text-2xl md:text-3xl transform hover:scale-105 transition-transform">
-              NCAA
-            </div>
-          )}
-          {data.targetDivisions.jucaa && (
-            <div className="px-8 py-4 bg-white text-[hsl(var(--venture-navy))] rounded-2xl shadow-xl font-black text-2xl md:text-3xl transform hover:scale-105 transition-transform">
-              JUCAA
-            </div>
-          )}
+          ))}
         </div>
         
         <p className="text-xl md:text-2xl text-white/90 font-semibold">
@@ -313,81 +303,35 @@ const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
         </h2>
       </div>
       
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* NAIA */}
-        <div className={`group relative overflow-hidden rounded-2xl p-8 transition-all duration-300 ${
-          data.targetDivisions.naia 
-            ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-105' 
-            : 'bg-white shadow-lg hover:shadow-xl'
-        }`}>
-          <div className="text-center space-y-6">
-            <div className={`w-20 h-20 mx-auto rounded-2xl flex items-center justify-center text-4xl font-black transition-colors ${
-              data.targetDivisions.naia 
-                ? 'bg-white/20 text-white' 
-                : 'bg-gray-100 text-gray-400'
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {["NCAA D1", "NCAA D2", "NCAA D3", "NAIA D1", "NAIA D2", "JUCO", "Gap Year"].map((division) => {
+          const isSelected = data.targetDivisions.includes(division);
+          return (
+            <div key={division} className={`group relative overflow-hidden rounded-2xl p-8 transition-all duration-300 ${
+              isSelected
+                ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-105' 
+                : 'bg-white shadow-lg hover:shadow-xl'
             }`}>
-              {data.targetDivisions.naia ? '✓' : ''}
+              <div className="text-center space-y-6">
+                <div className={`w-20 h-20 mx-auto rounded-2xl flex items-center justify-center text-4xl font-black transition-colors ${
+                  isSelected
+                    ? 'bg-white/20 text-white' 
+                    : 'bg-gray-100 text-gray-400'
+                }`}>
+                  {isSelected ? '✓' : ''}
+                </div>
+                <h3 className={`text-2xl md:text-3xl font-black ${
+                  isSelected ? 'text-white' : 'text-[hsl(var(--venture-navy))]'
+                }`}>
+                  {division}
+                </h3>
+                {isSelected && (
+                  <p className="text-white/80 text-sm">Recommended Division</p>
+                )}
+              </div>
             </div>
-            <h3 className={`text-3xl md:text-4xl font-black ${
-              data.targetDivisions.naia ? 'text-white' : 'text-[hsl(var(--venture-navy))]'
-            }`}>
-              NAIA
-            </h3>
-            {data.targetDivisions.naia && (
-              <p className="text-white/80 text-sm">Recommended Division</p>
-            )}
-          </div>
-        </div>
-
-        {/* NCAA */}
-        <div className={`group relative overflow-hidden rounded-2xl p-8 transition-all duration-300 ${
-          data.targetDivisions.ncaa 
-            ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-105' 
-            : 'bg-white shadow-lg hover:shadow-xl'
-        }`}>
-          <div className="text-center space-y-6">
-            <div className={`w-20 h-20 mx-auto rounded-2xl flex items-center justify-center text-4xl font-black transition-colors ${
-              data.targetDivisions.ncaa 
-                ? 'bg-white/20 text-white' 
-                : 'bg-gray-100 text-gray-400'
-            }`}>
-              {data.targetDivisions.ncaa ? '✓' : ''}
-            </div>
-            <h3 className={`text-3xl md:text-4xl font-black ${
-              data.targetDivisions.ncaa ? 'text-white' : 'text-[hsl(var(--venture-navy))]'
-            }`}>
-              NCAA
-            </h3>
-            {data.targetDivisions.ncaa && (
-              <p className="text-white/80 text-sm">Recommended Division</p>
-            )}
-          </div>
-        </div>
-
-        {/* JUCAA */}
-        <div className={`group relative overflow-hidden rounded-2xl p-8 transition-all duration-300 ${
-          data.targetDivisions.jucaa 
-            ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-105' 
-            : 'bg-white shadow-lg hover:shadow-xl'
-        }`}>
-          <div className="text-center space-y-6">
-            <div className={`w-20 h-20 mx-auto rounded-2xl flex items-center justify-center text-4xl font-black transition-colors ${
-              data.targetDivisions.jucaa 
-                ? 'bg-white/20 text-white' 
-                : 'bg-gray-100 text-gray-400'
-            }`}>
-              {data.targetDivisions.jucaa ? '✓' : ''}
-            </div>
-            <h3 className={`text-3xl md:text-4xl font-black ${
-              data.targetDivisions.jucaa ? 'text-white' : 'text-[hsl(var(--venture-navy))]'
-            }`}>
-              JUCAA
-            </h3>
-            {data.targetDivisions.jucaa && (
-              <p className="text-white/80 text-sm">Recommended Division</p>
-            )}
-          </div>
-        </div>
+          );
+        })}
       </div>
     </div>
   </div>

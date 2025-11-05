@@ -15,11 +15,7 @@ export interface AssessmentData {
   manager: string;
   departmentNotes: string;
   playerPhoto: string | null;
-  targetDivisions: {
-    naia: boolean;
-    ncaa: boolean;
-    jucaa: boolean;
-  };
+  targetDivisions: string[]; // Array of selected divisions
 }
 
 interface AssessmentEditorProps {
@@ -144,52 +140,39 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
 
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-foreground">Target Divisions</h3>
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="naia"
-                checked={data.targetDivisions.naia}
-                onCheckedChange={(checked) =>
-                  onChange({
-                    ...data,
-                    targetDivisions: { ...data.targetDivisions, naia: checked as boolean },
-                  })
-                }
-              />
-              <label htmlFor="naia" className="text-sm font-medium leading-none cursor-pointer">
-                NAIA
-              </label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="ncaa"
-                checked={data.targetDivisions.ncaa}
-                onCheckedChange={(checked) =>
-                  onChange({
-                    ...data,
-                    targetDivisions: { ...data.targetDivisions, ncaa: checked as boolean },
-                  })
-                }
-              />
-              <label htmlFor="ncaa" className="text-sm font-medium leading-none cursor-pointer">
-                NCAA
-              </label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="jucaa"
-                checked={data.targetDivisions.jucaa}
-                onCheckedChange={(checked) =>
-                  onChange({
-                    ...data,
-                    targetDivisions: { ...data.targetDivisions, jucaa: checked as boolean },
-                  })
-                }
-              />
-              <label htmlFor="jucaa" className="text-sm font-medium leading-none cursor-pointer">
-                JUCAA
-              </label>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {[
+              "NCAA D1",
+              "NCAA D2",
+              "NCAA D3",
+              "NAIA D1",
+              "NAIA D2",
+              "JUCO",
+              "Gap Year"
+            ].map((division) => (
+              <div key={division} className="flex items-center space-x-2">
+                <Checkbox
+                  id={division}
+                  checked={data.targetDivisions.includes(division)}
+                  onCheckedChange={(checked) => {
+                    if (checked) {
+                      onChange({
+                        ...data,
+                        targetDivisions: [...data.targetDivisions, division],
+                      });
+                    } else {
+                      onChange({
+                        ...data,
+                        targetDivisions: data.targetDivisions.filter((d) => d !== division),
+                      });
+                    }
+                  }}
+                />
+                <label htmlFor={division} className="text-sm font-medium leading-none cursor-pointer">
+                  {division}
+                </label>
+              </div>
+            ))}
           </div>
         </div>
       </Card>
