@@ -146,19 +146,67 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
 const CoverSlide = ({ data }: { data: AssessmentData }) => {
   // D1 Universities for the ticker
   const d1Universities = [
-    "STANFORD", "UCLA", "DUKE", "UNC", "GEORGETOWN", "SYRACUSE", 
-    "INDIANA", "MICHIGAN", "MARYLAND", "NOTRE DAME", "VIRGINIA", 
-    "WAKE FOREST", "CLEMSON", "FLORIDA STATE", "PENN STATE", "OHIO STATE",
-    "USC", "WASHINGTON", "WISCONSIN", "BOSTON COLLEGE", "DARTMOUTH"
+    { name: "Stanford", abbr: "SU", color: "bg-red-800" },
+    { name: "UCLA", abbr: "UCLA", color: "bg-blue-600" },
+    { name: "Duke", abbr: "DU", color: "bg-blue-800" },
+    { name: "UNC", abbr: "UNC", color: "bg-sky-500" },
+    { name: "Georgetown", abbr: "GU", color: "bg-slate-700" },
+    { name: "Syracuse", abbr: "SYR", color: "bg-orange-600" },
+    { name: "Indiana", abbr: "IU", color: "bg-red-700" },
+    { name: "Michigan", abbr: "UM", color: "bg-blue-700" },
+    { name: "Maryland", abbr: "UMD", color: "bg-red-600" },
+    { name: "Notre Dame", abbr: "ND", color: "bg-green-800" },
+    { name: "Virginia", abbr: "UVA", color: "bg-orange-700" },
+    { name: "Wake Forest", abbr: "WF", color: "bg-yellow-600" },
+    { name: "Clemson", abbr: "CU", color: "bg-orange-600" },
+    { name: "Florida State", abbr: "FSU", color: "bg-amber-700" },
+    { name: "Penn State", abbr: "PSU", color: "bg-blue-900" },
+    { name: "Ohio State", abbr: "OSU", color: "bg-red-700" },
+    { name: "USC", abbr: "USC", color: "bg-red-800" },
+    { name: "Washington", abbr: "UW", color: "bg-purple-700" },
+    { name: "Wisconsin", abbr: "UW", color: "bg-red-800" },
+    { name: "Boston College", abbr: "BC", color: "bg-amber-800" },
   ];
   
   return (
     <div className="w-full h-full relative bg-gradient-to-br from-gray-100 via-blue-50 to-cyan-50 overflow-hidden">
+      {/* University Logo Ticker at Top */}
+      <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-[hsl(var(--venture-navy))] via-blue-900 to-[hsl(var(--venture-navy))] py-4 overflow-hidden shadow-lg">
+        <div className="flex animate-scroll">
+          {/* First set of universities */}
+          {d1Universities.map((uni, idx) => (
+            <div 
+              key={`uni-1-${idx}`}
+              className="flex-shrink-0 mx-3 group hover:scale-110 transition-transform duration-300"
+            >
+              <div className={`${uni.color} w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg border-2 border-white/30 backdrop-blur-sm`}>
+                <span className="text-white font-black text-xs md:text-sm">
+                  {uni.abbr}
+                </span>
+              </div>
+            </div>
+          ))}
+          {/* Duplicate set for seamless loop */}
+          {d1Universities.map((uni, idx) => (
+            <div 
+              key={`uni-2-${idx}`}
+              className="flex-shrink-0 mx-3 group hover:scale-110 transition-transform duration-300"
+            >
+              <div className={`${uni.color} w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-lg border-2 border-white/30 backdrop-blur-sm`}>
+                <span className="text-white font-black text-xs md:text-sm">
+                  {uni.abbr}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
       {/* Decorative curved shape */}
       <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[hsl(var(--venture-navy))] rounded-full opacity-10"></div>
       <div className="absolute -top-20 -right-20 w-96 h-96 bg-[hsl(var(--venture-blue))] rounded-full opacity-10"></div>
       
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-8">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 pt-20">
         {/* Venture Logo with Glow Effect */}
         <div className="mb-8 relative group animate-scale-in">
           {/* Glowing rings */}
@@ -196,34 +244,6 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
         )}
       </div>
       
-      {/* University Logo Ticker at Bottom */}
-      <div className="absolute bottom-0 left-0 right-0 bg-[hsl(var(--venture-navy))] py-3 overflow-hidden">
-        <div className="flex animate-scroll">
-          {/* First set of universities */}
-          {d1Universities.map((uni, idx) => (
-            <div 
-              key={`uni-1-${idx}`}
-              className="flex-shrink-0 mx-4 md:mx-6 px-4 md:px-6 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg"
-            >
-              <span className="text-white font-black text-sm md:text-base tracking-wider whitespace-nowrap">
-                {uni}
-              </span>
-            </div>
-          ))}
-          {/* Duplicate set for seamless loop */}
-          {d1Universities.map((uni, idx) => (
-            <div 
-              key={`uni-2-${idx}`}
-              className="flex-shrink-0 mx-4 md:mx-6 px-4 md:px-6 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg"
-            >
-              <span className="text-white font-black text-sm md:text-base tracking-wider whitespace-nowrap">
-                {uni}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-      
       <style>{`
         @keyframes scroll {
           0% {
@@ -234,7 +254,10 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
           }
         }
         .animate-scroll {
-          animation: scroll 60s linear infinite;
+          animation: scroll 40s linear infinite;
+        }
+        .animate-scroll:hover {
+          animation-play-state: paused;
         }
       `}</style>
     </div>
