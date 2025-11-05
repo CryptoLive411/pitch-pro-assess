@@ -67,7 +67,16 @@ const Preview = () => {
     return null;
   }
 
-  return <AssessmentPreview data={data} onBack={() => navigate("/", { state: { preservedData: data } })} />;
+  // If accessed via slug (custom link), hide the back button
+  const isPublicView = !!slug;
+
+  return (
+    <AssessmentPreview 
+      data={data} 
+      onBack={() => navigate("/", { state: { preservedData: data } })}
+      isPublicView={isPublicView}
+    />
+  );
 };
 
 export default Preview;

@@ -30,9 +30,10 @@ import ucIrvineLogo from "@/assets/logos/uc-irvine.png";
 interface AssessmentPreviewProps {
   data: AssessmentData;
   onBack: () => void;
+  isPublicView?: boolean;
 }
 
-export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
+export const AssessmentPreview = ({ data, onBack, isPublicView = false }: AssessmentPreviewProps) => {
   const location = useLocation();
   const initialSlide = location.state?.returnToSlide ?? 0;
   const [currentSlide, setCurrentSlide] = useState(initialSlide);
@@ -64,28 +65,30 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Top Navigation */}
-      <div className="print:hidden bg-[hsl(var(--venture-navy))] text-white p-2 md:p-4 sticky top-0 z-50 shadow-xl">
-        <div className="container mx-auto flex items-center justify-between gap-2">
-          <Button 
-            onClick={onBack} 
-            className="gap-1 md:gap-2 text-xs md:text-sm bg-white/10 hover:bg-white/20 border border-white/20 px-2 md:px-4 py-1 md:py-2"
-          >
-            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
-            <span className="hidden sm:inline">Back to Editor</span>
-            <span className="sm:hidden">Back</span>
-          </Button>
-          <div className="flex items-center gap-2 md:gap-4">
-            <span className="text-xs md:text-sm font-semibold tracking-wide">
-              <span className="hidden sm:inline">{slides[currentSlide].title} • </span>
-              {currentSlide + 1} / {slides.length}
-            </span>
+      {/* Top Navigation - Only show for editors, not public viewers */}
+      {!isPublicView && (
+        <div className="print:hidden bg-[hsl(var(--venture-navy))] text-white p-2 md:p-4 sticky top-0 z-50 shadow-xl">
+          <div className="container mx-auto flex items-center justify-between gap-2">
+            <Button 
+              onClick={onBack} 
+              className="gap-1 md:gap-2 text-xs md:text-sm bg-white/10 hover:bg-white/20 border border-white/20 px-2 md:px-4 py-1 md:py-2"
+            >
+              <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
+              <span className="hidden sm:inline">Back to Editor</span>
+              <span className="sm:hidden">Back</span>
+            </Button>
+            <div className="flex items-center gap-2 md:gap-4">
+              <span className="text-xs md:text-sm font-semibold tracking-wide">
+                <span className="hidden sm:inline">{slides[currentSlide].title} • </span>
+                {currentSlide + 1} / {slides.length}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Slide Container */}
-      <div className="relative flex items-center justify-center min-h-[calc(100vh-72px)] p-2 md:p-4 lg:p-8">
+      <div className={`relative flex items-center justify-center ${isPublicView ? 'min-h-screen' : 'min-h-[calc(100vh-72px)]'} p-2 md:p-4 lg:p-8`}>
         {/* Previous Button */}
         <Button
           variant="ghost"
@@ -127,21 +130,23 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
         </Button>
       </div>
 
-      {/* Slide Indicators */}
-      <div className="print:hidden flex justify-center gap-2 pb-8">
-        {slides.map((slide, idx) => (
-          <button
-            key={idx}
-            title={slide.title}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              idx === currentSlide 
-                ? "bg-[hsl(var(--venture-navy))] w-8" 
-                : "bg-gray-300 w-2 hover:bg-gray-400"
-            }`}
-            onClick={() => setCurrentSlide(idx)}
-          />
-        ))}
-      </div>
+      {/* Slide Indicators - Only show for editors, not public viewers */}
+      {!isPublicView && (
+        <div className="print:hidden flex justify-center gap-2 pb-8">
+          {slides.map((slide, idx) => (
+            <button
+              key={idx}
+              title={slide.title}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                idx === currentSlide 
+                  ? "bg-[hsl(var(--venture-navy))] w-8" 
+                  : "bg-gray-300 w-2 hover:bg-gray-400"
+              }`}
+              onClick={() => setCurrentSlide(idx)}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
