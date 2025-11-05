@@ -179,31 +179,17 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => (
 );
 
 const PlayerInfoSlide = ({ data }: { data: AssessmentData }) => (
-  <div className="w-full h-full bg-gradient-to-br from-white via-blue-50 to-cyan-50 relative overflow-hidden">
-    {/* Enhanced Decorative elements */}
+  <div className="w-full h-full bg-gradient-to-br from-white to-blue-50 relative overflow-hidden">
+    {/* Decorative elements */}
     <div className="absolute top-0 right-0 w-1/3 h-full bg-[hsl(var(--venture-navy))] opacity-5 rounded-bl-[100px]"></div>
-    <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-[hsl(var(--venture-blue))] rounded-full opacity-10 blur-3xl animate-pulse"></div>
-    <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-[hsl(var(--venture-blue))] rounded-full opacity-5 blur-2xl"></div>
-    
-    {/* Floating dots */}
-    <div className="absolute top-10 right-20 w-3 h-3 bg-[hsl(var(--venture-blue))] rounded-full opacity-30 animate-pulse"></div>
-    <div className="absolute top-40 right-32 w-2 h-2 bg-[hsl(var(--venture-navy))] rounded-full opacity-20"></div>
-    <div className="absolute bottom-20 left-32 w-4 h-4 bg-[hsl(var(--venture-blue))] rounded-full opacity-20 animate-pulse"></div>
     
     <div className="relative z-10 flex flex-col md:flex-row items-center h-full px-8 md:px-16 py-8 gap-8">
-      {/* Player Photo with enhanced visuals */}
+      {/* Player Photo */}
       <div className="flex-1 flex justify-center items-center">
         {data.playerPhoto ? (
           <div className="relative group">
-            {/* Multiple glow layers */}
-            <div className="absolute inset-0 bg-[hsl(var(--venture-blue))] rounded-3xl blur-2xl opacity-20 group-hover:opacity-40 transition-opacity animate-pulse"></div>
-            <div className="absolute inset-0 bg-[hsl(var(--venture-navy))] rounded-3xl blur-xl opacity-10 scale-110"></div>
-            
-            {/* Corner accents */}
-            <div className="absolute -top-4 -left-4 w-20 h-20 border-t-4 border-l-4 border-[hsl(var(--venture-blue))] rounded-tl-3xl opacity-50"></div>
-            <div className="absolute -bottom-4 -right-4 w-20 h-20 border-b-4 border-r-4 border-[hsl(var(--venture-blue))] rounded-br-3xl opacity-50"></div>
-            
-            <div className="relative bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] p-2 rounded-3xl shadow-2xl group-hover:scale-105 transition-transform duration-300">
+            <div className="absolute inset-0 bg-[hsl(var(--venture-blue))] rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+            <div className="relative bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] p-2 rounded-3xl shadow-2xl">
               <img
                 src={data.playerPhoto}
                 alt={data.playerName}
@@ -212,64 +198,52 @@ const PlayerInfoSlide = ({ data }: { data: AssessmentData }) => (
             </div>
           </div>
         ) : (
-          <div className="relative group">
-            <div className="absolute inset-0 bg-[hsl(var(--venture-blue))] rounded-3xl blur-xl opacity-20"></div>
-            <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] p-2 rounded-3xl shadow-2xl">
-              <div className="w-64 h-80 md:w-80 md:h-96 bg-white/90 rounded-2xl flex items-center justify-center">
-                <span className="text-gray-400 text-lg font-semibold">Player Photo</span>
-              </div>
+          <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] p-2 rounded-3xl shadow-2xl">
+            <div className="w-64 h-80 md:w-80 md:h-96 bg-white/90 rounded-2xl flex items-center justify-center">
+              <span className="text-gray-400 text-lg font-semibold">Player Photo</span>
             </div>
           </div>
         )}
       </div>
 
-      {/* Player Info with enhanced cards */}
+      {/* Player Info */}
       <div className="flex-1 space-y-6">
-        <div className="space-y-2 animate-fade-in">
-          <div className="inline-block px-4 py-1 bg-gradient-to-r from-[hsl(var(--venture-blue))]/10 to-[hsl(var(--venture-navy))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-2 shadow-sm">
+        <div className="space-y-2">
+          <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-2">
             PLAYER PROFILE
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-[hsl(var(--venture-navy))] leading-tight">
             {data.playerName || "Player Name"}
           </h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-[hsl(var(--venture-blue))] to-transparent rounded-full"></div>
         </div>
         
         <div className="space-y-4 text-base md:text-lg">
-          <div className="group flex items-start gap-3 p-5 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 border-l-4 border-[hsl(var(--venture-blue))]">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[hsl(var(--venture-blue))] to-[hsl(var(--venture-navy))] flex items-center justify-center text-white font-black text-sm flex-shrink-0 shadow-lg">
-              📅
-            </div>
+          <div className="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2"></div>
             <div>
               <span className="font-bold text-[hsl(var(--venture-navy))]">Enrollment:</span>
               <p className="text-gray-700">{data.enrollmentYear || "August 2027"}</p>
             </div>
           </div>
           
-          <div className="group flex items-start gap-3 p-5 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 border-l-4 border-[hsl(var(--venture-blue))]">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[hsl(var(--venture-blue))] to-[hsl(var(--venture-navy))] flex items-center justify-center text-white font-black text-sm flex-shrink-0 shadow-lg">
-              🎓
-            </div>
+          <div className="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2"></div>
             <div>
               <span className="font-bold text-[hsl(var(--venture-navy))]">School Year:</span>
               <p className="text-gray-700">{data.schoolYear || "Freshman"}</p>
             </div>
           </div>
           
-          <div className="group flex items-start gap-3 p-5 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 border-l-4 border-[hsl(var(--venture-blue))]">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[hsl(var(--venture-blue))] to-[hsl(var(--venture-navy))] flex items-center justify-center text-white font-black text-sm flex-shrink-0 shadow-lg">
-              ⭐
-            </div>
+          <div className="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2"></div>
             <div>
               <span className="font-bold text-[hsl(var(--venture-navy))]">GPA:</span>
               <p className="text-gray-700">{data.gpa || "3.5+"}</p>
             </div>
           </div>
           
-          <div className="group flex items-start gap-3 p-5 bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 border-l-4 border-[hsl(var(--venture-blue))]">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[hsl(var(--venture-blue))] to-[hsl(var(--venture-navy))] flex items-center justify-center text-white font-black text-sm flex-shrink-0 shadow-lg">
-              👤
-            </div>
+          <div className="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2"></div>
             <div>
               <span className="font-bold text-[hsl(var(--venture-navy))]">Manager:</span>
               <p className="text-gray-700">{data.manager || "Venture Team"}</p>
