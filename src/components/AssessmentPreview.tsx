@@ -336,43 +336,139 @@ const RecommendationSlide = ({ data }: { data: AssessmentData }) => (
 );
 
 const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
-  <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 relative overflow-hidden p-8 md:p-16">
-    <div className="h-full flex flex-col">
-      <div className="mb-8">
-        <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
-          PLACEMENT TARGETS
+  <div className="w-full h-full bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden p-8 md:p-16">
+    {/* Soccer field lines pattern - subtle background */}
+    <div className="absolute inset-0 opacity-[0.03]">
+      {/* Horizontal lines */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-[hsl(var(--venture-navy))]"></div>
+      <div className="absolute top-1/4 left-0 right-0 h-px bg-[hsl(var(--venture-navy))]"></div>
+      <div className="absolute top-1/2 left-0 right-0 h-1 bg-[hsl(var(--venture-navy))]"></div>
+      <div className="absolute top-3/4 left-0 right-0 h-px bg-[hsl(var(--venture-navy))]"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-[hsl(var(--venture-navy))]"></div>
+      
+      {/* Center circle */}
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full border-2 border-[hsl(var(--venture-navy))]"></div>
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[hsl(var(--venture-navy))]"></div>
+      
+      {/* Corner arcs */}
+      <div className="absolute top-0 left-0 w-16 h-16 border-b-2 border-r-2 border-[hsl(var(--venture-navy))] rounded-br-full"></div>
+      <div className="absolute top-0 right-0 w-16 h-16 border-b-2 border-l-2 border-[hsl(var(--venture-navy))] rounded-bl-full"></div>
+      <div className="absolute bottom-0 left-0 w-16 h-16 border-t-2 border-r-2 border-[hsl(var(--venture-navy))] rounded-tr-full"></div>
+      <div className="absolute bottom-0 right-0 w-16 h-16 border-t-2 border-l-2 border-[hsl(var(--venture-navy))] rounded-tl-full"></div>
+    </div>
+    
+    {/* Floating soccer ball hexagons - decorative */}
+    <div className="absolute top-20 right-20 w-12 h-12 opacity-5">
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" fill="currentColor" className="text-[hsl(var(--venture-navy))]"/>
+      </svg>
+    </div>
+    <div className="absolute bottom-32 left-32 w-8 h-8 opacity-5">
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" fill="currentColor" className="text-[hsl(var(--venture-blue))]"/>
+      </svg>
+    </div>
+    
+    <div className="relative z-10 h-full flex flex-col">
+      {/* Header with soccer accent */}
+      <div className="mb-8 animate-fade-in">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full border border-[hsl(var(--venture-blue))]/20">
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 2a10 10 0 0 0 0 20"/>
+              <path d="M2 12h20"/>
+              <path d="M12 2C9.5 6 9.5 18 12 22"/>
+              <path d="M12 2c2.5 4 2.5 16 0 20"/>
+            </svg>
+            PLACEMENT TARGETS
+          </div>
         </div>
-        <h2 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))] uppercase">
+        <h2 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
           Target Divisions
         </h2>
+        <div className="w-24 h-1 bg-gradient-to-r from-[hsl(var(--venture-blue))] to-transparent rounded-full mt-3"></div>
       </div>
       
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {["NCAA D1", "NCAA D2", "NCAA D3", "NAIA D1", "NAIA D2", "JUCO", "Gap Year"].map((division) => {
+      {/* Division cards with enhanced soccer theme */}
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
+        {["NCAA D1", "NCAA D2", "NCAA D3", "NAIA D1", "NAIA D2", "JUCO", "Gap Year"].map((division, idx) => {
           const isSelected = data.targetDivisions.includes(division);
           return (
-            <div key={division} className={`group relative overflow-hidden rounded-2xl p-8 transition-all duration-300 ${
-              isSelected
-                ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-105' 
-                : 'bg-white shadow-lg hover:shadow-xl'
-            }`}>
-              <div className="text-center space-y-6">
-                <div className={`w-20 h-20 mx-auto rounded-2xl flex items-center justify-center text-4xl font-black transition-colors ${
-                  isSelected
-                    ? 'bg-white/20 text-white' 
-                    : 'bg-gray-100 text-gray-400'
-                }`}>
-                  {isSelected ? '✓' : ''}
+            <div 
+              key={division} 
+              className={`group relative overflow-hidden rounded-2xl transition-all duration-500 ${
+                isSelected
+                  ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-[1.02]' 
+                  : 'bg-white shadow-lg hover:shadow-2xl hover:scale-[1.02]'
+              }`}
+              style={{ animationDelay: `${idx * 50}ms` }}
+            >
+              {/* Field line pattern overlay for selected cards */}
+              {isSelected && (
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute top-1/2 left-0 right-0 h-px bg-white"></div>
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full border border-white"></div>
                 </div>
-                <h3 className={`text-2xl md:text-3xl font-black ${
-                  isSelected ? 'text-white' : 'text-[hsl(var(--venture-navy))]'
+              )}
+              
+              {/* Corner accent lines */}
+              <div className={`absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 rounded-tl-2xl transition-colors ${
+                isSelected ? 'border-white/30' : 'border-[hsl(var(--venture-blue))]/20'
+              }`}></div>
+              <div className={`absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 rounded-br-2xl transition-colors ${
+                isSelected ? 'border-white/30' : 'border-[hsl(var(--venture-blue))]/20'
+              }`}></div>
+              
+              {/* Glow effect for selected */}
+              {isSelected && (
+                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
+              )}
+              
+              <div className="relative p-8 text-center space-y-6">
+                {/* Icon container with soccer theme */}
+                <div className={`relative w-20 h-20 mx-auto rounded-2xl flex items-center justify-center text-4xl font-black transition-all duration-300 ${
+                  isSelected
+                    ? 'bg-white/20 text-white backdrop-blur-sm' 
+                    : 'bg-gradient-to-br from-gray-50 to-gray-100 text-gray-300 group-hover:from-[hsl(var(--venture-blue))]/5 group-hover:to-[hsl(var(--venture-blue))]/10'
+                }`}>
+                  {isSelected ? (
+                    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  ) : (
+                    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <path d="M12 2a10 10 0 0 0 0 20"/>
+                      <path d="M2 12h20"/>
+                    </svg>
+                  )}
+                </div>
+                
+                {/* Division name */}
+                <h3 className={`text-2xl md:text-3xl font-black transition-colors ${
+                  isSelected ? 'text-white' : 'text-[hsl(var(--venture-navy))] group-hover:text-[hsl(var(--venture-blue))]'
                 }`}>
                   {division}
                 </h3>
+                
+                {/* Status indicator */}
                 {isSelected && (
-                  <p className="text-white/80 text-sm">Recommended Division</p>
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                    <p className="text-white/90 text-sm font-semibold uppercase tracking-wider">Recommended</p>
+                  </div>
+                )}
+                
+                {!isSelected && (
+                  <div className="h-6"></div>
                 )}
               </div>
+              
+              {/* Hover effect overlay */}
+              {!isSelected && (
+                <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--venture-blue))]/0 to-[hsl(var(--venture-blue))]/0 group-hover:from-[hsl(var(--venture-blue))]/5 group-hover:to-[hsl(var(--venture-blue))]/10 transition-all duration-300 rounded-2xl"></div>
+              )}
             </div>
           );
         })}
