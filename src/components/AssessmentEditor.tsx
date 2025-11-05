@@ -27,6 +27,10 @@ interface AssessmentEditorProps {
   data: AssessmentData;
   onChange: (data: AssessmentData) => void;
   onPreview: () => void;
+  pipedriveInfo?: {
+    dealId: number;
+    userId: string;
+  } | null;
 }
 
 // Default template for department notes
@@ -47,7 +51,7 @@ Estimated annual budget: (BUDGET) (covering tuition, housing, meals, insurance, 
 Commitment to Placement:
 The Venture Soccer Department is confident in (NAME OF PLAYER)'s ability to compete, develop, and grow within the U.S. college system. We will support throughout the entire process—from initial placement to potential transfer opportunities at higher divisions.`;
 
-export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditorProps) => {
+export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: AssessmentEditorProps) => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isSaving, setIsSaving] = useState(false);
@@ -252,9 +256,11 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
                 <LinkIcon className="h-4 w-4" />
                 Copy Link
               </Button>
-              <Button onClick={() => setShowPipedriveDialog(true)} size="sm" className="gap-2">
-                Share to Pipedrive
-              </Button>
+              {pipedriveInfo && (
+                <Button onClick={() => setShowPipedriveDialog(true)} size="sm" className="gap-2">
+                  Share to Pipedrive
+                </Button>
+              )}
             </div>
           </div>
         </Card>
@@ -408,6 +414,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
         onOpenChange={setShowPipedriveDialog}
         assessmentLink={assessmentUrl || ""}
         playerName={currentPlayerName}
+        pipedriveInfo={pipedriveInfo}
       />
     </div>
   );

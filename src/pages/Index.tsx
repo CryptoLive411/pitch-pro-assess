@@ -20,6 +20,8 @@ const Index = () => {
       targetDivisions: [],
     }
   );
+  
+  const pipedriveInfo = location.state?.pipedriveInfo || null;
 
   const handlePreview = () => {
     navigate("/preview", { state: { data: assessmentData } });
@@ -42,6 +44,7 @@ const Index = () => {
           data={assessmentData}
           onChange={setAssessmentData}
           onPreview={handlePreview}
+          pipedriveInfo={pipedriveInfo}
         />
       </div>
     </div>
