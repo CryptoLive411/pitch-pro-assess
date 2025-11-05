@@ -44,34 +44,36 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
 
   // Auto-update department notes when player name, enrollment year, or divisions change
   useEffect(() => {
-    if (data.playerName || data.enrollmentYear || data.targetDivisions.length > 0) {
-      let updatedNotes = data.departmentNotes || DEFAULT_NOTES_TEMPLATE;
-      
-      // Replace player name
-      updatedNotes = updatedNotes.replace(/\(NAME OF PLAYER\)/g, data.playerName || "(NAME OF PLAYER)");
-      
-      // Replace enrollment year
-      updatedNotes = updatedNotes.replace(/\(ENROLLMENT YEAR\)/g, data.enrollmentYear || "(ENROLLMENT YEAR)");
-      
-      // Update division focus - create natural language list
-      if (data.targetDivisions.length > 0) {
-        let divisionText = '';
-        if (data.targetDivisions.length === 1) {
-          divisionText = data.targetDivisions[0] + ' teams';
-        } else if (data.targetDivisions.length === 2) {
-          divisionText = data.targetDivisions[0] + ' and ' + data.targetDivisions[1] + ' teams';
-        } else {
-          const lastDivision = data.targetDivisions[data.targetDivisions.length - 1];
-          const otherDivisions = data.targetDivisions.slice(0, -1).join(', ');
-          divisionText = otherDivisions + ', and ' + lastDivision + ' teams';
-        }
-        updatedNotes = updatedNotes.replace(/\(TARGET DIVISIONS\)/g, divisionText);
+    // Start with the template if notes are empty
+    let updatedNotes = data.departmentNotes || DEFAULT_NOTES_TEMPLATE;
+    
+    // Replace player name in all occurrences
+    updatedNotes = updatedNotes.replace(/\(NAME OF PLAYER\)/g, data.playerName || "(NAME OF PLAYER)");
+    
+    // Replace enrollment year
+    updatedNotes = updatedNotes.replace(/\(ENROLLMENT YEAR\)/g, data.enrollmentYear || "(ENROLLMENT YEAR)");
+    
+    // Update division focus - create natural language list
+    if (data.targetDivisions.length > 0) {
+      let divisionText = '';
+      if (data.targetDivisions.length === 1) {
+        divisionText = data.targetDivisions[0] + ' teams';
+      } else if (data.targetDivisions.length === 2) {
+        divisionText = data.targetDivisions[0] + ' and ' + data.targetDivisions[1] + ' teams';
+      } else {
+        const lastDivision = data.targetDivisions[data.targetDivisions.length - 1];
+        const otherDivisions = data.targetDivisions.slice(0, -1).join(', ');
+        divisionText = otherDivisions + ', and ' + lastDivision + ' teams';
       }
-      
-      // Only update if it changed
-      if (updatedNotes !== data.departmentNotes) {
-        onChange({ ...data, departmentNotes: updatedNotes });
-      }
+      updatedNotes = updatedNotes.replace(/\(TARGET DIVISIONS\)/g, divisionText);
+    } else {
+      // If no divisions selected, keep the placeholder
+      updatedNotes = updatedNotes.replace(/\(TARGET DIVISIONS\)/g, "(TARGET DIVISIONS)");
+    }
+    
+    // Only update if it changed to avoid infinite loops
+    if (updatedNotes !== data.departmentNotes) {
+      onChange({ ...data, departmentNotes: updatedNotes });
     }
   }, [data.playerName, data.enrollmentYear, data.targetDivisions]);
 
