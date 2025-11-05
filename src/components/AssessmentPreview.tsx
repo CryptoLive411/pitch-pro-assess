@@ -65,37 +65,39 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Top Navigation */}
-      <div className="print:hidden bg-[hsl(var(--venture-navy))] text-white p-4 sticky top-0 z-50 shadow-xl">
-        <div className="container mx-auto flex items-center justify-between">
+      <div className="print:hidden bg-[hsl(var(--venture-navy))] text-white p-2 md:p-4 sticky top-0 z-50 shadow-xl">
+        <div className="container mx-auto flex items-center justify-between gap-2">
           <Button 
             onClick={onBack} 
-            className="gap-2 bg-white/10 hover:bg-white/20 border border-white/20"
+            className="gap-1 md:gap-2 text-xs md:text-sm bg-white/10 hover:bg-white/20 border border-white/20 px-2 md:px-4 py-1 md:py-2"
           >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Editor
+            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
+            <span className="hidden sm:inline">Back to Editor</span>
+            <span className="sm:hidden">Back</span>
           </Button>
-          <div className="flex items-center gap-4">
-            <span className="text-sm font-semibold tracking-wide">
-              {slides[currentSlide].title} • {currentSlide + 1} / {slides.length}
+          <div className="flex items-center gap-2 md:gap-4">
+            <span className="text-xs md:text-sm font-semibold tracking-wide">
+              <span className="hidden sm:inline">{slides[currentSlide].title} • </span>
+              {currentSlide + 1} / {slides.length}
             </span>
           </div>
         </div>
       </div>
 
       {/* Slide Container */}
-      <div className="relative flex items-center justify-center min-h-[calc(100vh-72px)] p-4 md:p-8">
+      <div className="relative flex items-center justify-center min-h-[calc(100vh-72px)] p-2 md:p-4 lg:p-8">
         {/* Previous Button */}
         <Button
           variant="ghost"
           size="icon"
-          className="print:hidden absolute left-2 md:left-8 z-10 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur shadow-xl hover:bg-white hover:scale-110 transition-all duration-200"
+          className="print:hidden absolute left-1 md:left-4 lg:left-8 z-10 w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 rounded-full bg-white/90 backdrop-blur shadow-xl hover:bg-white hover:scale-110 transition-all duration-200"
           onClick={prevSlide}
         >
-          <ChevronLeft className="h-6 w-6 md:h-8 md:w-8 text-[hsl(var(--venture-navy))]" />
+          <ChevronLeft className="h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 text-[hsl(var(--venture-navy))]" />
         </Button>
 
-        {/* Slide Card with Animation */}
-        <div className="relative w-full max-w-7xl aspect-[16/9] bg-white rounded-xl md:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-3xl">
+        {/* Slide Card with Animation - flexible height on mobile, aspect ratio on desktop */}
+        <div className="relative w-full max-w-7xl min-h-[500px] md:aspect-[16/9] bg-white rounded-lg md:rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-3xl">
           <div className="w-full h-full animate-fade-in">
             {currentSlide === 0 && <CoverSlide data={data} />}
             {currentSlide === 1 && <PlayerInfoSlide data={data} />}
@@ -118,10 +120,10 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
         <Button
           variant="ghost"
           size="icon"
-          className="print:hidden absolute right-2 md:right-8 z-10 w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/90 backdrop-blur shadow-xl hover:bg-white hover:scale-110 transition-all duration-200"
+          className="print:hidden absolute right-1 md:right-4 lg:right-8 z-10 w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 rounded-full bg-white/90 backdrop-blur shadow-xl hover:bg-white hover:scale-110 transition-all duration-200"
           onClick={nextSlide}
         >
-          <ChevronRight className="h-6 w-6 md:h-8 md:w-8 text-[hsl(var(--venture-navy))]" />
+          <ChevronRight className="h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 text-[hsl(var(--venture-navy))]" />
         </Button>
       </div>
 
@@ -280,8 +282,8 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
       </div>
       
       {/* University Logo Ticker at Top - Continuous seamless scroll */}
-      <div className="absolute top-0 left-0 right-0 py-3 overflow-hidden border-b border-slate-200 bg-white shadow-sm z-20">
-        <div className="flex animate-scroll-continuous items-center gap-6">
+      <div className="absolute top-0 left-0 right-0 py-2 md:py-3 overflow-hidden border-b border-slate-200 bg-white shadow-sm z-20">
+        <div className="flex animate-scroll-continuous items-center gap-4 md:gap-6">
           {/* Repeat logos 4 times for truly seamless infinite scroll */}
           {[...Array(4)].map((_, setIdx) => (
             universityLogos.map((logo, idx) => (
@@ -292,7 +294,7 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
                 <img 
                   src={logo} 
                   alt={`University ${idx + 1}`}
-                  className="h-10 w-auto object-contain drop-shadow-sm opacity-80 hover:opacity-100"
+                  className="h-6 md:h-10 w-auto object-contain drop-shadow-sm opacity-80 hover:opacity-100"
                 />
               </div>
             ))
@@ -301,24 +303,24 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
       </div>
       
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 pt-20">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 md:px-8 pt-16 md:pt-20 py-8">
         {/* Venture Logo - Enhanced with Multiple Layers */}
-        <div className="mb-12 relative group">
+        <div className="mb-6 md:mb-12 relative group">
           {/* Outer glow ring - animated */}
-          <div className="absolute inset-0 w-32 h-32 md:w-40 md:h-40 mx-auto">
+          <div className="absolute inset-0 w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 mx-auto">
             <div className="absolute inset-0 rounded-full border-4 border-slate-900/20 animate-ping-slow"></div>
             <div className="absolute inset-0 rounded-full border-2 border-slate-900/10 animate-ping-slow" style={{animationDelay: '1s'}}></div>
           </div>
           
           {/* Shadow layers for depth */}
-          <div className="absolute inset-0 w-32 h-32 md:w-40 md:h-40 mx-auto">
+          <div className="absolute inset-0 w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 mx-auto">
             <div className="absolute inset-0 rounded-full bg-slate-900/5 blur-2xl transform translate-y-2"></div>
             <div className="absolute inset-0 rounded-full bg-slate-900/10 blur-xl"></div>
           </div>
           
           {/* Main logo container with gradient border */}
-          <div className="relative w-32 h-32 md:w-40 md:h-40 p-1 rounded-full bg-gradient-to-br from-slate-900 via-slate-700 to-slate-900 shadow-2xl group-hover:scale-105 transition-all duration-300">
-            <div className="w-full h-full rounded-full bg-white shadow-inner p-4 border-2 border-slate-100">
+          <div className="relative w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 p-1 rounded-full bg-gradient-to-br from-slate-900 via-slate-700 to-slate-900 shadow-2xl group-hover:scale-105 transition-all duration-300">
+            <div className="w-full h-full rounded-full bg-white shadow-inner p-3 md:p-4 border-2 border-slate-100">
               <img 
                 src={ventureLogoCircle} 
                 alt="Venture USA" 
@@ -328,45 +330,45 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
           </div>
           
           {/* Corner accents */}
-          <div className="absolute -top-2 -left-2 w-4 h-4 border-t-4 border-l-4 border-slate-900 opacity-30"></div>
-          <div className="absolute -top-2 -right-2 w-4 h-4 border-t-4 border-r-4 border-slate-900 opacity-30"></div>
-          <div className="absolute -bottom-2 -left-2 w-4 h-4 border-b-4 border-l-4 border-slate-900 opacity-30"></div>
-          <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-4 border-r-4 border-slate-900 opacity-30"></div>
+          <div className="absolute -top-2 -left-2 w-3 h-3 md:w-4 md:h-4 border-t-4 border-l-4 border-slate-900 opacity-30"></div>
+          <div className="absolute -top-2 -right-2 w-3 h-3 md:w-4 md:h-4 border-t-4 border-r-4 border-slate-900 opacity-30"></div>
+          <div className="absolute -bottom-2 -left-2 w-3 h-3 md:w-4 md:h-4 border-b-4 border-l-4 border-slate-900 opacity-30"></div>
+          <div className="absolute -bottom-2 -right-2 w-3 h-3 md:w-4 md:h-4 border-b-4 border-r-4 border-slate-900 opacity-30"></div>
         </div>
         
         {/* Title - Clean and Professional */}
-        <div className="mb-6 relative">
+        <div className="mb-4 md:mb-6 relative">
           {/* Subtle text shadow for depth */}
           <div className="absolute inset-0 blur-sm">
-            <h1 className="text-5xl md:text-7xl font-bold text-slate-300 text-center leading-tight mb-2">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-slate-300 text-center leading-tight mb-2">
               ASSESSMENT REPORT
             </h1>
           </div>
-          <h1 className="relative text-5xl md:text-7xl font-bold text-slate-900 text-center leading-tight mb-2">
+          <h1 className="relative text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-slate-900 text-center leading-tight mb-2 px-2">
             ASSESSMENT REPORT
           </h1>
-          <div className="relative h-1 w-48 mx-auto bg-gradient-to-r from-transparent via-slate-900 to-transparent rounded-full shadow-lg"></div>
+          <div className="relative h-0.5 md:h-1 w-32 md:w-48 mx-auto bg-gradient-to-r from-transparent via-slate-900 to-transparent rounded-full shadow-lg"></div>
         </div>
         
-        <p className="text-xl md:text-2xl text-slate-600 font-medium text-center mb-12 tracking-wide">
+        <p className="text-sm sm:text-base md:text-xl lg:text-2xl text-slate-600 font-medium text-center mb-6 md:mb-12 tracking-wide px-4">
           College Soccer Placement Consulting
         </p>
         
         {/* Player Name - Enhanced Professional Card */}
         {data.playerName && (
-          <div className="mt-4 relative group">
+          <div className="mt-2 md:mt-4 relative group w-full max-w-xl px-4">
             {/* Card shadow layers */}
             <div className="absolute inset-0 bg-slate-900/10 blur-xl rounded-lg transform translate-y-2"></div>
             <div className="absolute inset-0 bg-slate-900/5 blur-2xl rounded-lg transform translate-y-3"></div>
             
-            <div className="relative bg-gradient-to-br from-white via-white to-slate-50 rounded-lg border-2 border-slate-900 shadow-xl px-12 py-6 group-hover:scale-[1.02] transition-transform duration-300">
+            <div className="relative bg-gradient-to-br from-white via-white to-slate-50 rounded-lg border-2 border-slate-900 shadow-xl px-6 py-4 md:px-12 md:py-6 group-hover:scale-[1.02] transition-transform duration-300">
               {/* Corner decorations */}
-              <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-slate-900"></div>
-              <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-slate-900"></div>
-              <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-slate-900"></div>
-              <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-slate-900"></div>
+              <div className="absolute top-2 left-2 w-2 h-2 md:w-3 md:h-3 border-t-2 border-l-2 border-slate-900"></div>
+              <div className="absolute top-2 right-2 w-2 h-2 md:w-3 md:h-3 border-t-2 border-r-2 border-slate-900"></div>
+              <div className="absolute bottom-2 left-2 w-2 h-2 md:w-3 md:h-3 border-b-2 border-l-2 border-slate-900"></div>
+              <div className="absolute bottom-2 right-2 w-2 h-2 md:w-3 md:h-3 border-b-2 border-r-2 border-slate-900"></div>
               
-              <p className="relative text-3xl md:text-4xl font-bold text-slate-900 text-center uppercase tracking-wide">
+              <p className="relative text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-slate-900 text-center uppercase tracking-wide break-words">
                 {data.playerName}
               </p>
             </div>
