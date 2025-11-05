@@ -215,7 +215,7 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
       </div>
       
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center justify-start h-full px-8 pt-24 pb-32">
+      <div className="relative z-10 flex flex-col items-center justify-start h-full px-8 pt-24 pb-40">
         {/* Venture Logo with holographic glow */}
         <div className="mt-8 mb-6 relative group">
           {/* Animated holographic rings */}
