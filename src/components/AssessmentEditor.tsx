@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Upload, Eye } from "lucide-react";
+import { Upload, Eye, Save, Link as LinkIcon } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 export interface AssessmentData {
   playerName: string;
@@ -24,7 +26,133 @@ interface AssessmentEditorProps {
   onPreview: () => void;
 }
 
+// Default template for department notes
+const DEFAULT_NOTES_TEMPLATE = `The Venture Soccer Department believes (NAME OF PLAYER) has the ability to successfully compete at the college level.
+
+(NAME OF PLAYER) is a versatile player who has a good game understanding. He reads the game well and could fulfill multiple roles on the field.
+
+We recommend (NAME OF PLAYER) for the following Divisions:
+- Focus on NAIA teams with a strong roster.
+
+It is important that (NAME OF PLAYER) picks the right environment and team to continue his development.`;
+
 export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditorProps) => {
+  const { toast } = useToast();
+  const [isSaving, setIsSaving] = useState(false);
+  const [assessmentUrl, setAssessmentUrl] = useState<string | null>(null);
+
+  // Auto-update department notes when player name or divisions change
+  useEffect(() => {
+    if (data.playerName || data.targetDivisions.length > 0) {
+      let updatedNotes = data.departmentNotes || DEFAULT_NOTES_TEMPLATE;
+      
+      // Replace player name
+      updatedNotes = updatedNotes.replace(/\(NAME OF PLAYER\)/g, data.playerName || "(NAME OF PLAYER)");
+      
+      // Update division focus
+      if (data.targetDivisions.length > 0) {
+        const divisionText = data.targetDivisions.map(d => `- Focus on ${d} teams with a strong roster.`).join('\n');
+        updatedNotes = updatedNotes.replace(/- Focus on NAIA teams with a strong roster\./g, divisionText);
+      }
+      
+      // Only update if it changed
+      if (updatedNotes !== data.departmentNotes) {
+        onChange({ ...data, departmentNotes: updatedNotes });
+      }
+    }
+  }, [data.playerName, data.targetDivisions]);
+
+  // Create URL-friendly slug from player name
+  const createSlug = (name: string) => {
+    return name
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-');
+  };
+
+  const handleSave = async () => {
+    if (!data.playerName.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter a player name before saving",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      const slug = createSlug(data.playerName);
+      
+      // Check if assessment already exists
+      const { data: existing } = await supabase
+        .from('assessments')
+        .select('id')
+        .eq('player_name_slug', slug)
+        .maybeSingle();
+
+      const assessmentData = {
+        player_name: data.playerName,
+        player_name_slug: slug,
+        player_photo: data.playerPhoto,
+        grad_year: data.enrollmentYear,
+        nationality: '', // Add nationality field if needed
+        current_level: data.schoolYear,
+        height: '', // Add height field if needed
+        gpa: data.gpa,
+        position: '', // Add position field if needed
+        target_divisions: data.targetDivisions,
+        recommendation: data.manager,
+        department_notes: data.departmentNotes
+      };
+
+      if (existing) {
+        // Update existing assessment
+        const { error } = await supabase
+          .from('assessments')
+          .update(assessmentData)
+          .eq('id', existing.id);
+
+        if (error) throw error;
+      } else {
+        // Insert new assessment
+        const { error } = await supabase
+          .from('assessments')
+          .insert(assessmentData);
+
+        if (error) throw error;
+      }
+
+      const url = `${window.location.origin}/ventureassessment/${slug}`;
+      setAssessmentUrl(url);
+
+      toast({
+        title: "Success!",
+        description: "Assessment saved successfully",
+      });
+    } catch (error) {
+      console.error('Error saving assessment:', error);
+      toast({
+        title: "Error",
+        description: "Failed to save assessment. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const copyUrlToClipboard = () => {
+    if (assessmentUrl) {
+      navigator.clipboard.writeText(assessmentUrl);
+      toast({
+        title: "Copied!",
+        description: "Assessment URL copied to clipboard",
+      });
+    }
+  };
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -38,13 +166,34 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
 
   return (
     <div className="space-y-6 p-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-4">
         <h2 className="text-2xl font-bold text-primary">Assessment Editor</h2>
-        <Button onClick={onPreview} className="gap-2">
-          <Eye className="h-4 w-4" />
-          Preview
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button onClick={handleSave} disabled={isSaving} className="gap-2">
+            <Save className="h-4 w-4" />
+            {isSaving ? "Saving..." : "Save Assessment"}
+          </Button>
+          <Button onClick={onPreview} variant="secondary" className="gap-2">
+            <Eye className="h-4 w-4" />
+            Preview
+          </Button>
+        </div>
       </div>
+
+      {assessmentUrl && (
+        <Card className="p-4 bg-green-50 dark:bg-green-950 border-green-200">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex-1">
+              <p className="text-sm font-semibold text-green-900 dark:text-green-100 mb-1">Assessment Saved!</p>
+              <p className="text-xs text-green-700 dark:text-green-300 break-all">{assessmentUrl}</p>
+            </div>
+            <Button onClick={copyUrlToClipboard} size="sm" variant="outline" className="gap-2">
+              <LinkIcon className="h-4 w-4" />
+              Copy Link
+            </Button>
+          </div>
+        </Card>
+      )}
 
       <Card className="p-6 space-y-6">
         <div className="space-y-4">
@@ -128,7 +277,10 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="departmentNotes">Department Notes</Label>
+          <Label htmlFor="departmentNotes">
+            Department Notes
+            <span className="text-xs text-muted-foreground ml-2">(Auto-updates with player name and divisions)</span>
+          </Label>
           <Textarea
             id="departmentNotes"
             value={data.departmentNotes}
