@@ -173,8 +173,15 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(147,51,234,0.08),transparent_50%)]"></div>
       </div>
 
+      {/* Noise texture overlay */}
+      <div className="absolute inset-0 opacity-[0.15] mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      ></div>
+
       {/* Subtle grid pattern */}
-      <div className="absolute inset-0 opacity-[0.02]"
+      <div className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
                            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
@@ -187,7 +194,7 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
       <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
 
       {/* University Logo Ticker at Top - Continuous seamless scroll */}
-      <div className="absolute top-2 left-0 right-0 py-3 overflow-hidden border-y border-white/10 bg-white/5 backdrop-blur-md">
+      <div className="absolute top-0 left-0 right-0 py-3 overflow-hidden border-b border-white/10 bg-white/5 backdrop-blur-md">
         <div className="flex animate-scroll-continuous items-center gap-6">
           {/* Repeat logos 4 times for truly seamless infinite scroll */}
           {[...Array(4)].map((_, setIdx) => (
@@ -285,12 +292,6 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
 
         {/* Decorative line */}
         <div className="absolute bottom-16 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent opacity-50 animate-pulse"></div>
-        
-        {/* Corner accents */}
-        <div className="absolute top-4 left-4 w-12 h-12 border-l-2 border-t-2 border-blue-400/30"></div>
-        <div className="absolute top-4 right-4 w-12 h-12 border-r-2 border-t-2 border-blue-400/30"></div>
-        <div className="absolute bottom-4 left-4 w-12 h-12 border-l-2 border-b-2 border-blue-400/30"></div>
-        <div className="absolute bottom-4 right-4 w-12 h-12 border-r-2 border-b-2 border-blue-400/30"></div>
       </div>
       
       <style>{`
