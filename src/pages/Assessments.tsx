@@ -3,7 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, ExternalLink, Copy, Check, FileText } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { ArrowLeft, ExternalLink, Copy, Check, FileText, X } from "lucide-react";
 import { toast } from "sonner";
 import ventureLogo from "@/assets/venture-logo-circle.png";
 
@@ -21,6 +31,8 @@ const Assessments = () => {
   const [assessments, setAssessments] = useState<Assessment[]>([]);
   const [loading, setLoading] = useState(true);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [assessmentToDelete, setAssessmentToDelete] = useState<Assessment | null>(null);
 
   useEffect(() => {
     fetchAssessments();
@@ -65,6 +77,33 @@ const Assessments = () => {
       month: 'short',
       day: 'numeric',
     });
+  };
+
+  const handleDeleteClick = (assessment: Assessment) => {
+    setAssessmentToDelete(assessment);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!assessmentToDelete) return;
+
+    try {
+      const { error } = await supabase
+        .from('assessments')
+        .delete()
+        .eq('id', assessmentToDelete.id);
+
+      if (error) throw error;
+
+      toast.success(`Assessment for ${assessmentToDelete.player_name} deleted successfully`);
+      fetchAssessments(); // Refresh the list
+    } catch (error) {
+      console.error('Error deleting assessment:', error);
+      toast.error('Failed to delete assessment');
+    } finally {
+      setDeleteDialogOpen(false);
+      setAssessmentToDelete(null);
+    }
   };
 
   return (
@@ -124,9 +163,19 @@ const Assessments = () => {
         ) : (
           <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {assessments.map((assessment) => (
-              <Card key={assessment.id} className="hover:shadow-lg transition-shadow duration-200">
+              <Card key={assessment.id} className="hover:shadow-lg transition-shadow duration-200 relative">
+                {/* Delete Button */}
+                <Button
+                  onClick={() => handleDeleteClick(assessment)}
+                  variant="ghost"
+                  size="icon"
+                  className="absolute top-2 right-2 h-8 w-8 text-slate-400 hover:text-red-600 hover:bg-red-50"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+
                 <CardHeader>
-                  <CardTitle className="text-xl truncate">{assessment.player_name}</CardTitle>
+                  <CardTitle className="text-xl truncate pr-8">{assessment.player_name}</CardTitle>
                   <CardDescription className="space-y-1">
                     {assessment.grad_year && (
                       <div className="text-xs">Graduation: {assessment.grad_year}</div>
@@ -178,6 +227,28 @@ const Assessments = () => {
           </div>
         )}
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Assessment</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete the assessment for{" "}
+              <span className="font-semibold">{assessmentToDelete?.player_name}</span>? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteConfirm}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
