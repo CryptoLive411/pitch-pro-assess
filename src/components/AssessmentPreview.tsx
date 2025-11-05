@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { AssessmentData } from "./AssessmentEditor";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Download, ChevronLeft, ChevronRight } from "lucide-react";
@@ -391,13 +392,15 @@ const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
       </div>
       
       {/* Division cards with enhanced soccer theme */}
-      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
+      <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-fade-in overflow-auto">
         {["NCAA D1", "NCAA D2", "NCAA D3", "NAIA D1", "NAIA D2", "JUCO", "Gap Year"].map((division, idx) => {
           const isSelected = data.targetDivisions.includes(division);
+          const divisionSlug = division.toLowerCase().replace(/ /g, '-');
           return (
-            <div 
-              key={division} 
-              className={`group relative overflow-hidden rounded-2xl transition-all duration-500 ${
+            <Link
+              key={division}
+              to={`/division/${divisionSlug}`}
+              className={`group relative overflow-hidden rounded-2xl transition-all duration-500 block ${
                 isSelected
                   ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-[1.02]' 
                   : 'bg-white shadow-lg hover:shadow-2xl hover:scale-[1.02]'
@@ -425,19 +428,19 @@ const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent"></div>
               )}
               
-              <div className="relative p-8 text-center space-y-6">
+              <div className="relative p-6 text-center space-y-4">
                 {/* Icon container with soccer theme */}
-                <div className={`relative w-20 h-20 mx-auto rounded-2xl flex items-center justify-center text-4xl font-black transition-all duration-300 ${
+                <div className={`relative w-16 h-16 mx-auto rounded-2xl flex items-center justify-center text-3xl font-black transition-all duration-300 ${
                   isSelected
                     ? 'bg-white/20 text-white backdrop-blur-sm' 
                     : 'bg-gradient-to-br from-gray-50 to-gray-100 text-gray-300 group-hover:from-[hsl(var(--venture-blue))]/5 group-hover:to-[hsl(var(--venture-blue))]/10'
                 }`}>
-                  {isSelected ? (
-                    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                {isSelected ? (
+                    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
                   ) : (
-                    <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="10"/>
                       <path d="M12 2a10 10 0 0 0 0 20"/>
                       <path d="M2 12h20"/>
@@ -446,7 +449,7 @@ const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
                 </div>
                 
                 {/* Division name */}
-                <h3 className={`text-2xl md:text-3xl font-black transition-colors ${
+                <h3 className={`text-xl md:text-2xl font-black transition-colors ${
                   isSelected ? 'text-white' : 'text-[hsl(var(--venture-navy))] group-hover:text-[hsl(var(--venture-blue))]'
                 }`}>
                   {division}
@@ -461,7 +464,9 @@ const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
                 )}
                 
                 {!isSelected && (
-                  <div className="h-6"></div>
+                  <div className="flex items-center justify-center gap-2 text-[hsl(var(--venture-blue))] opacity-0 group-hover:opacity-100 transition-opacity">
+                    <p className="text-sm font-semibold uppercase tracking-wider">Click to learn more</p>
+                  </div>
                 )}
               </div>
               
@@ -469,7 +474,7 @@ const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
               {!isSelected && (
                 <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--venture-blue))]/0 to-[hsl(var(--venture-blue))]/0 group-hover:from-[hsl(var(--venture-blue))]/5 group-hover:to-[hsl(var(--venture-blue))]/10 transition-all duration-300 rounded-2xl"></div>
               )}
-            </div>
+            </Link>
           );
         })}
       </div>
