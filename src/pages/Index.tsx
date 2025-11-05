@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AssessmentEditor, AssessmentData } from "@/components/AssessmentEditor";
+import { Button } from "@/components/ui/button";
+import { FileText } from "lucide-react";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -26,6 +28,16 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-muted">
       <div className="container mx-auto max-w-5xl">
+        <div className="flex justify-end pt-4 pb-2 px-4">
+          <Button
+            onClick={() => navigate("/pending-assessments")}
+            variant="outline"
+            className="gap-2"
+          >
+            <FileText className="w-4 h-4" />
+            Pending from Pipedrive
+          </Button>
+        </div>
         <AssessmentEditor
           data={assessmentData}
           onChange={setAssessmentData}

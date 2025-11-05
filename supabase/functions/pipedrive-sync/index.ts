@@ -52,13 +52,15 @@ serve(async (req) => {
 
           const stagesData = await stagesResponse.json();
           const assessmentStage = stagesData.data?.find(
-            (stage: any) => stage.name === 'Assessment Needed'
+            (stage: any) => stage.name.trim().toLowerCase() === 'assessment needed'
           );
 
           if (!assessmentStage) {
             console.log(`"Assessment Needed" stage not found for ${user.name}`);
             continue;
           }
+
+          console.log(`Found "Assessment Needed" stage (ID: ${assessmentStage.id}) for ${user.name}`);
 
           // Fetch deals in this stage
           const dealsResponse = await fetch(
@@ -74,7 +76,14 @@ serve(async (req) => {
           const dealsData = await dealsResponse.json();
           
           if (dealsData.data && Array.isArray(dealsData.data)) {
-            for (const deal of dealsData.data) {
+            // Double-check that we only add deals from the "Assessment Needed" stage
+            const filteredDeals = dealsData.data.filter(
+              (deal: any) => deal.stage_id === assessmentStage.id
+            );
+            
+            console.log(`Fetched ${filteredDeals.length} deals from "Assessment Needed" for ${user.name}`);
+            
+            for (const deal of filteredDeals) {
               allDeals.push({
                 id: deal.id,
                 title: deal.title,
