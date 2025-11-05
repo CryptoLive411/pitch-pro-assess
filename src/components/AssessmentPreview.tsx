@@ -566,8 +566,6 @@ const PackagesSlide = () => (
 );
 
 const TimelineSlide = () => (
-
-const TimelineSlide = () => (
   <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 p-8 md:p-16">
     <div className="h-full flex flex-col">
       <div className="mb-8">
