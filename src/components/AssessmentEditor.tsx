@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Upload, Eye, Save, Link as LinkIcon } from "lucide-react";
+import { Upload, Eye, Save, Link as LinkIcon, FileText } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -47,6 +48,7 @@ The Venture Soccer Department is confident in (NAME OF PLAYER)'s ability to comp
 
 export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditorProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [isSaving, setIsSaving] = useState(false);
   const [assessmentUrl, setAssessmentUrl] = useState<string | null>(null);
 
@@ -211,9 +213,14 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
       <div className="flex items-center justify-between flex-wrap gap-4">
         <h2 className="text-2xl font-bold text-primary">Assessment Editor</h2>
         <div className="flex items-center gap-2">
+          <Button onClick={() => navigate("/assessments")} variant="outline" className="gap-2">
+            <FileText className="h-4 w-4" />
+            <span className="hidden sm:inline">View All Assessments</span>
+            <span className="sm:hidden">Assessments</span>
+          </Button>
           <Button onClick={handleSave} disabled={isSaving} className="gap-2">
             <Save className="h-4 w-4" />
-            {isSaving ? "Saving..." : "Save Assessment"}
+            {isSaving ? "Saving..." : "Save"}
           </Button>
           <Button onClick={onPreview} variant="secondary" className="gap-2">
             <Eye className="h-4 w-4" />
