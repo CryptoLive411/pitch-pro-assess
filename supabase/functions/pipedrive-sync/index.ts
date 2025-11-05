@@ -105,8 +105,19 @@ serve(async (req) => {
 
       console.log(`Total deals fetched: ${allDeals.length}`);
 
+      // Deduplicate deals by ID - keep the first occurrence of each deal
+      const uniqueDealsMap = new Map();
+      for (const deal of allDeals) {
+        if (!uniqueDealsMap.has(deal.id)) {
+          uniqueDealsMap.set(deal.id, deal);
+        }
+      }
+      const uniqueDeals = Array.from(uniqueDealsMap.values());
+      
+      console.log(`Unique deals after deduplication: ${uniqueDeals.length}`);
+
       return new Response(
-        JSON.stringify({ deals: allDeals }),
+        JSON.stringify({ deals: uniqueDeals }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
