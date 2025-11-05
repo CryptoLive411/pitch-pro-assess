@@ -119,15 +119,24 @@ const Assessments = () => {
                 <p className="text-sm text-slate-600">Manage your player assessments</p>
               </div>
             </div>
-            <Button 
-              onClick={() => navigate("/")} 
-              className="gap-2"
-              variant="outline"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              <span className="hidden sm:inline">Back to Editor</span>
-              <span className="sm:inline md:hidden">Back</span>
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                onClick={() => navigate("/pending-assessments")} 
+                variant="outline"
+                className="gap-2"
+              >
+                Pending from Pipedrive
+              </Button>
+              <Button 
+                onClick={() => navigate("/")} 
+                className="gap-2"
+                variant="outline"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                <span className="hidden sm:inline">Back to Editor</span>
+                <span className="sm:inline md:hidden">Back</span>
+              </Button>
+            </div>
           </div>
         </div>
       </div>

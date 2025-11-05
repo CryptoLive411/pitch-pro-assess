@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Upload, Eye, Save, Link as LinkIcon, FileText } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { PipedriveShareDialog } from "./PipedriveShareDialog";
 
 export interface AssessmentData {
   playerName: string;
@@ -51,6 +52,8 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
   const navigate = useNavigate();
   const [isSaving, setIsSaving] = useState(false);
   const [assessmentUrl, setAssessmentUrl] = useState<string | null>(null);
+  const [showPipedriveDialog, setShowPipedriveDialog] = useState(false);
+  const [currentPlayerName, setCurrentPlayerName] = useState("");
 
   // Auto-update department notes when any form field changes
   useEffect(() => {
@@ -158,6 +161,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
       const fullUrl = `${window.location.origin}/ventureassessment/${slug}`;
       const displayUrl = `ventureassessment/${slug}`;
       setAssessmentUrl(fullUrl);
+      setCurrentPlayerName(data.playerName);
 
       toast({
         title: "Success!",
@@ -243,10 +247,15 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
                 {assessmentUrl.replace(window.location.origin + '/', '')}
               </a>
             </div>
-            <Button onClick={copyUrlToClipboard} size="sm" variant="outline" className="gap-2">
-              <LinkIcon className="h-4 w-4" />
-              Copy Link
-            </Button>
+            <div className="flex gap-2">
+              <Button onClick={copyUrlToClipboard} size="sm" variant="outline" className="gap-2">
+                <LinkIcon className="h-4 w-4" />
+                Copy Link
+              </Button>
+              <Button onClick={() => setShowPipedriveDialog(true)} size="sm" className="gap-2">
+                Share to Pipedrive
+              </Button>
+            </div>
           </div>
         </Card>
       )}
@@ -393,6 +402,13 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
           </div>
         </div>
       </Card>
+
+      <PipedriveShareDialog
+        open={showPipedriveDialog}
+        onOpenChange={setShowPipedriveDialog}
+        assessmentLink={assessmentUrl || ""}
+        playerName={currentPlayerName}
+      />
     </div>
   );
 };

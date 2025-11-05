@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Preview from "./pages/Preview";
 import Assessments from "./pages/Assessments";
+import PendingAssessments from "./pages/PendingAssessments";
 import DivisionInfo from "./pages/DivisionInfo";
 import NotFound from "./pages/NotFound";
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/preview" element={<Preview />} />
           <Route path="/assessments" element={<Assessments />} />
+          <Route path="/pending-assessments" element={<PendingAssessments />} />
           <Route path="/ventureassessment/:slug" element={<Preview />} />
           <Route path="/division/:division" element={<DivisionInfo />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

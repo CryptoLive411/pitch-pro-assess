@@ -1,1 +1,4 @@
 project_id = "yshsrmwpwgortclvtimc"
+
+[functions.pipedrive-sync]
+verify_jwt = false
