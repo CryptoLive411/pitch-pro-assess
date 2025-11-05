@@ -153,8 +153,9 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
         if (error) throw error;
       }
 
-      const url = `ventureassessment/${slug}`;
-      setAssessmentUrl(url);
+      const fullUrl = `${window.location.origin}/ventureassessment/${slug}`;
+      const displayUrl = `ventureassessment/${slug}`;
+      setAssessmentUrl(fullUrl);
 
       toast({
         title: "Success!",
@@ -226,7 +227,14 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1">
               <p className="text-sm font-semibold text-green-900 dark:text-green-100 mb-1">Assessment Saved!</p>
-              <p className="text-xs text-green-700 dark:text-green-300 break-all">{assessmentUrl}</p>
+              <a 
+                href={assessmentUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-xs text-green-700 dark:text-green-300 break-all hover:underline"
+              >
+                {assessmentUrl.replace(window.location.origin + '/', '')}
+              </a>
             </div>
             <Button onClick={copyUrlToClipboard} size="sm" variant="outline" className="gap-2">
               <LinkIcon className="h-4 w-4" />
