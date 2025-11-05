@@ -1717,7 +1717,7 @@ const ContactSlide = () => (
             </div>
             <div className="text-left">
               <p className="text-white/70 text-sm font-semibold">Get Started</p>
-              <p className="text-white font-bold">Schedule Consultation</p>
+              <p className="text-white font-bold">Call Your Agent</p>
             </div>
           </div>
         </div>
