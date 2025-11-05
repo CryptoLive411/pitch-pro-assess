@@ -215,9 +215,9 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
       </div>
       
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 pt-12">
+      <div className="relative z-10 flex flex-col items-center justify-start h-full px-8 pt-24 pb-20">
         {/* Venture Logo with holographic glow */}
-        <div className="mb-8 relative group">
+        <div className="mt-8 mb-6 relative group">
           {/* Animated holographic rings */}
           <div className="absolute inset-0 rounded-full animate-ping-slow opacity-30">
             <div className="w-full h-full rounded-full border-2 border-blue-400"></div>
@@ -244,7 +244,7 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
         </div>
         
         {/* Title with modern glow effect */}
-        <div className="relative mb-6">
+        <div className="relative mb-4">
           <div className="absolute inset-0 blur-2xl">
             <h1 className="text-6xl md:text-8xl font-black text-blue-500 uppercase tracking-tighter text-center leading-none opacity-50">
               ASSESSMENT REPORT
@@ -264,18 +264,18 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
         </div>
         
         {/* Divider with glow */}
-        <div className="relative my-6">
+        <div className="relative my-4">
           <div className="h-px w-64 bg-gradient-to-r from-transparent via-blue-400 to-transparent"></div>
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-blue-400 blur-sm"></div>
         </div>
         
-        <p className="text-lg md:text-xl text-blue-200/80 font-light text-center max-w-2xl tracking-wider mb-2">
+        <p className="text-lg md:text-xl text-blue-200/80 font-light text-center max-w-2xl tracking-wider mb-4">
           College Soccer Placement Consulting
         </p>
         
         {/* Player Name with modern card */}
         {data.playerName && (
-          <div className="mt-6 relative group">
+          <div className="mt-4 mb-8 relative group">
             {/* Card glow */}
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-500 to-blue-600 rounded-2xl blur-lg opacity-40 group-hover:opacity-60 transition-opacity"></div>
             
@@ -283,15 +283,12 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
             <div className="relative bg-gradient-to-br from-slate-900/90 to-blue-950/90 backdrop-blur-xl rounded-xl border border-blue-400/30 shadow-2xl overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-transparent to-purple-600/10"></div>
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent"></div>
-              <p className="relative text-3xl md:text-4xl font-black text-white uppercase tracking-widest text-center px-10 py-5">
+              <p className="relative text-2xl md:text-4xl font-black text-white uppercase tracking-widest text-center px-10 py-5 break-words">
                 {data.playerName}
               </p>
             </div>
           </div>
         )}
-
-        {/* Decorative line */}
-        <div className="absolute bottom-16 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent opacity-50 animate-pulse"></div>
       </div>
       
       <style>{`
