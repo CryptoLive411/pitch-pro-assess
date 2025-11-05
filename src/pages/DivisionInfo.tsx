@@ -202,138 +202,111 @@ export default function DivisionInfo() {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8 max-w-7xl">
-        {/* Hero Section with Soccer Theme */}
-        <div className="relative bg-gradient-to-br from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-blue))] to-[hsl(var(--venture-navy))] rounded-2xl p-6 md:p-8 mb-8 text-white shadow-2xl overflow-hidden">
-          {/* Decorative soccer elements */}
-          <div className="absolute top-0 right-0 w-48 h-48 opacity-5">
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="1" />
-              <path d="M50 5 L50 95 M5 50 L95 50" stroke="currentColor" strokeWidth="1" />
-              <circle cx="50" cy="50" r="15" fill="none" stroke="currentColor" strokeWidth="1" />
-            </svg>
+      <main className="container mx-auto px-4 py-6 max-w-7xl">
+        {/* Compact Hero Section */}
+        <div className="relative bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-xl p-4 md:p-6 mb-6 text-white shadow-lg">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 text-white text-xs font-bold rounded-full mb-2">
+            <Trophy className="h-3 w-3" />
+            DIVISION OVERVIEW
           </div>
-          
-          <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/20 backdrop-blur-sm text-white text-xs font-bold rounded-full mb-4 border border-white/30">
-              <Trophy className="h-3.5 w-3.5" />
-              DIVISION OVERVIEW
-            </div>
-            <h1 className="text-3xl md:text-5xl font-black mb-3 leading-tight tracking-tight">{info.name}</h1>
-            <p className="text-base md:text-lg text-white/95 leading-relaxed max-w-4xl">{info.description}</p>
-          </div>
+          <h1 className="text-2xl md:text-3xl font-black mb-2 leading-tight">{info.name}</h1>
+          <p className="text-sm md:text-base text-white/90 leading-snug">{info.description}</p>
         </div>
 
         {/* Scholarships & Academic Requirements Grid */}
-        <div className="grid md:grid-cols-2 gap-5 mb-8">
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
           {/* Scholarships Card */}
-          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-blue-100 hover:border-blue-200">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <DollarSign className="h-6 w-6 text-white" />
+          <div className="bg-white rounded-xl p-5 shadow-md border border-blue-100">
+            <div className="flex items-center gap-2.5 mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-lg flex items-center justify-center">
+                <DollarSign className="h-5 w-5 text-white" />
               </div>
-              <h2 className="text-2xl font-black text-[hsl(var(--venture-navy))]">Scholarships</h2>
+              <h2 className="text-xl font-black text-[hsl(var(--venture-navy))]">Scholarships</h2>
             </div>
-            <p className="text-gray-700 leading-relaxed">{info.scholarships}</p>
+            <p className="text-gray-700 leading-relaxed text-sm">{info.scholarships}</p>
           </div>
 
           {/* Academic Requirements Card */}
-          <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-blue-100 hover:border-blue-200">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <GraduationCap className="h-6 w-6 text-white" />
+          <div className="bg-white rounded-xl p-5 shadow-md border border-blue-100">
+            <div className="flex items-center gap-2.5 mb-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-lg flex items-center justify-center">
+                <GraduationCap className="h-5 w-5 text-white" />
               </div>
-              <h2 className="text-2xl font-black text-[hsl(var(--venture-navy))]">Academic Requirements</h2>
+              <h2 className="text-xl font-black text-[hsl(var(--venture-navy))]">Academic Requirements</h2>
             </div>
-            <p className="text-gray-700 leading-relaxed">{info.academicRequirements}</p>
+            <p className="text-gray-700 leading-relaxed text-sm">{info.academicRequirements}</p>
           </div>
         </div>
 
         {/* Benefits Section */}
-        <div className="bg-gradient-to-br from-white to-blue-50/50 rounded-2xl p-6 md:p-8 shadow-lg mb-8 border border-blue-100">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-xl flex items-center justify-center shadow-lg">
-              <Trophy className="h-6 w-6 text-white" />
+        <div className="bg-white rounded-xl p-5 shadow-md mb-6 border border-blue-100">
+          <div className="flex items-center gap-2.5 mb-4">
+            <div className="w-10 h-10 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-lg flex items-center justify-center">
+              <Trophy className="h-5 w-5 text-white" />
             </div>
-            <h2 className="text-2xl font-black text-[hsl(var(--venture-navy))]">Key Benefits</h2>
+            <h2 className="text-xl font-black text-[hsl(var(--venture-navy))]">Key Benefits</h2>
           </div>
-          <div className="grid md:grid-cols-2 gap-3">
+          <div className="grid md:grid-cols-2 gap-2.5">
             {info.benefits.map((benefit, idx) => (
-              <div key={idx} className="group flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-blue-100 hover:border-blue-200">
-                <div className="flex-shrink-0 w-7 h-7 bg-gradient-to-br from-[hsl(var(--venture-blue))]/20 to-[hsl(var(--venture-navy))]/10 rounded-full flex items-center justify-center mt-0.5 group-hover:scale-110 transition-transform">
-                  <Award className="h-3.5 w-3.5 text-[hsl(var(--venture-blue))]" />
+              <div key={idx} className="flex items-start gap-2.5 p-3 bg-blue-50/50 rounded-lg border border-blue-100">
+                <div className="flex-shrink-0 w-6 h-6 bg-gradient-to-br from-[hsl(var(--venture-blue))]/20 to-[hsl(var(--venture-navy))]/10 rounded-full flex items-center justify-center mt-0.5">
+                  <Award className="h-3 w-3 text-[hsl(var(--venture-blue))]" />
                 </div>
-                <p className="text-gray-700 leading-relaxed flex-1 text-sm">{benefit}</p>
+                <p className="text-gray-700 leading-snug flex-1 text-sm">{benefit}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Key Differences Section */}
-        <div className="bg-gradient-to-br from-blue-50 via-white to-slate-50 rounded-2xl p-6 md:p-8 shadow-lg mb-8 border-2 border-blue-100">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-xl flex items-center justify-center shadow-lg">
-              <Target className="h-6 w-6 text-white" />
+        <div className="bg-white rounded-xl p-5 shadow-md mb-6 border border-blue-100">
+          <div className="flex items-center gap-2.5 mb-4">
+            <div className="w-10 h-10 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-lg flex items-center justify-center">
+              <Target className="h-5 w-5 text-white" />
             </div>
-            <h2 className="text-2xl font-black text-[hsl(var(--venture-navy))]">Key Differences</h2>
+            <h2 className="text-xl font-black text-[hsl(var(--venture-navy))]">Key Differences</h2>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {info.differences.map((diff, idx) => (
-              <div key={idx} className="group flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 border border-blue-100 hover:border-[hsl(var(--venture-blue))]/40">
-                <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-[hsl(var(--venture-blue))]/20 to-[hsl(var(--venture-navy))]/10 rounded-lg flex items-center justify-center border-2 border-[hsl(var(--venture-blue))]/20 group-hover:scale-110 transition-transform">
-                  <span className="text-[hsl(var(--venture-blue))] font-black text-sm">{idx + 1}</span>
+              <div key={idx} className="flex items-start gap-3 p-3 bg-blue-50/50 rounded-lg border border-blue-100">
+                <div className="flex-shrink-0 w-7 h-7 bg-gradient-to-br from-[hsl(var(--venture-blue))]/20 to-[hsl(var(--venture-navy))]/10 rounded-md flex items-center justify-center border border-[hsl(var(--venture-blue))]/20">
+                  <span className="text-[hsl(var(--venture-blue))] font-black text-xs">{idx + 1}</span>
                 </div>
-                <p className="text-gray-700 leading-relaxed flex-1 pt-0.5 text-sm">{diff}</p>
+                <p className="text-gray-700 leading-snug flex-1 pt-0.5 text-sm">{diff}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Ideal For Section */}
-        <div className="relative bg-gradient-to-br from-[hsl(var(--venture-blue))]/10 via-white to-[hsl(var(--venture-navy))]/5 rounded-2xl p-6 md:p-8 shadow-lg border-2 border-[hsl(var(--venture-blue))]/30 mb-8 overflow-hidden">
-          {/* Soccer corner decoration */}
-          <div className="absolute top-0 right-0 w-24 h-24 opacity-5">
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              <path d="M0 0 Q100 0 100 100" fill="currentColor" className="text-[hsl(var(--venture-navy))]" />
-            </svg>
+        <div className="bg-gradient-to-br from-[hsl(var(--venture-blue))]/10 to-white rounded-xl p-5 shadow-md border-2 border-[hsl(var(--venture-blue))]/30 mb-6">
+          <div className="flex items-center gap-2.5 mb-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-lg flex items-center justify-center">
+              <Users className="h-5 w-5 text-white" />
+            </div>
+            <h2 className="text-xl font-black text-[hsl(var(--venture-navy))]">Ideal For</h2>
           </div>
-          
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-xl flex items-center justify-center shadow-lg">
-                <Users className="h-6 w-6 text-white" />
-              </div>
-              <h2 className="text-2xl font-black text-[hsl(var(--venture-navy))]">Ideal For</h2>
-            </div>
-            <div className="flex items-start gap-3 p-5 bg-white/60 backdrop-blur-sm rounded-xl border border-[hsl(var(--venture-blue))]/20">
-              <BookOpen className="h-5 w-5 text-[hsl(var(--venture-blue))] flex-shrink-0 mt-0.5" />
-              <p className="text-gray-800 leading-relaxed font-medium">{info.idealFor}</p>
-            </div>
+          <div className="flex items-start gap-2.5 p-4 bg-white rounded-lg border border-[hsl(var(--venture-blue))]/20">
+            <BookOpen className="h-4 w-4 text-[hsl(var(--venture-blue))] flex-shrink-0 mt-0.5" />
+            <p className="text-gray-800 leading-snug font-medium text-sm">{info.idealFor}</p>
           </div>
         </div>
 
         {/* CTA Section */}
         <div className="text-center">
-          <div className="relative bg-gradient-to-br from-white via-blue-50 to-white rounded-2xl p-8 shadow-xl border border-blue-200 overflow-hidden">
-            {/* Soccer field center circle decoration */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-5">
-              <div className="w-64 h-64 border-4 border-[hsl(var(--venture-navy))] rounded-full"></div>
-            </div>
-            
-            <div className="relative z-10">
-              <h3 className="text-2xl md:text-3xl font-black text-[hsl(var(--venture-navy))] mb-3">
-                Ready to explore {info.shortName}?
-              </h3>
-              <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-                Contact Venture USA to discuss your college soccer placement options and find the perfect program for your goals.
-              </p>
-              <Button 
-                onClick={() => navigate(fromPreview ? "/preview" : "/")}
-                className="bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] hover:opacity-90 text-white px-8 py-6 text-base rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105 font-bold"
-              >
-                Return to Assessment
-              </Button>
-            </div>
+          <div className="bg-gradient-to-br from-white to-blue-50 rounded-xl p-6 shadow-md border border-blue-200">
+            <h3 className="text-xl font-black text-[hsl(var(--venture-navy))] mb-2">
+              Ready to explore {info.shortName}?
+            </h3>
+            <p className="text-gray-600 text-sm mb-4 max-w-2xl mx-auto">
+              Contact Venture USA to discuss your college soccer placement options
+            </p>
+            <Button 
+              onClick={() => navigate(fromPreview ? "/preview" : "/")}
+              className="bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] hover:opacity-90 text-white px-6 py-5 text-sm rounded-lg shadow-lg hover:shadow-xl transition-all hover:scale-105 font-bold"
+            >
+              Return to Assessment
+            </Button>
           </div>
         </div>
       </main>
