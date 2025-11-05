@@ -1,4 +1,4 @@
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Trophy, DollarSign, GraduationCap, Users, Target, Award, BookOpen } from "lucide-react";
 import ventureLogoCircle from "@/assets/venture-logo-circle.png";
@@ -158,18 +158,16 @@ const divisionData = {
 export default function DivisionInfo() {
   const { division } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
   
   const divisionKey = division || "ncaa-d1";
   const info = divisionData[divisionKey as keyof typeof divisionData];
-  const fromPreview = location.state?.fromPreview;
 
   if (!info) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Division not found</h1>
-          <Button onClick={() => navigate(fromPreview ? "/preview" : "/")}>Go Back</Button>
+          <Button onClick={() => navigate(-1)}>Go Back</Button>
         </div>
       </div>
     );
@@ -190,7 +188,7 @@ export default function DivisionInfo() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex items-center justify-between">
             <Button 
-              onClick={() => navigate(fromPreview ? "/preview" : "/")} 
+              onClick={() => navigate(-1)} 
               variant="ghost"
               className="gap-2 text-white hover:bg-white/10 transition-all hover:scale-105"
             >
@@ -302,7 +300,7 @@ export default function DivisionInfo() {
               Contact Venture USA to discuss your college soccer placement options
             </p>
             <Button 
-              onClick={() => navigate(fromPreview ? "/preview" : "/")}
+              onClick={() => navigate(-1)}
               className="bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] hover:opacity-90 text-white px-6 py-5 text-sm rounded-lg shadow-lg hover:shadow-xl transition-all hover:scale-105 font-bold"
             >
               Return to Assessment
