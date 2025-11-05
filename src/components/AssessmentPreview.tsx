@@ -693,7 +693,7 @@ const CommittedSlide = () => (
     <div className="relative z-10 flex flex-col h-full pb-2">
       {/* Header - Without 350+ */}
       <div className="text-center mb-3">
-        <h2 className="text-2xl md:text-4xl font-black bg-gradient-to-r from-white via-[hsl(var(--venture-blue))] to-white bg-clip-text text-transparent uppercase tracking-wide drop-shadow-lg mb-2">The Athlete First</h2>
+        <h2 className="text-3xl md:text-5xl font-black bg-gradient-to-r from-white via-[hsl(var(--venture-blue))] to-white bg-clip-text text-transparent uppercase tracking-wide drop-shadow-lg mb-2">The Athlete First</h2>
         <div className="flex items-center justify-center gap-2">
           <div className="h-0.5 w-12 bg-gradient-to-r from-transparent via-[hsl(var(--venture-blue))] to-transparent rounded-full"></div>
           <div className="h-0.5 w-12 bg-gradient-to-r from-transparent via-white to-transparent rounded-full"></div>
