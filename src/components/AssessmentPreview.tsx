@@ -5,6 +5,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Download, ChevronLeft, ChevronRight } from "lucide-react";
 import ventureLogo from "@/assets/venture-logo-white.png";
 import ventureLogoCircle from "@/assets/venture-logo-circle.png";
+import miloPeters from "@/assets/milo-peters.png";
+import top25 from "@/assets/top-25.png";
+import joaoAlves from "@/assets/joao-alves.png";
+import joseCoutinho from "@/assets/jose-coutinho.png";
+import pedroBaisch from "@/assets/pedro-baisch.png";
 
 interface AssessmentPreviewProps {
   data: AssessmentData;
@@ -608,42 +613,98 @@ const DepartmentNotesSlide = ({ data }: { data: AssessmentData }) => (
 
 const TestimonialJoaoSlide = () => (
   <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 p-8 md:p-16 flex items-center justify-center">
-    <div className="max-w-4xl space-y-6">
-      <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
-        SUCCESS STORY
+    <div className="max-w-6xl w-full">
+      <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--venture-blue))]/20 to-[hsl(var(--venture-navy))]/20 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform"></div>
+          <img 
+            src={joaoAlves} 
+            alt="Joao Alves" 
+            className="relative rounded-2xl shadow-2xl w-full h-[500px] object-cover border-4 border-white"
+          />
+        </div>
+        <div className="space-y-6">
+          <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full">
+            SUCCESS STORY
+          </div>
+          <h3 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))]">JOAO ALVES</h3>
+          <p className="text-lg font-semibold text-[hsl(var(--venture-blue))]">D1 College Soccer Player</p>
+          <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed border-l-4 border-[hsl(var(--venture-blue))] pl-6 italic">
+            "Venture USA had an important impact in my life helping me get a good university to play soccer while studying. During the process, it was noticed their hard work on getting the best universities possible. Also, they have very honest people, and they always told me the real truth about the positive and negative things of the different universities, coaches and facilities. Now I still keep a very good connection with them. At this point they are not only an 'agent' but a friend that I am really thankful for all the help."
+          </blockquote>
+        </div>
       </div>
-      <h3 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))]">JOAO DOMINGUES</h3>
-      <p className="text-sm font-semibold text-[hsl(var(--venture-blue))]">Florida International University</p>
-      <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed border-l-4 border-[hsl(var(--venture-blue))] pl-6 italic">
-        "Venture USA had an important impact in my life helping me get a good university to play soccer while studying. During the process, it was noticed their hard work on getting the best universities possible. Also, they have very honest people, and they always told me the real truth about the positive and negative things of the different universities, coaches and facilities. Now I still keep a very good connection with them. At this point they are not only an 'agent' but a friend that I am really thankful for all the help."
-      </blockquote>
     </div>
   </div>
 );
 
 const TestimonialFilipSlide = () => (
   <div className="w-full h-full bg-gradient-to-br from-white to-blue-50 p-8 md:p-16 flex items-center justify-center">
-    <div className="max-w-4xl space-y-6">
-      <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
-        SUCCESS STORY
+    <div className="max-w-6xl w-full">
+      <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="space-y-6 md:order-2">
+          <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full">
+            SUCCESS STORY
+          </div>
+          <h3 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))]">JOSE COUTINHO</h3>
+          <p className="text-lg font-semibold text-[hsl(var(--venture-blue))]">D1 College Soccer Player</p>
+          <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed border-l-4 border-[hsl(var(--venture-blue))] pl-6 italic">
+            "I really enjoyed working with Venture Soccer. Without them I wouldn't have been able to have a full scholarship at such a great school at one of the best soccer programs. They were with me from the beginning and every time made sure that everything is perfect for my education and my soccer improvement. I am really thankful for all the help."
+          </blockquote>
+        </div>
+        <div className="relative group md:order-1">
+          <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--venture-navy))]/20 to-[hsl(var(--venture-blue))]/20 rounded-2xl transform -rotate-3 group-hover:-rotate-6 transition-transform"></div>
+          <img 
+            src={joseCoutinho} 
+            alt="Jose Coutinho" 
+            className="relative rounded-2xl shadow-2xl w-full h-[500px] object-cover border-4 border-white"
+          />
+        </div>
       </div>
-      <h3 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))]">FILIP JAUK</h3>
-      <p className="text-sm font-semibold text-[hsl(var(--venture-blue))]">Florida Atlantic University</p>
-      <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed border-l-4 border-[hsl(var(--venture-blue))] pl-6 italic">
-        "I really enjoyed working with Venture Soccer. Without them I wouldn't have been able to have a full scholarship at such a great school at one of the best soccer programs. They were with me from the beginning and every time made sure that everything is perfect for my education and my soccer improvement. I am really thankful for all the help."
-      </blockquote>
     </div>
   </div>
 );
 
 const CommittedSlide = () => (
-  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] flex items-center justify-center relative overflow-hidden">
+  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] p-8 md:p-16 relative overflow-hidden">
     <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
     <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-    <div className="text-center relative z-10">
-      <div className="text-7xl md:text-9xl font-black text-white mb-6 animate-scale-in">200+</div>
-      <h2 className="text-4xl md:text-6xl font-black text-white/90 uppercase tracking-wide">Athletes Placed</h2>
-      <p className="text-xl text-white/70 mt-4">Successfully committed to US universities</p>
+    
+    <div className="relative z-10 h-full flex flex-col">
+      <div className="text-center mb-8">
+        <div className="text-6xl md:text-8xl font-black text-white mb-4 animate-scale-in">200+</div>
+        <h2 className="text-3xl md:text-5xl font-black text-white/90 uppercase tracking-wide">Athletes Placed</h2>
+        <p className="text-lg text-white/70 mt-2">Successfully committed to US universities</p>
+      </div>
+      
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 flex-1">
+        <div className="group relative overflow-hidden rounded-xl shadow-2xl transform hover:scale-105 transition-transform">
+          <img src={miloPeters} alt="Milo Peters - Ivy League" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
+        <div className="group relative overflow-hidden rounded-xl shadow-2xl transform hover:scale-105 transition-transform">
+          <img src={top25} alt="Top 25 Athlete" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
+        <div className="group relative overflow-hidden rounded-xl shadow-2xl transform hover:scale-105 transition-transform">
+          <img src={joaoAlves} alt="Joao Alves" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
+        <div className="group relative overflow-hidden rounded-xl shadow-2xl transform hover:scale-105 transition-transform">
+          <img src={joseCoutinho} alt="Jose Coutinho" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
+        <div className="group relative overflow-hidden rounded-xl shadow-2xl transform hover:scale-105 transition-transform">
+          <img src={pedroBaisch} alt="Pedro Baisch" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
+        <div className="group relative overflow-hidden rounded-xl shadow-2xl flex items-center justify-center bg-white/10 backdrop-blur-sm border-2 border-white/20">
+          <div className="text-center p-4">
+            <div className="text-4xl font-black text-white mb-2">+195</div>
+            <p className="text-sm text-white/80 font-semibold">More Athletes</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 );
@@ -710,15 +771,27 @@ const CostsSlide = () => (
 
 const TestimonialGabrielSlide = () => (
   <div className="w-full h-full bg-gradient-to-br from-white to-gray-50 p-8 md:p-16 flex items-center justify-center">
-    <div className="max-w-4xl space-y-6">
-      <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
-        SUCCESS STORY
+    <div className="max-w-6xl w-full">
+      <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="relative group">
+          <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--venture-blue))]/20 to-[hsl(var(--venture-navy))]/20 rounded-2xl transform rotate-3 group-hover:rotate-6 transition-transform"></div>
+          <img 
+            src={pedroBaisch} 
+            alt="Pedro Baisch" 
+            className="relative rounded-2xl shadow-2xl w-full h-[500px] object-cover border-4 border-white"
+          />
+        </div>
+        <div className="space-y-6">
+          <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full">
+            SUCCESS STORY
+          </div>
+          <h3 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))]">PEDRO BAISCH</h3>
+          <p className="text-lg font-semibold text-[hsl(var(--venture-blue))]">D1 College Soccer Player</p>
+          <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed border-l-4 border-[hsl(var(--venture-blue))] pl-6 italic">
+            "Going to the US is not an easy move, but Joao and Venture Soccer made me feel comfortable even when I was not sure of my decision. They always supported me and pushed me back up when I needed to. It's much more than a relationship between player and company. For me it was like a second family, and I won't forget the work and trust they put on me. Without them I wouldn't be living my dream."
+          </blockquote>
+        </div>
       </div>
-      <h3 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))]">GABRIEL / FABIO</h3>
-      <p className="text-sm font-semibold text-[hsl(var(--venture-blue))]">Hofstra University - NCAA</p>
-      <blockquote className="text-base md:text-lg text-gray-700 leading-relaxed border-l-4 border-[hsl(var(--venture-blue))] pl-6 italic">
-        "Going to the US is not an easy move, but Joao and Venture Soccer made me feel comfortable even when I was not sure of my decision. They always supported me and pushed me back up when I needed to. It's much more than a relationship between player and company. For me it was like a second family, and I won't forget the work and trust they put on me. Without them I wouldn't be living my dream."
-      </blockquote>
     </div>
   </div>
 );
