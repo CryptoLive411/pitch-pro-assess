@@ -30,19 +30,19 @@ interface AssessmentEditorProps {
 // Default template for department notes
 const DEFAULT_NOTES_TEMPLATE = `The Venture Soccer Department believes (NAME OF PLAYER) has the ability to successfully compete at the (TARGET DIVISIONS) level, with an estimated budget of (BUDGET) per year.
 
-⚽ Soccer Ability & Development:
+Soccer Ability & Development:
 (NAME OF PLAYER) is a versatile player with solid fundamentals and good game understanding. Continued development in technical skills, positioning, and consistency will help make an immediate impact at the college level.
 
-📚 Academic Standing:
+Academic Standing:
 (NAME OF PLAYER) maintains strong academic eligibility with a (GPA) and is well-prepared for the demands of college-level coursework. Projected enrollment: (ENROLLMENT YEAR).
 
-🎯 Recruitment Strategy & Pathway:
+Recruitment Strategy & Pathway:
 Based on current level and budget, (NAME OF PLAYER) fits well into the (TARGET DIVISIONS) pathway. This provides an ideal entry point to adjust to the U.S. college soccer environment with strong opportunities for playing time and development.
 
-💰 Budget & Financial Planning:
+Budget & Financial Planning:
 Estimated annual budget: (BUDGET) (covering tuition, housing, meals, insurance, and equipment). The Venture team will secure placement and pursue scholarship options to reduce total cost.
 
-🤝 Commitment to Placement:
+Commitment to Placement:
 The Venture Soccer Department is confident in (NAME OF PLAYER)'s ability to compete, develop, and grow within the U.S. college system. We will support throughout the entire process—from initial placement to potential transfer opportunities at higher divisions.`;
 
 export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditorProps) => {
@@ -50,10 +50,10 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
   const [isSaving, setIsSaving] = useState(false);
   const [assessmentUrl, setAssessmentUrl] = useState<string | null>(null);
 
-  // Auto-update department notes when player name, enrollment year, budget, gpa, or divisions change
+  // Auto-update department notes when any form field changes
   useEffect(() => {
-    // Start with the template if notes are empty
-    let updatedNotes = data.departmentNotes || DEFAULT_NOTES_TEMPLATE;
+    // Always start with the template and apply all replacements
+    let updatedNotes = DEFAULT_NOTES_TEMPLATE;
     
     // Replace player name in all occurrences
     updatedNotes = updatedNotes.replace(/\(NAME OF PLAYER\)/g, data.playerName || "(NAME OF PLAYER)");
@@ -85,10 +85,8 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
       updatedNotes = updatedNotes.replace(/\(TARGET DIVISIONS\)/g, "(TARGET DIVISIONS)");
     }
     
-    // Only update if it changed to avoid infinite loops
-    if (updatedNotes !== data.departmentNotes) {
-      onChange({ ...data, departmentNotes: updatedNotes });
-    }
+    // Always update to keep it in sync
+    onChange({ ...data, departmentNotes: updatedNotes });
   }, [data.playerName, data.enrollmentYear, data.budget, data.gpa, data.targetDivisions]);
 
   // Create URL-friendly slug from player name
@@ -161,6 +159,19 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
       toast({
         title: "Success!",
         description: "Assessment saved successfully",
+      });
+
+      // Clear form after successful save
+      onChange({
+        playerName: "",
+        enrollmentYear: "August 2027",
+        schoolYear: "Freshman",
+        gpa: "3.5+ GPA",
+        manager: "",
+        budget: "",
+        departmentNotes: "",
+        playerPhoto: null,
+        targetDivisions: [],
       });
     } catch (error) {
       console.error('Error saving assessment:', error);
