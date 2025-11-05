@@ -167,32 +167,27 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
   
   return (
     <div className="w-full h-full relative overflow-hidden">
-      {/* Soccer field inspired gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-950 via-green-900 to-teal-950">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.15),transparent_70%)]"></div>
-        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(5,150,105,0.03)_2px,transparent_2px)] bg-[length:100%_40px]"></div>
+      {/* Modern gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.1),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(147,51,234,0.08),transparent_50%)]"></div>
       </div>
 
-      {/* Soccer field lines pattern */}
-      <div className="absolute inset-0 opacity-10">
-        {/* Center circle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border-2 border-white rounded-full"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full"></div>
-        {/* Field lines */}
-        <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-white"></div>
-        <div className="absolute left-0 right-0 top-1/4 h-0.5 bg-white opacity-40"></div>
-        <div className="absolute left-0 right-0 bottom-1/4 h-0.5 bg-white opacity-40"></div>
-      </div>
-
-      {/* Subtle grass texture effect */}
-      <div className="absolute inset-0 opacity-5 mix-blend-overlay"
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 opacity-[0.02]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
         }}
       ></div>
 
+      {/* Floating orbs */}
+      <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+
       {/* University Logo Ticker at Top - Continuous seamless scroll */}
-      <div className="absolute top-2 left-0 right-0 py-3 overflow-hidden border-y border-emerald-500/20 bg-black/30 backdrop-blur-sm">
+      <div className="absolute top-2 left-0 right-0 py-3 overflow-hidden border-y border-white/10 bg-white/5 backdrop-blur-md">
         <div className="flex animate-scroll-continuous items-center gap-6">
           {/* Repeat logos 4 times for truly seamless infinite scroll */}
           {[...Array(4)].map((_, setIdx) => (
@@ -225,14 +220,14 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
           </div>
           
           {/* Multi-layer glow effect */}
-          <div className="absolute -inset-8 rounded-full bg-emerald-500 opacity-20 blur-3xl"></div>
-          <div className="absolute -inset-6 rounded-full bg-teal-400 opacity-15 blur-2xl"></div>
-          <div className="absolute -inset-4 rounded-full bg-green-400 opacity-25 blur-xl"></div>
+          <div className="absolute -inset-8 rounded-full bg-blue-500 opacity-20 blur-3xl"></div>
+          <div className="absolute -inset-6 rounded-full bg-purple-400 opacity-15 blur-2xl"></div>
+          <div className="absolute -inset-4 rounded-full bg-blue-400 opacity-25 blur-xl"></div>
           
           {/* Logo container with animated border */}
           <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full shadow-2xl group-hover:scale-105 transition-all duration-700">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-emerald-600/30 via-teal-500/20 to-green-700/30 animate-spin-slow"></div>
-            <div className="absolute inset-1 rounded-full bg-gradient-to-br from-slate-900 to-emerald-950 backdrop-blur"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-600/30 via-purple-500/20 to-blue-700/30 animate-spin-slow"></div>
+            <div className="absolute inset-1 rounded-full bg-gradient-to-br from-slate-900 to-blue-950 backdrop-blur"></div>
             <img 
               src={ventureLogoCircle} 
               alt="Venture USA" 
@@ -241,46 +236,46 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
           </div>
         </div>
         
-        {/* Title with electric glow effect */}
+        {/* Title with modern glow effect */}
         <div className="relative mb-6">
           <div className="absolute inset-0 blur-2xl">
-            <h1 className="text-6xl md:text-8xl font-black text-emerald-500 uppercase tracking-tighter text-center leading-none opacity-50">
+            <h1 className="text-6xl md:text-8xl font-black text-blue-500 uppercase tracking-tighter text-center leading-none opacity-50">
               ASSESSMENT REPORT
             </h1>
           </div>
-          <h1 className="relative text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-emerald-100 to-green-300 uppercase tracking-tighter text-center leading-none">
+          <h1 className="relative text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-blue-100 to-blue-300 uppercase tracking-tighter text-center leading-none">
             ASSESSMENT
           </h1>
-          <h1 className="relative text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-green-300 via-teal-200 to-white uppercase tracking-tighter text-center leading-none -mt-2">
+          <h1 className="relative text-6xl md:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-b from-blue-300 via-purple-200 to-white uppercase tracking-tighter text-center leading-none -mt-2">
             REPORT
           </h1>
           
           {/* Animated underline */}
-          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-2/3 h-0.5 bg-gradient-to-r from-transparent via-emerald-500 to-transparent">
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-400 animate-pulse"></div>
+          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-2/3 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-400 animate-pulse"></div>
           </div>
         </div>
         
         {/* Divider with glow */}
         <div className="relative my-6">
-          <div className="h-px w-64 bg-gradient-to-r from-transparent via-emerald-400 to-transparent"></div>
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-emerald-400 blur-sm"></div>
+          <div className="h-px w-64 bg-gradient-to-r from-transparent via-blue-400 to-transparent"></div>
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-blue-400 blur-sm"></div>
         </div>
         
-        <p className="text-lg md:text-xl text-emerald-300/80 font-light text-center max-w-2xl tracking-wider mb-2">
+        <p className="text-lg md:text-xl text-blue-200/80 font-light text-center max-w-2xl tracking-wider mb-2">
           College Soccer Placement Consulting
         </p>
         
-        {/* Player Name with futuristic card */}
+        {/* Player Name with modern card */}
         {data.playerName && (
           <div className="mt-6 relative group">
             {/* Card glow */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-600 rounded-2xl blur-lg opacity-40 group-hover:opacity-60 transition-opacity"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-500 to-blue-600 rounded-2xl blur-lg opacity-40 group-hover:opacity-60 transition-opacity"></div>
             
             {/* Card */}
-            <div className="relative bg-gradient-to-br from-slate-900/90 to-emerald-950/90 backdrop-blur-xl rounded-xl border border-emerald-400/30 shadow-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 via-transparent to-teal-600/10"></div>
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-400 to-transparent"></div>
+            <div className="relative bg-gradient-to-br from-slate-900/90 to-blue-950/90 backdrop-blur-xl rounded-xl border border-blue-400/30 shadow-2xl overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-transparent to-purple-600/10"></div>
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent"></div>
               <p className="relative text-3xl md:text-4xl font-black text-white uppercase tracking-widest text-center px-10 py-5">
                 {data.playerName}
               </p>
@@ -288,14 +283,14 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
           </div>
         )}
 
-        {/* Decorative scanner line */}
-        <div className="absolute bottom-16 left-0 right-0 h-px bg-gradient-to-r from-transparent via-teal-400 to-transparent opacity-50 animate-pulse"></div>
+        {/* Decorative line */}
+        <div className="absolute bottom-16 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent opacity-50 animate-pulse"></div>
         
         {/* Corner accents */}
-        <div className="absolute top-4 left-4 w-12 h-12 border-l-2 border-t-2 border-emerald-400/30"></div>
-        <div className="absolute top-4 right-4 w-12 h-12 border-r-2 border-t-2 border-emerald-400/30"></div>
-        <div className="absolute bottom-4 left-4 w-12 h-12 border-l-2 border-b-2 border-emerald-400/30"></div>
-        <div className="absolute bottom-4 right-4 w-12 h-12 border-r-2 border-b-2 border-emerald-400/30"></div>
+        <div className="absolute top-4 left-4 w-12 h-12 border-l-2 border-t-2 border-blue-400/30"></div>
+        <div className="absolute top-4 right-4 w-12 h-12 border-r-2 border-t-2 border-blue-400/30"></div>
+        <div className="absolute bottom-4 left-4 w-12 h-12 border-l-2 border-b-2 border-blue-400/30"></div>
+        <div className="absolute bottom-4 right-4 w-12 h-12 border-r-2 border-b-2 border-blue-400/30"></div>
       </div>
       
       <style>{`
