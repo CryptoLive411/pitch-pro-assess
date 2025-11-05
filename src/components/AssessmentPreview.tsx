@@ -84,7 +84,7 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
         {/* Slide Card with Animation */}
         <div className="relative w-full max-w-7xl aspect-[16/9] bg-white rounded-xl md:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-3xl">
           <div className="w-full h-full animate-fade-in">
-            {currentSlide === 0 && <CoverSlide />}
+            {currentSlide === 0 && <CoverSlide data={data} />}
             {currentSlide === 1 && <PlayerInfoSlide data={data} />}
             {currentSlide === 2 && <RecommendationSlide data={data} />}
             {currentSlide === 3 && <TargetDivisionsSlide data={data} />}
@@ -132,7 +132,7 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
 };
 
 // Slide Components
-const CoverSlide = () => (
+const CoverSlide = ({ data }: { data: AssessmentData }) => (
   <div className="w-full h-full relative bg-gradient-to-br from-gray-100 via-blue-50 to-cyan-50 overflow-hidden">
     {/* Decorative curved shape */}
     <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-[hsl(var(--venture-navy))] rounded-full opacity-10"></div>
@@ -165,6 +165,15 @@ const CoverSlide = () => (
       <p className="text-xl md:text-2xl text-gray-600 font-semibold text-center max-w-2xl animate-fade-in">
         College Soccer Placement Consulting
       </p>
+      
+      {/* Player Name */}
+      {data.playerName && (
+        <div className="mt-6 animate-fade-in">
+          <p className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-blue))] uppercase tracking-wide text-center">
+            {data.playerName}
+          </p>
+        </div>
+      )}
     </div>
   </div>
 );
