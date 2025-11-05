@@ -67,7 +67,7 @@ const Preview = () => {
     return null;
   }
 
-  return <AssessmentPreview data={data} onBack={() => navigate("/")} />;
+  return <AssessmentPreview data={data} onBack={() => navigate("/", { state: { preservedData: data } })} />;
 };
 
 export default Preview;

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AssessmentData } from "./AssessmentEditor";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Download, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import ventureLogo from "@/assets/venture-logo-white.png";
 import ventureLogoCircle from "@/assets/venture-logo-circle.png";
 import pedroBaischFinal from "@/assets/pedro-baisch-final.png";
@@ -62,10 +62,6 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Top Navigation */}
@@ -82,13 +78,6 @@ export const AssessmentPreview = ({ data, onBack }: AssessmentPreviewProps) => {
             <span className="text-sm font-semibold tracking-wide">
               {slides[currentSlide].title} • {currentSlide + 1} / {slides.length}
             </span>
-            <Button 
-              onClick={handlePrint} 
-              className="gap-2 bg-white/10 hover:bg-white/20 border border-white/20"
-            >
-              <Download className="h-4 w-4" />
-              Export PDF
-            </Button>
           </div>
         </div>
       </div>

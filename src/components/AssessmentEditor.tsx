@@ -153,7 +153,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
         if (error) throw error;
       }
 
-      const url = `${window.location.origin}/ventureassessment/${slug}`;
+      const url = `ventureassessment/${slug}`;
       setAssessmentUrl(url);
 
       toast({

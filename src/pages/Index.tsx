@@ -1,20 +1,23 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AssessmentEditor, AssessmentData } from "@/components/AssessmentEditor";
 
 const Index = () => {
   const navigate = useNavigate();
-  const [assessmentData, setAssessmentData] = useState<AssessmentData>({
-    playerName: "",
-    enrollmentYear: "August 2027",
-    schoolYear: "Freshman",
-    gpa: "3.5+ GPA",
-    manager: "",
-    budget: "",
-    departmentNotes: "",
-    playerPhoto: null,
-    targetDivisions: [],
-  });
+  const location = useLocation();
+  const [assessmentData, setAssessmentData] = useState<AssessmentData>(
+    location.state?.preservedData || {
+      playerName: "",
+      enrollmentYear: "August 2027",
+      schoolYear: "Freshman",
+      gpa: "3.5+ GPA",
+      manager: "",
+      budget: "",
+      departmentNotes: "",
+      playerPhoto: null,
+      targetDivisions: [],
+    }
+  );
 
   const handlePreview = () => {
     navigate("/preview", { state: { data: assessmentData } });
