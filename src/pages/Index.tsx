@@ -24,15 +24,11 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-muted">
-      <div className="container mx-auto max-w-5xl">
-        <AssessmentEditor
-          data={assessmentData}
-          onChange={setAssessmentData}
-          onPreview={handlePreview}
-        />
-      </div>
-    </div>
+    <AssessmentEditor
+      data={assessmentData}
+      onChange={setAssessmentData}
+      onPreview={handlePreview}
+    />
   );
 };
 

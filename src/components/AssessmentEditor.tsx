@@ -207,59 +207,75 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
   };
 
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center justify-between flex-wrap gap-4">
-        <h2 className="text-2xl font-bold text-primary">Assessment Editor</h2>
-        <div className="flex items-center gap-2">
-          <Button onClick={handleSave} disabled={isSaving} className="gap-2">
-            <Save className="h-4 w-4" />
-            {isSaving ? "Saving..." : "Save Assessment"}
-          </Button>
-          <Button onClick={onPreview} variant="secondary" className="gap-2">
+    <div className="min-h-screen bg-background">
+      {/* Header with Logo */}
+      <header className="bg-[#002855] border-b border-border/20 sticky top-0 z-50">
+        <div className="container mx-auto px-6 py-4">
+          <img 
+            src="/src/assets/venture-logo-white.png" 
+            alt="Venture Soccer" 
+            className="h-12"
+          />
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto max-w-4xl px-6 py-8">
+        {/* Action Buttons */}
+        <div className="flex justify-end gap-3 mb-6">
+          <Button onClick={onPreview} variant="outline" size="lg" className="gap-2">
             <Eye className="h-4 w-4" />
             Preview
           </Button>
+          <Button onClick={handleSave} disabled={isSaving} size="lg" className="gap-2">
+            <Save className="h-4 w-4" />
+            {isSaving ? "Saving..." : "Save Assessment"}
+          </Button>
         </div>
-      </div>
 
-      {assessmentUrl && (
-        <Card className="p-4 bg-green-50 dark:bg-green-950 border-green-200">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex-1">
-              <p className="text-sm font-semibold text-green-900 dark:text-green-100 mb-1">Assessment Saved!</p>
-              <a 
-                href={assessmentUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-xs text-green-700 dark:text-green-300 break-all hover:underline"
-              >
-                {assessmentUrl.replace(window.location.origin + '/', '')}
-              </a>
+        {/* Success Message */}
+        {assessmentUrl && (
+          <div className="bg-green-50 dark:bg-green-950/50 border-2 border-green-500 rounded-lg p-4 mb-6">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex-1">
+                <p className="font-semibold text-green-900 dark:text-green-100 mb-1">✓ Assessment Saved Successfully!</p>
+                <a 
+                  href={assessmentUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-sm text-green-700 dark:text-green-300 hover:underline"
+                >
+                  {assessmentUrl.replace(window.location.origin + '/', '')}
+                </a>
+              </div>
+              <Button onClick={copyUrlToClipboard} size="sm" className="gap-2">
+                <LinkIcon className="h-4 w-4" />
+                Copy Link
+              </Button>
             </div>
-            <Button onClick={copyUrlToClipboard} size="sm" variant="outline" className="gap-2">
-              <LinkIcon className="h-4 w-4" />
-              Copy Link
-            </Button>
           </div>
-        </Card>
-      )}
+        )}
 
-      <Card className="p-6 space-y-6">
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-foreground">Player Photo</h3>
-          <div className="flex items-center gap-4">
-            {data.playerPhoto && (
-              <img
-                src={data.playerPhoto}
-                alt="Player"
-                className="h-32 w-32 rounded-2xl object-cover border-4 border-primary"
-              />
-            )}
-            <div className="flex-1">
+        {/* Form */}
+        <div className="bg-card border rounded-lg p-8 space-y-8">
+          {/* Player Photo Section */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Player Photo</h3>
+            <div className="flex items-center gap-6">
+              <div className="h-32 w-32 rounded-lg border-2 border-dashed border-muted-foreground/30 flex items-center justify-center overflow-hidden bg-muted">
+                {data.playerPhoto ? (
+                  <img
+                    src={data.playerPhoto}
+                    alt="Player"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <Upload className="h-8 w-8 text-muted-foreground" />
+                )}
+              </div>
               <Label htmlFor="photo" className="cursor-pointer">
-                <div className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity w-fit">
-                  <Upload className="h-4 w-4" />
-                  Upload Photo
+                <div className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition-opacity font-medium">
+                  {data.playerPhoto ? "Change Photo" : "Upload Photo"}
                 </div>
                 <Input
                   id="photo"
@@ -271,121 +287,136 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
               </Label>
             </div>
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="playerName">Player Name</Label>
-            <Input
-              id="playerName"
-              value={data.playerName}
-              onChange={(e) => onChange({ ...data, playerName: e.target.value })}
-              placeholder="John Doe"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="enrollmentYear">Enrollment Year/Options</Label>
-            <Input
-              id="enrollmentYear"
-              value={data.enrollmentYear}
-              onChange={(e) => onChange({ ...data, enrollmentYear: e.target.value })}
-              placeholder="August 2027"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="schoolYear">School Year</Label>
-            <Input
-              id="schoolYear"
-              value={data.schoolYear}
-              onChange={(e) => onChange({ ...data, schoolYear: e.target.value })}
-              placeholder="Freshman"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="gpa">High School GPA</Label>
-            <Input
-              id="gpa"
-              value={data.gpa}
-              onChange={(e) => onChange({ ...data, gpa: e.target.value })}
-              placeholder="3.5+ GPA"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="budget">Estimated Budget</Label>
-            <Input
-              id="budget"
-              value={data.budget}
-              onChange={(e) => onChange({ ...data, budget: e.target.value })}
-              placeholder="Up to $20,000 USD per year"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="manager">Manager/Agent Name</Label>
-            <Input
-              id="manager"
-              value={data.manager}
-              onChange={(e) => onChange({ ...data, manager: e.target.value })}
-              placeholder="Agent Name"
-            />
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="departmentNotes">
-            Department Notes
-            <span className="text-xs text-muted-foreground ml-2">(Auto-updates with player name and divisions)</span>
-          </Label>
-          <Textarea
-            id="departmentNotes"
-            value={data.departmentNotes}
-            onChange={(e) => onChange({ ...data, departmentNotes: e.target.value })}
-            placeholder="Enter department recommendations and notes..."
-            className="min-h-[200px]"
-          />
-        </div>
-
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-foreground">Target Divisions</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {[
-              "NCAA D1",
-              "NCAA D2",
-              "NCAA D3",
-              "NAIA",
-              "JUCO",
-              "Gap Year"
-            ].map((division) => (
-              <div key={division} className="flex items-center space-x-2">
-                <Checkbox
-                  id={division}
-                  checked={data.targetDivisions.includes(division)}
-                  onCheckedChange={(checked) => {
-                    if (checked) {
-                      onChange({
-                        ...data,
-                        targetDivisions: [...data.targetDivisions, division],
-                      });
-                    } else {
-                      onChange({
-                        ...data,
-                        targetDivisions: data.targetDivisions.filter((d) => d !== division),
-                      });
-                    }
-                  }}
+          {/* Player Information */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Player Information</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="playerName" className="mb-2 block">Player Name *</Label>
+                <Input
+                  id="playerName"
+                  value={data.playerName}
+                  onChange={(e) => onChange({ ...data, playerName: e.target.value })}
+                  placeholder="Enter player name"
+                  className="h-11"
                 />
-                <label htmlFor={division} className="text-sm font-medium leading-none cursor-pointer">
-                  {division}
-                </label>
               </div>
-            ))}
+
+              <div>
+                <Label htmlFor="enrollmentYear" className="mb-2 block">Enrollment Year</Label>
+                <Input
+                  id="enrollmentYear"
+                  value={data.enrollmentYear}
+                  onChange={(e) => onChange({ ...data, enrollmentYear: e.target.value })}
+                  placeholder="e.g., August 2027"
+                  className="h-11"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="schoolYear" className="mb-2 block">School Year</Label>
+                <Input
+                  id="schoolYear"
+                  value={data.schoolYear}
+                  onChange={(e) => onChange({ ...data, schoolYear: e.target.value })}
+                  placeholder="e.g., Freshman"
+                  className="h-11"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="gpa" className="mb-2 block">High School GPA</Label>
+                <Input
+                  id="gpa"
+                  value={data.gpa}
+                  onChange={(e) => onChange({ ...data, gpa: e.target.value })}
+                  placeholder="e.g., 3.5+ GPA"
+                  className="h-11"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="budget" className="mb-2 block">Estimated Budget</Label>
+                <Input
+                  id="budget"
+                  value={data.budget}
+                  onChange={(e) => onChange({ ...data, budget: e.target.value })}
+                  placeholder="e.g., $20,000 USD per year"
+                  className="h-11"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="manager" className="mb-2 block">Manager/Agent</Label>
+                <Input
+                  id="manager"
+                  value={data.manager}
+                  onChange={(e) => onChange({ ...data, manager: e.target.value })}
+                  placeholder="Enter agent name"
+                  className="h-11"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Target Divisions */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4">Target Divisions</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {[
+                "NCAA D1",
+                "NCAA D2",
+                "NCAA D3",
+                "NAIA",
+                "JUCO",
+                "Gap Year"
+              ].map((division) => (
+                <label 
+                  key={division} 
+                  className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-accent transition-colors"
+                >
+                  <Checkbox
+                    id={division}
+                    checked={data.targetDivisions.includes(division)}
+                    onCheckedChange={(checked) => {
+                      if (checked) {
+                        onChange({
+                          ...data,
+                          targetDivisions: [...data.targetDivisions, division],
+                        });
+                      } else {
+                        onChange({
+                          ...data,
+                          targetDivisions: data.targetDivisions.filter((d) => d !== division),
+                        });
+                      }
+                    }}
+                  />
+                  <span className="text-sm font-medium">{division}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          {/* Department Notes */}
+          <div>
+            <Label htmlFor="departmentNotes" className="mb-2 block">
+              Department Notes
+              <span className="text-xs text-muted-foreground ml-2 font-normal">
+                (Auto-updates based on form fields)
+              </span>
+            </Label>
+            <Textarea
+              id="departmentNotes"
+              value={data.departmentNotes}
+              onChange={(e) => onChange({ ...data, departmentNotes: e.target.value })}
+              placeholder="Department recommendations..."
+              className="min-h-[250px] resize-none"
+            />
           </div>
         </div>
-      </Card>
+      </main>
     </div>
   );
 };
