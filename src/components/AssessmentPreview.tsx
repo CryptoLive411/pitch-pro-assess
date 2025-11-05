@@ -393,13 +393,14 @@ const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
       
       {/* Division cards with enhanced soccer theme */}
       <div className="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 animate-fade-in overflow-auto">
-        {["NCAA D1", "NCAA D2", "NCAA D3", "NAIA D1", "NAIA D2", "JUCO", "Gap Year"].map((division, idx) => {
+        {["NCAA D1", "NCAA D2", "NCAA D3", "NAIA", "JUCO", "Gap Year"].map((division, idx) => {
           const isSelected = data.targetDivisions.includes(division);
           const divisionSlug = division.toLowerCase().replace(/ /g, '-');
           return (
             <Link
               key={division}
               to={`/division/${divisionSlug}`}
+              state={{ fromPreview: true }}
               className={`group relative overflow-hidden rounded-2xl transition-all duration-500 block ${
                 isSelected
                   ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-[1.02]' 

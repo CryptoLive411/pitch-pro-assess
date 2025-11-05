@@ -145,8 +145,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview }: AssessmentEditor
               "NCAA D1",
               "NCAA D2",
               "NCAA D3",
-              "NAIA D1",
-              "NAIA D2",
+              "NAIA",
               "JUCO",
               "Gap Year"
             ].map((division) => (
