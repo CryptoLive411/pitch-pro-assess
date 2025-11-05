@@ -974,7 +974,7 @@ const CostsSlide = () => {
   ];
 
   return (
-    <div className="w-full h-full bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 p-8 md:p-12 relative overflow-hidden">
+    <div className="w-full h-full bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 p-6 md:p-8 relative overflow-hidden">
       {/* Subtle background patterns */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[hsl(var(--venture-blue))]/10 rounded-full blur-3xl"></div>
@@ -983,53 +983,53 @@ const CostsSlide = () => {
 
       <div className="relative z-10 h-full flex flex-col">
         {/* Header with Logo */}
-        <div className="flex items-start justify-between mb-8">
+        <div className="flex items-start justify-between mb-4">
           <div>
-            <div className="inline-block px-4 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-sm font-bold rounded-full mb-4">
+            <div className="inline-block px-3 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-2">
               INVESTMENT
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
+            <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
               Estimated Costs
             </h2>
-            <p className="text-lg text-gray-600 mt-2">Your path to college soccer in the USA</p>
+            <p className="text-sm text-gray-600 mt-1">Your path to college soccer in the USA</p>
           </div>
           <img 
             src={ventureLogoCircle} 
             alt="Venture USA" 
-            className="w-20 h-20 md:w-24 md:h-24 object-contain opacity-90" 
+            className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-90" 
           />
         </div>
         
         {/* Modern Card Grid */}
-        <div className="flex-1 grid grid-cols-1 gap-4 content-start">
+        <div className="flex-1 grid grid-cols-1 gap-3 content-start overflow-y-auto pr-2">
           {costItems.map((item, index) => (
             <div 
               key={item.id}
-              className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-[hsl(var(--venture-blue))]/30 overflow-hidden"
+              className="group relative bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-[hsl(var(--venture-blue))]/30 overflow-hidden"
             >
               {/* Gradient accent bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-blue))] to-[hsl(var(--venture-navy))]"></div>
               
-              <div className="p-5 flex items-center justify-between">
-                <div className="flex items-center gap-4 flex-1">
+              <div className="p-3 md:p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3 flex-1">
                   {/* Number badge */}
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] flex items-center justify-center text-white font-black text-lg shadow-lg">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] flex items-center justify-center text-white font-black text-sm shadow-lg">
                     {index + 1}
                   </div>
                   
                   {/* Item info */}
                   <div className="flex-1">
-                    <h3 className="text-lg md:text-xl font-black text-[hsl(var(--venture-navy))] mb-1">
+                    <h3 className="text-base md:text-lg font-black text-[hsl(var(--venture-navy))] mb-0.5">
                       {item.name}
                     </h3>
-                    <p className="text-sm text-gray-500">{item.status}</p>
+                    <p className="text-xs text-gray-500">{item.status}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   {/* Amount */}
                   <div className="text-right">
-                    <div className="text-2xl md:text-3xl font-black bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] bg-clip-text text-transparent">
+                    <div className="text-xl md:text-2xl font-black bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] bg-clip-text text-transparent">
                       {item.amount}
                     </div>
                   </div>
@@ -1037,11 +1037,11 @@ const CostsSlide = () => {
                   {/* Info button */}
                   <button
                     onClick={() => setShowInfo(showInfo === item.id ? null : item.id)}
-                    className="flex-shrink-0 w-10 h-10 rounded-full bg-[hsl(var(--venture-blue))]/10 hover:bg-[hsl(var(--venture-blue))]/20 flex items-center justify-center transition-all duration-200 group"
+                    className="flex-shrink-0 w-8 h-8 rounded-full bg-[hsl(var(--venture-blue))]/10 hover:bg-[hsl(var(--venture-blue))]/20 flex items-center justify-center transition-all duration-200 group"
                   >
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
-                      className="h-5 w-5 text-[hsl(var(--venture-blue))]" 
+                      className="h-4 w-4 text-[hsl(var(--venture-blue))]" 
                       viewBox="0 0 20 20" 
                       fill="currentColor"
                     >
@@ -1057,9 +1057,9 @@ const CostsSlide = () => {
 
               {/* Info panel */}
               {showInfo === item.id && (
-                <div className="px-5 pb-5">
-                  <div className="bg-gradient-to-r from-[hsl(var(--venture-blue))]/10 to-blue-50 rounded-xl p-4 border-l-4 border-[hsl(var(--venture-blue))]">
-                    <p className="text-sm text-gray-700 leading-relaxed">
+                <div className="px-3 md:px-4 pb-3 md:pb-4">
+                  <div className="bg-gradient-to-r from-[hsl(var(--venture-blue))]/10 to-blue-50 rounded-lg p-3 border-l-4 border-[hsl(var(--venture-blue))]">
+                    <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
                       {item.description}
                     </p>
                   </div>
@@ -1070,9 +1070,9 @@ const CostsSlide = () => {
         </div>
 
         {/* Footer note */}
-        <div className="mt-6 bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200">
-          <p className="text-sm text-gray-600 text-center">
-            <span className="font-bold text-[hsl(var(--venture-navy))]">Note:</span> All costs are estimates and may vary. Click the info buttons for detailed descriptions.
+        <div className="mt-3 bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-gray-200">
+          <p className="text-xs md:text-sm text-gray-600 text-center">
+            <span className="font-bold text-[hsl(var(--venture-navy))]">Note:</span> All costs are estimates and may vary. Click the info buttons for details.
           </p>
         </div>
       </div>
