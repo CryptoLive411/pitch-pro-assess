@@ -1938,7 +1938,7 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
 
     <div className="relative z-10 h-full flex flex-col items-center justify-center px-8 py-12">
       {/* Logo */}
-      <div className="mb-12 relative group">
+      <div className="mt-8 mb-12 relative group">
         <div className="absolute inset-0 bg-white/20 rounded-full blur-2xl animate-pulse"></div>
         <div className="relative w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-2xl ring-4 ring-white/20">
           <img src={ventureLogoCircle} alt="Venture USA" className="w-28 h-28 object-contain" />
