@@ -236,7 +236,7 @@ export const AssessmentPreview = ({ data, onBack, isPublicView = false }: Assess
         <Button
           variant="ghost"
           size="icon"
-          className="print:hidden absolute left-1 md:left-4 lg:left-8 z-10 w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 rounded-full bg-white/90 backdrop-blur shadow-xl hover:bg-white hover:scale-110 transition-all duration-200"
+          className="print:hidden absolute left-1 md:left-4 lg:left-8 z-50 w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 rounded-full bg-white/70 backdrop-blur-sm shadow-xl hover:bg-white/90 hover:scale-110 transition-all duration-200"
           onClick={prevSlide}
         >
           <ChevronLeft className="h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 text-[hsl(var(--venture-navy))]" />
@@ -266,7 +266,7 @@ export const AssessmentPreview = ({ data, onBack, isPublicView = false }: Assess
         <Button
           variant="ghost"
           size="icon"
-          className="print:hidden absolute right-1 md:right-4 lg:right-8 z-10 w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 rounded-full bg-white/90 backdrop-blur shadow-xl hover:bg-white hover:scale-110 transition-all duration-200"
+          className="print:hidden absolute right-1 md:right-4 lg:right-8 z-50 w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 rounded-full bg-white/70 backdrop-blur-sm shadow-xl hover:bg-white/90 hover:scale-110 transition-all duration-200"
           onClick={nextSlide}
         >
           <ChevronRight className="h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 text-[hsl(var(--venture-navy))]" />
