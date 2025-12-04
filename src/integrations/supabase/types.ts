@@ -24,6 +24,7 @@ export type Database = {
           grad_year: string | null
           height: string | null
           id: string
+          language: string | null
           nationality: string | null
           package_price_1: string | null
           package_price_2: string | null
@@ -34,6 +35,7 @@ export type Database = {
           position: string | null
           recommendation: string | null
           target_divisions: string[] | null
+          translated_labels: Json | null
           updated_at: string | null
         }
         Insert: {
@@ -45,6 +47,7 @@ export type Database = {
           grad_year?: string | null
           height?: string | null
           id?: string
+          language?: string | null
           nationality?: string | null
           package_price_1?: string | null
           package_price_2?: string | null
@@ -55,6 +58,7 @@ export type Database = {
           position?: string | null
           recommendation?: string | null
           target_divisions?: string[] | null
+          translated_labels?: Json | null
           updated_at?: string | null
         }
         Update: {
@@ -66,6 +70,7 @@ export type Database = {
           grad_year?: string | null
           height?: string | null
           id?: string
+          language?: string | null
           nationality?: string | null
           package_price_1?: string | null
           package_price_2?: string | null
@@ -76,6 +81,7 @@ export type Database = {
           position?: string | null
           recommendation?: string | null
           target_divisions?: string[] | null
+          translated_labels?: Json | null
           updated_at?: string | null
         }
         Relationships: []
