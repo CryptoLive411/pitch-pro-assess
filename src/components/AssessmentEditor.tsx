@@ -26,6 +26,7 @@ export interface AssessmentData {
   packagePrice2?: string;
   packagePrice3?: string;
   language?: string;
+  translatedLabels?: Record<string, string> | null;
 }
 
 const LANGUAGES = [
@@ -104,23 +105,26 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
   const [isTranslating, setIsTranslating] = useState(false);
   const [originalNotes, setOriginalNotes] = useState<string>("");
 
-  // Translate department notes when language changes
-  const translateNotes = async (notes: string, targetLanguage: string) => {
-    if (!notes || targetLanguage === "English") {
-      return notes;
+  // Translate department notes and labels when language changes
+  const translateAssessment = async (notes: string, targetLanguage: string, includeLabels: boolean = true) => {
+    if (targetLanguage === "English") {
+      return { translatedText: notes, translatedLabels: null };
     }
 
     setIsTranslating(true);
     try {
       const response = await supabase.functions.invoke("translate-assessment", {
-        body: { text: notes, targetLanguage },
+        body: { text: notes, targetLanguage, translateLabels: includeLabels },
       });
 
       if (response.error) {
         throw new Error(response.error.message);
       }
 
-      return response.data.translatedText;
+      return {
+        translatedText: response.data.translatedText,
+        translatedLabels: response.data.translatedLabels,
+      };
     } catch (error) {
       console.error("Translation error:", error);
       toast({
@@ -128,7 +132,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         description: "Could not translate the assessment. Please try again.",
         variant: "destructive",
       });
-      return notes;
+      return { translatedText: notes, translatedLabels: null };
     } finally {
       setIsTranslating(false);
     }
@@ -142,14 +146,24 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
 
     // If switching back to English, restore original
     if (newLanguage === "English") {
-      onChange({ ...data, language: newLanguage, departmentNotes: originalNotes || data.departmentNotes });
+      onChange({ 
+        ...data, 
+        language: newLanguage, 
+        departmentNotes: originalNotes || data.departmentNotes,
+        translatedLabels: null 
+      });
       return;
     }
 
     // Translate from the original English notes
     const notesToTranslate = originalNotes || data.departmentNotes;
-    const translated = await translateNotes(notesToTranslate, newLanguage);
-    onChange({ ...data, language: newLanguage, departmentNotes: translated });
+    const { translatedText, translatedLabels } = await translateAssessment(notesToTranslate, newLanguage);
+    onChange({ 
+      ...data, 
+      language: newLanguage, 
+      departmentNotes: translatedText,
+      translatedLabels 
+    });
   };
 
   // Auto-update department notes when any form field changes
@@ -247,7 +261,9 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         budget: data.budget,
         package_price_1: data.packagePrice1 || null,
         package_price_2: data.packagePrice2 || null,
-        package_price_3: data.packagePrice3 || null
+        package_price_3: data.packagePrice3 || null,
+        language: data.language || 'English',
+        translated_labels: data.translatedLabels || null
       };
 
       if (existing) {
@@ -291,6 +307,8 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         packagePrice1: "",
         packagePrice2: "",
         packagePrice3: "",
+        language: "English",
+        translatedLabels: null,
       });
     } catch (error) {
       console.error('Error saving assessment:', error);

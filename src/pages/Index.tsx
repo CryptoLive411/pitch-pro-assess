@@ -22,6 +22,7 @@ const Index = () => {
       packagePrice2: "4,795",
       packagePrice3: "4,495",
       language: "English",
+      translatedLabels: null,
     }
   );
   

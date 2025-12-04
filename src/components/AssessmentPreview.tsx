@@ -33,26 +33,75 @@ interface AssessmentPreviewProps {
   isPublicView?: boolean;
 }
 
+// Default English labels
+const DEFAULT_LABELS: Record<string, string> = {
+  assessmentReport: "ASSESSMENT REPORT",
+  preparedFor: "Prepared for",
+  playerInformation: "Player Information",
+  enrollmentOptions: "Enrollment Options",
+  academicYear: "Academic Year",
+  highSchoolGpa: "High School GPA",
+  targetDivisions: "Target Divisions",
+  recommendation: "Recommendation",
+  ventureRecommendation: "Venture Recommendation",
+  targetDivisionsTitle: "Target Divisions",
+  yourPathway: "Your Pathway to College Soccer",
+  departmentNotes: "Department Notes",
+  estimatedCosts: "Estimated Costs",
+  annualBudget: "Annual Budget",
+  tuitionFees: "Tuition & Fees",
+  roomBoard: "Room & Board",
+  booksSupplies: "Books & Supplies",
+  personalExpenses: "Personal Expenses",
+  servicePackages: "Service Packages",
+  package1: "Package 1",
+  package2: "Package 2",
+  package3: "Package 3",
+  fullService: "Full Service",
+  standard: "Standard",
+  basic: "Basic",
+  mostPopular: "Most Popular",
+  timeline: "Timeline",
+  recruitmentTimeline: "Recruitment Timeline",
+  readyToStart: "Ready to Start?",
+  getInTouch: "Get in Touch",
+  contactUs: "Contact Us",
+  scheduleCall: "Schedule a Call",
+  perYear: "per year",
+  learnMore: "Learn More",
+  next: "Next",
+  previous: "Previous",
+  backToEditor: "Back to Editor",
+};
+
+// Helper to get label with fallback
+const getLabel = (labels: Record<string, string> | null | undefined, key: string): string => {
+  return labels?.[key] || DEFAULT_LABELS[key] || key;
+};
+
 export const AssessmentPreview = ({ data, onBack, isPublicView = false }: AssessmentPreviewProps) => {
   const location = useLocation();
   const initialSlide = location.state?.returnToSlide ?? 0;
   const [currentSlide, setCurrentSlide] = useState(initialSlide);
   
+  // Get translated labels or use defaults
+  const labels = data.translatedLabels || DEFAULT_LABELS;
+  
   const slides = [
-    { type: "cover", title: "Cover" },
-    { type: "player-info", title: "Player Information" },
-    { type: "recommendation", title: "Recommendation" },
-    { type: "target-divisions", title: "Target Divisions" },
-    { type: "department-notes", title: "Department Notes" },
+    { type: "cover", title: getLabel(labels, "assessmentReport") },
+    { type: "player-info", title: getLabel(labels, "playerInformation") },
+    { type: "recommendation", title: getLabel(labels, "recommendation") },
+    { type: "target-divisions", title: getLabel(labels, "targetDivisions") },
+    { type: "department-notes", title: getLabel(labels, "departmentNotes") },
     { type: "testimonial-joao", title: "Testimonial - Joao" },
     { type: "testimonial-filip", title: "Testimonial - Filip" },
     { type: "committed", title: "Success Stats" },
-    { type: "costs", title: "Estimated Costs" },
+    { type: "costs", title: getLabel(labels, "estimatedCosts") },
     { type: "testimonial-gabriel", title: "Testimonial - Gabriel" },
-    { type: "packages", title: "Service Packages" },
-    { type: "timeline", title: "Timeline" },
+    { type: "packages", title: getLabel(labels, "servicePackages") },
+    { type: "timeline", title: getLabel(labels, "timeline") },
     { type: "testimonials-slider", title: "More Testimonials" },
-    { type: "contact", title: "Ready to Start?" },
+    { type: "contact", title: getLabel(labels, "readyToStart") },
   ];
 
   const nextSlide = () => {
@@ -102,20 +151,20 @@ export const AssessmentPreview = ({ data, onBack, isPublicView = false }: Assess
         {/* Slide Card with Animation - flexible height on mobile, aspect ratio on desktop */}
         <div className="relative w-full max-w-7xl min-h-[500px] md:aspect-[16/9] bg-white rounded-lg md:rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-3xl">
           <div className="w-full h-full animate-fade-in">
-            {currentSlide === 0 && <CoverSlide data={data} />}
-            {currentSlide === 1 && <PlayerInfoSlide data={data} />}
-            {currentSlide === 2 && <RecommendationSlide data={data} />}
-            {currentSlide === 3 && <TargetDivisionsSlide data={data} />}
-            {currentSlide === 4 && <DepartmentNotesSlide data={data} />}
+            {currentSlide === 0 && <CoverSlide data={data} labels={labels} />}
+            {currentSlide === 1 && <PlayerInfoSlide data={data} labels={labels} />}
+            {currentSlide === 2 && <RecommendationSlide data={data} labels={labels} />}
+            {currentSlide === 3 && <TargetDivisionsSlide data={data} labels={labels} />}
+            {currentSlide === 4 && <DepartmentNotesSlide data={data} labels={labels} />}
             {currentSlide === 5 && <TestimonialJoaoSlide />}
             {currentSlide === 6 && <TestimonialFilipSlide />}
             {currentSlide === 7 && <CommittedSlide />}
-            {currentSlide === 8 && <CostsSlide />}
+            {currentSlide === 8 && <CostsSlide labels={labels} />}
             {currentSlide === 9 && <TestimonialGabrielSlide />}
-            {currentSlide === 10 && <PackagesSlide packagePrice1={data.packagePrice1} packagePrice2={data.packagePrice2} packagePrice3={data.packagePrice3} />}
-            {currentSlide === 11 && <TimelineSlide />}
+            {currentSlide === 10 && <PackagesSlide packagePrice1={data.packagePrice1} packagePrice2={data.packagePrice2} packagePrice3={data.packagePrice3} labels={labels} />}
+            {currentSlide === 11 && <TimelineSlide labels={labels} />}
             {currentSlide === 12 && <TestimonialsSliderSlide />}
-            {currentSlide === 13 && <ContactSlide />}
+            {currentSlide === 13 && <ContactSlide labels={labels} />}
           </div>
         </div>
 
@@ -152,7 +201,7 @@ export const AssessmentPreview = ({ data, onBack, isPublicView = false }: Assess
 };
 
 // Slide Components
-const CoverSlide = ({ data }: { data: AssessmentData }) => {
+const CoverSlide = ({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) => {
   // University logos for the ticker
   const universityLogos = [
     creightonLogo, ncStateLogo, charlestonLogo,
@@ -346,11 +395,11 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
           {/* Subtle text shadow for depth */}
           <div className="absolute inset-0 blur-sm">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-slate-300 text-center leading-tight mb-2">
-              ASSESSMENT REPORT
+              {labels.assessmentReport || "ASSESSMENT REPORT"}
             </h1>
           </div>
           <h1 className="relative text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-slate-900 text-center leading-tight mb-2 px-2">
-            ASSESSMENT REPORT
+            {labels.assessmentReport || "ASSESSMENT REPORT"}
           </h1>
           <div className="relative h-0.5 md:h-1 w-32 md:w-48 mx-auto bg-gradient-to-r from-transparent via-slate-900 to-transparent rounded-full shadow-lg"></div>
         </div>
@@ -422,7 +471,7 @@ const CoverSlide = ({ data }: { data: AssessmentData }) => {
   );
 };
 
-const PlayerInfoSlide = ({ data }: { data: AssessmentData }) => (
+const PlayerInfoSlide = ({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) => (
   <div className="w-full h-full bg-gradient-to-br from-white to-blue-50 relative overflow-hidden">
     {/* Decorative elements */}
     <div className="absolute top-0 right-0 w-1/3 h-full bg-[hsl(var(--venture-navy))] opacity-5 rounded-bl-[100px]"></div>
@@ -465,7 +514,7 @@ const PlayerInfoSlide = ({ data }: { data: AssessmentData }) => (
           <div className="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
             <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2"></div>
             <div>
-              <span className="font-bold text-[hsl(var(--venture-navy))]">Enrollment:</span>
+              <span className="font-bold text-[hsl(var(--venture-navy))]">{labels.enrollmentOptions || "Enrollment"}:</span>
               <p className="text-gray-700">{data.enrollmentYear || "August 2027"}</p>
             </div>
           </div>
@@ -473,7 +522,7 @@ const PlayerInfoSlide = ({ data }: { data: AssessmentData }) => (
           <div className="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
             <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2"></div>
             <div>
-              <span className="font-bold text-[hsl(var(--venture-navy))]">School Year:</span>
+              <span className="font-bold text-[hsl(var(--venture-navy))]">{labels.academicYear || "School Year"}:</span>
               <p className="text-gray-700">{data.schoolYear || "Freshman"}</p>
             </div>
           </div>
@@ -481,7 +530,7 @@ const PlayerInfoSlide = ({ data }: { data: AssessmentData }) => (
           <div className="flex items-start gap-3 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
             <div className="w-2 h-2 rounded-full bg-[hsl(var(--venture-blue))] mt-2"></div>
             <div>
-              <span className="font-bold text-[hsl(var(--venture-navy))]">GPA:</span>
+              <span className="font-bold text-[hsl(var(--venture-navy))]">{labels.highSchoolGpa || "GPA"}:</span>
               <p className="text-gray-700">{data.gpa || "3.5+"}</p>
             </div>
           </div>
@@ -499,7 +548,7 @@ const PlayerInfoSlide = ({ data }: { data: AssessmentData }) => (
   </div>
 );
 
-const RecommendationSlide = ({ data }: { data: AssessmentData }) => (
+const RecommendationSlide = ({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) => (
   <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] relative overflow-hidden">
     {/* Animated decorative elements */}
     <div className="absolute top-10 right-10 w-64 h-64 bg-white/5 rounded-full animate-pulse"></div>
@@ -526,7 +575,7 @@ const RecommendationSlide = ({ data }: { data: AssessmentData }) => (
         <div className="inline-block relative animate-fade-in">
           <div className="absolute inset-0 bg-white/20 rounded-full blur-xl"></div>
           <div className="relative px-6 py-2 bg-white/10 backdrop-blur text-white text-sm font-bold rounded-full mb-4 border border-white/20">
-            OUR RECOMMENDATION
+            {labels.recommendation?.toUpperCase() || "OUR RECOMMENDATION"}
           </div>
         </div>
         
@@ -579,7 +628,7 @@ const RecommendationSlide = ({ data }: { data: AssessmentData }) => (
   </div>
 );
 
-const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
+const TargetDivisionsSlide = ({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) => (
   <div className="w-full h-full bg-gradient-to-br from-slate-50 via-white to-blue-50 relative overflow-hidden p-8 md:p-16">
     {/* Soccer field lines pattern - subtle background */}
     <div className="absolute inset-0 opacity-[0.03]">
@@ -625,7 +674,7 @@ const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
               <path d="M12 2C9.5 6 9.5 18 12 22"/>
               <path d="M12 2c2.5 4 2.5 16 0 20"/>
             </svg>
-            PLACEMENT TARGETS
+            {labels.targetDivisions?.toUpperCase() || "PLACEMENT TARGETS"}
           </div>
         </div>
         <h2 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
@@ -726,7 +775,7 @@ const TargetDivisionsSlide = ({ data }: { data: AssessmentData }) => (
   </div>
 );
 
-const DepartmentNotesSlide = ({ data }: { data: AssessmentData }) => (
+const DepartmentNotesSlide = ({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) => (
   <div className="w-full h-full bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 relative overflow-hidden p-6 md:p-12">
     {/* Decorative Background Elements */}
     <div className="absolute top-10 right-10 w-64 h-64 opacity-5">
@@ -758,7 +807,7 @@ const DepartmentNotesSlide = ({ data }: { data: AssessmentData }) => (
             SCOUTING REPORT
           </div>
           <h2 className="text-2xl md:text-4xl font-black text-[hsl(var(--venture-navy))] leading-tight">
-            Department Assessment
+            {labels.departmentNotes || "Department Assessment"}
           </h2>
           <p className="text-sm md:text-base text-[hsl(var(--venture-blue))] font-bold mt-1">
             Professional Evaluation & Recommendations
@@ -1022,7 +1071,7 @@ const TestimonialGabrielSlide = () => (
   </div>
 );
 
-const CostsSlide = () => {
+const CostsSlide = ({ labels }: { labels: Record<string, string> }) => {
   const [showInfo, setShowInfo] = useState<string | null>(null);
   
   const costItems = [
@@ -1170,7 +1219,7 @@ const CostsSlide = () => {
   );
 };
 
-const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3 }: { packagePrice1?: string; packagePrice2?: string; packagePrice3?: string }) => {
+const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: { packagePrice1?: string; packagePrice2?: string; packagePrice3?: string; labels: Record<string, string> }) => {
   const [showInfo, setShowInfo] = useState<string | null>(null);
   
   const services = [
@@ -1435,7 +1484,7 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3 }: { packag
   );
 };
 
-const TimelineSlide = () => {
+const TimelineSlide = ({ labels }: { labels: Record<string, string> }) => {
   const [showInfo, setShowInfo] = useState<string | null>(null);
   
   const steps = [
@@ -1764,7 +1813,7 @@ const TestimonialsSliderSlide = () => {
   );
 };
 
-const ContactSlide = () => (
+const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
   <div className="w-full h-full bg-gradient-to-br from-slate-900 via-[hsl(var(--venture-navy))] to-blue-950 relative overflow-hidden">
     {/* Modern geometric background */}
     <div className="absolute inset-0">

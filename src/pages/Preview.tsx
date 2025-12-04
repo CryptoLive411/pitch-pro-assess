@@ -88,7 +88,9 @@ const Preview = () => {
               targetDivisions: assessment.target_divisions || [],
               packagePrice1: assessment.package_price_1 || '',
               packagePrice2: assessment.package_price_2 || '',
-              packagePrice3: assessment.package_price_3 || ''
+              packagePrice3: assessment.package_price_3 || '',
+              language: assessment.language || 'English',
+              translatedLabels: assessment.translated_labels as Record<string, string> | null,
             };
             setData(assessmentData);
           } else {
