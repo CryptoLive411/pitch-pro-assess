@@ -13,6 +13,8 @@ serve(async (req) => {
 
   try {
     const authHeader = req.headers.get('Authorization');
+    console.log('Auth header present:', !!authHeader);
+    
     if (!authHeader) {
       return new Response(
         JSON.stringify({ error: 'Missing authorization header' }),
@@ -22,35 +24,39 @@ serve(async (req) => {
 
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
 
-    // Client for checking the requesting user's permissions
-    const userClient = createClient(supabaseUrl, supabaseAnonKey, {
-      auth: { autoRefreshToken: false, persistSession: false },
-      global: { headers: { Authorization: authHeader } }
-    });
-
-    // Admin client for user management
+    // Admin client for all operations - use service role
     const adminClient = createClient(supabaseUrl, supabaseServiceKey, {
       auth: { autoRefreshToken: false, persistSession: false }
     });
 
-    // Verify the requesting user is authenticated and is an admin
-    const { data: { user }, error: userError } = await userClient.auth.getUser();
+    // Extract JWT token and get user
+    const token = authHeader.replace('Bearer ', '');
+    const { data: { user }, error: userError } = await adminClient.auth.getUser(token);
+    
+    console.log('User lookup result:', user?.id, 'error:', userError?.message);
+    
     if (userError || !user) {
+      console.error('Auth error:', userError);
       return new Response(
         JSON.stringify({ error: 'Invalid or expired token' }),
         { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Check if requesting user is admin
-    const { data: isAdmin } = await adminClient.rpc('has_role', { 
-      _user_id: user.id, 
-      _role: 'admin' 
-    });
+    console.log('Authenticated user:', user.id, user.email);
 
-    if (!isAdmin) {
+    // Check if requesting user is admin using direct query
+    const { data: roleData, error: roleError } = await adminClient
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', user.id)
+      .eq('role', 'admin')
+      .single();
+
+    console.log('Role check result:', roleData, 'error:', roleError?.message);
+
+    if (roleError || !roleData) {
       return new Response(
         JSON.stringify({ error: 'Only admins can manage users' }),
         { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -58,6 +64,7 @@ serve(async (req) => {
     }
 
     const { action, email } = await req.json();
+    console.log('Action:', action, 'Email:', email);
 
     if (action === 'grantStaff') {
       if (!email) {
@@ -78,6 +85,8 @@ serve(async (req) => {
         );
       }
 
+      console.log('Total users found:', userData.users.length);
+
       const targetUser = userData.users.find(u => u.email?.toLowerCase() === email.toLowerCase());
       
       if (!targetUser) {
@@ -87,12 +96,14 @@ serve(async (req) => {
         );
       }
 
+      console.log('Found target user:', targetUser.id, targetUser.email);
+
       // Check if user already has a role
       const { data: existingRole } = await adminClient
         .from('user_roles')
         .select('*')
         .eq('user_id', targetUser.id)
-        .single();
+        .maybeSingle();
 
       if (existingRole) {
         return new Response(
