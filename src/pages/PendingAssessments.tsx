@@ -5,8 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { ArrowLeft, RefreshCw, Loader2, ExternalLink } from "lucide-react";
+import { ArrowLeft, RefreshCw, Loader2, ExternalLink, LogOut } from "lucide-react";
 import ventureLogo from "@/assets/venture-logo-circle.png";
+import { useAuth } from "@/hooks/useAuth";
 
 interface PipedriveDeal {
   id: number;
@@ -23,6 +24,7 @@ interface PipedriveDeal {
 
 const PendingAssessments = () => {
   const navigate = useNavigate();
+  const { signOut } = useAuth();
   const [deals, setDeals] = useState<PipedriveDeal[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -130,6 +132,14 @@ const PendingAssessments = () => {
             </Button>
             <Button onClick={() => navigate("/")} className="gap-2">
               New Assessment
+            </Button>
+            <Button
+              onClick={signOut}
+              variant="ghost"
+              className="gap-2 text-muted-foreground hover:text-destructive"
+            >
+              <LogOut className="w-4 h-4" />
+              Sign Out
             </Button>
           </div>
         </div>
