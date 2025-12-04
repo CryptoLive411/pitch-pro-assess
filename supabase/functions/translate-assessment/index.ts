@@ -90,6 +90,9 @@ const UI_LABELS = {
   usaArrivalSupportDescription: "Help with logistics and orientation when arriving in the USA, ensuring a smooth transition to your new university.",
   universityPlacement: "University Placement",
   universityPlacementDescription: "End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.",
+  placementGuarantee: "100% Placement Guarantee or Full Refund",
+  contactUs: "Contact us",
+  contactUsPackageNote: "to discuss which package best fits your needs and goals.",
   
   // Timeline slide
   yourJourney: "YOUR JOURNEY",
