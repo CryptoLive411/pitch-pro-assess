@@ -12,6 +12,56 @@ const Preview = () => {
   const [data, setData] = useState<AssessmentData | null>(location.state?.data || null);
   const [loading, setLoading] = useState(!!slug && !data);
 
+  // Set OG meta tags dynamically when data is available
+  useEffect(() => {
+    if (data) {
+      // Set page title
+      document.title = `${data.playerName} - Venture Soccer Assessment`;
+      
+      // Update or create OG meta tags
+      const setMetaTag = (property: string, content: string) => {
+        let meta = document.querySelector(`meta[property="${property}"]`) as HTMLMetaElement;
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.setAttribute('property', property);
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', content);
+      };
+      
+      const setTwitterMeta = (name: string, content: string) => {
+        let meta = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement;
+        if (!meta) {
+          meta = document.createElement('meta');
+          meta.setAttribute('name', name);
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', content);
+      };
+
+      // Set OG tags
+      setMetaTag('og:title', `${data.playerName} - Venture Soccer Assessment`);
+      setMetaTag('og:description', `Professional soccer assessment for ${data.playerName}. View detailed analysis and recruitment pathway.`);
+      if (data.playerPhoto) {
+        setMetaTag('og:image', data.playerPhoto);
+      }
+      setMetaTag('og:type', 'website');
+      
+      // Set Twitter tags
+      setTwitterMeta('twitter:card', 'summary_large_image');
+      setTwitterMeta('twitter:title', `${data.playerName} - Venture Soccer Assessment`);
+      setTwitterMeta('twitter:description', `Professional soccer assessment for ${data.playerName}. View detailed analysis and recruitment pathway.`);
+      if (data.playerPhoto) {
+        setTwitterMeta('twitter:image', data.playerPhoto);
+      }
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.title = 'Venture Sports Assessment Tool';
+    };
+  }, [data]);
+
   useEffect(() => {
     // If we have a slug and no data, fetch from database
     if (slug && !data) {
@@ -36,7 +86,10 @@ const Preview = () => {
               budget: assessment.budget || '',
               departmentNotes: assessment.department_notes || '',
               playerPhoto: assessment.player_photo || null,
-              targetDivisions: assessment.target_divisions || []
+              targetDivisions: assessment.target_divisions || [],
+              packagePrice1: assessment.package_price_1 || '',
+              packagePrice2: assessment.package_price_2 || '',
+              packagePrice3: assessment.package_price_3 || ''
             };
             setData(assessmentData);
           } else {

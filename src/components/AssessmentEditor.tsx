@@ -21,6 +21,9 @@ export interface AssessmentData {
   departmentNotes: string;
   playerPhoto: string | null;
   targetDivisions: string[]; // Array of selected divisions
+  packagePrice1?: string;
+  packagePrice2?: string;
+  packagePrice3?: string;
 }
 
 interface AssessmentEditorProps {
@@ -142,7 +145,10 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         target_divisions: data.targetDivisions,
         recommendation: data.manager,
         department_notes: data.departmentNotes,
-        budget: data.budget
+        budget: data.budget,
+        package_price_1: data.packagePrice1 || null,
+        package_price_2: data.packagePrice2 || null,
+        package_price_3: data.packagePrice3 || null
       };
 
       if (existing) {
@@ -183,6 +189,9 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         departmentNotes: "",
         playerPhoto: null,
         targetDivisions: [],
+        packagePrice1: "",
+        packagePrice2: "",
+        packagePrice3: "",
       });
     } catch (error) {
       console.error('Error saving assessment:', error);
@@ -405,6 +414,40 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
                 </label>
               </div>
             ))}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-foreground">Package Prices</h3>
+          <p className="text-sm text-muted-foreground">Set the prices that will display on the packages slide</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="packagePrice1">Package 1 (Full Service)</Label>
+              <Input
+                id="packagePrice1"
+                value={data.packagePrice1 || ""}
+                onChange={(e) => onChange({ ...data, packagePrice1: e.target.value })}
+                placeholder="e.g. $4,495"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="packagePrice2">Package 2 (Standard)</Label>
+              <Input
+                id="packagePrice2"
+                value={data.packagePrice2 || ""}
+                onChange={(e) => onChange({ ...data, packagePrice2: e.target.value })}
+                placeholder="e.g. $2,995"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="packagePrice3">Package 3 (Essential)</Label>
+              <Input
+                id="packagePrice3"
+                value={data.packagePrice3 || ""}
+                onChange={(e) => onChange({ ...data, packagePrice3: e.target.value })}
+                placeholder="e.g. $1,495"
+              />
+            </div>
           </div>
         </div>
       </Card>

@@ -112,7 +112,7 @@ export const AssessmentPreview = ({ data, onBack, isPublicView = false }: Assess
             {currentSlide === 7 && <CommittedSlide />}
             {currentSlide === 8 && <CostsSlide />}
             {currentSlide === 9 && <TestimonialGabrielSlide />}
-            {currentSlide === 10 && <PackagesSlide />}
+            {currentSlide === 10 && <PackagesSlide packagePrice1={data.packagePrice1} packagePrice2={data.packagePrice2} packagePrice3={data.packagePrice3} />}
             {currentSlide === 11 && <TimelineSlide />}
             {currentSlide === 12 && <TestimonialsSliderSlide />}
             {currentSlide === 13 && <ContactSlide />}
@@ -1170,7 +1170,7 @@ const CostsSlide = () => {
   );
 };
 
-const PackagesSlide = () => {
+const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3 }: { packagePrice1?: string; packagePrice2?: string; packagePrice3?: string }) => {
   const [showInfo, setShowInfo] = useState<string | null>(null);
   
   const services = [
@@ -1188,7 +1188,7 @@ const PackagesSlide = () => {
       description: 'Professional editing of your soccer highlight videos to showcase your skills to college coaches in the most compelling way.',
       pkg1: true,
       pkg2: true,
-      pkg3: false
+      pkg3: true
     },
     {
       id: 'admissions',
@@ -1290,18 +1290,21 @@ const PackagesSlide = () => {
             <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-lg px-2 py-2">
               <div className="text-xs font-black">PACKAGE 1</div>
               <div className="text-[10px] opacity-80">Full Service</div>
+              {packagePrice1 && <div className="text-sm font-bold mt-1">{packagePrice1}</div>}
             </div>
           </div>
           <div className="text-center">
             <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-lg px-2 py-2">
               <div className="text-xs font-black">PACKAGE 2</div>
               <div className="text-[10px] opacity-80">Standard</div>
+              {packagePrice2 && <div className="text-sm font-bold mt-1">{packagePrice2}</div>}
             </div>
           </div>
           <div className="text-center">
             <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white rounded-lg px-2 py-2">
               <div className="text-xs font-black">PACKAGE 3</div>
               <div className="text-[10px] opacity-80">Essential</div>
+              {packagePrice3 && <div className="text-sm font-bold mt-1">{packagePrice3}</div>}
             </div>
           </div>
         </div>
