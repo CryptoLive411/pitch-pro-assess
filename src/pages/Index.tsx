@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AssessmentEditor, AssessmentData } from "@/components/AssessmentEditor";
 import { Button } from "@/components/ui/button";
-import { FileText, LogOut } from "lucide-react";
+import { FileText, LogOut, Users } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
@@ -45,6 +45,14 @@ const Index = () => {
           >
             <FileText className="w-4 h-4" />
             Pending from Pipedrive
+          </Button>
+          <Button
+            onClick={() => navigate("/admin/users")}
+            variant="outline"
+            className="gap-2"
+          >
+            <Users className="w-4 h-4" />
+            Manage Users
           </Button>
           <Button
             onClick={signOut}

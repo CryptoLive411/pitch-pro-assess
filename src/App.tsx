@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Preview from "./pages/Preview";
 import Assessments from "./pages/Assessments";
 import PendingAssessments from "./pages/PendingAssessments";
+import AdminUsers from "./pages/AdminUsers";
 import DivisionInfo from "./pages/DivisionInfo";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
@@ -47,6 +48,11 @@ const App = () => (
             <Route path="/pending-assessments" element={
               <ProtectedRoute requireStaff>
                 <PendingAssessments />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/users" element={
+              <ProtectedRoute requireStaff>
+                <AdminUsers />
               </ProtectedRoute>
             } />
             
