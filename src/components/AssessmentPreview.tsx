@@ -35,42 +35,136 @@ interface AssessmentPreviewProps {
 
 // Default English labels
 const DEFAULT_LABELS: Record<string, string> = {
+  // Cover slide
   assessmentReport: "ASSESSMENT REPORT",
+  collegeSoccerPlacementConsulting: "College Soccer Placement Consulting",
   preparedFor: "Prepared for",
+  
+  // Player info slide
+  playerProfile: "PLAYER PROFILE",
   playerInformation: "Player Information",
-  enrollmentOptions: "Enrollment Options",
-  academicYear: "Academic Year",
-  highSchoolGpa: "High School GPA",
-  targetDivisions: "Target Divisions",
+  enrollment: "Enrollment",
+  schoolYear: "School Year",
+  gpa: "GPA",
+  manager: "Manager",
+  playerPhoto: "Player Photo",
+  
+  // Recommendation slide
+  ourRecommendation: "OUR RECOMMENDATION",
   recommendation: "Recommendation",
-  ventureRecommendation: "Venture Recommendation",
-  targetDivisionsTitle: "Target Divisions",
-  yourPathway: "Your Pathway to College Soccer",
+  
+  // Target divisions slide
+  placementTargets: "PLACEMENT TARGETS",
+  targetDivisions: "Target Divisions",
+  recommended: "Recommended",
+  clickToLearnMore: "Click to learn more",
+  
+  // Department notes slide
+  scoutingReport: "SCOUTING REPORT",
+  departmentAssessment: "Department Assessment",
+  professionalEvaluation: "Professional Evaluation & Recommendations",
   departmentNotes: "Department Notes",
+  
+  // Costs slide
+  investment: "INVESTMENT",
   estimatedCosts: "Estimated Costs",
-  annualBudget: "Annual Budget",
-  tuitionFees: "Tuition & Fees",
-  roomBoard: "Room & Board",
-  booksSupplies: "Books & Supplies",
-  personalExpenses: "Personal Expenses",
+  yourPathToCollegeSoccer: "Your path to college soccer in the USA",
+  satExams: "SAT Exams",
+  satExamsStatus: "1-3 exams",
+  satExamsDescription: "The SAT is a standardized test that students may have to take to get accepted into certain schools. This score helps universities evaluate academic readiness.",
+  applications: "Applications",
+  applicationsStatus: "4-6 schools",
+  applicationsDescription: "Application fees for submitting your profile to multiple universities. Each school charges an application fee to process your admission materials.",
+  flightTicket: "Flight Ticket to USA",
+  flightTicketStatus: "One-way",
+  flightTicketDescription: "Cost of your flight from your home country to the United States. This is a one-way ticket to begin your college journey.",
+  visaApproval: "Visa Approval",
+  visaApprovalStatus: "F-1 Student",
+  visaApprovalDescription: "The F-1 Student Visa approval process and associated fees required for international students to study in the United States.",
+  universityYearlyBudget: "University Yearly Budget",
+  universityYearlyBudgetStatus: "Varies",
+  universityYearlyBudgetDescription: "Average yearly cost after scholarships, discussed with family. Some students earn full scholarships while others may not receive any financial aid.",
+  costsNote: "All costs are estimates and may vary. Click the info buttons for details.",
+  note: "Note",
+  
+  // Packages slide
+  serviceOptions: "SERVICE OPTIONS",
   servicePackages: "Service Packages",
-  package1: "Package 1",
-  package2: "Package 2",
-  package3: "Package 3",
+  choosePackage: "Choose the right package for your journey",
+  service: "SERVICE",
+  package1: "PACKAGE 1",
+  package2: "PACKAGE 2",
+  package3: "PACKAGE 3",
   fullService: "Full Service",
   standard: "Standard",
-  basic: "Basic",
-  mostPopular: "Most Popular",
+  essential: "Essential",
+  englishExamSupport: "English Exam Support",
+  englishExamSupportDescription: "Comprehensive preparation and guidance for English proficiency exams like TOEFL, helping you achieve the scores needed for university admission.",
+  videoEditing: "Video Editing",
+  videoEditingDescription: "Professional editing of your soccer highlight videos to showcase your skills to college coaches in the most compelling way.",
+  admissionsSupport: "Admissions Support",
+  admissionsSupportDescription: "Expert assistance with college applications, essays, and all required documentation to maximize your chances of acceptance.",
+  translationServices: "Translation Services",
+  translationServicesDescription: "Professional translation of documents, transcripts, and communications to ensure accurate and effective communication.",
+  coachConnections: "Coach Connections",
+  coachConnectionsDescription: "Direct introductions and ongoing communication with college coaches who match your athletic and academic profile.",
+  eligibilityCenter: "Eligibility Center",
+  eligibilityCenterDescription: "Complete support with NCAA Eligibility Center registration and requirements to ensure you can compete collegiately.",
+  scholarshipOffers: "Scholarship Offers",
+  scholarshipOffersDescription: "Strategic guidance to secure the best possible scholarship offers and financial aid packages from universities.",
+  visaSupport: "VISA Support",
+  visaSupportDescription: "Complete assistance with F-1 Student Visa application process, documentation, and interview preparation.",
+  usaArrivalSupport: "USA Arrival Support",
+  usaArrivalSupportDescription: "Help with logistics and orientation when arriving in the USA, ensuring a smooth transition to your new university.",
+  universityPlacement: "University Placement",
+  universityPlacementDescription: "End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.",
+  
+  // Timeline slide
+  yourJourney: "YOUR JOURNEY",
+  stepByStep: "Step by Step",
   timeline: "Timeline",
-  recruitmentTimeline: "Recruitment Timeline",
-  readyToStart: "Ready to Start?",
-  getInTouch: "Get in Touch",
-  contactUs: "Contact Us",
-  scheduleCall: "Schedule a Call",
+  startProcess: "Start Process",
+  startProcessDescription: "Initial consultation to understand your goals, assess your profile, and create a personalized roadmap for your college soccer journey.",
+  coachMeetings: "Coach Meetings",
+  coachMeetingsDescription: "Direct connections with college coaches across multiple divisions, introducing your athletic and academic profile to programs that match your goals.",
+  videoEditingTimeline: "Video Editing",
+  videoEditingTimelineDescription: "Professional editing of your soccer highlight videos to showcase your skills, positioning, and game intelligence to college coaches.",
+  activeRecruitment: "Active Recruitment",
+  activeRecruitmentDescription: "Ongoing communication with college coaches, managing interest from programs, and coordinating campus visits or virtual meetings.",
+  transcriptEvaluation: "Transcript Evaluation",
+  transcriptEvaluationDescription: "Complete academic evaluation and transcript preparation to meet NCAA eligibility requirements and university admission standards.",
+  universityConnections: "University Connections",
+  universityConnectionsDescription: "Building strong relationships with universities that are the best fit for your athletic ability, academic interests, and scholarship needs.",
+  applicationsSubmitted: "Applications Submitted",
+  applicationsSubmittedDescription: "Complete and submit applications to selected universities with all required documents, essays, and supporting materials.",
+  travelPreparation: "Travel Preparation",
+  travelPreparationDescription: "Visa processing, flight arrangements, accommodation planning, and all logistics for your move to the United States.",
+  startCollegeJourney: "Start College Journey",
+  startCollegeJourneyDescription: "Arrival at your university, orientation, meeting your team, and beginning your college soccer and academic career in the USA.",
+  
+  // Contact slide
+  readyToStart: "Ready to Start",
+  yourJourneyQuestion: "Your Journey?",
+  letsMakeYourDream: "Let's make your college soccer dream a reality",
+  emailUs: "Email Us",
+  getStarted: "Get Started",
+  callYourAgent: "Call Your Agent",
+  joinAthletes: "Join 350+ athletes who have successfully placed at top universities across the United States",
+  
+  // Division info page
+  divisionOverview: "DIVISION OVERVIEW",
+  scholarships: "Scholarships",
+  academicRequirements: "Academic Requirements",
+  keyBenefits: "Key Benefits",
+  keyDifferences: "Key Differences",
+  idealFor: "Ideal For",
+  backToAssessment: "Back to Assessment",
+  divisionNotFound: "Division not found",
+  goBack: "Go Back",
+  
+  // Common
   perYear: "per year",
   learnMore: "Learn More",
-  next: "Next",
-  previous: "Previous",
   backToEditor: "Back to Editor",
 };
 
@@ -752,13 +846,13 @@ const TargetDivisionsSlide = ({ data, labels }: { data: AssessmentData; labels: 
                 {isSelected && (
                   <div className="flex items-center justify-center gap-2">
                     <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                    <p className="text-white/90 text-sm font-semibold uppercase tracking-wider">Recommended</p>
+                    <p className="text-white/90 text-sm font-semibold uppercase tracking-wider">{labels.recommended || "Recommended"}</p>
                   </div>
                 )}
                 
                 {!isSelected && (
                   <div className="flex items-center justify-center gap-2 text-[hsl(var(--venture-blue))] opacity-0 group-hover:opacity-100 transition-opacity">
-                    <p className="text-sm font-semibold uppercase tracking-wider">Click to learn more</p>
+                    <p className="text-sm font-semibold uppercase tracking-wider">{labels.clickToLearnMore || "Click to learn more"}</p>
                   </div>
                 )}
               </div>
@@ -1077,38 +1171,38 @@ const CostsSlide = ({ labels }: { labels: Record<string, string> }) => {
   const costItems = [
     {
       id: 'sat',
-      name: 'SAT Exams',
+      name: labels.satExams || 'SAT Exams',
       amount: '$200-$400',
-      status: '1-3 exams',
-      description: 'The SAT is a standardized test that students may have to take to get accepted into certain schools. This score helps universities evaluate academic readiness.'
+      status: labels.satExamsStatus || '1-3 exams',
+      description: labels.satExamsDescription || 'The SAT is a standardized test that students may have to take to get accepted into certain schools. This score helps universities evaluate academic readiness.'
     },
     {
       id: 'applications',
-      name: 'Applications',
+      name: labels.applications || 'Applications',
       amount: '$300-$500',
-      status: '4-6 schools',
-      description: 'Application fees for submitting your profile to multiple universities. Each school charges an application fee to process your admission materials.'
+      status: labels.applicationsStatus || '4-6 schools',
+      description: labels.applicationsDescription || 'Application fees for submitting your profile to multiple universities. Each school charges an application fee to process your admission materials.'
     },
     {
       id: 'flight',
-      name: 'Flight Ticket to USA',
+      name: labels.flightTicket || 'Flight Ticket to USA',
       amount: '$600-$1,000',
-      status: 'One-way',
-      description: 'Cost of your flight from your home country to the United States. This is a one-way ticket to begin your college journey.'
+      status: labels.flightTicketStatus || 'One-way',
+      description: labels.flightTicketDescription || 'Cost of your flight from your home country to the United States. This is a one-way ticket to begin your college journey.'
     },
     {
       id: 'visa',
-      name: 'Visa Approval',
+      name: labels.visaApproval || 'Visa Approval',
       amount: '$350',
-      status: 'F-1 Student',
-      description: 'The F-1 Student Visa approval process and associated fees required for international students to study in the United States.'
+      status: labels.visaApprovalStatus || 'F-1 Student',
+      description: labels.visaApprovalDescription || 'The F-1 Student Visa approval process and associated fees required for international students to study in the United States.'
     },
     {
       id: 'budget',
-      name: 'University Yearly Budget',
+      name: labels.universityYearlyBudget || 'University Yearly Budget',
       amount: '$10K-$20K',
-      status: 'Varies',
-      description: 'Average yearly cost after scholarships, discussed with family. Some students earn full scholarships while others may not receive any financial aid.'
+      status: labels.universityYearlyBudgetStatus || 'Varies',
+      description: labels.universityYearlyBudgetDescription || 'Average yearly cost after scholarships, discussed with family. Some students earn full scholarships while others may not receive any financial aid.'
     }
   ];
 
@@ -1125,15 +1219,15 @@ const CostsSlide = ({ labels }: { labels: Record<string, string> }) => {
         <div className="flex items-start justify-between mb-4">
           <div>
             <div className="inline-block px-3 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-2">
-              INVESTMENT
+              {labels.investment || "INVESTMENT"}
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
-              Estimated Costs
+              {labels.estimatedCosts || "Estimated Costs"}
             </h2>
-            <p className="text-sm text-gray-600 mt-1">Your path to college soccer in the USA</p>
+            <p className="text-sm text-gray-600 mt-1">{labels.yourPathToCollegeSoccer || "Your path to college soccer in the USA"}</p>
           </div>
           <img 
-            src={ventureLogoCircle} 
+            src={ventureLogoCircle}
             alt="Venture USA" 
             className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-90" 
           />
@@ -1211,7 +1305,7 @@ const CostsSlide = ({ labels }: { labels: Record<string, string> }) => {
         {/* Footer note */}
         <div className="mt-3 bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-gray-200">
           <p className="text-xs md:text-sm text-gray-600 text-center">
-            <span className="font-bold text-[hsl(var(--venture-navy))]">Note:</span> All costs are estimates and may vary. Click the info buttons for details.
+            <span className="font-bold text-[hsl(var(--venture-navy))]">{labels.note || "Note"}:</span> {labels.costsNote || "All costs are estimates and may vary. Click the info buttons for details."}
           </p>
         </div>
       </div>
@@ -1225,80 +1319,80 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
   const services = [
     {
       id: 'english',
-      name: 'English Exam Support',
-      description: 'Comprehensive preparation and guidance for English proficiency exams like TOEFL, helping you achieve the scores needed for university admission.',
+      name: labels.englishExamSupport || 'English Exam Support',
+      description: labels.englishExamSupportDescription || 'Comprehensive preparation and guidance for English proficiency exams like TOEFL, helping you achieve the scores needed for university admission.',
       pkg1: true,
       pkg2: false,
       pkg3: false
     },
     {
       id: 'video',
-      name: 'Video Editing',
-      description: 'Professional editing of your soccer highlight videos to showcase your skills to college coaches in the most compelling way.',
+      name: labels.videoEditing || 'Video Editing',
+      description: labels.videoEditingDescription || 'Professional editing of your soccer highlight videos to showcase your skills to college coaches in the most compelling way.',
       pkg1: true,
       pkg2: true,
       pkg3: true
     },
     {
       id: 'admissions',
-      name: 'Admissions Support',
-      description: 'Expert assistance with college applications, essays, and all required documentation to maximize your chances of acceptance.',
+      name: labels.admissionsSupport || 'Admissions Support',
+      description: labels.admissionsSupportDescription || 'Expert assistance with college applications, essays, and all required documentation to maximize your chances of acceptance.',
       pkg1: true,
       pkg2: true,
       pkg3: false
     },
     {
       id: 'translation',
-      name: 'Translation Services',
-      description: 'Professional translation of documents, transcripts, and communications to ensure accurate and effective communication.',
+      name: labels.translationServices || 'Translation Services',
+      description: labels.translationServicesDescription || 'Professional translation of documents, transcripts, and communications to ensure accurate and effective communication.',
       pkg1: true,
       pkg2: false,
       pkg3: false
     },
     {
       id: 'coach',
-      name: 'Coach Connections',
-      description: 'Direct introductions and ongoing communication with college coaches who match your athletic and academic profile.',
+      name: labels.coachConnections || 'Coach Connections',
+      description: labels.coachConnectionsDescription || 'Direct introductions and ongoing communication with college coaches who match your athletic and academic profile.',
       pkg1: true,
       pkg2: true,
       pkg3: true
     },
     {
       id: 'eligibility',
-      name: 'Eligibility Center',
-      description: 'Complete support with NCAA Eligibility Center registration and requirements to ensure you can compete collegiately.',
+      name: labels.eligibilityCenter || 'Eligibility Center',
+      description: labels.eligibilityCenterDescription || 'Complete support with NCAA Eligibility Center registration and requirements to ensure you can compete collegiately.',
       pkg1: true,
       pkg2: false,
       pkg3: false
     },
     {
       id: 'scholarship',
-      name: 'Scholarship Offers',
-      description: 'Strategic guidance to secure the best possible scholarship offers and financial aid packages from universities.',
+      name: labels.scholarshipOffers || 'Scholarship Offers',
+      description: labels.scholarshipOffersDescription || 'Strategic guidance to secure the best possible scholarship offers and financial aid packages from universities.',
       pkg1: true,
       pkg2: true,
       pkg3: true
     },
     {
       id: 'visa',
-      name: 'VISA Support',
-      description: 'Complete assistance with F-1 Student Visa application process, documentation, and interview preparation.',
+      name: labels.visaSupport || 'VISA Support',
+      description: labels.visaSupportDescription || 'Complete assistance with F-1 Student Visa application process, documentation, and interview preparation.',
       pkg1: true,
       pkg2: true,
       pkg3: false
     },
     {
       id: 'arrival',
-      name: 'USA Arrival Support',
-      description: 'Help with logistics and orientation when arriving in the USA, ensuring a smooth transition to your new university.',
+      name: labels.usaArrivalSupport || 'USA Arrival Support',
+      description: labels.usaArrivalSupportDescription || 'Help with logistics and orientation when arriving in the USA, ensuring a smooth transition to your new university.',
       pkg1: true,
       pkg2: true,
       pkg3: false
     },
     {
       id: 'placement',
-      name: 'University Placement',
-      description: 'End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.',
+      name: labels.universityPlacement || 'University Placement',
+      description: labels.universityPlacementDescription || 'End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.',
       pkg1: true,
       pkg2: true,
       pkg3: true
@@ -1318,12 +1412,12 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
         <div className="flex items-start justify-between mb-4">
           <div>
             <div className="inline-block px-3 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-2">
-              SERVICE OPTIONS
+              {labels.serviceOptions || "SERVICE OPTIONS"}
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
-              Service Packages
+              {labels.servicePackages || "Service Packages"}
             </h2>
-            <p className="text-sm text-gray-600 mt-1">Choose the right package for your journey</p>
+            <p className="text-sm text-gray-600 mt-1">{labels.choosePackage || "Choose the right package for your journey"}</p>
           </div>
           <img 
             src={ventureLogoCircle} 
@@ -1334,23 +1428,23 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
         
         {/* Package headers */}
         <div className="grid grid-cols-4 gap-2 mb-3">
-          <div className="text-xs font-bold text-gray-600">SERVICE</div>
+          <div className="text-xs font-bold text-gray-600">{labels.service || "SERVICE"}</div>
           <div className="text-center">
             <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-lg px-2 py-2">
-              <div className="text-xs font-black">PACKAGE 1</div>
-              <div className="text-[10px] opacity-80">Full Service</div>
+              <div className="text-xs font-black">{labels.package1 || "PACKAGE 1"}</div>
+              <div className="text-[10px] opacity-80">{labels.fullService || "Full Service"}</div>
             </div>
           </div>
           <div className="text-center">
             <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-lg px-2 py-2">
-              <div className="text-xs font-black">PACKAGE 2</div>
-              <div className="text-[10px] opacity-80">Standard</div>
+              <div className="text-xs font-black">{labels.package2 || "PACKAGE 2"}</div>
+              <div className="text-[10px] opacity-80">{labels.standard || "Standard"}</div>
             </div>
           </div>
           <div className="text-center">
             <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white rounded-lg px-2 py-2">
-              <div className="text-xs font-black">PACKAGE 3</div>
-              <div className="text-[10px] opacity-80">Essential</div>
+              <div className="text-xs font-black">{labels.package3 || "PACKAGE 3"}</div>
+              <div className="text-[10px] opacity-80">{labels.essential || "Essential"}</div>
             </div>
           </div>
         </div>
@@ -1490,56 +1584,56 @@ const TimelineSlide = ({ labels }: { labels: Record<string, string> }) => {
   const steps = [
     {
       id: 'start',
-      name: 'Start Process',
-      description: 'Initial consultation to understand your goals, assess your profile, and create a personalized roadmap for your college soccer journey.',
+      name: labels.startProcess || 'Start Process',
+      description: labels.startProcessDescription || 'Initial consultation to understand your goals, assess your profile, and create a personalized roadmap for your college soccer journey.',
       timeframe: 'Week 1-2'
     },
     {
       id: 'coach',
-      name: 'Coach Meetings',
-      description: 'Direct connections with college coaches across multiple divisions, introducing your athletic and academic profile to programs that match your goals.',
+      name: labels.coachMeetings || 'Coach Meetings',
+      description: labels.coachMeetingsDescription || 'Direct connections with college coaches across multiple divisions, introducing your athletic and academic profile to programs that match your goals.',
       timeframe: 'Month 1-3'
     },
     {
       id: 'video',
-      name: 'Video Editing',
-      description: 'Professional editing of your soccer highlight videos to showcase your skills, positioning, and game intelligence to college coaches.',
+      name: labels.videoEditingTimeline || 'Video Editing',
+      description: labels.videoEditingTimelineDescription || 'Professional editing of your soccer highlight videos to showcase your skills, positioning, and game intelligence to college coaches.',
       timeframe: 'Month 1-2'
     },
     {
       id: 'recruitment',
-      name: 'Active Recruitment',
-      description: 'Ongoing communication with college coaches, managing interest from programs, and coordinating campus visits or virtual meetings.',
+      name: labels.activeRecruitment || 'Active Recruitment',
+      description: labels.activeRecruitmentDescription || 'Ongoing communication with college coaches, managing interest from programs, and coordinating campus visits or virtual meetings.',
       timeframe: 'Month 2-8'
     },
     {
       id: 'transcript',
-      name: 'Transcript Evaluation',
-      description: 'Complete academic evaluation and transcript preparation to meet NCAA eligibility requirements and university admission standards.',
+      name: labels.transcriptEvaluation || 'Transcript Evaluation',
+      description: labels.transcriptEvaluationDescription || 'Complete academic evaluation and transcript preparation to meet NCAA eligibility requirements and university admission standards.',
       timeframe: 'Month 3-4'
     },
     {
       id: 'connections',
-      name: 'University Connections',
-      description: 'Building strong relationships with universities that are the best fit for your athletic ability, academic interests, and scholarship needs.',
+      name: labels.universityConnections || 'University Connections',
+      description: labels.universityConnectionsDescription || 'Building strong relationships with universities that are the best fit for your athletic ability, academic interests, and scholarship needs.',
       timeframe: 'Month 4-8'
     },
     {
       id: 'applications',
-      name: 'Applications Submitted',
-      description: 'Complete and submit applications to selected universities with all required documents, essays, and supporting materials.',
+      name: labels.applicationsSubmitted || 'Applications Submitted',
+      description: labels.applicationsSubmittedDescription || 'Complete and submit applications to selected universities with all required documents, essays, and supporting materials.',
       timeframe: 'Month 6-9'
     },
     {
       id: 'travel',
-      name: 'Travel Preparation',
-      description: 'Visa processing, flight arrangements, accommodation planning, and all logistics for your move to the United States.',
+      name: labels.travelPreparation || 'Travel Preparation',
+      description: labels.travelPreparationDescription || 'Visa processing, flight arrangements, accommodation planning, and all logistics for your move to the United States.',
       timeframe: 'Month 10-12'
     },
     {
       id: 'journey',
-      name: 'Start College Journey',
-      description: 'Arrival at your university, orientation, meeting your team, and beginning your college soccer and academic career in the USA.',
+      name: labels.startCollegeJourney || 'Start College Journey',
+      description: labels.startCollegeJourneyDescription || 'Arrival at your university, orientation, meeting your team, and beginning your college soccer and academic career in the USA.',
       timeframe: 'August'
     }
   ];
@@ -1557,12 +1651,12 @@ const TimelineSlide = ({ labels }: { labels: Record<string, string> }) => {
         <div className="flex items-start justify-between mb-4">
           <div>
             <div className="inline-block px-3 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-2">
-              YOUR JOURNEY
+              {labels.yourJourney || "YOUR JOURNEY"}
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
-              Step by Step
+              {labels.stepByStep || "Step by Step"}
             </h2>
-            <p className="text-sm text-gray-600 mt-1">2025 - 2027 Timeline</p>
+            <p className="text-sm text-gray-600 mt-1">2025 - 2027 {labels.timeline || "Timeline"}</p>
           </div>
           <img 
             src={ventureLogoCircle} 
@@ -1840,9 +1934,9 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
 
       {/* Main heading */}
       <h1 className="text-5xl md:text-7xl font-black text-white uppercase text-center leading-none mb-6">
-        Ready to Start<br/>
+        {labels.readyToStart || "Ready to Start"}<br/>
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500">
-          Your Journey?
+          {labels.yourJourneyQuestion || "Your Journey?"}
         </span>
       </h1>
       
@@ -1855,7 +1949,7 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
       
       {/* Subheading */}
       <p className="text-xl md:text-2xl text-blue-100 font-semibold text-center max-w-2xl mb-12">
-        Let's make your college soccer dream a reality
+        {labels.letsMakeYourDream || "Let's make your college soccer dream a reality"}
       </p>
 
       {/* Contact cards */}
@@ -1868,7 +1962,7 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
               </svg>
             </div>
             <div className="text-left">
-              <p className="text-white/70 text-sm font-semibold">Email Us</p>
+              <p className="text-white/70 text-sm font-semibold">{labels.emailUs || "Email Us"}</p>
               <p className="text-white font-bold">admin@venturesportsusa.com</p>
             </div>
           </div>
@@ -1882,8 +1976,8 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
               </svg>
             </div>
             <div className="text-left">
-              <p className="text-white/70 text-sm font-semibold">Get Started</p>
-              <p className="text-white font-bold">Call Your Agent</p>
+              <p className="text-white/70 text-sm font-semibold">{labels.getStarted || "Get Started"}</p>
+              <p className="text-white font-bold">{labels.callYourAgent || "Call Your Agent"}</p>
             </div>
           </div>
         </div>
@@ -1891,7 +1985,7 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
 
       {/* CTA Note */}
       <p className="text-white/60 text-sm text-center max-w-lg">
-        Join 350+ athletes who have successfully placed at top universities across the United States
+        {labels.joinAthletes || "Join 350+ athletes who have successfully placed at top universities across the United States"}
       </p>
     </div>
   </div>
