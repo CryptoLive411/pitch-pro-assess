@@ -18,9 +18,9 @@ const Index = () => {
       departmentNotes: "",
       playerPhoto: null,
       targetDivisions: [],
-      packagePrice1: "",
-      packagePrice2: "",
-      packagePrice3: "",
+      packagePrice1: "5,395",
+      packagePrice2: "4,795",
+      packagePrice3: "4,495",
     }
   );
   

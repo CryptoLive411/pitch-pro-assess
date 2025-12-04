@@ -480,7 +480,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
                 id="packagePrice1"
                 value={data.packagePrice1 || ""}
                 onChange={(e) => onChange({ ...data, packagePrice1: e.target.value })}
-                placeholder="e.g. $4,495"
+                placeholder="5,395"
               />
             </div>
             <div className="space-y-2">
@@ -489,7 +489,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
                 id="packagePrice2"
                 value={data.packagePrice2 || ""}
                 onChange={(e) => onChange({ ...data, packagePrice2: e.target.value })}
-                placeholder="e.g. $2,995"
+                placeholder="4,795"
               />
             </div>
             <div className="space-y-2">
@@ -498,7 +498,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
                 id="packagePrice3"
                 value={data.packagePrice3 || ""}
                 onChange={(e) => onChange({ ...data, packagePrice3: e.target.value })}
-                placeholder="e.g. $1,495"
+                placeholder="4,495"
               />
             </div>
           </div>
