@@ -786,7 +786,7 @@ const TargetDivisionsSlide = ({ data, labels }: { data: AssessmentData; labels: 
             <Link
               key={division}
               to={`/division/${divisionSlug}`}
-              state={{ fromSlide: 3, data: data }}
+              state={{ fromSlide: 3, data: data, labels: labels }}
               className={`group relative overflow-hidden rounded-2xl transition-all duration-500 block ${
                 isSelected
                   ? 'bg-gradient-to-br from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] shadow-2xl scale-[1.02]' 
