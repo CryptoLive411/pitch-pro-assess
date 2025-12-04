@@ -32,21 +32,26 @@ async function verifyStaffAccess(req: Request): Promise<{ authorized: boolean; e
     return { authorized: false, error: 'Missing authorization header' };
   }
 
-  const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-  const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+  // Extract the JWT token from "Bearer <token>"
+  const token = authHeader.replace('Bearer ', '');
   
-  const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  if (!token) {
+    return { authorized: false, error: 'Invalid authorization header format' };
+  }
+
+  const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+  const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+  
+  // Use service role key to verify user and check roles
+  const supabase = createClient(supabaseUrl, supabaseServiceKey, {
     auth: {
       autoRefreshToken: false,
       persistSession: false
-    },
-    global: {
-      headers: { Authorization: authHeader }
     }
   });
 
-  // Get the user from the token
-  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  // Get the user from the JWT token
+  const { data: { user }, error: userError } = await supabase.auth.getUser(token);
   
   if (userError || !user) {
     console.error('Auth error:', userError);
