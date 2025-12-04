@@ -1567,10 +1567,24 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
           </div>
         )}
 
+        {/* Guarantee Badge */}
+        <div className="mt-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg p-3 shadow-lg">
+          <div className="flex items-center justify-center gap-2">
+            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0">
+              <svg className="w-5 h-5 text-green-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+              </svg>
+            </div>
+            <p className="text-sm md:text-base font-bold text-white text-center">
+              {labels.placementGuarantee || "100% Placement Guarantee or Full Refund"}
+            </p>
+          </div>
+        </div>
+
         {/* Footer note */}
         <div className="mt-3 bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-gray-200">
           <p className="text-xs md:text-sm text-gray-600 text-center">
-            <span className="font-bold text-[hsl(var(--venture-navy))]">Contact us</span> to discuss which package best fits your needs and goals.
+            <span className="font-bold text-[hsl(var(--venture-navy))]">{labels.contactUs || "Contact us"}</span> {labels.contactUsPackageNote || "to discuss which package best fits your needs and goals."}
           </p>
         </div>
       </div>
