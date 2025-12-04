@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
-import ventureLogo from '@/assets/venture-logo-white.png';
+import ventureLogo from '@/assets/venture-logo-circle-blue.png';
 import { z } from 'zod';
 
 const emailSchema = z.string().email('Please enter a valid email address');
@@ -114,7 +114,7 @@ export default function Auth() {
       <Card className="w-full max-w-md bg-white/95 backdrop-blur shadow-2xl">
         <CardHeader className="text-center pb-2">
           <div className="flex justify-center mb-4">
-            <img src={ventureLogo} alt="Venture Sports" className="h-16 bg-slate-900 rounded-lg p-2" />
+            <img src={ventureLogo} alt="Venture Sports" className="h-20" />
           </div>
           <CardTitle className="text-2xl font-bold text-slate-900">Staff Portal</CardTitle>
           <CardDescription className="text-slate-600">
