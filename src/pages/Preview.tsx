@@ -39,21 +39,20 @@ const Preview = () => {
         meta.setAttribute('content', content);
       };
 
+      // Use static OG image for consistent link previews
+      const ogImageUrl = `${window.location.origin}/og-preview.png`;
+      
       // Set OG tags
       setMetaTag('og:title', `${data.playerName} - Venture Soccer Assessment`);
       setMetaTag('og:description', `Professional soccer assessment for ${data.playerName}. View detailed analysis and recruitment pathway.`);
-      if (data.playerPhoto) {
-        setMetaTag('og:image', data.playerPhoto);
-      }
+      setMetaTag('og:image', ogImageUrl);
       setMetaTag('og:type', 'website');
       
       // Set Twitter tags
       setTwitterMeta('twitter:card', 'summary_large_image');
       setTwitterMeta('twitter:title', `${data.playerName} - Venture Soccer Assessment`);
       setTwitterMeta('twitter:description', `Professional soccer assessment for ${data.playerName}. View detailed analysis and recruitment pathway.`);
-      if (data.playerPhoto) {
-        setTwitterMeta('twitter:image', data.playerPhoto);
-      }
+      setTwitterMeta('twitter:image', ogImageUrl);
     }
 
     // Cleanup on unmount
