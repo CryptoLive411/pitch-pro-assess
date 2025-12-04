@@ -13,9 +13,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { ArrowLeft, ExternalLink, Copy, Check, FileText, X } from "lucide-react";
+import { ArrowLeft, ExternalLink, Copy, Check, FileText, X, LogOut } from "lucide-react";
 import { toast } from "sonner";
 import ventureLogo from "@/assets/venture-logo-circle.png";
+import { useAuth } from "@/hooks/useAuth";
 
 interface Assessment {
   id: string;
@@ -28,6 +29,7 @@ interface Assessment {
 
 const Assessments = () => {
   const navigate = useNavigate();
+  const { signOut } = useAuth();
   const [assessments, setAssessments] = useState<Assessment[]>([]);
   const [loading, setLoading] = useState(true);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -119,15 +121,25 @@ const Assessments = () => {
                 <p className="text-sm text-slate-600">Manage your player assessments</p>
               </div>
             </div>
-            <Button 
-              onClick={() => navigate("/")} 
-              className="gap-2"
-              variant="outline"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              <span className="hidden sm:inline">Back to Editor</span>
-              <span className="sm:inline md:hidden">Back</span>
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                onClick={() => navigate("/")} 
+                className="gap-2"
+                variant="outline"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                <span className="hidden sm:inline">Back to Editor</span>
+                <span className="sm:hidden">Back</span>
+              </Button>
+              <Button
+                onClick={signOut}
+                variant="ghost"
+                className="gap-2 text-slate-500 hover:text-red-600"
+              >
+                <LogOut className="h-4 w-4" />
+                <span className="hidden sm:inline">Sign Out</span>
+              </Button>
+            </div>
           </div>
         </div>
       </div>

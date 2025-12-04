@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -23,12 +24,70 @@ const PIPEDRIVE_USERS = {
 
 const PIPEDRIVE_DOMAIN = 'venturesportsusa.pipedrive.com';
 
+// Verify user is authenticated and has staff role
+async function verifyStaffAccess(req: Request): Promise<{ authorized: boolean; error?: string }> {
+  const authHeader = req.headers.get('Authorization');
+  
+  if (!authHeader) {
+    return { authorized: false, error: 'Missing authorization header' };
+  }
+
+  const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+  const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
+  
+  const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false
+    },
+    global: {
+      headers: { Authorization: authHeader }
+    }
+  });
+
+  // Get the user from the token
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  
+  if (userError || !user) {
+    console.error('Auth error:', userError);
+    return { authorized: false, error: 'Invalid or expired token' };
+  }
+
+  // Check if user has staff role using the is_staff function
+  const { data: isStaff, error: roleError } = await supabase.rpc('is_staff', { _user_id: user.id });
+  
+  if (roleError) {
+    console.error('Role check error:', roleError);
+    return { authorized: false, error: 'Failed to verify permissions' };
+  }
+
+  if (!isStaff) {
+    return { authorized: false, error: 'User does not have staff access' };
+  }
+
+  return { authorized: true };
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
+    // Verify staff access
+    const { authorized, error: authError } = await verifyStaffAccess(req);
+    
+    if (!authorized) {
+      console.error('Authorization failed:', authError);
+      return new Response(
+        JSON.stringify({ error: authError || 'Unauthorized' }),
+        {
+          status: 401,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      );
+    }
+
     const { action, userId, dealId, noteContent } = await req.json();
 
     if (action === 'fetchDeals') {

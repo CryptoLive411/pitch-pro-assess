@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AssessmentEditor, AssessmentData } from "@/components/AssessmentEditor";
 import { Button } from "@/components/ui/button";
-import { FileText } from "lucide-react";
+import { FileText, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { signOut } = useAuth();
   const [assessmentData, setAssessmentData] = useState<AssessmentData>(
     location.state?.preservedData || {
       playerName: "",
@@ -35,7 +37,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-muted">
       <div className="container mx-auto max-w-5xl">
-        <div className="flex justify-end pt-4 pb-2 px-4">
+        <div className="flex justify-end gap-2 pt-4 pb-2 px-4">
           <Button
             onClick={() => navigate("/pending-assessments")}
             variant="outline"
@@ -43,6 +45,14 @@ const Index = () => {
           >
             <FileText className="w-4 h-4" />
             Pending from Pipedrive
+          </Button>
+          <Button
+            onClick={signOut}
+            variant="ghost"
+            className="gap-2 text-muted-foreground hover:text-destructive"
+          >
+            <LogOut className="w-4 h-4" />
+            Sign Out
           </Button>
         </div>
         <AssessmentEditor
