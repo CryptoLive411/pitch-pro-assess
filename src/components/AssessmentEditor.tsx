@@ -125,6 +125,15 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
     try {
       const slug = createSlug(data.playerName);
       
+      // Upload photo to storage if it's a base64 string
+      let photoUrl = data.playerPhoto;
+      if (data.playerPhoto && data.playerPhoto.startsWith('data:')) {
+        const uploadedUrl = await uploadPhotoToStorage(data.playerPhoto, slug);
+        if (uploadedUrl) {
+          photoUrl = uploadedUrl;
+        }
+      }
+      
       // Check if assessment already exists
       const { data: existing } = await supabase
         .from('assessments')
@@ -135,7 +144,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
       const assessmentData = {
         player_name: data.playerName,
         player_name_slug: slug,
-        player_photo: data.playerPhoto,
+        player_photo: photoUrl,
         grad_year: data.enrollmentYear,
         nationality: '', // Add nationality field if needed
         current_level: data.schoolYear,
@@ -214,14 +223,58 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
       });
     }
   };
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Show preview immediately using base64
       const reader = new FileReader();
       reader.onloadend = () => {
         onChange({ ...data, playerPhoto: reader.result as string });
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  // Upload photo to storage when saving (convert from base64 to storage URL)
+  const uploadPhotoToStorage = async (base64Photo: string, playerSlug: string): Promise<string | null> => {
+    try {
+      // Convert base64 to blob
+      const base64Data = base64Photo.split(',')[1];
+      const mimeType = base64Photo.split(';')[0].split(':')[1];
+      const byteCharacters = atob(base64Data);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: mimeType });
+
+      // Determine file extension
+      const extension = mimeType.split('/')[1] || 'jpg';
+      const fileName = `${playerSlug}-${Date.now()}.${extension}`;
+
+      // Upload to storage
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('player-photos')
+        .upload(fileName, blob, {
+          contentType: mimeType,
+          upsert: true
+        });
+
+      if (uploadError) {
+        console.error('Upload error:', uploadError);
+        return null;
+      }
+
+      // Get public URL
+      const { data: urlData } = supabase.storage
+        .from('player-photos')
+        .getPublicUrl(fileName);
+
+      return urlData.publicUrl;
+    } catch (error) {
+      console.error('Error uploading photo:', error);
+      return null;
     }
   };
 

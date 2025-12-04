@@ -1398,23 +1398,29 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3 }: { packag
         </div>
 
         {/* Package Prices at Bottom */}
-        {(packagePrice1 || packagePrice2 || packagePrice3) && (
+        {(packagePrice1?.trim() || packagePrice2?.trim() || packagePrice3?.trim()) && (
           <div className="mt-3 grid grid-cols-3 gap-2">
-            <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-lg p-3 text-center shadow-lg">
-              <div className="text-[10px] font-bold opacity-80 mb-0.5">PACKAGE 1</div>
-              <div className="text-lg md:text-xl font-black">${packagePrice1 || '—'}</div>
-              <div className="text-[9px] opacity-70">+7% for tax</div>
-            </div>
-            <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-lg p-3 text-center shadow-lg">
-              <div className="text-[10px] font-bold opacity-80 mb-0.5">PACKAGE 2</div>
-              <div className="text-lg md:text-xl font-black">${packagePrice2 || '—'}</div>
-              <div className="text-[9px] opacity-70">+7% for tax</div>
-            </div>
-            <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white rounded-lg p-3 text-center shadow-lg">
-              <div className="text-[10px] font-bold opacity-80 mb-0.5">PACKAGE 3</div>
-              <div className="text-lg md:text-xl font-black">${packagePrice3 || '—'}</div>
-              <div className="text-[9px] opacity-70">+7% for tax</div>
-            </div>
+            {packagePrice1?.trim() && (
+              <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-lg p-3 text-center shadow-lg">
+                <div className="text-[10px] font-bold opacity-80 mb-0.5">PACKAGE 1</div>
+                <div className="text-lg md:text-xl font-black">${packagePrice1}</div>
+                <div className="text-[9px] opacity-70">+7% for tax</div>
+              </div>
+            )}
+            {packagePrice2?.trim() && (
+              <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-lg p-3 text-center shadow-lg">
+                <div className="text-[10px] font-bold opacity-80 mb-0.5">PACKAGE 2</div>
+                <div className="text-lg md:text-xl font-black">${packagePrice2}</div>
+                <div className="text-[9px] opacity-70">+7% for tax</div>
+              </div>
+            )}
+            {packagePrice3?.trim() && (
+              <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white rounded-lg p-3 text-center shadow-lg">
+                <div className="text-[10px] font-bold opacity-80 mb-0.5">PACKAGE 3</div>
+                <div className="text-lg md:text-xl font-black">${packagePrice3}</div>
+                <div className="text-[9px] opacity-70">+7% for tax</div>
+              </div>
+            )}
           </div>
         )}
 
