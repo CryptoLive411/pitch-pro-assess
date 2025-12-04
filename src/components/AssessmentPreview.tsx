@@ -231,17 +231,7 @@ export const AssessmentPreview = ({ data, onBack, isPublicView = false }: Assess
       )}
 
       {/* Slide Container */}
-      <div className={`relative flex items-center justify-center ${isPublicView ? 'min-h-screen' : 'min-h-[calc(100vh-72px)]'} p-2 md:p-4 lg:p-8`}>
-        {/* Previous Button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="print:hidden absolute left-1 md:left-4 lg:left-8 z-50 w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 rounded-full bg-white/70 backdrop-blur-sm shadow-xl hover:bg-white/90 hover:scale-110 transition-all duration-200"
-          onClick={prevSlide}
-        >
-          <ChevronLeft className="h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 text-[hsl(var(--venture-navy))]" />
-        </Button>
-
+      <div className={`relative flex items-center justify-center ${isPublicView ? 'min-h-screen' : 'min-h-[calc(100vh-72px)]'} px-14 md:px-20 lg:px-24 py-2 md:py-4 lg:py-8`}>
         {/* Slide Card with Animation - flexible height on mobile, aspect ratio on desktop */}
         <div className="relative w-full max-w-7xl min-h-[500px] md:aspect-[16/9] bg-white rounded-lg md:rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-3xl">
           <div className="w-full h-full animate-fade-in">
@@ -261,17 +251,26 @@ export const AssessmentPreview = ({ data, onBack, isPublicView = false }: Assess
             {currentSlide === 13 && <ContactSlide labels={labels} />}
           </div>
         </div>
-
-        {/* Next Button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="print:hidden absolute right-1 md:right-4 lg:right-8 z-50 w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 rounded-full bg-white/70 backdrop-blur-sm shadow-xl hover:bg-white/90 hover:scale-110 transition-all duration-200"
-          onClick={nextSlide}
-        >
-          <ChevronRight className="h-5 w-5 md:h-6 md:w-6 lg:h-8 lg:w-8 text-[hsl(var(--venture-navy))]" />
-        </Button>
       </div>
+
+      {/* Navigation Buttons - Fixed to viewport edges, outside slide content */}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="print:hidden fixed left-1 md:left-2 lg:left-4 top-1/2 -translate-y-1/2 z-50 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white hover:scale-110 transition-all duration-200 border border-gray-200"
+        onClick={prevSlide}
+      >
+        <ChevronLeft className="h-5 w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 text-[hsl(var(--venture-navy))]" />
+      </Button>
+
+      <Button
+        variant="ghost"
+        size="icon"
+        className="print:hidden fixed right-1 md:right-2 lg:right-4 top-1/2 -translate-y-1/2 z-50 w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full bg-white/80 backdrop-blur-sm shadow-lg hover:bg-white hover:scale-110 transition-all duration-200 border border-gray-200"
+        onClick={nextSlide}
+      >
+        <ChevronRight className="h-5 w-5 md:h-6 md:w-6 lg:h-7 lg:w-7 text-[hsl(var(--venture-navy))]" />
+      </Button>
 
       {/* Slide Indicators - Only show for editors, not public viewers */}
       {!isPublicView && (
