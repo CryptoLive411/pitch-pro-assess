@@ -1936,9 +1936,9 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
       }}></div>
     </div>
 
-    <div className="relative z-10 h-full flex flex-col items-center justify-center px-8 py-12">
+    <div className="relative z-10 h-full flex flex-col items-center justify-center px-8 py-6">
       {/* Logo */}
-      <div className="mt-8 mb-12 relative group">
+      <div className="mt-4 mb-6 relative group">
         <div className="absolute inset-0 bg-white/20 rounded-full blur-2xl animate-pulse"></div>
         <div className="relative w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-2xl ring-4 ring-white/20">
           <img src={ventureLogoCircle} alt="Venture USA" className="w-28 h-28 object-contain" />
@@ -1946,7 +1946,7 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
       </div>
 
       {/* Main heading */}
-      <h1 className="text-5xl md:text-7xl font-black text-white uppercase text-center leading-none mb-6">
+      <h1 className="text-4xl md:text-6xl font-black text-white uppercase text-center leading-none mb-4">
         {labels.readyToStart || "Ready to Start"}<br/>
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500">
           {labels.yourJourneyQuestion || "Your Journey?"}
@@ -1954,19 +1954,19 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
       </h1>
       
       {/* Decorative line */}
-      <div className="flex items-center gap-3 mb-8">
+      <div className="flex items-center gap-3 mb-4">
         <div className="h-px w-20 bg-gradient-to-r from-transparent to-white/50"></div>
         <div className="w-2 h-2 bg-white rounded-full"></div>
         <div className="h-px w-20 bg-gradient-to-l from-transparent to-white/50"></div>
       </div>
       
       {/* Subheading */}
-      <p className="text-xl md:text-2xl text-blue-100 font-semibold text-center max-w-2xl mb-12">
+      <p className="text-lg md:text-xl text-blue-100 font-semibold text-center max-w-2xl mb-6">
         {labels.letsMakeYourDream || "Let's make your college soccer dream a reality"}
       </p>
 
       {/* Contact cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl mb-4">
         <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
