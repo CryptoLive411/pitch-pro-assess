@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Upload, Eye, Save, Link as LinkIcon, FileText } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -24,7 +25,46 @@ export interface AssessmentData {
   packagePrice1?: string;
   packagePrice2?: string;
   packagePrice3?: string;
+  language?: string;
 }
+
+const LANGUAGES = [
+  "English",
+  "Spanish",
+  "Portuguese",
+  "French",
+  "German",
+  "Italian",
+  "Dutch",
+  "Swedish",
+  "Norwegian",
+  "Danish",
+  "Finnish",
+  "Polish",
+  "Russian",
+  "Ukrainian",
+  "Turkish",
+  "Arabic",
+  "Hebrew",
+  "Japanese",
+  "Korean",
+  "Chinese (Simplified)",
+  "Chinese (Traditional)",
+  "Vietnamese",
+  "Thai",
+  "Indonesian",
+  "Malay",
+  "Hindi",
+  "Greek",
+  "Czech",
+  "Hungarian",
+  "Romanian",
+  "Bulgarian",
+  "Croatian",
+  "Serbian",
+  "Slovak",
+  "Slovenian",
+];
 
 interface AssessmentEditorProps {
   data: AssessmentData;
@@ -416,6 +456,25 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
               onChange={(e) => onChange({ ...data, manager: e.target.value })}
               placeholder="Agent Name"
             />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="language">Assessment Language</Label>
+            <Select
+              value={data.language || "English"}
+              onValueChange={(value) => onChange({ ...data, language: value })}
+            >
+              <SelectTrigger id="language">
+                <SelectValue placeholder="Select language" />
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px]">
+                {LANGUAGES.map((lang) => (
+                  <SelectItem key={lang} value={lang}>
+                    {lang}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
 
