@@ -25,6 +25,9 @@ export type Database = {
           height: string | null
           id: string
           nationality: string | null
+          package_price_1: string | null
+          package_price_2: string | null
+          package_price_3: string | null
           player_name: string
           player_name_slug: string
           player_photo: string | null
@@ -43,6 +46,9 @@ export type Database = {
           height?: string | null
           id?: string
           nationality?: string | null
+          package_price_1?: string | null
+          package_price_2?: string | null
+          package_price_3?: string | null
           player_name: string
           player_name_slug: string
           player_photo?: string | null
@@ -61,6 +67,9 @@ export type Database = {
           height?: string | null
           id?: string
           nationality?: string | null
+          package_price_1?: string | null
+          package_price_2?: string | null
+          package_price_3?: string | null
           player_name?: string
           player_name_slug?: string
           player_photo?: string | null
