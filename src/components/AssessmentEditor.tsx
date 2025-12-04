@@ -101,6 +101,56 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
   const [assessmentUrl, setAssessmentUrl] = useState<string | null>(null);
   const [showPipedriveDialog, setShowPipedriveDialog] = useState(false);
   const [currentPlayerName, setCurrentPlayerName] = useState("");
+  const [isTranslating, setIsTranslating] = useState(false);
+  const [originalNotes, setOriginalNotes] = useState<string>("");
+
+  // Translate department notes when language changes
+  const translateNotes = async (notes: string, targetLanguage: string) => {
+    if (!notes || targetLanguage === "English") {
+      return notes;
+    }
+
+    setIsTranslating(true);
+    try {
+      const response = await supabase.functions.invoke("translate-assessment", {
+        body: { text: notes, targetLanguage },
+      });
+
+      if (response.error) {
+        throw new Error(response.error.message);
+      }
+
+      return response.data.translatedText;
+    } catch (error) {
+      console.error("Translation error:", error);
+      toast({
+        title: "Translation Error",
+        description: "Could not translate the assessment. Please try again.",
+        variant: "destructive",
+      });
+      return notes;
+    } finally {
+      setIsTranslating(false);
+    }
+  };
+
+  const handleLanguageChange = async (newLanguage: string) => {
+    // Store original notes if switching from English
+    if (data.language === "English" || !data.language) {
+      setOriginalNotes(data.departmentNotes);
+    }
+
+    // If switching back to English, restore original
+    if (newLanguage === "English") {
+      onChange({ ...data, language: newLanguage, departmentNotes: originalNotes || data.departmentNotes });
+      return;
+    }
+
+    // Translate from the original English notes
+    const notesToTranslate = originalNotes || data.departmentNotes;
+    const translated = await translateNotes(notesToTranslate, newLanguage);
+    onChange({ ...data, language: newLanguage, departmentNotes: translated });
+  };
 
   // Auto-update department notes when any form field changes
   useEffect(() => {
@@ -462,7 +512,8 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
             <Label htmlFor="language">Assessment Language</Label>
             <Select
               value={data.language || "English"}
-              onValueChange={(value) => onChange({ ...data, language: value })}
+              onValueChange={handleLanguageChange}
+              disabled={isTranslating}
             >
               <SelectTrigger id="language">
                 <SelectValue placeholder="Select language" />
@@ -475,6 +526,9 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
                 ))}
               </SelectContent>
             </Select>
+            {isTranslating && (
+              <p className="text-xs text-muted-foreground">Translating assessment...</p>
+            )}
           </div>
         </div>
 
