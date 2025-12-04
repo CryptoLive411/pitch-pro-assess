@@ -1290,21 +1290,18 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3 }: { packag
             <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-lg px-2 py-2">
               <div className="text-xs font-black">PACKAGE 1</div>
               <div className="text-[10px] opacity-80">Full Service</div>
-              {packagePrice1 && <div className="text-sm font-bold mt-1">{packagePrice1}</div>}
             </div>
           </div>
           <div className="text-center">
             <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-lg px-2 py-2">
               <div className="text-xs font-black">PACKAGE 2</div>
               <div className="text-[10px] opacity-80">Standard</div>
-              {packagePrice2 && <div className="text-sm font-bold mt-1">{packagePrice2}</div>}
             </div>
           </div>
           <div className="text-center">
             <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white rounded-lg px-2 py-2">
               <div className="text-xs font-black">PACKAGE 3</div>
               <div className="text-[10px] opacity-80">Essential</div>
-              {packagePrice3 && <div className="text-sm font-bold mt-1">{packagePrice3}</div>}
             </div>
           </div>
         </div>
@@ -1399,6 +1396,27 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3 }: { packag
             </div>
           ))}
         </div>
+
+        {/* Package Prices at Bottom */}
+        {(packagePrice1 || packagePrice2 || packagePrice3) && (
+          <div className="mt-3 grid grid-cols-3 gap-3">
+            <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-xl p-4 text-center shadow-lg">
+              <div className="text-xs font-bold opacity-80 mb-1">PACKAGE 1</div>
+              <div className="text-2xl md:text-3xl font-black">${packagePrice1 || '—'}</div>
+              <div className="text-[10px] opacity-70 mt-1">+7% for tax</div>
+            </div>
+            <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-xl p-4 text-center shadow-lg">
+              <div className="text-xs font-bold opacity-80 mb-1">PACKAGE 2</div>
+              <div className="text-2xl md:text-3xl font-black">${packagePrice2 || '—'}</div>
+              <div className="text-[10px] opacity-70 mt-1">+7% for tax</div>
+            </div>
+            <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white rounded-xl p-4 text-center shadow-lg">
+              <div className="text-xs font-bold opacity-80 mb-1">PACKAGE 3</div>
+              <div className="text-2xl md:text-3xl font-black">${packagePrice3 || '—'}</div>
+              <div className="text-[10px] opacity-70 mt-1">+7% for tax</div>
+            </div>
+          </div>
+        )}
 
         {/* Footer note */}
         <div className="mt-3 bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-gray-200">
@@ -1796,7 +1814,7 @@ const ContactSlide = () => (
             </div>
             <div className="text-left">
               <p className="text-white/70 text-sm font-semibold">Email Us</p>
-              <p className="text-white font-bold">nexusgloballc@gmail.com</p>
+              <p className="text-white font-bold">admin@venturesportsusa.com</p>
             </div>
           </div>
         </div>
