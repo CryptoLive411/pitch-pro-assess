@@ -1452,19 +1452,19 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
         <div className="flex-1 overflow-y-auto pr-2 pb-2 space-y-1.5 md:space-y-2">
           {services.map((service, index) => (
             <div key={service.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200">
-              <div className="grid grid-cols-4 gap-2 p-2 md:p-3 items-center">
+              <div className="grid grid-cols-[1fr_auto_auto_auto] gap-1 md:gap-2 p-2 md:p-3 items-center">
                 {/* Service name with info button */}
-                <div className="flex items-center gap-1.5 md:gap-2">
-                  <span className="text-[10px] md:text-sm font-bold text-[hsl(var(--venture-navy))]">
+                <div className="flex items-center gap-1 md:gap-2 min-w-0 pr-1">
+                  <span className="text-[9px] md:text-sm font-bold text-[hsl(var(--venture-navy))] leading-tight line-clamp-2">
                     {service.name}
                   </span>
                   <button
                     onClick={() => setShowInfo(showInfo === service.id ? null : service.id)}
-                    className="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-[hsl(var(--venture-blue))]/10 hover:bg-[hsl(var(--venture-blue))]/20 flex items-center justify-center transition-all duration-200"
+                    className="flex-shrink-0 w-4 h-4 md:w-6 md:h-6 rounded-full bg-[hsl(var(--venture-blue))]/10 hover:bg-[hsl(var(--venture-blue))]/20 flex items-center justify-center transition-all duration-200"
                   >
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
-                      className="h-2.5 w-2.5 md:h-3 md:w-3 text-[hsl(var(--venture-blue))]" 
+                      className="h-2 w-2 md:h-3 md:w-3 text-[hsl(var(--venture-blue))]" 
                       viewBox="0 0 20 20" 
                       fill="currentColor"
                     >
@@ -1480,14 +1480,14 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
                 {/* Package checkmarks */}
                 <div className="flex justify-center">
                   {service.pkg1 ? (
-                    <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md">
-                      <svg className="w-3.5 h-3.5 md:w-4 md:h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-sm md:shadow-md">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M5 13l4 4L19 7"></path>
                       </svg>
                     </div>
                   ) : (
-                    <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-gray-200 flex items-center justify-center">
-                      <svg className="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gray-200 flex items-center justify-center">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M6 18L18 6M6 6l12 12"></path>
                       </svg>
                     </div>
@@ -1495,14 +1495,14 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
                 </div>
                 <div className="flex justify-center">
                   {service.pkg2 ? (
-                    <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md">
-                      <svg className="w-3.5 h-3.5 md:w-4 md:h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-sm md:shadow-md">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M5 13l4 4L19 7"></path>
                       </svg>
                     </div>
                   ) : (
-                    <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-gray-200 flex items-center justify-center">
-                      <svg className="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gray-200 flex items-center justify-center">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M6 18L18 6M6 6l12 12"></path>
                       </svg>
                     </div>
@@ -1510,14 +1510,14 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
                 </div>
                 <div className="flex justify-center">
                   {service.pkg3 ? (
-                    <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md">
-                      <svg className="w-3.5 h-3.5 md:w-4 md:h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-sm md:shadow-md">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M5 13l4 4L19 7"></path>
                       </svg>
                     </div>
                   ) : (
-                    <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-gray-200 flex items-center justify-center">
-                      <svg className="w-3.5 h-3.5 md:w-4 md:h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gray-200 flex items-center justify-center">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M6 18L18 6M6 6l12 12"></path>
                       </svg>
                     </div>
