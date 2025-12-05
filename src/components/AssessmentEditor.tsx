@@ -387,30 +387,30 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
   };
 
   return (
-    <div className="space-y-6 p-6">
-      <div className="flex items-center justify-between flex-wrap gap-4">
-        <h2 className="text-2xl font-bold text-primary">Assessment Editor</h2>
-        <div className="flex items-center gap-2">
-          <Button onClick={() => navigate("/assessments")} variant="outline" className="gap-2">
-            <FileText className="h-4 w-4" />
+    <div className="space-y-4 md:space-y-6 p-4 md:p-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h2 className="text-xl md:text-2xl font-bold text-primary">Assessment Editor</h2>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button onClick={() => navigate("/assessments")} variant="outline" size="sm" className="gap-1 md:gap-2 text-xs md:text-sm">
+            <FileText className="h-3 w-3 md:h-4 md:w-4" />
             <span className="hidden sm:inline">View All Assessments</span>
             <span className="sm:hidden">Assessments</span>
           </Button>
-          <Button onClick={handleSave} disabled={isSaving} className="gap-2">
-            <Save className="h-4 w-4" />
+          <Button onClick={handleSave} disabled={isSaving} size="sm" className="gap-1 md:gap-2 text-xs md:text-sm">
+            <Save className="h-3 w-3 md:h-4 md:w-4" />
             {isSaving ? "Saving..." : "Save"}
           </Button>
-          <Button onClick={onPreview} variant="secondary" className="gap-2">
-            <Eye className="h-4 w-4" />
+          <Button onClick={onPreview} variant="secondary" size="sm" className="gap-1 md:gap-2 text-xs md:text-sm">
+            <Eye className="h-3 w-3 md:h-4 md:w-4" />
             Preview
           </Button>
         </div>
       </div>
 
       {assessmentUrl && (
-        <Card className="p-4 bg-green-50 dark:bg-green-950 border-green-200">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex-1">
+        <Card className="p-3 md:p-4 bg-green-50 dark:bg-green-950 border-green-200">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-green-900 dark:text-green-100 mb-1">Assessment Saved!</p>
               <a 
                 href={assessmentUrl} 
@@ -421,14 +421,14 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
                 {assessmentUrl.replace(window.location.origin + '/', '')}
               </a>
             </div>
-            <div className="flex gap-2">
-              <Button onClick={copyUrlToClipboard} size="sm" variant="outline" className="gap-2">
-                <LinkIcon className="h-4 w-4" />
-                Copy Link
+            <div className="flex gap-2 flex-shrink-0">
+              <Button onClick={copyUrlToClipboard} size="sm" variant="outline" className="gap-1 md:gap-2 text-xs">
+                <LinkIcon className="h-3 w-3 md:h-4 md:w-4" />
+                Copy
               </Button>
               {pipedriveInfo && (
-                <Button onClick={() => setShowPipedriveDialog(true)} size="sm" className="gap-2">
-                  Share to Pipedrive
+                <Button onClick={() => setShowPipedriveDialog(true)} size="sm" className="gap-1 md:gap-2 text-xs">
+                  Pipedrive
                 </Button>
               )}
             </div>
@@ -436,20 +436,20 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         </Card>
       )}
 
-      <Card className="p-6 space-y-6">
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-foreground">Player Photo</h3>
-          <div className="flex items-center gap-4">
+      <Card className="p-4 md:p-6 space-y-4 md:space-y-6">
+        <div className="space-y-3 md:space-y-4">
+          <h3 className="text-base md:text-lg font-semibold text-foreground">Player Photo</h3>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             {data.playerPhoto && (
               <img
                 src={data.playerPhoto}
                 alt="Player"
-                className="h-32 w-32 rounded-2xl object-cover border-4 border-primary"
+                className="h-24 w-24 md:h-32 md:w-32 rounded-2xl object-cover border-4 border-primary"
               />
             )}
             <div className="flex-1">
               <Label htmlFor="photo" className="cursor-pointer">
-                <div className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity w-fit">
+                <div className="flex items-center gap-2 px-3 py-2 md:px-4 md:py-2 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition-opacity w-fit text-sm">
                   <Upload className="h-4 w-4" />
                   Upload Photo
                 </div>
@@ -551,22 +551,22 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="departmentNotes">
-            Department Notes
-            <span className="text-xs text-muted-foreground ml-2">(Auto-updates with player name and divisions)</span>
+          <Label htmlFor="departmentNotes" className="flex flex-col sm:flex-row sm:items-center gap-1">
+            <span>Department Notes</span>
+            <span className="text-[10px] md:text-xs text-muted-foreground">(Auto-updates with player info)</span>
           </Label>
           <Textarea
             id="departmentNotes"
             value={data.departmentNotes}
             onChange={(e) => onChange({ ...data, departmentNotes: e.target.value })}
             placeholder="Enter department recommendations and notes..."
-            className="min-h-[200px]"
+            className="min-h-[150px] md:min-h-[200px] text-sm"
           />
         </div>
 
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-foreground">Target Divisions</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="space-y-3 md:space-y-4">
+          <h3 className="text-base md:text-lg font-semibold text-foreground">Target Divisions</h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
             {[
               "NCAA D1",
               "NCAA D2",
@@ -593,7 +593,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
                     }
                   }}
                 />
-                <label htmlFor={division} className="text-sm font-medium leading-none cursor-pointer">
+                <label htmlFor={division} className="text-xs md:text-sm font-medium leading-none cursor-pointer">
                   {division}
                 </label>
               </div>
@@ -601,10 +601,10 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
           </div>
         </div>
 
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-foreground">Package Prices</h3>
-          <p className="text-sm text-muted-foreground">Set the prices that will display on the packages slide</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="space-y-3 md:space-y-4">
+          <h3 className="text-base md:text-lg font-semibold text-foreground">Package Prices</h3>
+          <p className="text-xs md:text-sm text-muted-foreground">Set the prices that will display on the packages slide</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
             <div className="space-y-2">
               <Label htmlFor="packagePrice1">Package 1 (Full Service)</Label>
               <Input
