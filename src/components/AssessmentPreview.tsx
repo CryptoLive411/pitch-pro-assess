@@ -642,7 +642,7 @@ const PlayerInfoSlide = ({ data, labels }: { data: AssessmentData; labels: Recor
 );
 
 const RecommendationSlide = ({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) => (
-  <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] relative overflow-auto">
+  <div className="w-full h-full min-h-[500px] bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] relative overflow-hidden">
     {/* Animated decorative elements */}
     <div className="absolute top-10 right-10 w-64 h-64 bg-white/5 rounded-full animate-pulse hidden md:block"></div>
     <div className="absolute bottom-10 left-10 w-96 h-96 bg-white/5 rounded-full animate-pulse hidden md:block" style={{ animationDelay: '1s' }}></div>
@@ -662,7 +662,7 @@ const RecommendationSlide = ({ data, labels }: { data: AssessmentData; labels: R
       <div className="absolute top-40 left-0 w-full h-px bg-white transform -rotate-45 origin-top-left" style={{ width: '141%' }}></div>
     </div>
     
-    <div className="relative z-10 flex flex-col items-center justify-center min-h-full px-6 md:px-16 py-6 md:py-8 text-center">
+    <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 md:px-16 py-6 md:py-8 text-center">
       <div className="space-y-4 md:space-y-8 max-w-4xl">
         {/* Badge with glow */}
         <div className="inline-block relative animate-fade-in">
