@@ -304,7 +304,7 @@ const CoverSlide = ({ data, labels }: { data: AssessmentData; labels: Record<str
   ];
   
   return (
-    <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-slate-100 via-blue-50 to-slate-50">
+    <div className="w-full h-full min-h-[500px] relative overflow-hidden bg-gradient-to-br from-slate-100 via-blue-50 to-slate-50">
       {/* Large gradient orbs with color - creating depth */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-conic from-blue-200/30 via-slate-200/20 to-blue-300/30 rounded-full blur-3xl transform translate-x-1/4 -translate-y-1/4"></div>
       <div className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-gradient-conic from-slate-300/30 via-blue-100/20 to-slate-200/30 rounded-full blur-3xl transform -translate-x-1/4 translate-y-1/4"></div>
