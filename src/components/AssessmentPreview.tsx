@@ -232,8 +232,8 @@ export const AssessmentPreview = ({ data, onBack, isPublicView = false }: Assess
 
       {/* Slide Container */}
       <div className={`relative flex items-center justify-center ${isPublicView ? 'min-h-screen' : 'min-h-[calc(100vh-72px)]'} px-14 md:px-20 lg:px-24 py-2 md:py-4 lg:py-8`}>
-        {/* Slide Card with Animation - flexible height on mobile, aspect ratio on desktop */}
-        <div className="relative w-full max-w-7xl min-h-[500px] md:aspect-[16/9] bg-white rounded-lg md:rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-3xl">
+        {/* Slide Card with Animation - fixed height calculation for consistent sizing */}
+        <div className={`relative w-full max-w-7xl ${isPublicView ? 'h-[calc(100vh-16px)]' : 'h-[calc(100vh-88px)]'} md:h-auto md:aspect-[16/9] bg-white rounded-lg md:rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-3xl`}>
           <div className="w-full h-full animate-fade-in">
             {currentSlide === 0 && <CoverSlide data={data} labels={labels} />}
             {currentSlide === 1 && <PlayerInfoSlide data={data} labels={labels} />}
@@ -644,58 +644,58 @@ const PlayerInfoSlide = ({ data, labels }: { data: AssessmentData; labels: Recor
 const RecommendationSlide = ({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) => (
   <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] relative overflow-hidden">
     {/* Animated decorative elements */}
-    <div className="absolute top-10 right-10 w-64 h-64 bg-white/5 rounded-full animate-pulse"></div>
-    <div className="absolute bottom-10 left-10 w-96 h-96 bg-white/5 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-    <div className="absolute top-1/3 left-1/4 w-48 h-48 bg-white/3 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
-    <div className="absolute bottom-1/4 right-1/3 w-32 h-32 bg-white/3 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+    <div className="absolute top-5 md:top-10 right-5 md:right-10 w-32 md:w-64 h-32 md:h-64 bg-white/5 rounded-full animate-pulse"></div>
+    <div className="absolute bottom-5 md:bottom-10 left-5 md:left-10 w-48 md:w-96 h-48 md:h-96 bg-white/5 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+    <div className="absolute top-1/3 left-1/4 w-24 md:w-48 h-24 md:h-48 bg-white/3 rounded-full animate-pulse hidden md:block" style={{ animationDelay: '2s' }}></div>
+    <div className="absolute bottom-1/4 right-1/3 w-16 md:w-32 h-16 md:h-32 bg-white/3 rounded-full animate-pulse hidden md:block" style={{ animationDelay: '1.5s' }}></div>
     
-    {/* Floating dots */}
-    <div className="absolute top-20 left-20 w-2 h-2 bg-white/30 rounded-full"></div>
-    <div className="absolute top-40 right-32 w-2 h-2 bg-white/30 rounded-full"></div>
-    <div className="absolute bottom-32 left-40 w-2 h-2 bg-white/30 rounded-full"></div>
-    <div className="absolute bottom-20 right-20 w-2 h-2 bg-white/30 rounded-full"></div>
+    {/* Floating dots - hidden on mobile */}
+    <div className="absolute top-20 left-20 w-2 h-2 bg-white/30 rounded-full hidden md:block"></div>
+    <div className="absolute top-40 right-32 w-2 h-2 bg-white/30 rounded-full hidden md:block"></div>
+    <div className="absolute bottom-32 left-40 w-2 h-2 bg-white/30 rounded-full hidden md:block"></div>
+    <div className="absolute bottom-20 right-20 w-2 h-2 bg-white/30 rounded-full hidden md:block"></div>
     
-    {/* Diagonal lines pattern */}
-    <div className="absolute inset-0 opacity-5">
+    {/* Diagonal lines pattern - hidden on mobile */}
+    <div className="absolute inset-0 opacity-5 hidden md:block">
       <div className="absolute top-0 left-0 w-full h-px bg-white transform -rotate-45 origin-top-left" style={{ width: '141%' }}></div>
       <div className="absolute top-20 left-0 w-full h-px bg-white transform -rotate-45 origin-top-left" style={{ width: '141%' }}></div>
       <div className="absolute top-40 left-0 w-full h-px bg-white transform -rotate-45 origin-top-left" style={{ width: '141%' }}></div>
     </div>
     
-    <div className="relative z-10 flex flex-col items-center justify-center h-full px-8 md:px-16 text-center">
-      <div className="space-y-8 max-w-4xl">
+    <div className="relative z-10 flex flex-col items-center justify-center h-full px-4 md:px-16 py-4 md:py-0 text-center">
+      <div className="space-y-3 md:space-y-8 max-w-4xl">
         {/* Badge with glow */}
         <div className="inline-block relative animate-fade-in">
           <div className="absolute inset-0 bg-white/20 rounded-full blur-xl"></div>
-          <div className="relative px-6 py-2 bg-white/10 backdrop-blur text-white text-sm font-bold rounded-full mb-4 border border-white/20">
+          <div className="relative px-4 md:px-6 py-1.5 md:py-2 bg-white/10 backdrop-blur text-white text-xs md:text-sm font-bold rounded-full mb-2 md:mb-4 border border-white/20">
             {labels.recommendation?.toUpperCase() || "OUR RECOMMENDATION"}
           </div>
         </div>
         
         {/* Player name with underline effect */}
         <div className="relative animate-fade-in">
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-6xl font-black text-white mb-4 md:mb-8">
             {data.playerName || "Player Name"}
           </h2>
-          <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white/30 rounded-full"></div>
+          <div className="absolute -bottom-2 md:-bottom-4 left-1/2 transform -translate-x-1/2 w-20 md:w-32 h-0.5 md:h-1 bg-white/30 rounded-full"></div>
         </div>
         
         {/* Division cards with enhanced styling */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8 animate-fade-in">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-4 md:mb-8 animate-fade-in">
           {data.targetDivisions.map((division, idx) => (
             <div key={division} className="relative group" style={{ animationDelay: `${idx * 100}ms` }}>
               {/* Glow effect behind card */}
-              <div className="absolute inset-0 bg-white/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="absolute inset-0 bg-white/10 rounded-2xl blur-2xl scale-110"></div>
+              <div className="absolute inset-0 bg-white/20 rounded-xl md:rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div className="absolute inset-0 bg-white/10 rounded-xl md:rounded-2xl blur-2xl scale-110"></div>
               
-              {/* Corner accents */}
-              <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-white/40 rounded-tl-lg"></div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-white/40 rounded-tr-lg"></div>
-              <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-white/40 rounded-bl-lg"></div>
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-white/40 rounded-br-lg"></div>
+              {/* Corner accents - hidden on mobile */}
+              <div className="absolute -top-1 -left-1 w-3 md:w-4 h-3 md:h-4 border-t-2 border-l-2 border-white/40 rounded-tl-lg hidden md:block"></div>
+              <div className="absolute -top-1 -right-1 w-3 md:w-4 h-3 md:h-4 border-t-2 border-r-2 border-white/40 rounded-tr-lg hidden md:block"></div>
+              <div className="absolute -bottom-1 -left-1 w-3 md:w-4 h-3 md:h-4 border-b-2 border-l-2 border-white/40 rounded-bl-lg hidden md:block"></div>
+              <div className="absolute -bottom-1 -right-1 w-3 md:w-4 h-3 md:h-4 border-b-2 border-r-2 border-white/40 rounded-br-lg hidden md:block"></div>
               
               {/* Main card */}
-              <div className="relative px-8 py-4 bg-white text-[hsl(var(--venture-navy))] rounded-2xl shadow-2xl font-black text-2xl md:text-3xl transform group-hover:scale-105 transition-all duration-300 border-2 border-white/20">
+              <div className="relative px-4 md:px-8 py-2 md:py-4 bg-white text-[hsl(var(--venture-navy))] rounded-xl md:rounded-2xl shadow-2xl font-black text-lg md:text-3xl transform group-hover:scale-105 transition-all duration-300 border-2 border-white/20">
                 {division}
               </div>
             </div>
@@ -703,17 +703,17 @@ const RecommendationSlide = ({ data, labels }: { data: AssessmentData; labels: R
         </div>
         
         {/* Decorative divider */}
-        <div className="flex items-center justify-center gap-3 my-6 animate-fade-in">
-          <div className="w-12 h-px bg-white/30"></div>
-          <div className="w-2 h-2 bg-white/50 rounded-full"></div>
-          <div className="w-12 h-px bg-white/30"></div>
+        <div className="flex items-center justify-center gap-2 md:gap-3 my-3 md:my-6 animate-fade-in">
+          <div className="w-8 md:w-12 h-px bg-white/30"></div>
+          <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-white/50 rounded-full"></div>
+          <div className="w-8 md:w-12 h-px bg-white/30"></div>
         </div>
         
-        <p className="text-xl md:text-2xl text-white/90 font-semibold animate-fade-in">
+        <p className="text-base md:text-2xl text-white/90 font-semibold animate-fade-in">
           Player Assessment & Recommendation
         </p>
         
-        <p className="text-lg text-white/70 animate-fade-in">
+        <p className="text-sm md:text-lg text-white/70 animate-fade-in">
           Presented by <span className="font-bold text-white">Venture USA</span>
         </p>
       </div>
@@ -1399,72 +1399,72 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
   ];
 
   return (
-    <div className="w-full h-full bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 p-6 md:p-8 relative overflow-hidden">
+    <div className="w-full h-full bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 p-3 md:p-6 relative overflow-hidden">
       {/* Subtle background patterns */}
       <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[hsl(var(--venture-blue))]/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[hsl(var(--venture-navy))]/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-48 md:w-96 h-48 md:h-96 bg-[hsl(var(--venture-blue))]/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-40 md:w-80 h-40 md:h-80 bg-[hsl(var(--venture-navy))]/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative z-10 h-full flex flex-col">
         {/* Header with Logo */}
-        <div className="flex items-start justify-between mb-4">
+        <div className="flex items-start justify-between mb-2 md:mb-4">
           <div>
-            <div className="inline-block px-3 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-2">
+            <div className="inline-block px-2 md:px-3 py-0.5 md:py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-[10px] md:text-xs font-bold rounded-full mb-1 md:mb-2">
               {labels.serviceOptions || "SERVICE OPTIONS"}
             </div>
-            <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
+            <h2 className="text-xl md:text-4xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
               {labels.servicePackages || "Service Packages"}
             </h2>
-            <p className="text-sm text-gray-600 mt-1">{labels.choosePackage || "Choose the right package for your journey"}</p>
+            <p className="text-[10px] md:text-sm text-gray-600 mt-0.5 md:mt-1">{labels.choosePackage || "Choose the right package for your journey"}</p>
           </div>
           <img 
             src={ventureLogoCircle} 
             alt="Venture USA" 
-            className="w-16 h-16 md:w-20 md:h-20 object-contain opacity-90" 
+            className="w-10 h-10 md:w-20 md:h-20 object-contain opacity-90" 
           />
         </div>
         
         {/* Package headers */}
-        <div className="grid grid-cols-4 gap-2 mb-3">
-          <div className="text-xs font-bold text-gray-600">{labels.service || "SERVICE"}</div>
+        <div className="grid grid-cols-4 gap-1 md:gap-2 mb-2 md:mb-3">
+          <div className="text-[8px] md:text-xs font-bold text-gray-600">{labels.service || "SERVICE"}</div>
           <div className="text-center">
-            <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-lg px-2 py-2">
-              <div className="text-xs font-black">{labels.package1 || "PACKAGE 1"}</div>
-              <div className="text-[10px] opacity-80">{labels.fullService || "Full Service"}</div>
+            <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-md md:rounded-lg px-1 md:px-2 py-1 md:py-2">
+              <div className="text-[8px] md:text-xs font-black">{labels.package1 || "PKG 1"}</div>
+              <div className="text-[7px] md:text-[10px] opacity-80 hidden md:block">{labels.fullService || "Full Service"}</div>
             </div>
           </div>
           <div className="text-center">
-            <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-lg px-2 py-2">
-              <div className="text-xs font-black">{labels.package2 || "PACKAGE 2"}</div>
-              <div className="text-[10px] opacity-80">{labels.standard || "Standard"}</div>
+            <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-md md:rounded-lg px-1 md:px-2 py-1 md:py-2">
+              <div className="text-[8px] md:text-xs font-black">{labels.package2 || "PKG 2"}</div>
+              <div className="text-[7px] md:text-[10px] opacity-80 hidden md:block">{labels.standard || "Standard"}</div>
             </div>
           </div>
           <div className="text-center">
-            <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white rounded-lg px-2 py-2">
-              <div className="text-xs font-black">{labels.package3 || "PACKAGE 3"}</div>
-              <div className="text-[10px] opacity-80">{labels.essential || "Essential"}</div>
+            <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white rounded-md md:rounded-lg px-1 md:px-2 py-1 md:py-2">
+              <div className="text-[8px] md:text-xs font-black">{labels.package3 || "PKG 3"}</div>
+              <div className="text-[7px] md:text-[10px] opacity-80 hidden md:block">{labels.essential || "Essential"}</div>
             </div>
           </div>
         </div>
 
         {/* Services Grid */}
-        <div className="flex-1 overflow-y-auto pr-2 pb-2 space-y-2">
+        <div className="flex-1 overflow-y-auto pr-1 md:pr-2 pb-1 md:pb-2 space-y-1 md:space-y-2">
           {services.map((service, index) => (
-            <div key={service.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200">
-              <div className="grid grid-cols-4 gap-2 p-3 items-center">
+            <div key={service.id} className="bg-white rounded-md md:rounded-lg shadow-sm md:shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200">
+              <div className="grid grid-cols-4 gap-1 md:gap-2 p-1.5 md:p-3 items-center">
                 {/* Service name with info button */}
-                <div className="flex items-center gap-2">
-                  <span className="text-xs md:text-sm font-bold text-[hsl(var(--venture-navy))]">
+                <div className="flex items-center gap-1 md:gap-2">
+                  <span className="text-[9px] md:text-sm font-bold text-[hsl(var(--venture-navy))] leading-tight">
                     {service.name}
                   </span>
                   <button
                     onClick={() => setShowInfo(showInfo === service.id ? null : service.id)}
-                    className="flex-shrink-0 w-6 h-6 rounded-full bg-[hsl(var(--venture-blue))]/10 hover:bg-[hsl(var(--venture-blue))]/20 flex items-center justify-center transition-all duration-200"
+                    className="flex-shrink-0 w-4 h-4 md:w-6 md:h-6 rounded-full bg-[hsl(var(--venture-blue))]/10 hover:bg-[hsl(var(--venture-blue))]/20 flex items-center justify-center transition-all duration-200"
                   >
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
-                      className="h-3 w-3 text-[hsl(var(--venture-blue))]" 
+                      className="h-2 w-2 md:h-3 md:w-3 text-[hsl(var(--venture-blue))]" 
                       viewBox="0 0 20 20" 
                       fill="currentColor"
                     >
@@ -1480,14 +1480,14 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
                 {/* Package checkmarks */}
                 <div className="flex justify-center">
                   {service.pkg1 ? (
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md">
-                      <svg className="w-4 h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-sm md:shadow-md">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M5 13l4 4L19 7"></path>
                       </svg>
                     </div>
                   ) : (
-                    <div className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center">
-                      <svg className="w-4 h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gray-200 flex items-center justify-center">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M6 18L18 6M6 6l12 12"></path>
                       </svg>
                     </div>
@@ -1495,14 +1495,14 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
                 </div>
                 <div className="flex justify-center">
                   {service.pkg2 ? (
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md">
-                      <svg className="w-4 h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-sm md:shadow-md">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M5 13l4 4L19 7"></path>
                       </svg>
                     </div>
                   ) : (
-                    <div className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center">
-                      <svg className="w-4 h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gray-200 flex items-center justify-center">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M6 18L18 6M6 6l12 12"></path>
                       </svg>
                     </div>
@@ -1510,14 +1510,14 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
                 </div>
                 <div className="flex justify-center">
                   {service.pkg3 ? (
-                    <div className="w-7 h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-md">
-                      <svg className="w-4 h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-sm md:shadow-md">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M5 13l4 4L19 7"></path>
                       </svg>
                     </div>
                   ) : (
-                    <div className="w-7 h-7 rounded-full bg-gray-200 flex items-center justify-center">
-                      <svg className="w-4 h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="w-5 h-5 md:w-7 md:h-7 rounded-full bg-gray-200 flex items-center justify-center">
+                      <svg className="w-3 h-3 md:w-4 md:h-4 text-gray-400" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                         <path d="M6 18L18 6M6 6l12 12"></path>
                       </svg>
                     </div>
@@ -1527,9 +1527,9 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
 
               {/* Info panel */}
               {showInfo === service.id && (
-                <div className="px-3 pb-3 col-span-4">
-                  <div className="bg-gradient-to-r from-[hsl(var(--venture-blue))]/10 to-blue-50 rounded-lg p-3 border-l-4 border-[hsl(var(--venture-blue))]">
-                    <p className="text-xs md:text-sm text-gray-700 leading-relaxed">
+                <div className="px-2 md:px-3 pb-2 md:pb-3 col-span-4">
+                  <div className="bg-gradient-to-r from-[hsl(var(--venture-blue))]/10 to-blue-50 rounded-md md:rounded-lg p-2 md:p-3 border-l-4 border-[hsl(var(--venture-blue))]">
+                    <p className="text-[9px] md:text-sm text-gray-700 leading-relaxed">
                       {service.description}
                     </p>
                   </div>
@@ -1541,49 +1541,49 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
 
         {/* Package Prices at Bottom */}
         {(packagePrice1?.trim() || packagePrice2?.trim() || packagePrice3?.trim()) && (
-          <div className="mt-3 grid grid-cols-3 gap-2">
+          <div className="mt-2 md:mt-3 grid grid-cols-3 gap-1 md:gap-2">
             {packagePrice1?.trim() && (
-              <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-lg p-3 text-center shadow-lg">
-                <div className="text-[10px] font-bold opacity-80 mb-0.5">PACKAGE 1</div>
-                <div className="text-lg md:text-xl font-black">${packagePrice1}</div>
-                <div className="text-[9px] opacity-70">+7% for tax</div>
+              <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-md md:rounded-lg p-2 md:p-3 text-center shadow-lg">
+                <div className="text-[8px] md:text-[10px] font-bold opacity-80 mb-0.5">PKG 1</div>
+                <div className="text-sm md:text-xl font-black">${packagePrice1}</div>
+                <div className="text-[7px] md:text-[9px] opacity-70">+7% tax</div>
               </div>
             )}
             {packagePrice2?.trim() && (
-              <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-lg p-3 text-center shadow-lg">
-                <div className="text-[10px] font-bold opacity-80 mb-0.5">PACKAGE 2</div>
-                <div className="text-lg md:text-xl font-black">${packagePrice2}</div>
-                <div className="text-[9px] opacity-70">+7% for tax</div>
+              <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-md md:rounded-lg p-2 md:p-3 text-center shadow-lg">
+                <div className="text-[8px] md:text-[10px] font-bold opacity-80 mb-0.5">PKG 2</div>
+                <div className="text-sm md:text-xl font-black">${packagePrice2}</div>
+                <div className="text-[7px] md:text-[9px] opacity-70">+7% tax</div>
               </div>
             )}
             {packagePrice3?.trim() && (
-              <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white rounded-lg p-3 text-center shadow-lg">
-                <div className="text-[10px] font-bold opacity-80 mb-0.5">PACKAGE 3</div>
-                <div className="text-lg md:text-xl font-black">${packagePrice3}</div>
-                <div className="text-[9px] opacity-70">+7% for tax</div>
+              <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white rounded-md md:rounded-lg p-2 md:p-3 text-center shadow-lg">
+                <div className="text-[8px] md:text-[10px] font-bold opacity-80 mb-0.5">PKG 3</div>
+                <div className="text-sm md:text-xl font-black">${packagePrice3}</div>
+                <div className="text-[7px] md:text-[9px] opacity-70">+7% tax</div>
               </div>
             )}
           </div>
         )}
 
         {/* Guarantee Badge */}
-        <div className="mt-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg p-3 shadow-lg">
-          <div className="flex items-center justify-center gap-2">
-            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0">
-              <svg className="w-5 h-5 text-green-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="mt-2 md:mt-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-md md:rounded-lg p-2 md:p-3 shadow-lg">
+          <div className="flex items-center justify-center gap-1.5 md:gap-2">
+            <div className="w-6 h-6 md:w-8 md:h-8 bg-white rounded-full flex items-center justify-center flex-shrink-0">
+              <svg className="w-4 h-4 md:w-5 md:h-5 text-green-600" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
               </svg>
             </div>
-            <p className="text-sm md:text-base font-bold text-white text-center">
+            <p className="text-[10px] md:text-base font-bold text-white text-center">
               {labels.placementGuarantee || "100% Placement Guarantee or Full Refund"}
             </p>
           </div>
         </div>
 
         {/* Footer note */}
-        <div className="mt-3 bg-white/80 backdrop-blur-sm rounded-lg p-3 border border-gray-200">
-          <p className="text-xs md:text-sm text-gray-600 text-center">
-            <span className="font-bold text-[hsl(var(--venture-navy))]">{labels.contactUs || "Contact us"}</span> {labels.contactUsPackageNote || "to discuss which package best fits your needs and goals."}
+        <div className="mt-1.5 md:mt-3 bg-white/80 backdrop-blur-sm rounded-md md:rounded-lg p-2 md:p-3 border border-gray-200">
+          <p className="text-[9px] md:text-sm text-gray-600 text-center">
+            <span className="font-bold text-[hsl(var(--venture-navy))]">{labels.contactUs || "Contact us"}</span> {labels.contactUsPackageNote || "to discuss which package best fits your needs."}
           </p>
         </div>
       </div>
