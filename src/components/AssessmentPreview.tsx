@@ -1452,10 +1452,10 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
         <div className="flex-1 overflow-y-auto pr-2 pb-2 space-y-1.5 md:space-y-2">
           {services.map((service, index) => (
             <div key={service.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200">
-              <div className="grid grid-cols-[1fr_auto_auto_auto] gap-1 md:gap-2 p-2 md:p-3 items-center">
+              <div className="grid grid-cols-[1fr_auto_auto_auto] md:grid-cols-4 gap-1 md:gap-2 p-2 md:p-3 items-center">
                 {/* Service name with info button */}
-                <div className="flex items-center gap-1 md:gap-2 min-w-0 pr-1">
-                  <span className="text-[9px] md:text-sm font-bold text-[hsl(var(--venture-navy))] leading-tight line-clamp-2">
+                <div className="flex items-center gap-1 md:gap-2 min-w-0 md:min-w-auto pr-1 md:pr-0">
+                  <span className="text-[9px] md:text-sm font-bold text-[hsl(var(--venture-navy))] leading-tight line-clamp-2 md:line-clamp-none">
                     {service.name}
                   </span>
                   <button
