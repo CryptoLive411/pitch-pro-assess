@@ -1924,8 +1924,8 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
   <div className="w-full h-full bg-gradient-to-br from-slate-900 via-[hsl(var(--venture-navy))] to-blue-950 relative overflow-hidden">
     {/* Modern geometric background */}
     <div className="absolute inset-0">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[hsl(var(--venture-blue))]/20 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-0 right-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-[hsl(var(--venture-blue))]/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-purple-500/10 rounded-full blur-3xl"></div>
     </div>
     
     {/* Grid pattern overlay */}
@@ -1936,17 +1936,17 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
       }}></div>
     </div>
 
-    <div className="relative z-10 h-full flex flex-col items-center justify-center px-8 py-6">
+    <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 md:px-8 py-4 md:py-6">
       {/* Logo */}
-      <div className="mt-4 mb-6 relative group">
+      <div className="mb-3 md:mb-6 relative group">
         <div className="absolute inset-0 bg-white/20 rounded-full blur-2xl animate-pulse"></div>
-        <div className="relative w-32 h-32 bg-white rounded-full flex items-center justify-center shadow-2xl ring-4 ring-white/20">
-          <img src={ventureLogoCircle} alt="Venture USA" className="w-28 h-28 object-contain" />
+        <div className="relative w-20 h-20 md:w-32 md:h-32 bg-white rounded-full flex items-center justify-center shadow-2xl ring-4 ring-white/20">
+          <img src={ventureLogoCircle} alt="Venture USA" className="w-16 h-16 md:w-28 md:h-28 object-contain" />
         </div>
       </div>
 
       {/* Main heading */}
-      <h1 className="text-4xl md:text-6xl font-black text-white uppercase text-center leading-none mb-4">
+      <h1 className="text-2xl sm:text-3xl md:text-6xl font-black text-white uppercase text-center leading-none mb-2 md:mb-4">
         {labels.readyToStart || "Ready to Start"}<br/>
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500">
           {labels.yourJourneyQuestion || "Your Journey?"}
@@ -1954,50 +1954,50 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
       </h1>
       
       {/* Decorative line */}
-      <div className="flex items-center gap-3 mb-4">
-        <div className="h-px w-20 bg-gradient-to-r from-transparent to-white/50"></div>
-        <div className="w-2 h-2 bg-white rounded-full"></div>
-        <div className="h-px w-20 bg-gradient-to-l from-transparent to-white/50"></div>
+      <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-4">
+        <div className="h-px w-12 md:w-20 bg-gradient-to-r from-transparent to-white/50"></div>
+        <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white rounded-full"></div>
+        <div className="h-px w-12 md:w-20 bg-gradient-to-l from-transparent to-white/50"></div>
       </div>
       
       {/* Subheading */}
-      <p className="text-lg md:text-xl text-blue-100 font-semibold text-center max-w-2xl mb-6">
+      <p className="text-sm md:text-xl text-blue-100 font-semibold text-center max-w-2xl mb-4 md:mb-6 px-2">
         {labels.letsMakeYourDream || "Let's make your college soccer dream a reality"}
       </p>
 
       {/* Contact cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl mb-4">
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 w-full max-w-3xl mb-3 md:mb-4 px-2">
+        <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+          <div className="flex items-center gap-3 md:gap-4">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg className="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
               </svg>
             </div>
-            <div className="text-left">
-              <p className="text-white/70 text-sm font-semibold">{labels.emailUs || "Email Us"}</p>
-              <p className="text-white font-bold">admin@venturesportsusa.com</p>
+            <div className="text-left min-w-0">
+              <p className="text-white/70 text-xs md:text-sm font-semibold">{labels.emailUs || "Email Us"}</p>
+              <p className="text-white font-bold text-sm md:text-base truncate">admin@venturesportsusa.com</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="bg-white/10 backdrop-blur-md rounded-xl md:rounded-2xl p-4 md:p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+          <div className="flex items-center gap-3 md:gap-4">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 rounded-lg md:rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg className="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
               </svg>
             </div>
             <div className="text-left">
-              <p className="text-white/70 text-sm font-semibold">{labels.getStarted || "Get Started"}</p>
-              <p className="text-white font-bold">{labels.callYourAgent || "Call Your Agent"}</p>
+              <p className="text-white/70 text-xs md:text-sm font-semibold">{labels.getStarted || "Get Started"}</p>
+              <p className="text-white font-bold text-sm md:text-base">{labels.callYourAgent || "Call Your Agent"}</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* CTA Note */}
-      <p className="text-white/60 text-sm text-center max-w-lg">
+      <p className="text-white/60 text-xs md:text-sm text-center max-w-lg px-4">
         {labels.joinAthletes || "Join 350+ athletes who have successfully placed at top universities across the United States"}
       </p>
     </div>
