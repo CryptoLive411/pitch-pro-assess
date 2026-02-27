@@ -26,6 +26,9 @@ import templeLogo from "@/assets/logos/temple.png";
 import kentuckyLogo from "@/assets/logos/kentucky.png";
 import georgiaStateLogo from "@/assets/logos/georgia-state.png";
 import ucIrvineLogo from "@/assets/logos/uc-irvine.png";
+import ncaaLogo from "@/assets/logos/ncaa.png";
+import naiaLogo from "@/assets/logos/naia.png";
+import njcaaLogo from "@/assets/logos/njcaa.png";
 
 interface AssessmentPreviewProps {
   data: AssessmentData;
@@ -641,6 +644,14 @@ const PlayerInfoSlide = ({ data, labels }: { data: AssessmentData; labels: Recor
   </div>
 );
 
+const getLeagueLogo = (division: string): string | null => {
+  const d = division.toUpperCase();
+  if (d.includes('NCAA')) return ncaaLogo;
+  if (d.includes('NAIA')) return naiaLogo;
+  if (d.includes('JUCO') || d.includes('NJCAA')) return njcaaLogo;
+  return null;
+};
+
 const RecommendationSlide = ({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) => (
   <div className="w-full h-full min-h-[500px] bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] relative overflow-hidden">
     {/* Animated decorative elements */}
@@ -663,8 +674,8 @@ const RecommendationSlide = ({ data, labels }: { data: AssessmentData; labels: R
     </div>
     
     <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 md:px-16 py-6 md:py-8 text-center">
-      <div className="space-y-4 md:space-y-8 max-w-4xl">
-        {/* Badge with glow */}
+      <div className="space-y-4 md:space-y-6 max-w-4xl">
+        {/* Badge with glow - moved to top */}
         <div className="inline-block relative animate-fade-in">
           <div className="absolute inset-0 bg-white/20 rounded-full blur-xl"></div>
           <div className="relative px-4 md:px-6 py-1.5 md:py-2 bg-white/10 backdrop-blur text-white text-xs md:text-sm font-bold rounded-full mb-2 md:mb-4 border border-white/20">
@@ -672,41 +683,47 @@ const RecommendationSlide = ({ data, labels }: { data: AssessmentData; labels: R
           </div>
         </div>
         
-        {/* Player name with underline effect */}
-        <div className="relative animate-fade-in">
-          <h2 className="text-3xl md:text-6xl font-black text-white mb-4 md:mb-8">
-            {data.playerName || "Player Name"}
-          </h2>
-          <div className="absolute -bottom-2 md:-bottom-4 left-1/2 transform -translate-x-1/2 w-24 md:w-32 h-0.5 md:h-1 bg-white/30 rounded-full"></div>
-        </div>
-        
-        {/* Division cards with enhanced styling */}
-        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-4 md:mb-8 animate-fade-in">
-          {data.targetDivisions.map((division, idx) => (
-            <div key={division} className="relative group" style={{ animationDelay: `${idx * 100}ms` }}>
-              {/* Glow effect behind card */}
-              <div className="absolute inset-0 bg-white/20 rounded-xl md:rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <div className="absolute inset-0 bg-white/10 rounded-xl md:rounded-2xl blur-2xl scale-110"></div>
-              
-              {/* Corner accents */}
-              <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-white/40 rounded-tl-lg hidden md:block"></div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-white/40 rounded-tr-lg hidden md:block"></div>
-              <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-white/40 rounded-bl-lg hidden md:block"></div>
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-white/40 rounded-br-lg hidden md:block"></div>
-              
-              {/* Main card */}
-              <div className="relative px-5 md:px-8 py-2.5 md:py-4 bg-white text-[hsl(var(--venture-navy))] rounded-xl md:rounded-2xl shadow-2xl font-black text-xl md:text-3xl transform group-hover:scale-105 transition-all duration-300 border-2 border-white/20">
-                {division}
+        {/* Division cards with league logos - moved to top */}
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4 animate-fade-in">
+          {data.targetDivisions.map((division, idx) => {
+            const leagueLogo = getLeagueLogo(division);
+            return (
+              <div key={division} className="relative group" style={{ animationDelay: `${idx * 100}ms` }}>
+                {/* Glow effect behind card */}
+                <div className="absolute inset-0 bg-white/20 rounded-xl md:rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="absolute inset-0 bg-white/10 rounded-xl md:rounded-2xl blur-2xl scale-110"></div>
+                
+                {/* Corner accents */}
+                <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-white/40 rounded-tl-lg hidden md:block"></div>
+                <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-white/40 rounded-tr-lg hidden md:block"></div>
+                <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-white/40 rounded-bl-lg hidden md:block"></div>
+                <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-white/40 rounded-br-lg hidden md:block"></div>
+                
+                {/* Main card with logo */}
+                <div className="relative px-5 md:px-8 py-2.5 md:py-4 bg-white text-[hsl(var(--venture-navy))] rounded-xl md:rounded-2xl shadow-2xl font-black text-xl md:text-3xl transform group-hover:scale-105 transition-all duration-300 border-2 border-white/20 flex items-center gap-2 md:gap-3">
+                  {leagueLogo && (
+                    <img src={leagueLogo} alt="" className="h-6 md:h-10 w-auto object-contain" />
+                  )}
+                  {division}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
         
         {/* Decorative divider */}
-        <div className="flex items-center justify-center gap-3 my-4 md:my-6 animate-fade-in">
+        <div className="flex items-center justify-center gap-3 my-2 md:my-4 animate-fade-in">
           <div className="w-12 h-px bg-white/30"></div>
           <div className="w-2 h-2 bg-white/50 rounded-full"></div>
           <div className="w-12 h-px bg-white/30"></div>
+        </div>
+        
+        {/* Player name */}
+        <div className="relative animate-fade-in">
+          <h2 className="text-3xl md:text-6xl font-black text-white mb-4 md:mb-6">
+            {data.playerName || "Player Name"}
+          </h2>
+          <div className="absolute -bottom-2 md:-bottom-4 left-1/2 transform -translate-x-1/2 w-24 md:w-32 h-0.5 md:h-1 bg-white/30 rounded-full"></div>
         </div>
         
         <p className="text-lg md:text-2xl text-white/90 font-semibold animate-fade-in">
