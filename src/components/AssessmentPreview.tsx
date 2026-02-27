@@ -467,7 +467,7 @@ const CoverSlide = ({ data, labels }: { data: AssessmentData; labels: Record<str
           
           {/* Main logo container with gradient border */}
           <div className="relative w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 p-1 rounded-full bg-gradient-to-br from-slate-900 via-slate-700 to-slate-900 shadow-2xl group-hover:scale-105 transition-all duration-300">
-            <div className="w-full h-full rounded-full bg-white shadow-inner p-0.5 md:p-1 border-2 border-slate-100">
+            <div className="w-full h-full rounded-full bg-white shadow-inner p-[2px] md:p-[3px] border-2 border-slate-100">
               <img 
                 src={ventureLogoCircle} 
                 alt="Venture USA" 
