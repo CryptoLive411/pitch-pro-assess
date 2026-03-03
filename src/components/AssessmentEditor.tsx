@@ -25,6 +25,7 @@ export interface AssessmentData {
   packagePrice1?: string;
   packagePrice2?: string;
   packagePrice3?: string;
+  currency?: string;
   language?: string;
   translatedLabels?: Record<string, string> | null;
 }
@@ -262,6 +263,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         package_price_1: data.packagePrice1 || null,
         package_price_2: data.packagePrice2 || null,
         package_price_3: data.packagePrice3 || null,
+        currency: data.currency || 'USD',
         language: data.language || 'English',
         translated_labels: data.translatedLabels || null
       };
@@ -307,6 +309,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         packagePrice1: "",
         packagePrice2: "",
         packagePrice3: "",
+        currency: "USD",
         language: "English",
         translatedLabels: null,
       });
@@ -602,8 +605,24 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         </div>
 
         <div className="space-y-3 md:space-y-4">
-          <h3 className="text-base md:text-lg font-semibold text-foreground">Package Prices</h3>
-          <p className="text-xs md:text-sm text-muted-foreground">Set the prices that will display on the packages slide</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-base md:text-lg font-semibold text-foreground">Package Prices</h3>
+              <p className="text-xs md:text-sm text-muted-foreground">Set the prices that will display on the packages slide. Leave blank for defaults.</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Label htmlFor="currency" className="text-xs whitespace-nowrap">Currency</Label>
+              <Select value={data.currency || "USD"} onValueChange={(val) => onChange({ ...data, currency: val })}>
+                <SelectTrigger id="currency" className="w-24 h-8 text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="USD">$ USD</SelectItem>
+                  <SelectItem value="EUR">€ EUR</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
             <div className="space-y-2">
               <Label htmlFor="packagePrice1">Package 1 (Full Service)</Label>

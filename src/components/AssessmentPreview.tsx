@@ -246,9 +246,9 @@ export const AssessmentPreview = ({ data, onBack, isPublicView = false }: Assess
             {currentSlide === 5 && <TestimonialJoaoSlide />}
             {currentSlide === 6 && <TestimonialFilipSlide />}
             {currentSlide === 7 && <CommittedSlide />}
-            {currentSlide === 8 && <CostsSlide labels={labels} />}
+            {currentSlide === 8 && <CostsSlide labels={labels} currency={data.currency || 'USD'} />}
             {currentSlide === 9 && <TestimonialGabrielSlide />}
-            {currentSlide === 10 && <PackagesSlide packagePrice1={data.packagePrice1} packagePrice2={data.packagePrice2} packagePrice3={data.packagePrice3} labels={labels} />}
+            {currentSlide === 10 && <PackagesSlide packagePrice1={data.packagePrice1} packagePrice2={data.packagePrice2} packagePrice3={data.packagePrice3} currency={data.currency || 'USD'} labels={labels} />}
             {currentSlide === 11 && <TimelineSlide labels={labels} />}
             {currentSlide === 12 && <TestimonialsSliderSlide />}
             {currentSlide === 13 && <ContactSlide labels={labels} />}
@@ -1181,42 +1181,43 @@ const TestimonialGabrielSlide = () => (
   </div>
 );
 
-const CostsSlide = ({ labels }: { labels: Record<string, string> }) => {
+const CostsSlide = ({ labels, currency = 'USD' }: { labels: Record<string, string>; currency?: string }) => {
   const [showInfo, setShowInfo] = useState<string | null>(null);
+  const sym = currency === 'EUR' ? '€' : '$';
   
   const costItems = [
     {
       id: 'sat',
       name: labels.satExams || 'SAT Exams',
-      amount: '$200-$400',
+      amount: `${sym}200-${sym}400`,
       status: labels.satExamsStatus || '1-3 exams',
       description: labels.satExamsDescription || 'The SAT is a standardized test that students may have to take to get accepted into certain schools. This score helps universities evaluate academic readiness.'
     },
     {
       id: 'applications',
       name: labels.applications || 'Applications',
-      amount: '$300-$500',
+      amount: `${sym}300-${sym}500`,
       status: labels.applicationsStatus || '4-6 schools',
       description: labels.applicationsDescription || 'Application fees for submitting your profile to multiple universities. Each school charges an application fee to process your admission materials.'
     },
     {
       id: 'flight',
       name: labels.flightTicket || 'Flight Ticket to USA',
-      amount: '$600-$1,000',
+      amount: `${sym}600-${sym}1,000`,
       status: labels.flightTicketStatus || 'One-way',
       description: labels.flightTicketDescription || 'Cost of your flight from your home country to the United States. This is a one-way ticket to begin your college journey.'
     },
     {
       id: 'visa',
       name: labels.visaApproval || 'Visa Approval',
-      amount: '$350',
+      amount: `${sym}350`,
       status: labels.visaApprovalStatus || 'F-1 Student',
       description: labels.visaApprovalDescription || 'The F-1 Student Visa approval process and associated fees required for international students to study in the United States.'
     },
     {
       id: 'budget',
       name: labels.universityYearlyBudget || 'University Yearly Budget',
-      amount: '$10K-$20K',
+      amount: `${sym}10K-${sym}20K`,
       status: labels.universityYearlyBudgetStatus || 'Varies',
       description: labels.universityYearlyBudgetDescription || 'Average yearly cost after scholarships, discussed with family. Some students earn full scholarships while others may not receive any financial aid.'
     }
@@ -1329,8 +1330,9 @@ const CostsSlide = ({ labels }: { labels: Record<string, string> }) => {
   );
 };
 
-const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: { packagePrice1?: string; packagePrice2?: string; packagePrice3?: string; labels: Record<string, string> }) => {
+const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, currency = 'USD', labels }: { packagePrice1?: string; packagePrice2?: string; packagePrice3?: string; currency?: string; labels: Record<string, string> }) => {
   const [showInfo, setShowInfo] = useState<string | null>(null);
+  const sym = currency === 'EUR' ? '€' : '$';
   
   const services = [
     {
@@ -1562,21 +1564,21 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, labels }: 
             {packagePrice1?.trim() && (
               <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white rounded-lg p-2 md:p-3 text-center shadow-lg">
                 <div className="text-[9px] md:text-[10px] font-bold opacity-80 mb-0.5">PACKAGE 1</div>
-                <div className="text-base md:text-xl font-black">${packagePrice1}</div>
+                <div className="text-base md:text-xl font-black">{sym}{packagePrice1}</div>
                 <div className="text-[8px] md:text-[9px] opacity-70">+7% for tax</div>
               </div>
             )}
             {packagePrice2?.trim() && (
               <div className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-lg p-2 md:p-3 text-center shadow-lg">
                 <div className="text-[9px] md:text-[10px] font-bold opacity-80 mb-0.5">PACKAGE 2</div>
-                <div className="text-base md:text-xl font-black">${packagePrice2}</div>
+                <div className="text-base md:text-xl font-black">{sym}{packagePrice2}</div>
                 <div className="text-[8px] md:text-[9px] opacity-70">+7% for tax</div>
               </div>
             )}
             {packagePrice3?.trim() && (
               <div className="bg-gradient-to-br from-slate-600 to-slate-800 text-white rounded-lg p-2 md:p-3 text-center shadow-lg">
                 <div className="text-[9px] md:text-[10px] font-bold opacity-80 mb-0.5">PACKAGE 3</div>
-                <div className="text-base md:text-xl font-black">${packagePrice3}</div>
+                <div className="text-base md:text-xl font-black">{sym}{packagePrice3}</div>
                 <div className="text-[8px] md:text-[9px] opacity-70">+7% for tax</div>
               </div>
             )}
