@@ -90,6 +90,11 @@ const Preview = () => {
               packagePrice2: assessment.package_price_2 || '',
               packagePrice3: assessment.package_price_3 || '',
               currency: (assessment as any).currency || 'USD',
+              costSat: (assessment as any).cost_sat || '',
+              costApplications: (assessment as any).cost_applications || '',
+              costFlight: (assessment as any).cost_flight || '',
+              costVisa: (assessment as any).cost_visa || '',
+              costUniversity: (assessment as any).cost_university || '',
               language: assessment.language || 'English',
               translatedLabels: assessment.translated_labels as Record<string, string> | null,
             };
