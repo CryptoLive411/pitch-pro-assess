@@ -26,6 +26,11 @@ export interface AssessmentData {
   packagePrice2?: string;
   packagePrice3?: string;
   currency?: string;
+  costSat?: string;
+  costApplications?: string;
+  costFlight?: string;
+  costVisa?: string;
+  costUniversity?: string;
   language?: string;
   translatedLabels?: Record<string, string> | null;
 }
@@ -264,6 +269,11 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         package_price_2: data.packagePrice2 || null,
         package_price_3: data.packagePrice3 || null,
         currency: data.currency || 'USD',
+        cost_sat: data.costSat || null,
+        cost_applications: data.costApplications || null,
+        cost_flight: data.costFlight || null,
+        cost_visa: data.costVisa || null,
+        cost_university: data.costUniversity || null,
         language: data.language || 'English',
         translated_labels: data.translatedLabels || null
       };
@@ -310,6 +320,11 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         packagePrice2: "",
         packagePrice3: "",
         currency: "USD",
+        costSat: "",
+        costApplications: "",
+        costFlight: "",
+        costVisa: "",
+        costUniversity: "",
         language: "English",
         translatedLabels: null,
       });
@@ -649,6 +664,58 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
                 value={data.packagePrice3 || ""}
                 onChange={(e) => onChange({ ...data, packagePrice3: e.target.value })}
                 placeholder="4,495"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-3 md:space-y-4">
+          <h3 className="text-base md:text-lg font-semibold text-foreground">Estimated Costs</h3>
+          <p className="text-xs md:text-sm text-muted-foreground">Customize the cost amounts shown on the Estimated Costs slide. Leave blank for defaults.</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="costSat">SAT Exams</Label>
+              <Input
+                id="costSat"
+                value={data.costSat || ""}
+                onChange={(e) => onChange({ ...data, costSat: e.target.value })}
+                placeholder="200-400"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="costApplications">Applications</Label>
+              <Input
+                id="costApplications"
+                value={data.costApplications || ""}
+                onChange={(e) => onChange({ ...data, costApplications: e.target.value })}
+                placeholder="300-500"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="costFlight">Flight Ticket</Label>
+              <Input
+                id="costFlight"
+                value={data.costFlight || ""}
+                onChange={(e) => onChange({ ...data, costFlight: e.target.value })}
+                placeholder="600-1,000"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="costVisa">Visa Approval</Label>
+              <Input
+                id="costVisa"
+                value={data.costVisa || ""}
+                onChange={(e) => onChange({ ...data, costVisa: e.target.value })}
+                placeholder="350"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="costUniversity">University Yearly Budget</Label>
+              <Input
+                id="costUniversity"
+                value={data.costUniversity || ""}
+                onChange={(e) => onChange({ ...data, costUniversity: e.target.value })}
+                placeholder="10K-20K"
               />
             </div>
           </div>

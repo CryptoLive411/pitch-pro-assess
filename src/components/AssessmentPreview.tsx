@@ -246,7 +246,7 @@ export const AssessmentPreview = ({ data, onBack, isPublicView = false }: Assess
             {currentSlide === 5 && <TestimonialJoaoSlide />}
             {currentSlide === 6 && <TestimonialFilipSlide />}
             {currentSlide === 7 && <CommittedSlide />}
-            {currentSlide === 8 && <CostsSlide labels={labels} currency={data.currency || 'USD'} />}
+            {currentSlide === 8 && <CostsSlide labels={labels} currency={data.currency || 'USD'} costSat={data.costSat} costApplications={data.costApplications} costFlight={data.costFlight} costVisa={data.costVisa} costUniversity={data.costUniversity} />}
             {currentSlide === 9 && <TestimonialGabrielSlide />}
             {currentSlide === 10 && <PackagesSlide packagePrice1={data.packagePrice1} packagePrice2={data.packagePrice2} packagePrice3={data.packagePrice3} currency={data.currency || 'USD'} labels={labels} />}
             {currentSlide === 11 && <TimelineSlide labels={labels} />}
@@ -1181,7 +1181,7 @@ const TestimonialGabrielSlide = () => (
   </div>
 );
 
-const CostsSlide = ({ labels, currency = 'USD' }: { labels: Record<string, string>; currency?: string }) => {
+const CostsSlide = ({ labels, currency = 'USD', costSat, costApplications, costFlight, costVisa, costUniversity }: { labels: Record<string, string>; currency?: string; costSat?: string; costApplications?: string; costFlight?: string; costVisa?: string; costUniversity?: string }) => {
   const [showInfo, setShowInfo] = useState<string | null>(null);
   const sym = currency === 'EUR' ? '€' : '$';
   
@@ -1189,35 +1189,35 @@ const CostsSlide = ({ labels, currency = 'USD' }: { labels: Record<string, strin
     {
       id: 'sat',
       name: labels.satExams || 'SAT Exams',
-      amount: `${sym}200-${sym}400`,
+      amount: `${sym}${costSat || '200-400'}`,
       status: labels.satExamsStatus || '1-3 exams',
       description: labels.satExamsDescription || 'The SAT is a standardized test that students may have to take to get accepted into certain schools. This score helps universities evaluate academic readiness.'
     },
     {
       id: 'applications',
       name: labels.applications || 'Applications',
-      amount: `${sym}300-${sym}500`,
+      amount: `${sym}${costApplications || '300-500'}`,
       status: labels.applicationsStatus || '4-6 schools',
       description: labels.applicationsDescription || 'Application fees for submitting your profile to multiple universities. Each school charges an application fee to process your admission materials.'
     },
     {
       id: 'flight',
       name: labels.flightTicket || 'Flight Ticket to USA',
-      amount: `${sym}600-${sym}1,000`,
+      amount: `${sym}${costFlight || '600-1,000'}`,
       status: labels.flightTicketStatus || 'One-way',
       description: labels.flightTicketDescription || 'Cost of your flight from your home country to the United States. This is a one-way ticket to begin your college journey.'
     },
     {
       id: 'visa',
       name: labels.visaApproval || 'Visa Approval',
-      amount: `${sym}350`,
+      amount: `${sym}${costVisa || '350'}`,
       status: labels.visaApprovalStatus || 'F-1 Student',
       description: labels.visaApprovalDescription || 'The F-1 Student Visa approval process and associated fees required for international students to study in the United States.'
     },
     {
       id: 'budget',
       name: labels.universityYearlyBudget || 'University Yearly Budget',
-      amount: `${sym}10K-${sym}20K`,
+      amount: `${sym}${costUniversity || '10K-20K'}`,
       status: labels.universityYearlyBudgetStatus || 'Varies',
       description: labels.universityYearlyBudgetDescription || 'Average yearly cost after scholarships, discussed with family. Some students earn full scholarships while others may not receive any financial aid.'
     }

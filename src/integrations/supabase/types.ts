@@ -17,6 +17,11 @@ export type Database = {
       assessments: {
         Row: {
           budget: string | null
+          cost_applications: string | null
+          cost_flight: string | null
+          cost_sat: string | null
+          cost_university: string | null
+          cost_visa: string | null
           created_at: string | null
           currency: string | null
           current_level: string | null
@@ -41,6 +46,11 @@ export type Database = {
         }
         Insert: {
           budget?: string | null
+          cost_applications?: string | null
+          cost_flight?: string | null
+          cost_sat?: string | null
+          cost_university?: string | null
+          cost_visa?: string | null
           created_at?: string | null
           currency?: string | null
           current_level?: string | null
@@ -65,6 +75,11 @@ export type Database = {
         }
         Update: {
           budget?: string | null
+          cost_applications?: string | null
+          cost_flight?: string | null
+          cost_sat?: string | null
+          cost_university?: string | null
+          cost_visa?: string | null
           created_at?: string | null
           currency?: string | null
           current_level?: string | null
