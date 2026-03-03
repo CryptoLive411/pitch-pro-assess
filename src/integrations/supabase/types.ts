@@ -18,6 +18,7 @@ export type Database = {
         Row: {
           budget: string | null
           created_at: string | null
+          currency: string | null
           current_level: string | null
           department_notes: string | null
           gpa: string | null
@@ -41,6 +42,7 @@ export type Database = {
         Insert: {
           budget?: string | null
           created_at?: string | null
+          currency?: string | null
           current_level?: string | null
           department_notes?: string | null
           gpa?: string | null
@@ -64,6 +66,7 @@ export type Database = {
         Update: {
           budget?: string | null
           created_at?: string | null
+          currency?: string | null
           current_level?: string | null
           department_notes?: string | null
           gpa?: string | null

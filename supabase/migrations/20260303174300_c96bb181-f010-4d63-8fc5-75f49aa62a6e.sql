@@ -1,0 +1,1 @@
+ALTER TABLE public.assessments ADD COLUMN currency text DEFAULT 'USD';

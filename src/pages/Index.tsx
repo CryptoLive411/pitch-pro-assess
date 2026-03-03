@@ -23,6 +23,7 @@ const Index = () => {
       packagePrice1: "5,395",
       packagePrice2: "4,795",
       packagePrice3: "4,495",
+      currency: "USD",
       language: "English",
       translatedLabels: null,
     }
