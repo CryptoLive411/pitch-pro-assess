@@ -61,12 +61,19 @@ const AdminUsers = () => {
   const grantStaffAccess = async (email: string) => {
     setUpdating(email);
     try {
-      // We need to use an edge function to look up user by email and grant role
       const { data, error } = await supabase.functions.invoke('manage-users', {
         body: { action: 'grantStaff', email }
       });
 
-      if (error) throw error;
+      if (error) {
+        // Try to parse the error context for a meaningful message
+        const ctx = error.context;
+        if (ctx instanceof Response) {
+          const body = await ctx.json().catch(() => null);
+          throw new Error(body?.error || error.message);
+        }
+        throw error;
+      }
       if (data?.error) throw new Error(data.error);
 
       toast.success(`Staff access granted to ${email}`);
