@@ -2026,8 +2026,6 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
 // Pro Academy (Portugal Gap Year) Add-on Slides
 // ============================================================
 
-const PA_NAVY = "hsl(var(--venture-navy))";
-const PA_BLUE = "hsl(var(--venture-blue))";
 
 const ProAcademyIntroSlide = ({ data }: { data: AssessmentData }) => (
   <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] flex flex-col items-center justify-center p-6 md:p-12">
