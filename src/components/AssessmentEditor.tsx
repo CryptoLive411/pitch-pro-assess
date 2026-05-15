@@ -603,7 +603,8 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
               "NCAA D3",
               "NAIA",
               "JUCO",
-              "Gap Year"
+              "Gap Year",
+              "Pro Pathway"
             ].map((division) => (
               <div key={division} className="flex items-center space-x-2">
                 <Checkbox
