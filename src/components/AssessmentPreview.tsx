@@ -184,34 +184,58 @@ export const AssessmentPreview = ({ data, onBack, isPublicView = false }: Assess
   // Get translated labels or use defaults
   const labels = data.translatedLabels || DEFAULT_LABELS;
   
-  const proAcademySlides = data.includeProAcademy
-    ? [
-        { type: "pa-intro", title: "Pro Academy", render: () => <ProAcademyIntroSlide data={data} /> },
-        { type: "pa-why", title: "Pro Academy - Why Us", render: () => <ProAcademyWhySlide /> },
-        { type: "pa-how", title: "Pro Academy - How We Work", render: () => <ProAcademyHowSlide /> },
-        { type: "pa-included", title: "Pro Academy - Included", render: () => <ProAcademyIncludedSlide /> },
-        { type: "pa-clubs", title: "Pro Academy - Partner Clubs", render: () => <ProAcademyClubsSlide /> },
-        { type: "pa-pricing", title: "Pro Academy - Pricing", render: () => <ProAcademyPricingSlide price={data.proAcademyPrice} currency={data.currency || 'USD'} /> },
-      ]
-    : [];
+  // Resolve program mode (back-compat with legacy includeProAcademy)
+  const programMode: 'college' | 'pro' | 'both' =
+    data.programMode || (data.includeProAcademy ? 'both' : 'college');
 
-  const slides: { type: string; title: string; render: () => JSX.Element }[] = [
-    { type: "cover", title: getLabel(labels, "assessmentReport"), render: () => <CoverSlide data={data} labels={labels} /> },
-    { type: "player-info", title: getLabel(labels, "playerInformation"), render: () => <PlayerInfoSlide data={data} labels={labels} /> },
-    { type: "recommendation", title: getLabel(labels, "recommendation"), render: () => <RecommendationSlide data={data} labels={labels} /> },
-    { type: "target-divisions", title: getLabel(labels, "targetDivisions"), render: () => <TargetDivisionsSlide data={data} labels={labels} /> },
-    { type: "department-notes", title: getLabel(labels, "departmentNotes"), render: () => <DepartmentNotesSlide data={data} labels={labels} /> },
-    { type: "testimonial-joao", title: "Testimonial - Joao", render: () => <TestimonialJoaoSlide /> },
-    { type: "testimonial-filip", title: "Testimonial - Filip", render: () => <TestimonialFilipSlide /> },
-    { type: "committed", title: "Success Stats", render: () => <CommittedSlide /> },
-    { type: "costs", title: getLabel(labels, "estimatedCosts"), render: () => <CostsSlide labels={labels} currency={data.currency || 'USD'} costSat={data.costSat} costApplications={data.costApplications} costFlight={data.costFlight} costVisa={data.costVisa} costUniversity={data.costUniversity} /> },
-    { type: "testimonial-gabriel", title: "Testimonial - Gabriel", render: () => <TestimonialGabrielSlide /> },
-    { type: "packages", title: getLabel(labels, "servicePackages"), render: () => <PackagesSlide packagePrice1={data.packagePrice1} packagePrice2={data.packagePrice2} packagePrice3={data.packagePrice3} currency={data.currency || 'USD'} labels={labels} /> },
-    ...proAcademySlides,
-    { type: "timeline", title: getLabel(labels, "timeline"), render: () => <TimelineSlide labels={labels} /> },
-    { type: "testimonials-slider", title: "More Testimonials", render: () => <TestimonialsSliderSlide /> },
-    { type: "contact", title: getLabel(labels, "readyToStart"), render: () => <ContactSlide labels={labels} /> },
-  ];
+  type Slide = { type: string; title: string; render: () => JSX.Element };
+
+  let slides: Slide[];
+
+  if (programMode === 'pro') {
+    // Pro-only report: minimal college context, full Pro Pathway story
+    slides = [
+      { type: "cover", title: getLabel(labels, "assessmentReport"), render: () => <CoverSlide data={data} labels={labels} /> },
+      { type: "player-info", title: getLabel(labels, "playerInformation"), render: () => <PlayerInfoSlide data={data} labels={labels} /> },
+      { type: "recommendation", title: getLabel(labels, "recommendation"), render: () => <RecommendationSlide data={data} labels={labels} /> },
+      { type: "pa-intro", title: "Pro Pathway", render: () => <ProAcademyIntroSlide data={data} /> },
+      { type: "pa-why", title: "Pro Pathway - Why Us", render: () => <ProAcademyWhySlide /> },
+      { type: "pa-how", title: "Pro Pathway - How We Work", render: () => <ProAcademyHowSlide /> },
+      { type: "pa-included", title: "Pro Pathway - Included", render: () => <ProAcademyIncludedSlide /> },
+      { type: "pa-clubs", title: "Pro Pathway - Partner Clubs", render: () => <ProAcademyClubsSlide /> },
+      { type: "pa-pricing", title: "Pro Pathway - Pricing", render: () => <ProAcademyPricingSlide price={data.proAcademyPrice} currency={data.currency || 'USD'} /> },
+      { type: "contact", title: getLabel(labels, "readyToStart"), render: () => <ContactSlide labels={labels} /> },
+    ];
+  } else {
+    // College placement (default) — and "both" weaves Pro Pathway in
+    const showProAddon = programMode === 'both';
+    const proSupportSlides: Slide[] = showProAddon
+      ? [
+          { type: "pa-intro", title: "Pro Pathway Add-On", render: () => <ProAcademyIntroSlide data={data} /> },
+          { type: "pa-why", title: "Pro Pathway - Why Us", render: () => <ProAcademyWhySlide /> },
+          { type: "pa-included", title: "Pro Pathway - What's Included", render: () => <ProAcademyIncludedSlide /> },
+          { type: "pa-clubs", title: "Pro Pathway - Partner Clubs", render: () => <ProAcademyClubsSlide /> },
+        ]
+      : [];
+
+    slides = [
+      { type: "cover", title: getLabel(labels, "assessmentReport"), render: () => <CoverSlide data={data} labels={labels} /> },
+      { type: "player-info", title: getLabel(labels, "playerInformation"), render: () => <PlayerInfoSlide data={data} labels={labels} /> },
+      { type: "recommendation", title: getLabel(labels, "recommendation"), render: () => <RecommendationSlide data={data} labels={labels} /> },
+      { type: "target-divisions", title: getLabel(labels, "targetDivisions"), render: () => <TargetDivisionsSlide data={data} labels={labels} /> },
+      { type: "department-notes", title: getLabel(labels, "departmentNotes"), render: () => <DepartmentNotesSlide data={data} labels={labels} /> },
+      { type: "testimonial-joao", title: "Testimonial - Joao", render: () => <TestimonialJoaoSlide /> },
+      { type: "testimonial-filip", title: "Testimonial - Filip", render: () => <TestimonialFilipSlide /> },
+      { type: "committed", title: "Success Stats", render: () => <CommittedSlide /> },
+      { type: "costs", title: getLabel(labels, "estimatedCosts"), render: () => <CostsSlide labels={labels} currency={data.currency || 'USD'} costSat={data.costSat} costApplications={data.costApplications} costFlight={data.costFlight} costVisa={data.costVisa} costUniversity={data.costUniversity} /> },
+      { type: "testimonial-gabriel", title: "Testimonial - Gabriel", render: () => <TestimonialGabrielSlide /> },
+      { type: "packages", title: getLabel(labels, "servicePackages"), render: () => <PackagesSlide packagePrice1={data.packagePrice1} packagePrice2={data.packagePrice2} packagePrice3={data.packagePrice3} currency={data.currency || 'USD'} labels={labels} showProAddon={showProAddon} proAddonPrice={data.proAcademyAddonPrice} /> },
+      ...proSupportSlides,
+      { type: "timeline", title: getLabel(labels, "timeline"), render: () => <TimelineSlide labels={labels} /> },
+      { type: "testimonials-slider", title: "More Testimonials", render: () => <TestimonialsSliderSlide /> },
+      { type: "contact", title: getLabel(labels, "readyToStart"), render: () => <ContactSlide labels={labels} /> },
+    ];
+  }
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
