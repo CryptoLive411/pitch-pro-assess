@@ -33,8 +33,10 @@ export interface AssessmentData {
   costUniversity?: string;
   language?: string;
   translatedLabels?: Record<string, string> | null;
-  includeProAcademy?: boolean;
-  proAcademyPrice?: string;
+  includeProAcademy?: boolean; // legacy
+  proAcademyPrice?: string; // pro-only price
+  proAcademyAddonPrice?: string; // price when sold alongside college placement
+  programMode?: 'college' | 'pro' | 'both';
 }
 
 const LANGUAGES = [
@@ -278,9 +280,11 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         cost_university: data.costUniversity || null,
         language: data.language || 'English',
         translated_labels: data.translatedLabels || null,
-        include_pro_academy: data.includeProAcademy || false,
+        include_pro_academy: (data.programMode || 'college') !== 'college',
         pro_academy_price: data.proAcademyPrice || null,
-      };
+        program_mode: data.programMode || 'college',
+        pro_academy_addon_price: data.proAcademyAddonPrice || null,
+      } as any;
 
       if (existing) {
         // Update existing assessment
@@ -333,6 +337,8 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         translatedLabels: null,
         includeProAcademy: false,
         proAcademyPrice: "",
+        proAcademyAddonPrice: "",
+        programMode: 'college',
       });
     } catch (error) {
       console.error('Error saving assessment:', error);
@@ -728,38 +734,68 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         </div>
 
         <div className="space-y-3 md:space-y-4 border-t pt-4 md:pt-6">
-          <div className="flex items-start gap-3">
-            <Checkbox
-              id="includeProAcademy"
-              checked={!!data.includeProAcademy}
-              onCheckedChange={(checked) =>
-                onChange({ ...data, includeProAcademy: checked === true })
-              }
-              className="mt-1"
-            />
-            <div className="flex-1">
-              <label htmlFor="includeProAcademy" className="text-base md:text-lg font-semibold text-foreground cursor-pointer">
-                Include Pro Academy Experience (Portugal Gap Year)
-              </label>
-              <p className="text-xs md:text-sm text-muted-foreground">
-                Adds a 6-slide Pro Academy package section to the report after the Packages slide.
-              </p>
+          <div>
+            <Label className="text-base md:text-lg font-semibold text-foreground">Program Pathway</Label>
+            <p className="text-xs md:text-sm text-muted-foreground mb-3">
+              Choose what this assessment offers. Slides adjust automatically.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              {([
+                { value: 'college', label: 'College Placement', desc: 'Default — current report' },
+                { value: 'pro', label: 'Pro Pathway Only', desc: 'Portugal gap-year only' },
+                { value: 'both', label: 'Both', desc: 'College + Pro Pathway add-on' },
+              ] as const).map((opt) => {
+                const current = data.programMode || 'college';
+                const active = current === opt.value;
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => onChange({ ...data, programMode: opt.value, includeProAcademy: opt.value !== 'college' })}
+                    className={`text-left rounded-lg border p-3 transition-all ${
+                      active
+                        ? 'border-primary bg-primary/5 ring-2 ring-primary'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <div className="font-semibold text-sm">{opt.label}</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">{opt.desc}</div>
+                  </button>
+                );
+              })}
             </div>
           </div>
-          {data.includeProAcademy && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 pl-7">
-              <div className="space-y-2">
-                <Label htmlFor="proAcademyPrice">Pro Academy Price</Label>
-                <Input
-                  id="proAcademyPrice"
-                  value={data.proAcademyPrice || ""}
-                  onChange={(e) => onChange({ ...data, proAcademyPrice: e.target.value })}
-                  placeholder="19,995"
-                />
-                <p className="text-[10px] md:text-xs text-muted-foreground">
-                  Uses the currency selected above ({data.currency === "EUR" ? "€" : "$"}).
-                </p>
-              </div>
+
+          {(data.programMode === 'pro' || data.programMode === 'both') && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 pt-2">
+              {data.programMode === 'pro' && (
+                <div className="space-y-2">
+                  <Label htmlFor="proAcademyPrice">Pro Pathway Price (solo)</Label>
+                  <Input
+                    id="proAcademyPrice"
+                    value={data.proAcademyPrice || ""}
+                    onChange={(e) => onChange({ ...data, proAcademyPrice: e.target.value })}
+                    placeholder="19,995"
+                  />
+                  <p className="text-[10px] md:text-xs text-muted-foreground">
+                    Currency: {data.currency === "EUR" ? "€" : "$"}
+                  </p>
+                </div>
+              )}
+              {data.programMode === 'both' && (
+                <div className="space-y-2">
+                  <Label htmlFor="proAcademyAddonPrice">Pro Pathway Add-On Price</Label>
+                  <Input
+                    id="proAcademyAddonPrice"
+                    value={data.proAcademyAddonPrice || ""}
+                    onChange={(e) => onChange({ ...data, proAcademyAddonPrice: e.target.value })}
+                    placeholder="9,995"
+                  />
+                  <p className="text-[10px] md:text-xs text-muted-foreground">
+                    Shown as a 4th package option. Currency: {data.currency === "EUR" ? "€" : "$"}
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>

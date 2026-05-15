@@ -99,6 +99,8 @@ const Preview = () => {
               translatedLabels: assessment.translated_labels as Record<string, string> | null,
               includeProAcademy: (assessment as any).include_pro_academy || false,
               proAcademyPrice: (assessment as any).pro_academy_price || '',
+              proAcademyAddonPrice: (assessment as any).pro_academy_addon_price || '',
+              programMode: ((assessment as any).program_mode as 'college' | 'pro' | 'both') || 'college',
             };
             setData(assessmentData);
           } else {
