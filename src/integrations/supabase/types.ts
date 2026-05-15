@@ -40,7 +40,9 @@ export type Database = {
           player_name_slug: string
           player_photo: string | null
           position: string | null
+          pro_academy_addon_price: string | null
           pro_academy_price: string | null
+          program_mode: string
           recommendation: string | null
           target_divisions: string[] | null
           translated_labels: Json | null
@@ -71,7 +73,9 @@ export type Database = {
           player_name_slug: string
           player_photo?: string | null
           position?: string | null
+          pro_academy_addon_price?: string | null
           pro_academy_price?: string | null
+          program_mode?: string
           recommendation?: string | null
           target_divisions?: string[] | null
           translated_labels?: Json | null
@@ -102,7 +106,9 @@ export type Database = {
           player_name_slug?: string
           player_photo?: string | null
           position?: string | null
+          pro_academy_addon_price?: string | null
           pro_academy_price?: string | null
+          program_mode?: string
           recommendation?: string | null
           target_divisions?: string[] | null
           translated_labels?: Json | null
