@@ -2091,25 +2091,20 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
 
 
 const ProAcademyIntroSlide = ({ data }: { data: AssessmentData }) => (
-  <div className="w-full h-full relative overflow-hidden bg-[hsl(var(--venture-navy))] flex flex-col items-center justify-center">
-    {/* Background image with cinematic treatment */}
-    <img src={ppHero} alt="" className="absolute inset-0 w-full h-full object-cover scale-110 opacity-50" />
-    <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--venture-navy))]/95 via-[hsl(var(--venture-navy))]/75 to-[hsl(var(--venture-blue))]/85"></div>
-    <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--venture-navy))] via-transparent to-transparent"></div>
+  <div className="w-full h-full relative overflow-hidden flex flex-col items-center justify-center bg-[#05070d]">
+    {/* Deep cinematic gradient base */}
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_hsl(var(--venture-blue))_0%,_hsl(var(--venture-navy))_45%,_#05070d_100%)]"></div>
 
-    {/* Ambient glow accents */}
-    <div className="absolute top-0 right-0 w-[28rem] h-[28rem] bg-[hsl(var(--venture-blue))]/30 rounded-full blur-3xl"></div>
-    <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+    {/* Aurora light streaks */}
+    <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[60rem] h-[40rem] bg-[hsl(var(--venture-blue))]/40 rounded-full blur-[120px]"></div>
+    <div className="absolute -bottom-32 -right-32 w-[36rem] h-[36rem] bg-[hsl(var(--venture-blue))]/25 rounded-full blur-[100px]"></div>
+    <div className="absolute -bottom-40 -left-32 w-[32rem] h-[32rem] bg-purple-500/15 rounded-full blur-[100px]"></div>
 
-    {/* Subtle grid texture */}
-    <div
-      className="absolute inset-0 opacity-[0.06]"
-      style={{
-        backgroundImage:
-          "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
-        backgroundSize: "48px 48px",
-      }}
-    ></div>
+    {/* Soft horizon line */}
+    <div className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
+
+    {/* Vignette */}
+    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_40%,_rgba(0,0,0,0.6)_100%)]"></div>
 
     <div className="relative z-10 flex flex-col items-center text-center gap-5 md:gap-7 px-6 md:px-12 max-w-4xl">
       {/* Glowing logo — same treatment as cover slide */}
