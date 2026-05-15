@@ -33,8 +33,10 @@ export interface AssessmentData {
   costUniversity?: string;
   language?: string;
   translatedLabels?: Record<string, string> | null;
-  includeProAcademy?: boolean;
-  proAcademyPrice?: string;
+  includeProAcademy?: boolean; // legacy
+  proAcademyPrice?: string; // pro-only price
+  proAcademyAddonPrice?: string; // price when sold alongside college placement
+  programMode?: 'college' | 'pro' | 'both';
 }
 
 const LANGUAGES = [
