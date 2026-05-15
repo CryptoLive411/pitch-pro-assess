@@ -250,20 +250,7 @@ export const AssessmentPreview = ({ data, onBack, isPublicView = false }: Assess
         {/* Slide Card with Animation - flexible height on mobile, aspect ratio on desktop */}
         <div className="relative w-full max-w-7xl min-h-[500px] md:aspect-[16/9] bg-white rounded-lg md:rounded-xl lg:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 hover:shadow-3xl">
           <div className="w-full h-full animate-fade-in">
-            {currentSlide === 0 && <CoverSlide data={data} labels={labels} />}
-            {currentSlide === 1 && <PlayerInfoSlide data={data} labels={labels} />}
-            {currentSlide === 2 && <RecommendationSlide data={data} labels={labels} />}
-            {currentSlide === 3 && <TargetDivisionsSlide data={data} labels={labels} />}
-            {currentSlide === 4 && <DepartmentNotesSlide data={data} labels={labels} />}
-            {currentSlide === 5 && <TestimonialJoaoSlide />}
-            {currentSlide === 6 && <TestimonialFilipSlide />}
-            {currentSlide === 7 && <CommittedSlide />}
-            {currentSlide === 8 && <CostsSlide labels={labels} currency={data.currency || 'USD'} costSat={data.costSat} costApplications={data.costApplications} costFlight={data.costFlight} costVisa={data.costVisa} costUniversity={data.costUniversity} />}
-            {currentSlide === 9 && <TestimonialGabrielSlide />}
-            {currentSlide === 10 && <PackagesSlide packagePrice1={data.packagePrice1} packagePrice2={data.packagePrice2} packagePrice3={data.packagePrice3} currency={data.currency || 'USD'} labels={labels} />}
-            {currentSlide === 11 && <TimelineSlide labels={labels} />}
-            {currentSlide === 12 && <TestimonialsSliderSlide />}
-            {currentSlide === 13 && <ContactSlide labels={labels} />}
+            {slides[currentSlide]?.render()}
           </div>
         </div>
       </div>
