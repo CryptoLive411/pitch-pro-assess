@@ -2223,29 +2223,46 @@ const ProAcademyHowSlide = () => {
     { title: "Tryout Opportunity", desc: "We help you secure professional tryouts to pursue your athletic goals.", img: ppStep4 },
   ];
   return (
-    <div className="w-full h-full bg-white p-6 md:p-12 relative overflow-auto">
-      <div className="mb-6 md:mb-10">
+    <div className="w-full h-full bg-gradient-to-br from-slate-50 via-white to-blue-50 p-6 md:p-10 relative overflow-hidden flex flex-col">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[hsl(var(--venture-blue))]/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-[hsl(var(--venture-navy))]/5 rounded-full blur-3xl"></div>
+
+      <div className="relative z-10 mb-5 md:mb-8 flex-shrink-0">
         <div className="inline-block px-3 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-2">
           PRO PATHWAY
         </div>
         <h2 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
           The Process to a Tryout
         </h2>
+        <p className="text-sm md:text-base text-gray-600 mt-2">From honest evaluation to boots on the pitch — four steps.</p>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5">
+
+      <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-5 flex-1 min-h-0">
         {steps.map((s, i) => (
-          <div key={s.title} className="bg-white rounded-2xl overflow-hidden shadow-xl border border-gray-100 flex flex-col">
-            <div className="relative h-28 md:h-44 overflow-hidden">
-              <img src={s.img} alt={s.title} className="w-full h-full object-cover" />
-              <div className="absolute top-2 left-2 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white text-[hsl(var(--venture-navy))] flex items-center justify-center font-black text-sm md:text-base shadow-md">
-                {i + 1}
-              </div>
+          <div
+            key={s.title}
+            className="relative rounded-2xl overflow-hidden shadow-xl border border-white/60 flex flex-col group"
+          >
+            {/* Full-bleed image */}
+            <img
+              src={s.img}
+              alt={s.title}
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            {/* Gradient overlay for legibility */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-navy))]/60 to-transparent"></div>
+
+            {/* Step number badge */}
+            <div className="relative z-10 m-3 md:m-4 self-start w-9 h-9 md:w-12 md:h-12 rounded-full bg-white text-[hsl(var(--venture-navy))] flex items-center justify-center font-black text-base md:text-lg shadow-lg">
+              {i + 1}
             </div>
-            <div className="p-3 md:p-5 flex-1 flex flex-col">
-              <h3 className="text-sm md:text-lg font-black uppercase tracking-tight text-[hsl(var(--venture-navy))] mb-1 md:mb-2">
+
+            {/* Content pinned to bottom */}
+            <div className="relative z-10 mt-auto p-3 md:p-5 text-white">
+              <h3 className="text-sm md:text-xl font-black uppercase tracking-tight leading-tight mb-1 md:mb-2">
                 {s.title}
               </h3>
-              <p className="text-[11px] md:text-sm text-gray-600 leading-relaxed">
+              <p className="text-[11px] md:text-sm text-white/85 leading-relaxed">
                 {s.desc}
               </p>
             </div>
