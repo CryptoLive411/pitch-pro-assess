@@ -215,6 +215,14 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
     onChange({ ...data, departmentNotes: updatedNotes });
   }, [data.playerName, data.enrollmentYear, data.budget, data.gpa, data.targetDivisions]);
 
+  // Auto-select "Pro Pathway" when program mode includes pro
+  useEffect(() => {
+    const mode = data.programMode || 'college';
+    if ((mode === 'pro' || mode === 'both') && !data.targetDivisions.includes('Pro Pathway')) {
+      onChange({ ...data, targetDivisions: [...data.targetDivisions, 'Pro Pathway'] });
+    }
+  }, [data.programMode]);
+
   // Create URL-friendly slug from player name
   const createSlug = (name: string) => {
     return name
