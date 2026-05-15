@@ -30,6 +30,7 @@ export type Database = {
           grad_year: string | null
           height: string | null
           id: string
+          include_pro_academy: boolean
           language: string | null
           nationality: string | null
           package_price_1: string | null
@@ -39,6 +40,7 @@ export type Database = {
           player_name_slug: string
           player_photo: string | null
           position: string | null
+          pro_academy_price: string | null
           recommendation: string | null
           target_divisions: string[] | null
           translated_labels: Json | null
@@ -59,6 +61,7 @@ export type Database = {
           grad_year?: string | null
           height?: string | null
           id?: string
+          include_pro_academy?: boolean
           language?: string | null
           nationality?: string | null
           package_price_1?: string | null
@@ -68,6 +71,7 @@ export type Database = {
           player_name_slug: string
           player_photo?: string | null
           position?: string | null
+          pro_academy_price?: string | null
           recommendation?: string | null
           target_divisions?: string[] | null
           translated_labels?: Json | null
@@ -88,6 +92,7 @@ export type Database = {
           grad_year?: string | null
           height?: string | null
           id?: string
+          include_pro_academy?: boolean
           language?: string | null
           nationality?: string | null
           package_price_1?: string | null
@@ -97,6 +102,7 @@ export type Database = {
           player_name_slug?: string
           player_photo?: string | null
           position?: string | null
+          pro_academy_price?: string | null
           recommendation?: string | null
           target_divisions?: string[] | null
           translated_labels?: Json | null
