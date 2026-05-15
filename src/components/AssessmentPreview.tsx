@@ -1608,6 +1608,32 @@ const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, currency =
           </div>
         )}
 
+        {/* Pro Pathway Add-On card */}
+        {showProAddon && (
+          <div className="mt-3 relative overflow-hidden rounded-lg shadow-lg bg-gradient-to-br from-amber-500 via-orange-600 to-red-600 text-white p-3 md:p-4">
+            <div className="absolute -top-2 -right-2 bg-white text-orange-600 text-[8px] md:text-[10px] font-black px-2 py-0.5 rounded-bl-lg uppercase tracking-wide shadow">
+              Add-On
+            </div>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex-1 min-w-0">
+                <div className="text-[9px] md:text-[10px] font-bold opacity-90 mb-0.5 tracking-wider">PRO PATHWAY · PORTUGAL GAP YEAR</div>
+                <div className="text-sm md:text-base font-black leading-tight">
+                  Train with European pro academy clubs while we recruit you to college
+                </div>
+                <div className="text-[10px] md:text-xs opacity-90 mt-1">
+                  Add to any package above. See next slides for full details.
+                </div>
+              </div>
+              {proAddonPrice?.trim() && (
+                <div className="flex-shrink-0 text-right bg-white/15 backdrop-blur rounded-lg px-3 py-2">
+                  <div className="text-[8px] md:text-[10px] opacity-90">Add-on price</div>
+                  <div className="text-lg md:text-2xl font-black">{sym}{proAddonPrice}</div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Guarantee Badge */}
         <div className="mt-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg p-2 md:p-3 shadow-lg">
           <div className="flex items-center justify-center gap-2">
