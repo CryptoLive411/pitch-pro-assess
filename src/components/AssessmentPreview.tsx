@@ -2021,3 +2021,261 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
     </div>
   </div>
 );
+
+// ============================================================
+// Pro Academy (Portugal Gap Year) Add-on Slides
+// ============================================================
+
+const PA_NAVY = "hsl(var(--venture-navy))";
+const PA_BLUE = "hsl(var(--venture-blue))";
+
+const ProAcademyIntroSlide = ({ data }: { data: AssessmentData }) => (
+  <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] flex flex-col items-center justify-center p-6 md:p-12">
+    <div className="absolute inset-0 opacity-20">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-white/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-[hsl(var(--venture-blue))]/40 rounded-full blur-3xl"></div>
+    </div>
+    <div className="relative z-10 flex flex-col items-center text-center gap-6 md:gap-10">
+      <img src={ventureLogo} alt="Venture" className="h-12 md:h-16 object-contain opacity-95" />
+      <div>
+        <div className="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-md text-white text-xs md:text-sm font-bold rounded-full mb-4 tracking-widest border border-white/20">
+          PORTUGAL · GAP YEAR
+        </div>
+        <h1 className="text-4xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tight leading-none">
+          Pro Academy
+        </h1>
+        <h2 className="text-2xl md:text-5xl lg:text-6xl font-light text-white/90 uppercase tracking-[0.2em] mt-2">
+          Experience
+        </h2>
+      </div>
+      {data.playerName && (
+        <p className="text-white/80 text-sm md:text-lg italic">
+          Curated for <span className="font-semibold text-white">{data.playerName}</span>
+        </p>
+      )}
+      <div className="h-1 w-24 md:w-32 bg-white/40 rounded-full mt-2"></div>
+      <p className="text-white/70 text-xs md:text-base max-w-xl">
+        9 months. Top European clubs. The launchpad to a U.S. college career.
+      </p>
+    </div>
+  </div>
+);
+
+const ProAcademyWhySlide = () => {
+  const items = [
+    "College Placement",
+    "European Football Exposure",
+    "Colleges & Clubs Network",
+    "Full Team To Support You",
+    "Personalized Service",
+    "Authentic Recruitment Process",
+  ];
+  return (
+    <div className="w-full h-full bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 p-6 md:p-12 relative overflow-auto">
+      <div className="absolute top-0 right-0 w-80 h-80 bg-[hsl(var(--venture-blue))]/10 rounded-full blur-3xl"></div>
+      <div className="relative z-10 h-full flex flex-col">
+        <div className="mb-6 md:mb-10">
+          <div className="inline-block px-3 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-2">
+            PRO ACADEMY
+          </div>
+          <h2 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
+            Why Choose Us
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5 flex-1">
+          {items.map((item, i) => (
+            <div
+              key={item}
+              className="flex items-center gap-4 bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-md border border-gray-100 hover:shadow-lg transition-all"
+            >
+              <div className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] text-white flex items-center justify-center font-black text-lg md:text-xl">
+                {String(i + 1).padStart(2, "0")}
+              </div>
+              <p className="text-sm md:text-lg font-bold text-[hsl(var(--venture-navy))] uppercase tracking-wide">
+                {item}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ProAcademyHowSlide = () => {
+  const steps = [
+    { title: "Soccer Dreams", desc: "Select a city, dates and academy sessions." },
+    { title: "Curated Itinerary", desc: "Personalized experience for logistics and arrangements." },
+    { title: "Decision", desc: "Select the best teams and opportunities that align with your goals." },
+    { title: "Preparation & Travel", desc: "Pack your bags and enjoy your trip!" },
+  ];
+  return (
+    <div className="w-full h-full bg-white p-6 md:p-12 relative overflow-auto">
+      <div className="mb-6 md:mb-10">
+        <div className="inline-block px-3 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-2">
+          PRO ACADEMY
+        </div>
+        <h2 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
+          How We Work
+        </h2>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-5">
+        {steps.map((s, i) => (
+          <div key={s.title} className="relative">
+            <div className="bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-2xl p-5 md:p-6 h-full text-white shadow-xl">
+              <div className="text-5xl md:text-6xl font-black text-white/20 leading-none mb-2">
+                {String(i + 1).padStart(2, "0")}
+              </div>
+              <h3 className="text-base md:text-xl font-black uppercase tracking-tight mb-2">
+                {s.title}
+              </h3>
+              <p className="text-xs md:text-sm text-white/80 leading-relaxed">
+                {s.desc}
+              </p>
+            </div>
+            {i < steps.length - 1 && (
+              <div className="hidden md:block absolute top-1/2 -right-3 -translate-y-1/2 z-10 text-[hsl(var(--venture-blue))] text-2xl">
+                ›
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const ProAcademyIncludedSlide = () => {
+  const items = [
+    "Yearly Visa",
+    "9 Month Program",
+    "U19 Academy Team",
+    "Accommodation",
+    "Meal Plan",
+    "Transportation Card",
+    "Health Insurance",
+  ];
+  return (
+    <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] p-6 md:p-12 relative overflow-auto">
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-10 right-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
+      </div>
+      <div className="relative z-10">
+        <div className="mb-6 md:mb-10">
+          <div className="inline-block px-3 py-1 bg-white/15 text-white text-xs font-bold rounded-full mb-2 backdrop-blur-md">
+            PRO ACADEMY
+          </div>
+          <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight">
+            What's Included
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+          {items.map((item) => (
+            <div
+              key={item}
+              className="flex items-center gap-3 md:gap-4 bg-white/10 backdrop-blur-md rounded-xl p-3 md:p-4 border border-white/20 hover:bg-white/15 transition-all"
+            >
+              <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white text-[hsl(var(--venture-navy))] flex items-center justify-center font-black">
+                <svg className="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <p className="text-sm md:text-lg font-bold text-white uppercase tracking-wide">
+                {item}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ProAcademyClubsSlide = () => {
+  const lisbon = ["Alverca SC", "Os Belenenses", "Torreense SCUT", "Estoril Praia SC", "Estrela da Amadora SC"];
+  const porto = ["Boavista FC", "Paços Ferreira FC", "Vitória SC", "Gil Vicente FC", "Tondela FC"];
+  return (
+    <div className="w-full h-full bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 p-6 md:p-12 relative overflow-auto">
+      <div className="mb-6 md:mb-8">
+        <div className="inline-block px-3 py-1 bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-navy))] text-xs font-bold rounded-full mb-2">
+          PRO ACADEMY
+        </div>
+        <h2 className="text-3xl md:text-5xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
+          Partner Clubs
+        </h2>
+        <p className="text-xs md:text-sm text-gray-600 mt-1">Train with U19 academy teams in Portugal's top regions.</p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+        {[
+          { city: "Lisbon", clubs: lisbon },
+          { city: "Porto", clubs: porto },
+        ].map(({ city, clubs }) => (
+          <div key={city} className="bg-white rounded-2xl p-5 md:p-7 shadow-lg border border-gray-100">
+            <div className="flex items-center gap-3 mb-4 pb-3 border-b border-gray-100">
+              <div className="w-2 h-8 md:h-10 bg-gradient-to-b from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-full"></div>
+              <h3 className="text-xl md:text-3xl font-black text-[hsl(var(--venture-navy))] uppercase tracking-tight">
+                {city}
+              </h3>
+            </div>
+            <ul className="space-y-2 md:space-y-3">
+              {clubs.map((c) => (
+                <li key={c} className="flex items-center gap-3 text-sm md:text-base font-semibold text-gray-800">
+                  <span className="w-5 h-5 rounded-full bg-[hsl(var(--venture-blue))]/10 text-[hsl(var(--venture-blue))] flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </span>
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const ProAcademyPricingSlide = ({ price, currency = 'USD' }: { price?: string; currency?: string }) => {
+  const sym = currency === 'EUR' ? '€' : '$';
+  const displayPrice = price && price.trim() ? price : '19,995';
+  return (
+    <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] p-6 md:p-12 relative overflow-auto flex flex-col items-center justify-center text-center">
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[hsl(var(--venture-blue))]/40 rounded-full blur-3xl"></div>
+      </div>
+      <div className="relative z-10 max-w-3xl w-full">
+        <div className="inline-block px-4 py-1.5 bg-white/15 text-white text-xs font-bold rounded-full mb-4 tracking-widest backdrop-blur-md border border-white/20">
+          PRO ACADEMY · PACKAGE PRICING
+        </div>
+        <h2 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tight mb-6 md:mb-8">
+          One Package. Everything Included.
+        </h2>
+
+        <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-12 border border-white/20 shadow-2xl">
+          <div className="flex items-baseline justify-center gap-2 mb-3">
+            <span className="text-3xl md:text-5xl font-bold text-white/80">{sym}</span>
+            <span className="text-6xl md:text-8xl lg:text-9xl font-black text-white leading-none">{displayPrice}</span>
+          </div>
+          <p className="text-white/70 text-sm md:text-base font-semibold tracking-wider uppercase">
+            9 Month Program
+          </p>
+
+          <div className="mt-6 md:mt-8 inline-block px-5 py-2 bg-white/20 rounded-full backdrop-blur-md">
+            <p className="text-white font-bold text-sm md:text-base">
+              Payment: 2 in 2 Month Payments
+            </p>
+          </div>
+
+          <div className="mt-6 md:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-2 md:gap-3 text-left text-white/80 text-xs md:text-sm">
+            <div className="flex items-start gap-2"><span className="text-white">•</span> Flights to & from Europe not included</div>
+            <div className="flex items-start gap-2"><span className="text-white">•</span> Taxes not included</div>
+            <div className="flex items-start gap-2"><span className="text-white">•</span> Wire transaction fees not included</div>
+            <div className="flex items-start gap-2"><span className="text-white">•</span> 15% deposit required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
