@@ -29,6 +29,19 @@ import ucIrvineLogo from "@/assets/logos/uc-irvine.png";
 import ncaaLogo from "@/assets/logos/ncaa.png";
 import naiaLogo from "@/assets/logos/naia.png";
 import njcaaLogo from "@/assets/logos/njcaa.png";
+// Pro Pathway assets
+import ppHero from "@/assets/pro-pathway/hero.jpeg";
+import ppStep1 from "@/assets/pro-pathway/step1.jpeg";
+import ppStep2 from "@/assets/pro-pathway/step2.jpeg";
+import ppStep3 from "@/assets/pro-pathway/step3.jpeg";
+import ppStep4 from "@/assets/pro-pathway/step4.jpeg";
+import ppFinnHarps from "@/assets/pro-pathway/finn-harps.png";
+import ppKasimpasa from "@/assets/pro-pathway/kasimpasa.webp";
+import ppFortWayne from "@/assets/pro-pathway/fort-wayne.svg";
+import ppAlvercaB from "@/assets/pro-pathway/alverca-b.png";
+import ppUdSantarem from "@/assets/pro-pathway/ud-santarem.png";
+import ppSacavenen from "@/assets/pro-pathway/sacavenen.png";
+import ppAthlone from "@/assets/pro-pathway/athlone.png";
 
 interface AssessmentPreviewProps {
   data: AssessmentData;
