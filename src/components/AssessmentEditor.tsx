@@ -280,9 +280,11 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         cost_university: data.costUniversity || null,
         language: data.language || 'English',
         translated_labels: data.translatedLabels || null,
-        include_pro_academy: data.includeProAcademy || false,
+        include_pro_academy: (data.programMode || 'college') !== 'college',
         pro_academy_price: data.proAcademyPrice || null,
-      };
+        program_mode: data.programMode || 'college',
+        pro_academy_addon_price: data.proAcademyAddonPrice || null,
+      } as any;
 
       if (existing) {
         // Update existing assessment
