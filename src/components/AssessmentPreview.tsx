@@ -1353,7 +1353,7 @@ const CostsSlide = ({ labels, currency = 'USD', costSat, costApplications, costF
   );
 };
 
-const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, currency = 'USD', labels }: { packagePrice1?: string; packagePrice2?: string; packagePrice3?: string; currency?: string; labels: Record<string, string> }) => {
+const PackagesSlide = ({ packagePrice1, packagePrice2, packagePrice3, currency = 'USD', labels, showProAddon = false, proAddonPrice }: { packagePrice1?: string; packagePrice2?: string; packagePrice3?: string; currency?: string; labels: Record<string, string>; showProAddon?: boolean; proAddonPrice?: string }) => {
   const [showInfo, setShowInfo] = useState<string | null>(null);
   const sym = currency === 'EUR' ? '€' : '$';
   
