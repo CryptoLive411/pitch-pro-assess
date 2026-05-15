@@ -2091,20 +2091,25 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
 
 
 const ProAcademyIntroSlide = ({ data }: { data: AssessmentData }) => (
-  <div className="w-full h-full relative overflow-hidden flex flex-col items-center justify-center bg-[#05070d]">
-    {/* Deep cinematic gradient base */}
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_hsl(var(--venture-blue))_0%,_hsl(var(--venture-navy))_45%,_#05070d_100%)]"></div>
+  <div className="w-full h-full relative overflow-hidden flex flex-col items-center justify-center bg-[#0a0e17]">
+    {/* Subtle vertical gradient */}
+    <div className="absolute inset-0 bg-gradient-to-b from-[#0d1320] via-[#0a0e17] to-[#070a11]"></div>
 
-    {/* Aurora light streaks */}
-    <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[60rem] h-[40rem] bg-[hsl(var(--venture-blue))]/40 rounded-full blur-[120px]"></div>
-    <div className="absolute -bottom-32 -right-32 w-[36rem] h-[36rem] bg-[hsl(var(--venture-blue))]/25 rounded-full blur-[100px]"></div>
-    <div className="absolute -bottom-40 -left-32 w-[32rem] h-[32rem] bg-purple-500/15 rounded-full blur-[100px]"></div>
+    {/* Faint grid texture */}
+    <div
+      className="absolute inset-0 opacity-[0.04]"
+      style={{
+        backgroundImage:
+          "linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)",
+        backgroundSize: "64px 64px",
+      }}
+    ></div>
 
-    {/* Soft horizon line */}
-    <div className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
+    {/* Single soft accent glow — top */}
+    <div className="absolute -top-48 left-1/2 -translate-x-1/2 w-[50rem] h-[28rem] bg-[hsl(var(--venture-blue))]/15 rounded-full blur-[140px]"></div>
 
-    {/* Vignette */}
-    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_40%,_rgba(0,0,0,0.6)_100%)]"></div>
+    {/* Bottom edge fade */}
+    <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/60 to-transparent"></div>
 
     <div className="relative z-10 flex flex-col items-center text-center gap-5 md:gap-7 px-6 md:px-12 max-w-4xl">
       {/* Glowing logo — same treatment as cover slide */}
