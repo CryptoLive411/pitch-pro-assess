@@ -33,6 +33,8 @@ const Index = () => {
       translatedLabels: null,
       includeProAcademy: false,
       proAcademyPrice: "",
+      proAcademyAddonPrice: "",
+      programMode: 'college',
     }
   );
   
