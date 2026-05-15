@@ -277,7 +277,9 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         cost_visa: data.costVisa || null,
         cost_university: data.costUniversity || null,
         language: data.language || 'English',
-        translated_labels: data.translatedLabels || null
+        translated_labels: data.translatedLabels || null,
+        include_pro_academy: data.includeProAcademy || false,
+        pro_academy_price: data.proAcademyPrice || null,
       };
 
       if (existing) {
