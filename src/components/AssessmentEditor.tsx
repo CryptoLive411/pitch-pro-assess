@@ -331,6 +331,8 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         costUniversity: "",
         language: "English",
         translatedLabels: null,
+        includeProAcademy: false,
+        proAcademyPrice: "",
       });
     } catch (error) {
       console.error('Error saving assessment:', error);
