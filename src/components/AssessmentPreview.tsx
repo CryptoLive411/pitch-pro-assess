@@ -2092,36 +2092,86 @@ const ContactSlide = ({ labels }: { labels: Record<string, string> }) => (
 
 const ProAcademyIntroSlide = ({ data }: { data: AssessmentData }) => (
   <div className="w-full h-full relative overflow-hidden bg-[hsl(var(--venture-navy))] flex flex-col items-center justify-center">
-    <img src={ppHero} alt="Pro Pathway" className="absolute inset-0 w-full h-full object-cover opacity-40" />
-    <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--venture-navy))]/85 via-[hsl(var(--venture-navy))]/70 to-[hsl(var(--venture-blue))]/80"></div>
-    <div className="relative z-10 flex flex-col items-center text-center gap-5 md:gap-8 px-6 md:px-12">
-      <img src={ventureLogo} alt="Venture" className="h-12 md:h-16 object-contain opacity-95" />
-      <div>
-        <div className="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-md text-white text-xs md:text-sm font-bold rounded-full mb-4 tracking-widest border border-white/20">
-          PROFESSIONAL · TRYOUTS
+    {/* Background image with cinematic treatment */}
+    <img src={ppHero} alt="" className="absolute inset-0 w-full h-full object-cover scale-110 opacity-50" />
+    <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--venture-navy))]/95 via-[hsl(var(--venture-navy))]/75 to-[hsl(var(--venture-blue))]/85"></div>
+    <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--venture-navy))] via-transparent to-transparent"></div>
+
+    {/* Ambient glow accents */}
+    <div className="absolute top-0 right-0 w-[28rem] h-[28rem] bg-[hsl(var(--venture-blue))]/30 rounded-full blur-3xl"></div>
+    <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+
+    {/* Subtle grid texture */}
+    <div
+      className="absolute inset-0 opacity-[0.06]"
+      style={{
+        backgroundImage:
+          "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+        backgroundSize: "48px 48px",
+      }}
+    ></div>
+
+    <div className="relative z-10 flex flex-col items-center text-center gap-5 md:gap-7 px-6 md:px-12 max-w-4xl">
+      {/* Glowing logo — same treatment as cover slide */}
+      <div className="relative group">
+        <div className="absolute inset-0 w-20 h-20 md:w-28 md:h-28 mx-auto">
+          <div className="absolute inset-0 rounded-full border-2 border-white/30 animate-ping-slow"></div>
+          <div className="absolute inset-0 rounded-full border border-white/20 animate-ping-slow" style={{ animationDelay: "1s" }}></div>
         </div>
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tight leading-none">
-          Pro Pathway
+        <div className="absolute inset-0 w-20 h-20 md:w-28 md:h-28 mx-auto">
+          <div className="absolute inset-0 rounded-full bg-[hsl(var(--venture-blue))]/40 blur-2xl"></div>
+          <div className="absolute inset-0 rounded-full bg-white/20 blur-xl"></div>
+        </div>
+        <div className="relative w-20 h-20 md:w-28 md:h-28 p-[2px] rounded-full bg-gradient-to-br from-white/60 via-[hsl(var(--venture-blue))] to-white/30 shadow-2xl">
+          <div className="w-full h-full rounded-full bg-white p-1.5 md:p-2">
+            <img src={ventureLogoCircle} alt="Venture USA" className="w-full h-full object-contain" />
+          </div>
+        </div>
+      </div>
+
+      {/* Eyebrow */}
+      <div className="flex items-center gap-3">
+        <div className="h-px w-8 md:w-12 bg-white/40"></div>
+        <span className="text-white/80 text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase">
+          Professional · Tryouts
+        </span>
+        <div className="h-px w-8 md:w-12 bg-white/40"></div>
+      </div>
+
+      {/* Headline */}
+      <div>
+        <h1 className="text-5xl md:text-7xl lg:text-[7.5rem] font-black text-white uppercase tracking-tighter leading-[0.9]">
+          Pro <span className="italic font-light text-white/90">Pathway</span>
         </h1>
-        <h2 className="text-base md:text-2xl lg:text-3xl font-light text-white/90 mt-3 max-w-2xl mx-auto">
-          Your Path to the Professional Game
+        <div className="h-1 w-20 md:w-28 mx-auto mt-4 md:mt-6 bg-gradient-to-r from-transparent via-white/70 to-transparent rounded-full"></div>
+        <h2 className="text-sm md:text-xl lg:text-2xl font-light text-white/85 mt-4 md:mt-6 max-w-2xl mx-auto leading-relaxed">
+          Your path to the professional game — built on real connections, not promises.
         </h2>
       </div>
+
       {data.playerName && (
-        <p className="text-white/80 text-sm md:text-lg italic">
-          Curated for <span className="font-semibold text-white">{data.playerName}</span>
+        <p className="text-white/70 text-xs md:text-sm tracking-widest uppercase">
+          Curated for <span className="font-bold text-white tracking-wide">{data.playerName}</span>
         </p>
       )}
-      <div className="flex flex-wrap gap-2 md:gap-3 justify-center mt-2">
-        {["Professional Tryouts", "+20 Club Partners", "Evaluation Guaranteed"].map((b) => (
-          <span key={b} className="px-3 md:px-4 py-1.5 bg-white/10 border border-white/20 backdrop-blur-md rounded-full text-white text-xs md:text-sm font-semibold">
-            {b}
-          </span>
+
+      {/* Stat strip */}
+      <div className="grid grid-cols-3 gap-px bg-white/15 rounded-2xl overflow-hidden mt-2 backdrop-blur-md border border-white/15">
+        {[
+          { v: "20+", l: "Pro Clubs" },
+          { v: "100%", l: "Honest Eval" },
+          { v: "9mo", l: "Pathway" },
+        ].map((s) => (
+          <div key={s.l} className="bg-white/5 px-4 md:px-8 py-3 md:py-4 text-center">
+            <p className="text-xl md:text-3xl font-black text-white leading-none">{s.v}</p>
+            <p className="text-[9px] md:text-[11px] uppercase tracking-widest text-white/70 mt-1.5">{s.l}</p>
+          </div>
         ))}
       </div>
     </div>
   </div>
 );
+
 
 const ProAcademyWhySlide = () => {
   const items = [
