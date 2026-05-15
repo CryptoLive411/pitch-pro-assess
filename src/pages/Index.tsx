@@ -31,6 +31,8 @@ const Index = () => {
       costUniversity: "",
       language: "English",
       translatedLabels: null,
+      includeProAcademy: false,
+      proAcademyPrice: "",
     }
   );
   

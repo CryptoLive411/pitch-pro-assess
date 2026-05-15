@@ -33,6 +33,8 @@ export interface AssessmentData {
   costUniversity?: string;
   language?: string;
   translatedLabels?: Record<string, string> | null;
+  includeProAcademy?: boolean;
+  proAcademyPrice?: string;
 }
 
 const LANGUAGES = [
@@ -275,7 +277,9 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         cost_visa: data.costVisa || null,
         cost_university: data.costUniversity || null,
         language: data.language || 'English',
-        translated_labels: data.translatedLabels || null
+        translated_labels: data.translatedLabels || null,
+        include_pro_academy: data.includeProAcademy || false,
+        pro_academy_price: data.proAcademyPrice || null,
       };
 
       if (existing) {
@@ -327,6 +331,8 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
         costUniversity: "",
         language: "English",
         translatedLabels: null,
+        includeProAcademy: false,
+        proAcademyPrice: "",
       });
     } catch (error) {
       console.error('Error saving assessment:', error);
@@ -719,6 +725,43 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
               />
             </div>
           </div>
+        </div>
+
+        <div className="space-y-3 md:space-y-4 border-t pt-4 md:pt-6">
+          <div className="flex items-start gap-3">
+            <Checkbox
+              id="includeProAcademy"
+              checked={!!data.includeProAcademy}
+              onCheckedChange={(checked) =>
+                onChange({ ...data, includeProAcademy: checked === true })
+              }
+              className="mt-1"
+            />
+            <div className="flex-1">
+              <label htmlFor="includeProAcademy" className="text-base md:text-lg font-semibold text-foreground cursor-pointer">
+                Include Pro Academy Experience (Portugal Gap Year)
+              </label>
+              <p className="text-xs md:text-sm text-muted-foreground">
+                Adds a 6-slide Pro Academy package section to the report after the Packages slide.
+              </p>
+            </div>
+          </div>
+          {data.includeProAcademy && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 pl-7">
+              <div className="space-y-2">
+                <Label htmlFor="proAcademyPrice">Pro Academy Price</Label>
+                <Input
+                  id="proAcademyPrice"
+                  value={data.proAcademyPrice || ""}
+                  onChange={(e) => onChange({ ...data, proAcademyPrice: e.target.value })}
+                  placeholder="19,995"
+                />
+                <p className="text-[10px] md:text-xs text-muted-foreground">
+                  Uses the currency selected above ({data.currency === "EUR" ? "€" : "$"}).
+                </p>
+              </div>
+            </div>
+          )}
         </div>
       </Card>
 
