@@ -33,6 +33,8 @@ export interface AssessmentData {
   costUniversity?: string;
   language?: string;
   translatedLabels?: Record<string, string> | null;
+  includeProAcademy?: boolean;
+  proAcademyPrice?: string;
 }
 
 const LANGUAGES = [
