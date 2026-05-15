@@ -2275,45 +2275,140 @@ const ProAcademyHowSlide = () => {
 
 const ProAcademyIncludedSlide = () => {
   const items = [
-    "Player Evaluation",
-    "Tryout Support",
-    "Accommodation",
-    "Meal Plan",
-    "Transportation",
-    "On-Ground Staff",
+    {
+      title: "Player Evaluation",
+      desc: "Honest, professional assessment from club coaches.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M9 11l3 3L22 4" />
+          <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+        </svg>
+      ),
+    },
+    {
+      title: "Tryout Support",
+      desc: "On-ground guidance before, during and after every session.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 2a14.5 14.5 0 000 20M2 12h20" />
+        </svg>
+      ),
+    },
+    {
+      title: "Accommodation",
+      desc: "Comfortable lodging close to training facilities.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 12l9-9 9 9" />
+          <path d="M5 10v10h14V10" />
+          <path d="M9 20v-6h6v6" />
+        </svg>
+      ),
+    },
+    {
+      title: "Meal Plan",
+      desc: "Performance nutrition planned around training load.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 11h18M5 11V7a2 2 0 012-2h10a2 2 0 012 2v4" />
+          <path d="M5 11l1 8a2 2 0 002 2h8a2 2 0 002-2l1-8" />
+        </svg>
+      ),
+    },
+    {
+      title: "Transportation",
+      desc: "Door-to-door transfers between clubs and lodging.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M5 17h14M3 17V8a2 2 0 012-2h10l4 6v5" />
+          <circle cx="7" cy="19" r="2" />
+          <circle cx="17" cy="19" r="2" />
+        </svg>
+      ),
+    },
+    {
+      title: "On-Ground Staff",
+      desc: "Venture team with you in-country, every step.",
+      icon: (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="9" cy="8" r="3" />
+          <path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" />
+          <circle cx="17" cy="6" r="2.5" />
+          <path d="M15 21v-1a3 3 0 013-3h2a3 3 0 013 3v1" />
+        </svg>
+      ),
+    },
   ];
+
   return (
-    <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] p-6 md:p-12 relative overflow-auto">
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 right-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-      </div>
-      <div className="relative z-10">
-        <div className="mb-6 md:mb-10">
-          <div className="inline-block px-3 py-1 bg-white/15 text-white text-xs font-bold rounded-full mb-2 backdrop-blur-md">
-            PRO PATHWAY
+    <div className="w-full h-full bg-gradient-to-br from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] p-6 md:p-12 relative overflow-hidden flex flex-col">
+      {/* Ambient glows */}
+      <div className="absolute -top-20 -right-20 w-[28rem] h-[28rem] bg-[hsl(var(--venture-blue))]/40 rounded-full blur-3xl"></div>
+      <div className="absolute -bottom-32 -left-20 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+      {/* Subtle dot grid */}
+      <div
+        className="absolute inset-0 opacity-[0.07]"
+        style={{
+          backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      ></div>
+
+      {/* Header */}
+      <div className="relative z-10 mb-6 md:mb-10 flex-shrink-0">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="h-px w-8 md:w-12 bg-white/40"></div>
+          <span className="text-white/80 text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase">
+            Pro Pathway
+          </span>
+        </div>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+          <div>
+            <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-[0.95]">
+              Everything <span className="italic font-light text-white/85">included</span>
+            </h2>
+            <p className="text-white/70 text-sm md:text-base mt-3 max-w-xl">
+              Every tryout package covers the essentials so the only thing on your mind is football.
+            </p>
           </div>
-          <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight">
-            What's Included
-          </h2>
-          <p className="text-white/70 text-sm md:text-base mt-2">Every tryout package covers the essentials so you can focus on football.</p>
+          <div className="hidden md:flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-5 py-2.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-white text-xs font-bold tracking-widest uppercase">All Inclusive</span>
+          </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-          {items.map((item) => (
-            <div
-              key={item}
-              className="flex items-center gap-3 md:gap-4 bg-white/10 backdrop-blur-md rounded-xl p-3 md:p-4 border border-white/20 hover:bg-white/15 transition-all"
-            >
-              <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full bg-white text-[hsl(var(--venture-navy))] flex items-center justify-center font-black">
-                <svg className="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <p className="text-xs md:text-base font-bold text-white uppercase tracking-wide">
-                {item}
-              </p>
+      </div>
+
+      {/* Cards grid — fills remaining height */}
+      <div className="relative z-10 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 flex-1 min-h-0">
+        {items.map((item, i) => (
+          <div
+            key={item.title}
+            className="group relative rounded-2xl p-4 md:p-6 bg-white/[0.07] backdrop-blur-md border border-white/15 hover:border-white/30 hover:bg-white/[0.12] transition-all duration-300 overflow-hidden flex flex-col"
+          >
+            {/* Hover glow */}
+            <div className="absolute -top-12 -right-12 w-32 h-32 bg-[hsl(var(--venture-blue))]/0 group-hover:bg-[hsl(var(--venture-blue))]/40 rounded-full blur-2xl transition-all duration-500"></div>
+
+            {/* Step index */}
+            <div className="absolute top-3 right-3 md:top-4 md:right-4 text-white/15 font-black text-xs md:text-sm tracking-widest">
+              {String(i + 1).padStart(2, "0")}
             </div>
-          ))}
-        </div>
+
+            <div className="relative z-10 flex flex-col gap-3 md:gap-4 h-full">
+              <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl bg-gradient-to-br from-white to-white/80 text-[hsl(var(--venture-navy))] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <div className="w-5 h-5 md:w-7 md:h-7">{item.icon}</div>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-sm md:text-lg font-black text-white uppercase tracking-tight leading-tight mb-1 md:mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-[11px] md:text-sm text-white/70 leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
