@@ -6,7 +6,7 @@ import ncaaLogo from "@/assets/logos/ncaa.png";
 import naiaLogo from "@/assets/logos/naia.png";
 import njcaaLogo from "@/assets/logos/njcaa-mark.png";
 
-const ACCENTS = ["#c9aae6", "#f9fc72", "#6ec7f9", "#ff93ca"];
+const ACCENTS = ["#c9aae6", "#f9fc72", "#6ec7f9", "#4DA3FF"];
 
 const DIVISION_LOGOS: Record<string, { src: string; className: string }> = {
   "ncaa-d1": { src: ncaaLogo, className: "h-16 md:h-20 w-auto" },
@@ -305,7 +305,7 @@ export default function DivisionInfo() {
       </section>
 
       <section className="px-5 md:px-10 py-16 md:py-24">
-        <p className="font-label text-[11px] md:text-xs tracking-[0.35em] uppercase text-[#ff93ca]">
+        <p className="font-label text-[11px] md:text-xs tracking-[0.35em] uppercase text-[#4DA3FF]">
           {getLabel(labels, "idealFor", "Ideal for")}
         </p>
         <p className="mt-4 max-w-4xl font-display font-bold uppercase italic leading-[0.92] text-[clamp(2rem,5vw,4.2rem)]">
