@@ -738,7 +738,6 @@ function Profile({ data, labels }: { data: AssessmentData; labels: Record<string
     [t(labels, "schoolYear", "School Year"), data.schoolYear || "—"],
     [t(labels, "gpa", "GPA"), data.gpa || "—"],
     [t(labels, "manager", "Manager"), data.manager || "—"],
-    ...(data.budget?.trim() ? [[t(labels, "budget", "Budget"), data.budget]] : []),
   ];
   return (
     <section id="profile" className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
