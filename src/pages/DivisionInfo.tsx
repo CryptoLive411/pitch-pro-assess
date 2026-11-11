@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import ventureLogo from "@/assets/venture-logo-white.png";
@@ -183,6 +184,11 @@ export default function DivisionInfo() {
 
   const divisionKey = division || "ncaa-d1";
   const fromSlide = location.state?.fromSlide;
+
+  useLayoutEffect(() => {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+  }, [division]);
   const labels = location.state?.labels as Record<string, string> | null;
   const assessment = location.state?.data as { playerName?: string; targetDivisions?: string[] } | undefined;
 
