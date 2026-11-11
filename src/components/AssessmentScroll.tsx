@@ -117,7 +117,7 @@ const COLLEGE_SERVICES = [
   { id: "placement", name: "University Placement", description: "End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.", p: [true, true, true] },
 ];
 
-const PLACEMENT_SUPPORT = [
+const SUPPORT_NOTES = [
   { title: "Missing Documentation", text: "We find and sort out any missing paperwork so nothing holds up your application." },
   { title: "Admissions & Logistics", text: "Help with questions about enrolment, housing, and the other practical steps of moving to college." },
   { title: "College Point of Contact", text: "We’re your direct line to the college and handle questions and updates on your behalf when needed." },
@@ -470,9 +470,20 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
               </div>
               <div className={`grid transition-[grid-template-rows] duration-200 ${open === YEARLY_SUPPORT.id ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
                 <div className="overflow-hidden">
-                  <p className="px-3 pb-4 max-w-xl text-sm leading-relaxed text-[#06183A]/70">
-                    {t(labels, "yearlySupportDescription", "Full Service includes four years of support, Standard includes two years, and Essential includes one year.")}
-                  </p>
+                  <div className="px-3 pb-5 max-w-2xl">
+                    <p className="text-sm leading-relaxed text-[#06183A]/70">
+                      {t(labels, "yearlySupportDescription", "Full Service includes four years of support, Standard includes two years, and Essential includes one year.")}
+                    </p>
+                    <p className="mt-4 font-label text-[11px] tracking-[0.28em] uppercase text-[#06183A]/50">Support</p>
+                    <dl className="mt-3 space-y-3">
+                      {SUPPORT_NOTES.map((item) => (
+                        <div key={item.title}>
+                          <dt className="font-display uppercase text-base md:text-lg leading-tight">{item.title}</dt>
+                          <dd className="mt-0.5 text-sm leading-relaxed text-[#06183A]/70">{item.text}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
                 </div>
               </div>
             </div>
@@ -510,23 +521,9 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                   </div>
                   <div className={`grid transition-[grid-template-rows] duration-200 ${expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
                     <div className="overflow-hidden">
-                      {service.id === "placement" ? (
-                        <div className="px-3 pb-5 max-w-2xl">
-                          <p className="font-label text-[11px] tracking-[0.28em] uppercase text-[#06183A]/50">Support</p>
-                          <dl className="mt-3 space-y-3">
-                            {PLACEMENT_SUPPORT.map((item) => (
-                              <div key={item.title}>
-                                <dt className="font-display uppercase text-base md:text-lg leading-tight">{item.title}</dt>
-                                <dd className="mt-0.5 text-sm leading-relaxed text-[#06183A]/70">{item.text}</dd>
-                              </div>
-                            ))}
-                          </dl>
-                        </div>
-                      ) : (
-                        <p className="px-3 pb-4 max-w-xl text-sm leading-relaxed text-[#06183A]/70">
-                          {t(labels, SERVICE_DESC_KEYS[service.id][0], SERVICE_DESC_KEYS[service.id][1])}
-                        </p>
-                      )}
+                      <p className="px-3 pb-4 max-w-xl text-sm leading-relaxed text-[#06183A]/70">
+                        {t(labels, SERVICE_DESC_KEYS[service.id][0], SERVICE_DESC_KEYS[service.id][1])}
+                      </p>
                     </div>
                   </div>
                 </div>
