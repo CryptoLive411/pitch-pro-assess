@@ -141,13 +141,13 @@ const SERVICE_ADD: Record<string, number> = {
   transferSupport: 400,
 };
 
-const CUSTOM_EXTRAS: { id: string; name: string; detail: string; price: number; monthly?: boolean; unit?: string }[] = [
+const CUSTOM_EXTRAS: { id: string; name: string; detail: string; price: number; monthly?: boolean; quote?: boolean }[] = [
   { id: "summer", name: "Summer league", detail: "USL 2 or NPSL", price: 1000 },
-  { id: "tutoring", name: "Tutoring", detail: "SAT and Duolingo", price: 85, unit: "class" },
+  { id: "tutoring", name: "Tutoring", detail: "SAT and Duolingo", price: 0, quote: true },
   { id: "psych", name: "Psychologist", detail: "2 meetings a month", price: 360, monthly: true },
-  { id: "nutrition", name: "Nutritionist", detail: "3 sessions a month", price: 900 },
+  { id: "nutrition", name: "Nutritionist", detail: "3 sessions a month", price: 150, monthly: true },
   { id: "trainer", name: "Online fitness trainer", detail: "2 meetings a month", price: 300, monthly: true },
-  { id: "scouting", name: "Full-match scouting report", detail: "A professional scout reviews your full games", price: 600 },
+  { id: "scouting", name: "Full-match scouting report", detail: "A professional scout reviews your full games", price: 150, monthly: true },
 ];
 
 const SERVICE_KEYS: Record<string, [string, string]> = {
@@ -397,7 +397,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
     if (!customOn[service.id] || service.p[2]) return sum;
     return sum + (SERVICE_ADD[service.id] || 0);
   }, 0);
-  const extrasTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (!extra.monthly && !extra.unit && picked.includes(extra.id) ? sum + extra.price : sum), 0);
+  const extrasTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (!extra.monthly && !extra.quote && picked.includes(extra.id) ? sum + extra.price : sum), 0);
   const monthlyTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (extra.monthly && picked.includes(extra.id) ? sum + extra.price : sum), 0);
   const customTotal = essentialAmount + addedServices + extrasTotal;
   const headGrid = "grid grid-cols-[minmax(0,1.15fr)_repeat(4,minmax(0,0.72fr))] gap-1.5 md:gap-2 items-stretch";
@@ -442,12 +442,6 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
               </p>
               <p className="mt-2 font-label text-[9px] md:text-[10px] tracking-[0.14em] uppercase">Select services</p>
               <p className="mt-2 font-display font-bold text-2xl md:text-4xl leading-none">{sym}{formatAmount(customTotal)}</p>
-              {monthlyTotal > 0 && (
-                <p className="mt-1 font-display font-bold text-lg md:text-2xl leading-none">+{sym}{formatAmount(monthlyTotal)}/mo</p>
-              )}
-              {CUSTOM_EXTRAS.filter((extra) => extra.unit && picked.includes(extra.id)).map((extra) => (
-                <p key={extra.id} className="mt-1 font-display font-bold text-lg md:text-2xl leading-none">+{sym}{formatAmount(extra.price)}/{extra.unit}</p>
-              ))}
             </div>
           </div>
           <div className="mt-2 space-y-2">
@@ -550,6 +544,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
         <div className="mt-8">
           <div className="text-center">
             <h3 className="font-display font-bold uppercase italic text-4xl md:text-6xl leading-none">Venture Performance</h3>
+            <p className="mt-4 font-display font-bold text-4xl md:text-5xl leading-none">{sym}{formatAmount(monthlyTotal)}<span className="text-2xl md:text-3xl">/mo</span></p>
             <p className="mt-4 font-label text-[11px] md:text-xs tracking-[0.28em] uppercase text-[#06183A]/50">Add to custom</p>
             <p className="mt-2 text-sm md:text-base text-[#06183A]/70">
               Custom starts at Essential. Select any service in that column to add it, or add an extra below.
@@ -571,7 +566,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                     <span className="block text-xs md:text-sm text-[#06183A]/60">{extra.detail}</span>
                   </span>
                   <span className="shrink-0 font-display font-bold text-lg md:text-2xl leading-none">
-                    +{sym}{formatAmount(extra.price)}{extra.monthly ? "/mo" : extra.unit ? `/${extra.unit}` : ""}
+                    {extra.quote ? "Get a quote" : `+${sym}${formatAmount(extra.price)}${extra.monthly ? "/mo" : ""}`}
                   </span>
                 </label>
               );
