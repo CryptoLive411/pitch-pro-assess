@@ -5,12 +5,13 @@ import { AssessmentData } from "./AssessmentEditor";
 import { Button } from "@/components/ui/button";
 import ventureLogo from "@/assets/venture-logo-white.png";
 import ventureLogoCircle from "@/assets/venture-logo-circle.png";
-import pedroBaischFinal from "@/assets/pedro-baisch-final.png";
-import miloPetersFinal from "@/assets/milo-peters-final.png";
-import afonsoVaz from "@/assets/afonso-vaz.png";
 import henriqueSantosStory from "@/assets/henrique-santos-story.jpg";
 import bernardoMonteiro from "@/assets/bernardo-monteiro.jpg";
-import filipJauk from "@/assets/filip-jauk.jpg";
+import filipJauk from "@/assets/filip-jauk-story.jpg";
+import player1 from "@/assets/player-1.jpg";
+import player2 from "@/assets/player-2.jpg";
+import player3 from "@/assets/player-3.jpg";
+import player4 from "@/assets/player-4.jpg";
 import creightonLogo from "@/assets/logos/creighton.png";
 import ncStateLogo from "@/assets/logos/nc-state.png";
 import charlestonLogo from "@/assets/logos/charleston-new.png";
@@ -156,14 +157,37 @@ const PHOTO_STORIES = [
     name: "Filip Jauk",
     school: "FAU - D1 Soccer",
     image: filipJauk,
+    fit: "contain",
     quote: "I really enjoyed working with Joao. Without him I wouldn't have been able to have a full scholarship at such a great school at one of the best soccer programs. For everything that I have here in the US, he is the first man to say thank you! He was with me from the beginning and every time made sure that everything is perfect for my education and my soccer improvement.",
   },
-];
-
-const PLACED = [
-  { name: "Pedro Baisch", school: "Merrimack College", tag: "Merrimack", image: pedroBaischFinal },
-  { name: "Milo Peters", school: "Dartmouth", tag: "6% acceptance", image: miloPetersFinal },
-  { name: "Afonso Vaz", school: "Davis & Elkins", tag: "D&E", image: afonsoVaz },
+  {
+    name: "Player 1",
+    school: "Virginia — D1 Soccer",
+    image: player1,
+    fit: "contain",
+    quote: "João treated my move like it was his own. He stayed on the coaches, kept my family in the loop, and made sure I landed somewhere I could play and study at a high level. I always knew where I stood with him, and that honesty is what made the difference.",
+  },
+  {
+    name: "Player 2",
+    school: "Hofstra — D1 Soccer",
+    image: player2,
+    fit: "contain",
+    quote: "From the first call, João was clear about what it would take and which programs actually fit me. He did not disappear after the introduction. He stayed through the visits, the paperwork, and the decision, and he pushed me toward a place where I could compete right away.",
+  },
+  {
+    name: "Player 3",
+    school: "Saint Louis — D1 Soccer",
+    image: player3,
+    fit: "contain",
+    quote: "I had people promise opportunities before and nothing came of it. Working with João was different. He knew the coaches, he knew the level I could play at, and he kept showing up until the offer was real. He took the time to understand what I wanted, and the program felt like home because of that.",
+  },
+  {
+    name: "Player 4",
+    school: "UCF — D1 Soccer",
+    image: player4,
+    fit: "contain",
+    quote: "João and his team made a big move feel simple. They handled the conversations with the program, kept my family involved, and never rushed me into a school that was not a fit. I got a real shot at a top program, and I knew someone was in my corner the whole way.",
+  },
 ];
 
 const MORE_QUOTES = [
@@ -491,17 +515,6 @@ function Stories() {
               <h3 className="font-display font-bold uppercase italic text-4xl leading-none mt-2">{story.name}</h3>
               <p className="mt-2 text-sm font-semibold" style={{ color: "#1d4ed8" }}>{story.school}</p>
               <p className="mt-4 text-sm leading-relaxed text-[#06183A]/80">"{story.quote}"</p>
-            </div>
-          </article>
-        ))}
-        {PLACED.map((player) => (
-          <article key={player.name} className="shrink-0 w-[78vw] md:w-[420px] relative min-h-[560px] bg-black">
-            <img src={player.image} alt={player.name} className="absolute inset-0 w-full h-full object-contain" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-            <div className="absolute bottom-0 p-6 text-[#F2F1E8]">
-              <p className="font-label text-[10px] tracking-[0.28em] uppercase text-[#f9fc72]">{player.tag}</p>
-              <h3 className="font-display font-bold uppercase italic text-4xl leading-none mt-1">{player.name}</h3>
-              <p className="mt-2 text-sm text-white/80">{player.school}</p>
             </div>
           </article>
         ))}
