@@ -412,10 +412,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                 </p>
                 <p className="font-display font-bold uppercase italic text-lg md:text-3xl leading-[0.9] mt-1">{pkg.title}</p>
                 {pkg.price?.trim() && (
-                  <p className="mt-2 font-display text-base md:text-xl leading-none">
-                    {sym}{pkg.price}
-                    <span className="block font-label text-[9px] tracking-[0.18em] uppercase opacity-70 mt-1">+7% for tax</span>
-                  </p>
+                  <p className="mt-2 font-display text-base md:text-xl leading-none">{sym}{pkg.price}</p>
                 )}
               </div>
             ))}
