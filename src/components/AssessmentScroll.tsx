@@ -1199,6 +1199,7 @@ function Close({ labels, manager }: { labels: Record<string, string>; manager?: 
   return (
     <section className="min-h-[100svh] bg-[#06183A] px-5 py-20 flex items-center">
       <div className="w-full">
+        <img src={ventureWordmark} alt="Venture" className="mx-auto mb-8 h-12 md:h-16 w-auto" />
         <Frame>
           <h2 className="font-display font-bold uppercase italic text-center leading-[0.88] text-[clamp(3rem,8vw,6.5rem)]">
             {t(labels, "readyToStart", "Ready to start")}<br />{t(labels, "yourJourneyQuestion", "Your journey?")}
