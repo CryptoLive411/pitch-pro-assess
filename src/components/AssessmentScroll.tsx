@@ -131,6 +131,16 @@ const YEARLY_SUPPORT = {
   years: ["4 years", "2 years", "1 year"],
 };
 
+const SERVICE_ADD: Record<string, number> = {
+  english: 350,
+  admissions: 200,
+  translation: 200,
+  eligibility: 250,
+  visa: 300,
+  arrival: 200,
+  transferSupport: 400,
+};
+
 const CUSTOM_EXTRAS: { id: string; name: string; detail: string; price: number; includedOn?: number }[] = [
   { id: "summer", name: "Summer league", detail: "USL 2 or NPSL", price: 1200 },
   { id: "tutoring", name: "Tutoring", detail: "SAT and Duolingo", price: 750 },
@@ -373,8 +383,10 @@ function Hero({ labels, showPro, showCollege }: { labels: Record<string, string>
 
 function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; labels: Record<string, string>; showProAddon: boolean; sym: string }) {
   const [open, setOpen] = useState<string | null>(null);
-  const [baseIdx, setBaseIdx] = useState(2);
   const [picked, setPicked] = useState<string[]>([]);
+  const [customOn, setCustomOn] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(COLLEGE_SERVICES.map((service) => [service.id, service.p[2]])),
+  );
   const packages = [
     { key: "p1", num: "01", title: t(labels, "fullService", "Elite"), price: data.packagePrice1, idx: 0, bg: "linear-gradient(165deg, #1C5FAE 0%, #12448A 55%, #0B2F66 100%)", color: "#F2F1E8", ink: "#D5E8FA" },
     { key: "p2", num: "02", title: t(labels, "standard", "Standard"), price: data.packagePrice2, idx: 1, bg: "linear-gradient(165deg, #B7E6FC 0%, #6EC7F9 55%, #3AABEA 100%)", color: "#06183A", ink: "#0A3A66" },
@@ -382,13 +394,13 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
   ];
 
   const packageLabels = ["package1", "package2", "package3"];
-  const base = packages[baseIdx];
-  const baseAmount = parseAmount(base.price?.trim() || ["5395", "4795", "4495"][baseIdx]);
-  const extrasTotal = CUSTOM_EXTRAS.reduce((sum, extra) => {
-    if (extra.includedOn === baseIdx || !picked.includes(extra.id)) return sum;
-    return sum + extra.price;
+  const essentialAmount = parseAmount(packages[2].price?.trim() || "4495");
+  const addedServices = COLLEGE_SERVICES.reduce((sum, service) => {
+    if (!customOn[service.id] || service.p[2]) return sum;
+    return sum + (SERVICE_ADD[service.id] || 0);
   }, 0);
-  const supportLabel = YEARLY_SUPPORT.years[baseIdx];
+  const extrasTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (picked.includes(extra.id) ? sum + extra.price : sum), 0);
+  const customTotal = essentialAmount + addedServices + extrasTotal;
   const headGrid = "grid grid-cols-[minmax(0,1.15fr)_repeat(4,minmax(0,0.72fr))] gap-1.5 md:gap-2 items-stretch";
   const rowGrid = "grid grid-cols-[minmax(0,1.15fr)_repeat(4,minmax(0,0.72fr))] gap-1.5 md:gap-2 items-center";
 
@@ -429,19 +441,8 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
               <p className="font-display font-bold uppercase italic text-lg md:text-3xl leading-[0.9] mt-1">
                 {t(labels, "customPackage", "Custom")}
               </p>
-              <label className="mt-2 block">
-                <span className="sr-only">Starting package</span>
-                <select
-                  value={baseIdx}
-                  onChange={(e) => setBaseIdx(Number(e.target.value))}
-                  className="w-full border border-[#06183A]/30 bg-[#06183A]/10 px-1 py-1 font-display uppercase text-[11px] md:text-sm leading-none"
-                >
-                  {packages.map((pkg) => (
-                    <option key={pkg.key} value={pkg.idx}>{pkg.title}</option>
-                  ))}
-                </select>
-              </label>
-              <p className="mt-2 font-display font-bold text-2xl md:text-4xl leading-none">{sym}{formatAmount(baseAmount + extrasTotal)}</p>
+              <p className="mt-2 font-label text-[9px] md:text-[10px] tracking-[0.14em] uppercase">Starts at Essential</p>
+              <p className="mt-2 font-display font-bold text-2xl md:text-4xl leading-none">{sym}{formatAmount(customTotal)}</p>
             </div>
           </div>
           <div className="mt-2 space-y-2">
@@ -467,7 +468,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                 ))}
                 <div className="flex justify-center self-stretch items-center bg-white px-1">
                   <span className="font-display font-bold uppercase text-sm md:text-xl leading-none text-center">
-                    {supportLabel}
+                    {YEARLY_SUPPORT.years[2]}
                   </span>
                 </div>
               </div>
@@ -514,13 +515,21 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                         )}
                       </div>
                     ))}
-                    <div className="flex justify-center self-stretch items-center bg-white">
-                      {service.p[baseIdx] ? (
+                    <button
+                      type="button"
+                      aria-pressed={!!customOn[service.id]}
+                      onClick={() => setCustomOn((cur) => ({ ...cur, [service.id]: !cur[service.id] }))}
+                      className="flex flex-col items-center justify-center gap-1 self-stretch bg-white py-2"
+                    >
+                      {customOn[service.id] ? (
                         <Check className="h-5 w-5 text-[#06183A]" strokeWidth={2.5} />
                       ) : (
                         <X className="h-4 w-4 text-[#06183A]/25" strokeWidth={2.5} />
                       )}
-                    </div>
+                      {!service.p[2] && SERVICE_ADD[service.id] ? (
+                        <span className="font-label text-[9px] tracking-wide text-[#06183A]/45">+{sym}{formatAmount(SERVICE_ADD[service.id])}</span>
+                      ) : null}
+                    </button>
                   </div>
                   <div className={`grid transition-[grid-template-rows] duration-200 ${expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
                     <div className="overflow-hidden">
@@ -539,28 +548,26 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
           <div className="text-center">
             <p className="font-label text-[11px] md:text-xs tracking-[0.28em] uppercase text-[#06183A]/50">Add to custom</p>
             <p className="mt-2 text-sm md:text-base text-[#06183A]/70">
-              Starts with everything in {base.title}. Turn an extra on and the Custom price updates.
+              Custom starts at Essential. Check a service in that column to add it, or add an extra below.
             </p>
           </div>
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 text-left">
             {CUSTOM_EXTRAS.map((extra) => {
-              const included = extra.includedOn === baseIdx;
-              const on = included || picked.includes(extra.id);
+              const on = picked.includes(extra.id);
               return (
-                <label key={extra.id} className={`flex items-center gap-3 bg-white px-3 py-3 ${included ? "opacity-80" : "cursor-pointer"}`}>
+                <label key={extra.id} className="flex cursor-pointer items-center gap-3 bg-white px-3 py-3">
                   <Checkbox
                     checked={on}
-                    disabled={included}
                     onCheckedChange={(checked) => {
                       setPicked((cur) => (checked ? [...new Set([...cur, extra.id])] : cur.filter((id) => id !== extra.id)));
                     }}
                   />
                   <span className="min-w-0 flex-1">
                     <span className="block font-display uppercase text-base md:text-xl leading-tight">{extra.name}</span>
-                    <span className="block text-xs md:text-sm text-[#06183A]/60">{included ? "Included with Elite" : extra.detail}</span>
+                    <span className="block text-xs md:text-sm text-[#06183A]/60">{extra.detail}</span>
                   </span>
                   <span className="shrink-0 font-display font-bold text-lg md:text-2xl leading-none">
-                    {included ? "Included" : `+${sym}${formatAmount(extra.price)}`}
+                    +{sym}{formatAmount(extra.price)}
                   </span>
                 </label>
               );
