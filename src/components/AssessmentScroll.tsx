@@ -5,13 +5,6 @@ import { AssessmentData } from "./AssessmentEditor";
 import { Button } from "@/components/ui/button";
 import ventureLogo from "@/assets/venture-logo-white.png";
 import ventureLogoCircle from "@/assets/venture-logo-circle.png";
-import storyMatch from "@/assets/ingame/01-match.jpg";
-import storyLouisville from "@/assets/ingame/02-louisville.jpg";
-import storyNight from "@/assets/ingame/03-night.jpg";
-import storyFau from "@/assets/ingame/04-fau.jpg";
-import storyDribble from "@/assets/ingame/05-dribble.jpg";
-import storyVirginia from "@/assets/ingame/06-virginia.jpg";
-import storyMercer from "@/assets/ingame/07-mercer.jpg";
 import pedroBaischFinal from "@/assets/pedro-baisch-final.png";
 import miloPetersFinal from "@/assets/milo-peters-final.png";
 import afonsoVaz from "@/assets/afonso-vaz.png";
@@ -142,61 +135,30 @@ const SERVICE_DESC_KEYS: Record<string, [string, string]> = {
   placement: ["universityPlacementDescription", COLLEGE_SERVICES[9].description],
 };
 
-const PHOTO_STORIES = [
-  {
-    name: "Henrique Santos",
-    school: "NC State - D1 Soccer",
-    image: storyMatch,
-    quote: "I have worked with agents and people that tried to help my soccer career for a big part of my life and the focus and the personal touch that I get from João is exceptional. Along with myself I owe a lot of my success to João as it's been a great journey since we started working together. He is very experienced and has a deep knowledge about soccer because it's his passion and hungry for success. Due to his vast soccer background and wide range of connections around the world, not only he knows what it takes to make it, but he can also provide the best counseling and options.",
-  },
-  {
-    name: "Bernardo Monteiro",
-    school: "FIU - D1 Soccer",
-    image: storyNight,
-    quote: "Meeting Delgado and working with him has been a pleasure. Since the first moment we started this journey together, he has always been there for me and in constant contact with me and my family to help in anything needed. He has always been committed with me and to help me to get a professional opportunity. Besides being a very professional person, he's also a great friend now. Any players working with him, will be lucky enough to achieve their goals.",
-  },
-  {
-    name: "Filip Jauk",
-    school: "FAU - D1 Soccer",
-    image: storyFau,
-    quote: "I really enjoyed working with Joao. Without him I wouldn't have been able to have a full scholarship at such a great school at one of the best soccer programs. For everything that I have here in the US, he is the first man to say thank you! He was with me from the beginning and every time made sure that everything is perfect for my education and my soccer improvement.",
-  },
-  {
-    name: "Player 1",
-    school: "Virginia — D1 Soccer",
-    image: storyVirginia,
-    quote: "João treated my move like it was his own. He stayed on the coaches, kept my family in the loop, and made sure I landed somewhere I could play and study at a high level. I always knew where I stood with him, and that honesty is what made the difference.",
-  },
-  {
-    name: "Player 2",
-    school: "Hofstra — D1 Soccer",
-    image: storyLouisville,
-    quote: "From the first call, João was clear about what it would take and which programs actually fit me. He did not disappear after the introduction. He stayed through the visits, the paperwork, and the decision, and he pushed me toward a place where I could compete right away.",
-  },
-  {
-    name: "Player 3",
-    school: "Saint Louis — D1 Soccer",
-    image: storyMercer,
-    quote: "I had people promise opportunities before and nothing came of it. Working with João was different. He knew the coaches, he knew the level I could play at, and he kept showing up until the offer was real. He took the time to understand what I wanted, and the program felt like home because of that.",
-  },
-  {
-    name: "Player 4",
-    school: "UCF — D1 Soccer",
-    image: storyDribble,
-    quote: "João and his team made a big move feel simple. They handled the conversations with the program, kept my family involved, and never rushed me into a school that was not a fit. I got a real shot at a top program, and I knew someone was in my corner the whole way.",
-  },
-];
+const athleteRail = import.meta.glob("../assets/athlete-rail/*.jpg", {
+  eager: true,
+  import: "default",
+}) as Record<string, string>;
+
+const photosNamed = (prefix: string) =>
+  Object.entries(athleteRail)
+    .filter(([path]) => path.includes(`/${prefix}-`))
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([, src]) => src);
+
+const NEWS_PHOTOS = photosNamed("news");
+const PLAY_PHOTOS = photosNamed("play");
 
 const MORE_QUOTES = [
-  { name: "Nico Torres", school: "Utah Valley", quote: "Joao helped me find an incredible program in record time, my situation was not easy, and he was able in a couple of weeks to help me and give me the opportunity to compete at the best level in my last season." },
-  { name: "Umberto Pela", school: "Lehigh", quote: "Working with Joao and Luca has been a great experience. Even though we had 9 hours difference due to the time zone, they were always available to chat and share his thoughts. Him and Luca provided me with great opportunities, suggestions, and understood my needs perfectly." },
+  { name: "Nico Torres", school: "Utah Valley", quote: "Venture helped me find an incredible program in record time, my situation was not easy, and he was able in a couple of weeks to help me and give me the opportunity to compete at the best level in my last season." },
+  { name: "Umberto Pela", school: "Lehigh", quote: "Working with Venture and Luca has been a great experience. Even though we had 9 hours difference due to the time zone, they were always available to chat and share his thoughts. Him and Luca provided me with great opportunities, suggestions, and understood my needs perfectly." },
   { name: "Jozo Cancar", school: "Tyler JC", quote: "I can live my dream because of one individual, who is essentially the reason I am in the US. He always thought I had potential and always had faith in me. Every time, he made sure to let me know that I meant more to him than just a soccer player." },
-  { name: "Diego Castillo", school: "Utah Valley", quote: "Working with Joao and Rodrigo in particular was the best decision I could have made. They made the process of finding a university fast and beneficial for me, thanks to them and their team I found a place which I can now call my new home." },
-  { name: "Alex Bamford", school: "Marshall", quote: "Joao was incredibly helpful in securing my move to Marshall university. He has a wide range of contacts across both d2 and d1 and having gone through the college game himself knows the system very well. He is also a great person who only wants the best for those he works with." },
-  { name: "Tadej Pitvoresk", school: "Transfer Success", quote: "Working with Joao was amazing! Not only I got a great agent that provided me with everything I needed and wanted, I also got a great friend! He did exactly everything that he said he would, gave me great options with schools, some great advices." },
-  { name: "Fernando Silva", school: "UTRGV", quote: "Delgado was a key person in the pathway I took for my life. Since the first day we met, he always showed me a high level of professionalism and excellence. And mainly and most important, a very honest and caring person." },
-  { name: "Quenzi Heuerman", school: "Seton Hall", quote: "Joao helped me from the start looking for a new school as I entered the transfer portal. He was consistent by always giving me great updates and getting me in touch with top schools. Thanks to his service, I was able to contact multiple top programs." },
-  { name: "Kostyantyn", school: "Student Athlete", quote: "When the first time I got on contact with Joao, I realized that he was the person I can trust. He didn't work with me as a businessman but as friend that look on everything from my perspective. Joao wasn't an agent for me but a friend that could help with everything!" },
+  { name: "Diego Castillo", school: "Utah Valley", quote: "Working with Venture and Rodrigo in particular was the best decision I could have made. They made the process of finding a university fast and beneficial for me, thanks to them and their team I found a place which I can now call my new home." },
+  { name: "Alex Bamford", school: "Marshall", quote: "Venture was incredibly helpful in securing my move to Marshall university. He has a wide range of contacts across both d2 and d1 and having gone through the college game himself knows the system very well. He is also a great person who only wants the best for those he works with." },
+  { name: "Tadej Pitvoresk", school: "Transfer Success", quote: "Working with Venture was amazing! Not only I got a great agent that provided me with everything I needed and wanted, I also got a great friend! He did exactly everything that he said he would, gave me great options with schools, some great advices." },
+  { name: "Fernando Silva", school: "UTRGV", quote: "Venture was a key person in the pathway I took for my life. Since the first day we met, he always showed me a high level of professionalism and excellence. And mainly and most important, a very honest and caring person." },
+  { name: "Quenzi Heuerman", school: "Seton Hall", quote: "Venture helped me from the start looking for a new school as I entered the transfer portal. He was consistent by always giving me great updates and getting me in touch with top schools. Thanks to his service, I was able to contact multiple top programs." },
+  { name: "Kostyantyn", school: "Student Athlete", quote: "When the first time I got on contact with Venture, I realized that he was the person I can trust. He didn't work with me as a businessman but as friend that look on everything from my perspective. Venture wasn't an agent for me but a friend that could help with everything!" },
 ];
 
 const PRO_STEPS = [
@@ -515,29 +477,38 @@ function LogoRail({ title, logos }: { title: string; logos: string[] }) {
   );
 }
 
+function PhotoMarquee({ photos, reverse }: { photos: string[]; reverse?: boolean }) {
+  const loop = [...photos, ...photos];
+  return (
+    <div className="overflow-hidden">
+      <div className={`flex w-max gap-3 ${reverse ? "athlete-marquee-reverse" : "athlete-marquee"}`}>
+        {loop.map((src, i) => (
+          <img
+            key={`${src}-${i}`}
+            src={src}
+            alt=""
+            className="h-[240px] md:h-[340px] w-auto aspect-[4/5] shrink-0 object-cover"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Stories() {
   return (
-    <section className="bg-[#06183A]">
-      <div className="px-5 md:px-10 pt-14 md:pt-20">
+    <section className="bg-[#06183A] overflow-hidden py-14 md:py-20">
+      <div className="px-5 md:px-10">
         <Eyebrow>How we've helped</Eyebrow>
         <h2 className="font-display font-bold uppercase italic leading-none mt-2 whitespace-nowrap text-[clamp(2.1rem,7vw,4.5rem)]">The athlete first</h2>
       </div>
-      <div className="assessment-rail mt-8 flex gap-4 px-5 md:px-10 pb-14">
-        {PHOTO_STORIES.map((story) => (
-          <article key={story.name} className="shrink-0 w-[86vw] md:w-[640px] bg-white text-[#06183A]">
-            <img
-              src={story.image}
-              alt={story.name}
-              className="w-full aspect-[16/9] object-cover"
-            />
-            <div className="p-6 md:p-8">
-              <p className="font-label text-[10px] tracking-[0.28em] uppercase text-[#06183A]/50">Success story</p>
-              <h3 className="font-display font-bold uppercase italic text-4xl leading-none mt-2">{story.name}</h3>
-              <p className="mt-2 text-sm font-semibold" style={{ color: "#1d4ed8" }}>{story.school}</p>
-              <p className="mt-4 text-sm leading-relaxed text-[#06183A]/80">"{story.quote}"</p>
-            </div>
-          </article>
-        ))}
+      <p className="px-5 md:px-10 mt-8 font-label text-[10px] tracking-[0.28em] uppercase text-white/50">In the news</p>
+      <div className="mt-3">
+        <PhotoMarquee photos={NEWS_PHOTOS} />
+      </div>
+      <p className="px-5 md:px-10 mt-8 font-label text-[10px] tracking-[0.28em] uppercase text-white/50">On the field</p>
+      <div className="mt-3">
+        <PhotoMarquee photos={PLAY_PHOTOS} reverse />
       </div>
     </section>
   );
