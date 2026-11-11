@@ -130,7 +130,7 @@ const CUSTOM_EXTRAS: { id: string; name: string; detail: string; price: number; 
   { id: "nutrition", name: "Nutritionist", detail: "3 sessions a month", price: 900 },
   { id: "trainer", name: "Online fitness trainer", detail: "4 sessions a month", price: 800 },
   { id: "scouting", name: "Full-match scouting report", detail: "A professional scout reviews your full games", price: 600 },
-  { id: "support4", name: "4 years of support", detail: "Extends support to four years", price: 900, includedOn: 0 },
+  { id: "transfer", name: "1 transfer", detail: "One college transfer", price: 900 },
 ];
 
 const SERVICE_KEYS: Record<string, [string, string]> = {
@@ -377,7 +377,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
     if (extra.includedOn === baseIdx || !picked.includes(extra.id)) return sum;
     return sum + extra.price;
   }, 0);
-  const supportLabel = baseIdx === 0 || picked.includes("support4") ? "4 years" : YEARLY_SUPPORT.years[baseIdx];
+  const supportLabel = YEARLY_SUPPORT.years[baseIdx];
   const headGrid = "grid grid-cols-[minmax(0,1.15fr)_repeat(4,minmax(0,0.72fr))] gap-1.5 md:gap-2 items-stretch";
   const rowGrid = "grid grid-cols-[minmax(0,1.15fr)_repeat(4,minmax(0,0.72fr))] gap-1.5 md:gap-2 items-center";
 
