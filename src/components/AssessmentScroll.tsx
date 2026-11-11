@@ -12,6 +12,9 @@ import player1 from "@/assets/player-1.jpg";
 import player2 from "@/assets/player-2.jpg";
 import player3 from "@/assets/player-3.jpg";
 import player4 from "@/assets/player-4.jpg";
+import pedroBaischFinal from "@/assets/pedro-baisch-final.png";
+import miloPetersFinal from "@/assets/milo-peters-final.png";
+import afonsoVaz from "@/assets/afonso-vaz.png";
 import creightonLogo from "@/assets/logos/creighton.png";
 import ncStateLogo from "@/assets/logos/nc-state.png";
 import charlestonLogo from "@/assets/logos/charleston-new.png";
@@ -288,8 +291,7 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
       {showPro && !showCollege && <ProProcess />}
       {showPro && <LogoRail title="Pro club partners" logos={PRO_CLUBS.map((c) => c.logo)} />}
 
-      {showCollege && <Impact labels={labels} />}
-      <Statement labels={labels} showCollege={showCollege} />
+      {showCollege ? <Impact labels={labels} /> : <Statement labels={labels} showCollege={showCollege} />}
 
       {showCollege && <Timeline labels={labels} />}
 
@@ -547,6 +549,12 @@ function Stories() {
   );
 }
 
+const PLACED_CARDS = [
+  { name: "Pedro Baisch", school: "Merrimack College", image: pedroBaischFinal },
+  { name: "Milo Peters", school: "Dartmouth", image: miloPetersFinal },
+  { name: "Afonso Vaz", school: "Davis & Elkins", image: afonsoVaz },
+];
+
 function Impact({ labels }: { labels: Record<string, string> }) {
   return (
     <section className="bg-[#06183A] px-5 md:px-10 py-12 md:py-16">
@@ -555,6 +563,20 @@ function Impact({ labels }: { labels: Record<string, string> }) {
       <p className="mt-2 font-display uppercase italic text-2xl md:text-3xl">
         {t(labels, "athletesPlaced", "Athletes placed")}
       </p>
+      <div className="mt-8 flex gap-4 overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 md:overflow-visible">
+        {PLACED_CARDS.map((player) => (
+          <figure key={player.name} className="snap-start shrink-0 w-[82vw] md:w-auto bg-[#071433]">
+            <img src={player.image} alt={player.name} className="w-full h-auto object-contain" />
+            <figcaption className="px-4 py-3">
+              <p className="font-display font-bold uppercase italic text-2xl leading-none">{player.name}</p>
+              <p className="mt-1 text-sm text-[#F2F1E8]/70">{player.school}</p>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <h2 className="mt-10 font-display font-bold uppercase italic leading-[0.95] text-[clamp(1.8rem,4.2vw,3.4rem)] max-w-3xl">
+        {t(labels, "letsMakeYourDream", "Let's make your college soccer dream a reality")}
+      </h2>
     </section>
   );
 }
