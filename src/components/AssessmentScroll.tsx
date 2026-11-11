@@ -248,7 +248,8 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
         </p>
       </header>
 
-      <Hero data={data} labels={labels} name={name} showPro={showPro} showCollege={showCollege} />
+      <Hero />
+      <Profile data={data} labels={labels} />
 
       {showCollege && <WhatWeDo data={data} labels={labels} showProAddon={showPro} sym={sym} />}
       {showPro && !showCollege && <ProProcess />}
@@ -259,7 +260,6 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
       {showCollege && <Impact labels={labels} />}
       <Statement labels={labels} showCollege={showCollege} />
 
-      <Profile data={data} labels={labels} />
       <Recommendation data={data} labels={labels} name={name} />
       {showCollege && <Targets data={data} labels={labels} />}
       <Report data={data} labels={labels} />
@@ -326,28 +326,17 @@ function HeroVideo() {
   );
 }
 
-function Hero({ data, labels, name, showPro, showCollege }: { data: AssessmentData; labels: Record<string, string>; name: string; showPro: boolean; showCollege: boolean }) {
+function Hero() {
   return (
     <section className="relative min-h-[calc(100svh-4rem)] flex items-center justify-center px-5 py-16 overflow-hidden">
       <HeroVideo />
       <div className="absolute inset-0 bg-gradient-to-b from-[#06183A]/55 via-[#06183A]/40 to-[#06183A]/75" />
       <div className="relative z-10 w-full text-center">
         <Frame>
-          <Eyebrow>{t(labels, "assessmentReport", "Assessment Report")}</Eyebrow>
-          <h1 className="font-display font-bold italic uppercase leading-[0.88] tracking-tight text-[clamp(3.2rem,10vw,7.4rem)] mt-4">
-            {name}
+          <Eyebrow>Assessment Report</Eyebrow>
+          <h1 className="font-display font-bold italic uppercase leading-[0.88] tracking-tight text-[clamp(2.15rem,6.2vw,5.4rem)] mt-4 whitespace-nowrap">
+            Venture Sports USA
           </h1>
-          <p className="mt-5 text-sm md:text-base text-[#F2F1E8]/80 max-w-md mx-auto leading-relaxed">
-            {showCollege && showPro
-              ? "College placement, with a Pro Pathway alongside it."
-              : showPro
-                ? "Your path to the professional game — built on real connections, not promises."
-                : t(labels, "collegeSoccerPlacementConsulting", "College Soccer Placement Consulting")}
-          </p>
-          <p className="mt-3 font-label text-[11px] tracking-[0.22em] uppercase text-[#F2F1E8]/60">
-            {t(labels, "preparedFor", "Prepared for")} {name}
-            {data.manager ? ` · ${data.manager}` : ""}
-          </p>
         </Frame>
       </div>
     </section>
