@@ -6,6 +6,20 @@ import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
 import samplePhoto from "@/assets/henrique-santos.jpg";
 
+async function loadPackageChoices(slug: string) {
+  const { data: file, error } = await supabase.storage.from("player-photos").download(`package-choices/${slug}.json`);
+  if (error || !file) return null;
+  try {
+    const parsed = JSON.parse(await file.text()) as { services?: Record<string, boolean>; extras?: string[] };
+    return {
+      services: parsed.services && typeof parsed.services === "object" ? parsed.services : {},
+      extras: Array.isArray(parsed.extras) ? parsed.extras.filter((item) => typeof item === "string") : [],
+    };
+  } catch {
+    return null;
+  }
+}
+
 const SAMPLE_ASSESSMENT: AssessmentData = {
   playerName: "Henrique Santos",
   enrollmentYear: "August 2027",
@@ -128,6 +142,8 @@ const Preview = () => {
               proAcademyPrice: (assessment as any).pro_academy_price || '',
               proAcademyAddonPrice: (assessment as any).pro_academy_addon_price || '',
               programMode: ((assessment as any).program_mode as 'college' | 'pro' | 'both') || 'college',
+              slug,
+              packageChoices: await loadPackageChoices(slug),
             };
             setData(assessmentData);
           } else {

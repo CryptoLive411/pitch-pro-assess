@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft, Check, ChevronDown, X } from "lucide-react";
 import { AssessmentData } from "./AssessmentEditor";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import ventureLogoCircle from "@/assets/venture-logo-circle.png";
@@ -381,10 +382,13 @@ function Hero({ labels, showPro, showCollege }: { labels: Record<string, string>
 
 function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; labels: Record<string, string>; showProAddon: boolean; sym: string }) {
   const [open, setOpen] = useState<string | null>(null);
-  const [picked, setPicked] = useState<string[]>([]);
-  const [customOn, setCustomOn] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(COLLEGE_SERVICES.map((service) => [service.id, service.p[2]])),
-  );
+  const [picked, setPicked] = useState<string[]>(data.packageChoices?.extras ?? []);
+  const [customOn, setCustomOn] = useState<Record<string, boolean>>(() => ({
+    ...Object.fromEntries(COLLEGE_SERVICES.map((service) => [service.id, service.p[2]])),
+    ...(data.packageChoices?.services ?? {}),
+  }));
+  const [choiceStatus, setChoiceStatus] = useState<"idle" | "saving" | "saved">("idle");
+  const skipSave = useRef(true);
   const packages = [
     { key: "p1", num: "01", title: t(labels, "fullService", "Elite"), price: data.packagePrice1, idx: 0, bg: "linear-gradient(165deg, #1C5FAE 0%, #12448A 55%, #0B2F66 100%)", color: "#F2F1E8", ink: "#D5E8FA" },
     { key: "p2", num: "02", title: t(labels, "standard", "Standard"), price: data.packagePrice2, idx: 1, bg: "linear-gradient(165deg, #B7E6FC 0%, #6EC7F9 55%, #3AABEA 100%)", color: "#06183A", ink: "#0A3A66" },
@@ -400,6 +404,27 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
   const extrasTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (!extra.monthly && !extra.quote && picked.includes(extra.id) ? sum + extra.price : sum), 0);
   const monthlyTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (extra.monthly && picked.includes(extra.id) ? sum + extra.price : sum), 0);
   const customTotal = essentialAmount + addedServices + extrasTotal;
+  const canSaveChoices = Boolean(data.slug && data.slug !== "sample");
+
+  useEffect(() => {
+    if (!canSaveChoices) return;
+    if (skipSave.current) {
+      skipSave.current = false;
+      return;
+    }
+    const handle = window.setTimeout(async () => {
+      setChoiceStatus("saving");
+      const body = JSON.stringify({ services: customOn, extras: picked });
+      const { error } = await supabase.storage.from("player-photos").upload(
+        `package-choices/${data.slug}.json`,
+        new Blob([body], { type: "application/json" }),
+        { upsert: true, contentType: "application/json", cacheControl: "0" },
+      );
+      setChoiceStatus(error ? "idle" : "saved");
+    }, 400);
+    return () => window.clearTimeout(handle);
+  }, [canSaveChoices, customOn, picked, data.slug]);
+
   const headGrid = "grid grid-cols-[minmax(0,1.15fr)_repeat(4,minmax(0,0.72fr))] gap-1.5 md:gap-2 items-stretch";
   const rowGrid = "grid grid-cols-[minmax(0,1.15fr)_repeat(4,minmax(0,0.72fr))] gap-1.5 md:gap-2 items-center";
 
@@ -545,6 +570,9 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
           <div className="text-center">
             <h3 className="font-display font-bold uppercase italic text-4xl md:text-6xl leading-none">Venture Performance</h3>
             <p className="mt-4 font-display font-bold text-4xl md:text-5xl leading-none">{sym}{formatAmount(monthlyTotal)}<span className="text-2xl md:text-3xl">/mo</span></p>
+            {canSaveChoices && choiceStatus === "saved" && (
+              <p className="mt-2 text-xs text-[#06183A]/60">Saved on this link</p>
+            )}
             <p className="mt-4 font-label text-[11px] md:text-xs tracking-[0.28em] uppercase text-[#06183A]/50">Add to custom</p>
             <p className="mt-2 text-sm md:text-base text-[#06183A]/70">
               Custom starts at Essential. Select any service in that column to add it, or add an extra below.
