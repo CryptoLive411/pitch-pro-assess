@@ -252,8 +252,8 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
         </p>
       </header>
 
-      <Hero labels={labels} showPro={showPro} showCollege={showCollege} />
       {showCollege && <LogoRail title="Programs we place into" logos={UNIVERSITY_LOGOS} />}
+      <Hero labels={labels} showPro={showPro} showCollege={showCollege} />
       <Profile data={data} labels={labels} />
 
       {showCollege && <WhatWeDo data={data} labels={labels} showProAddon={showPro} sym={sym} />}
