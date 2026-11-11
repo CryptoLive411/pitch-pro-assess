@@ -43,9 +43,9 @@ const DEFAULT_LABELS: Record<string, string> = {
   investment: "INVESTMENT",
   estimatedCosts: "Estimated Costs",
   yourPathToCollegeSoccer: "Your path to college soccer in the USA",
-  satExams: "SAT Exams",
+  satExams: "English Exams",
   satExamsStatus: "1-3 exams",
-  satExamsDescription: "The SAT is a standardized test that students may have to take to get accepted into certain schools. This score helps universities evaluate academic readiness.",
+  satExamsDescription: "English exams students may have to take to get accepted into certain schools. These scores help universities evaluate academic readiness.",
   applications: "Applications",
   applicationsStatus: "4-6 schools",
   applicationsDescription: "Application fees for submitting your profile to multiple universities. Each school charges an application fee to process your admission materials.",
@@ -154,9 +154,12 @@ const getLabel = (labels: Record<string, string> | null | undefined, key: string
 };
 
 export const AssessmentPreview = ({ data, onBack, isPublicView = false }: AssessmentPreviewProps) => {
-  const labels = { ...(data.translatedLabels || DEFAULT_LABELS), fullService: "Elite", usaArrivalSupport: "University Arrival Support" };
+  const labels = { ...(data.translatedLabels || DEFAULT_LABELS), fullService: "Elite", usaArrivalSupport: "University Arrival Support", satExams: "English Exams" };
   for (const key of ["yearlySupportDescription", "transferSupportDescription"]) {
     if (labels[key]?.includes("Full Service")) labels[key] = labels[key].replaceAll("Full Service", "Elite");
+  }
+  if (labels.satExamsDescription?.includes("The SAT is a standardized test")) {
+    labels.satExamsDescription = DEFAULT_LABELS.satExamsDescription;
   }
   const programMode: 'college' | 'pro' | 'both' =
     data.programMode || (data.includeProAcademy ? 'both' : 'college');

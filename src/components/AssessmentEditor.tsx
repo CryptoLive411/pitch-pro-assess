@@ -697,7 +697,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
           <p className="text-xs md:text-sm text-muted-foreground">Customize the cost amounts shown on the Estimated Costs slide. Leave blank for defaults.</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
             <div className="space-y-2">
-              <Label htmlFor="costSat">SAT Exams</Label>
+              <Label htmlFor="costSat">English Exams</Label>
               <Input
                 id="costSat"
                 value={data.costSat || ""}
