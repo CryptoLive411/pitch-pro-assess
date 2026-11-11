@@ -348,13 +348,15 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
   return (
     <>
     <section className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
+      <div className="mx-auto max-w-6xl text-center">
       <Eyebrow color={NAVY}>{t(labels, "serviceOptions", "What we do")}</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">
         {t(labels, "servicePackages", "Service packages")}
       </h2>
-      <p className="mt-3 max-w-xl text-sm md:text-base text-[#06183A]/70">
+      <p className="mt-3 mx-auto max-w-xl text-sm md:text-base text-[#06183A]/70">
         {t(labels, "choosePackage", "Choose the right package for your journey")}
       </p>
+      </div>
       <div className="mt-10">
         <div>
           <div className="grid grid-cols-[minmax(0,1.35fr)_repeat(3,minmax(0,0.8fr))] gap-1.5 md:gap-2 items-stretch">
@@ -436,7 +438,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
 function ProProcess() {
   return (
     <section className="bg-[#E6E6EA] text-[#06183A]">
-      <div className="px-5 md:px-10 pt-12 md:pt-16 pb-6">
+      <div className="px-5 md:px-10 pt-12 md:pt-16 pb-6 text-center">
         <Eyebrow color={NAVY}>Pro Pathway</Eyebrow>
         <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">The process<br />to a tryout</h2>
       </div>
@@ -461,7 +463,7 @@ function LogoRail({ title, logos }: { title: string; logos: string[] }) {
   const loop = [...logos, ...logos];
   return (
     <section className="bg-[#E6E6EA] text-[#06183A] py-12 md:py-16 overflow-hidden border-t border-[#06183A]/10">
-      <div className="px-5 md:px-10 mb-8">
+      <div className="px-5 md:px-10 mb-8 text-center">
         <h2 className="font-display font-bold uppercase text-2xl md:text-4xl">{title}</h2>
       </div>
       <div className="overflow-hidden">
@@ -496,7 +498,7 @@ function PhotoMarquee({ photos, reverse }: { photos: string[]; reverse?: boolean
 function Stories() {
   return (
     <section className="bg-[#06183A] overflow-hidden py-14 md:py-20">
-      <div className="px-5 md:px-10">
+      <div className="px-5 md:px-10 text-center">
         <Eyebrow>How we've helped</Eyebrow>
         <h2 className="font-display font-bold uppercase italic leading-none mt-2 whitespace-nowrap text-[clamp(2.1rem,7vw,4.5rem)]">The athlete first</h2>
       </div>
@@ -510,7 +512,7 @@ function Stories() {
 function Impact({ labels }: { labels: Record<string, string> }) {
   return (
     <section className="bg-[#06183A] overflow-hidden py-12 md:py-16">
-      <div className="px-5 md:px-10">
+      <div className="px-5 md:px-10 text-center">
         <Eyebrow>Our impact</Eyebrow>
         <p className="mt-3 font-display font-bold italic leading-none text-[clamp(3.2rem,7vw,5.5rem)] text-[#f9fc72]">600+</p>
         <p className="mt-2 font-display uppercase italic text-2xl md:text-3xl">
@@ -520,7 +522,7 @@ function Impact({ labels }: { labels: Record<string, string> }) {
       <div className="mt-8">
         <PhotoMarquee photos={NEWS_PHOTOS} />
       </div>
-      <h2 className="px-5 md:px-10 mt-10 font-display font-bold uppercase italic leading-[0.95] text-[clamp(1.8rem,4.2vw,3.4rem)] max-w-3xl">
+      <h2 className="px-5 md:px-10 mt-10 mx-auto text-center font-display font-bold uppercase italic leading-[0.95] text-[clamp(1.8rem,4.2vw,3.4rem)] max-w-3xl">
         {t(labels, "letsMakeYourDream", "Let's make your college soccer dream a reality")}
       </h2>
     </section>
@@ -533,7 +535,7 @@ function Statement({ labels, showCollege }: { labels: Record<string, string>; sh
     : "Your path to the professional game";
   return (
     <section className="bg-[#06183A] px-5 md:px-10 py-12 md:py-16 border-t border-white/10">
-      <h2 className="font-display font-bold uppercase italic leading-[0.95] text-[clamp(1.8rem,4.2vw,3.4rem)] max-w-3xl">
+      <h2 className="mx-auto text-center font-display font-bold uppercase italic leading-[0.95] text-[clamp(1.8rem,4.2vw,3.4rem)] max-w-3xl">
         {line}
       </h2>
     </section>
@@ -550,7 +552,10 @@ function Profile({ data, labels }: { data: AssessmentData; labels: Record<string
   ];
   return (
     <section id="profile" className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
-      <Eyebrow color={NAVY}>{t(labels, "playerProfile", "Player profile")}</Eyebrow>
+      <div className="mx-auto w-full max-w-6xl">
+      <div className="text-center">
+        <Eyebrow color={NAVY}>{t(labels, "playerProfile", "Player profile")}</Eyebrow>
+      </div>
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
         <div className="relative bg-[#06183A] min-h-[480px] md:min-h-full overflow-hidden">
           {data.playerPhoto ? (
@@ -574,6 +579,7 @@ function Profile({ data, labels }: { data: AssessmentData; labels: Record<string
           </dl>
         </div>
       </div>
+      </div>
     </section>
   );
 }
@@ -583,11 +589,14 @@ function Recommendation({ data, labels, name }: { data: AssessmentData; labels: 
   const chosen = new Set(data.targetDivisions || []);
   return (
     <section id="targets" className="bg-[#06183A] px-5 md:px-10 py-16 md:py-24">
+      <div className="mx-auto w-full max-w-6xl">
+      <div className="text-center">
       <Eyebrow>{t(labels, "ourRecommendation", "Our recommendation")}</Eyebrow>
-      <h2 className="font-display font-bold uppercase italic text-5xl md:text-8xl leading-[0.88] mt-4 max-w-4xl">{name}</h2>
-      <p className="mt-4 max-w-xl text-[#F2F1E8]/70">
+      <h2 className="font-display font-bold uppercase italic text-5xl md:text-8xl leading-[0.88] mt-4">{name}</h2>
+      <p className="mt-4 mx-auto max-w-xl text-[#F2F1E8]/70">
         The divisions chosen for this player are marked. Open any card to see scholarships, academics, and who it fits.
       </p>
+      </div>
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {DIVISION_CARDS.map((division, i) => {
           const selected = chosen.has(division.name);
@@ -618,6 +627,7 @@ function Recommendation({ data, labels, name }: { data: AssessmentData; labels: 
           );
         })}
       </div>
+      </div>
     </section>
   );
 }
@@ -643,12 +653,15 @@ function Report({ data, labels }: { data: AssessmentData; labels: Record<string,
 
   return (
     <section className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24 border-t border-[#06183A]/10">
+      <div className="mx-auto w-full max-w-4xl">
+      <div className="text-center">
       <Eyebrow color={NAVY}>{t(labels, "scoutingReport", "Scouting report")}</Eyebrow>
-      <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-[0.9] mt-2 max-w-3xl">
+      <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-[0.9] mt-2">
         {t(labels, "departmentAssessment", "Department assessment")}
       </h2>
       <p className="mt-3 text-sm text-[#06183A]/60">{t(labels, "professionalEvaluation", "Professional evaluation and recommendations")}</p>
-      <div className="mt-10 max-w-3xl divide-y divide-[#06183A]/15">
+      </div>
+      <div className="mt-10 divide-y divide-[#06183A]/15 text-left">
         {notes.length === 0 && <p className="text-[#06183A]/50">Department notes will appear here.</p>}
         {notes.map((note, i) => {
           const expanded = !!open[i];
@@ -673,7 +686,8 @@ function Report({ data, labels }: { data: AssessmentData; labels: Record<string,
           );
         })}
       </div>
-      <p className="mt-10 font-label text-[10px] tracking-[0.22em] uppercase text-[#06183A]/50">Venture USA Soccer Department · Official assessment</p>
+      <p className="mt-10 text-center font-label text-[10px] tracking-[0.22em] uppercase text-[#06183A]/50">Venture USA Soccer Department · Official assessment</p>
+      </div>
     </section>
   );
 }
@@ -689,12 +703,15 @@ function Costs({ data, labels }: { data: AssessmentData; labels: Record<string, 
   ];
   return (
     <section className="bg-[#06183A] px-5 md:px-10 py-16 md:py-24">
+      <div className="mx-auto w-full max-w-5xl">
+      <div className="text-center">
       <Eyebrow>{t(labels, "investment", "Investment")}</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">
         {t(labels, "estimatedCosts", "Estimated costs")}
       </h2>
       <p className="mt-3 text-sm text-[#F2F1E8]/70">{t(labels, "yourPathToCollegeSoccer", "Your path to college soccer in the USA")}</p>
-      <div className="mt-10 divide-y divide-white/15 max-w-4xl">
+      </div>
+      <div className="mt-10 divide-y divide-white/15 text-left">
         {items.map((item, i) => {
           const expanded = !!open[item.name];
           return (
@@ -727,7 +744,8 @@ function Costs({ data, labels }: { data: AssessmentData; labels: Record<string, 
           );
         })}
       </div>
-      <p className="mt-8 text-xs text-white/50 max-w-xl">{t(labels, "costsNote", "All costs are estimates and may vary.")}</p>
+      <p className="mt-8 text-center text-xs text-white/50">{t(labels, "costsNote", "All costs are estimates and may vary.")}</p>
+      </div>
     </section>
   );
 }
@@ -746,12 +764,15 @@ function Timeline({ labels }: { labels: Record<string, string> }) {
   ];
   return (
     <section className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
+      <div className="mx-auto w-full max-w-4xl">
+      <div className="text-center">
       <Eyebrow color={NAVY}>{t(labels, "yourJourney", "Your journey")}</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">
         {t(labels, "stepByStep", "Step by step")}
       </h2>
       <p className="mt-3 text-sm text-[#06183A]/60">2025 – 2027 {t(labels, "timeline", "Timeline")}</p>
-      <ol className="mt-10 max-w-3xl">
+      </div>
+      <ol className="mt-10 text-left">
         {steps.map(([name, when, desc], i) => (
           <li key={name} className="grid grid-cols-[auto_1fr] gap-4 py-5 border-t border-[#06183A]/15">
             <span className="font-display text-3xl" style={{ color: ["#c9aae6", "#1C5FAE", "#6ec7f9", "#4DA3FF"][i % 4] }}>{String(i + 1).padStart(2, "0")}</span>
@@ -765,7 +786,8 @@ function Timeline({ labels }: { labels: Record<string, string> }) {
           </li>
         ))}
       </ol>
-      <p className="mt-6 text-xs text-[#06183A]/50">Timeline may vary based on individual circumstances and university schedules.</p>
+      <p className="mt-6 text-center text-xs text-[#06183A]/50">Timeline may vary based on individual circumstances and university schedules.</p>
+      </div>
     </section>
   );
 }
@@ -773,10 +795,13 @@ function Timeline({ labels }: { labels: Record<string, string> }) {
 function ProWhy() {
   return (
     <section className="bg-[#06183A] px-5 md:px-10 py-16 md:py-24">
+      <div className="mx-auto w-full max-w-4xl">
+      <div className="text-center">
       <Eyebrow>Pro Pathway</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-[0.9] mt-2">Why working<br />with us</h2>
       <p className="mt-3 text-sm text-white/60">Honest evaluation — even when it's hard.</p>
-      <ol className="mt-10 max-w-3xl">
+      </div>
+      <ol className="mt-10 text-left">
         {PRO_WHY.map((item, i) => (
           <li key={item} className="grid grid-cols-[auto_1fr] gap-4 py-4 border-t border-white/15">
             <span className="font-display text-3xl" style={{ color: ACCENTS[i % 4] }}>{String(i + 1).padStart(2, "0")}</span>
@@ -784,6 +809,7 @@ function ProWhy() {
           </li>
         ))}
       </ol>
+      </div>
     </section>
   );
 }
@@ -791,9 +817,11 @@ function ProWhy() {
 function ProIncluded() {
   return (
     <section className="bg-[#E6E6EA] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
+      <div className="mx-auto max-w-6xl text-center">
       <Eyebrow color={NAVY}>Pro Pathway</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">Everything<br />included</h2>
-      <p className="mt-3 max-w-xl text-sm text-[#06183A]/70">Every tryout package covers the essentials so the only thing on your mind is football.</p>
+      <p className="mt-3 mx-auto max-w-xl text-sm text-[#06183A]/70">Every tryout package covers the essentials so the only thing on your mind is football.</p>
+      </div>
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {PRO_INCLUDED.map((item, i) => (
           <article key={item.title} className="bg-[#06183A] text-[#F2F1E8] p-6 min-h-[200px] flex flex-col justify-between">
@@ -812,9 +840,11 @@ function ProIncluded() {
 function ProClubs() {
   return (
     <section className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-20">
+      <div className="mx-auto max-w-6xl text-center">
       <Eyebrow color={NAVY}>Pro Pathway</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">+20 pro<br />club partners</h2>
-      <p className="mt-3 max-w-xl text-sm text-[#06183A]/70">A growing international network creating real opportunities for evaluation, development and progression.</p>
+      <p className="mt-3 mx-auto max-w-xl text-sm text-[#06183A]/70">A growing international network creating real opportunities for evaluation, development and progression.</p>
+      </div>
       <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
         {PRO_CLUBS.map((club) => (
           <div key={club.name} className="bg-white border border-[#06183A]/10 p-4 flex flex-col items-center text-center min-h-[160px] justify-center">
@@ -840,12 +870,15 @@ function ProPricing({ price, sym, addon }: { price?: string; sym: string; addon:
   const perks = ["Player Evaluation", "Transportation", "Accommodation", "Meal Plan", "Tryout Support"];
   return (
     <section className="bg-[#06183A] px-5 md:px-10 py-16 md:py-24">
+      <div className="mx-auto w-full max-w-4xl">
+      <div className="text-center">
       <Eyebrow>{addon ? "Pro Pathway add-on" : "Pro Pathway · packages"}</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">Tryout<br />packages</h2>
       {price?.trim() && (
         <p className="mt-4 text-white/75">Investment from <span className="text-[#f9fc72] font-display text-3xl">{sym}{price}</span></p>
       )}
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl">
+      </div>
+      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
         {tiers.map((tier) => (
           <article key={tier.name} className={`p-6 md:p-8 ${tier.featured ? "bg-[#F2F1E8] text-[#06183A]" : "border border-white/20"}`}>
             <h3 className="font-display font-bold uppercase italic text-4xl leading-none">{tier.name}</h3>
@@ -857,7 +890,8 @@ function ProPricing({ price, sym, addon }: { price?: string; sym: string; addon:
           </article>
         ))}
       </div>
-      <p className="mt-6 text-xs text-white/50">Flights, taxes and wire fees not included. Final pricing confirmed after consultation.</p>
+      <p className="mt-6 text-center text-xs text-white/50">Flights, taxes and wire fees not included. Final pricing confirmed after consultation.</p>
+      </div>
     </section>
   );
 }
@@ -865,7 +899,7 @@ function ProPricing({ price, sym, addon }: { price?: string; sym: string; addon:
 function QuoteRail() {
   return (
     <section className="bg-[#E6E6EA] text-[#06183A] py-16">
-      <div className="px-5 md:px-10 mb-8">
+      <div className="px-5 md:px-10 mb-8 text-center">
         <Eyebrow color={NAVY}>More from our athletes</Eyebrow>
         <h2 className="font-display font-bold uppercase italic text-5xl md:text-6xl leading-none mt-2">Hear from<br />even more</h2>
       </div>
