@@ -15,6 +15,7 @@ export default {
     extend: {
       fontFamily: {
         display: ['"Barlow Condensed"', '"Arial Narrow"', "sans-serif"],
+        body: ['"IBM Plex Sans"', "ui-sans-serif", "system-ui", "sans-serif"],
         label: ['"IBM Plex Mono"', "ui-monospace", "monospace"],
       },
       colors: {

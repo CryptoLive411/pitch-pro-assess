@@ -207,7 +207,7 @@ export default function DivisionInfo() {
 
   if (!info) {
     return (
-      <div className="min-h-screen bg-[#06183A] text-[#F2F1E8] font-label flex flex-col">
+      <div className="min-h-screen bg-[#06183A] text-[#F2F1E8] font-body flex flex-col">
         <header className="flex items-center justify-between px-4 md:px-8 py-3 border-b border-white/10">
           <button type="button" onClick={handleBack} className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.18em]">
             <ArrowLeft className="h-4 w-4" />
@@ -225,7 +225,7 @@ export default function DivisionInfo() {
   }
 
   return (
-    <div className="min-h-screen bg-[#06183A] text-[#F2F1E8] font-label">
+    <div className="min-h-screen bg-[#06183A] text-[#F2F1E8] font-body">
       <header className="sticky top-0 z-40 flex items-center justify-between gap-3 px-4 md:px-8 py-3 bg-[#06183A] border-b border-white/10">
         <button
           type="button"

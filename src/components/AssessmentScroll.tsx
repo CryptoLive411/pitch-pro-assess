@@ -260,7 +260,7 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
   }, [location.state]);
 
   return (
-    <div className="assessment-scroll font-label">
+    <div className="assessment-scroll font-body">
       <header className="sticky top-0 z-40 flex items-center justify-between gap-3 px-4 md:px-8 py-3 bg-[#06183A] border-b border-white/10">
         <div className="flex items-center gap-3 min-w-0">
           {!isPublicView && (
