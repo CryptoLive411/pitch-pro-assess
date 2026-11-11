@@ -277,172 +277,51 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
   );
 };
 
-const HERO_VIDEO_ID = "GWA615LZP-c";
-const HERO_VIDEO_START = 3 * 60 + 44;
-
-type HeroPlayer = {
-  mute: () => void;
-  seekTo: (seconds: number, allowSeekAhead: boolean) => void;
-  playVideo: () => void;
-  pauseVideo: () => void;
-  destroy: () => void;
-  getCurrentTime: () => number;
-  getDuration: () => number;
-  unloadModule: (module: string) => void;
-  setOption: (module: string, option: string, value: unknown) => void;
-};
-
-function hideCaptions(player: HeroPlayer) {
-  try {
-    player.unloadModule("captions");
-    player.unloadModule("cc");
-    player.setOption("captions", "track", {});
-  } catch {
-    // The captions module is not ready on the first call.
-  }
-}
-
-declare global {
-  interface Window {
-    YT?: {
-      Player: new (el: HTMLElement, options: Record<string, unknown>) => HeroPlayer;
-      PlayerState: { ENDED: number };
-    };
-    onYouTubeIframeAPIReady?: () => void;
-  }
-}
-
 function HeroVideo() {
-  const hostRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
-  const playerRef = useRef<HeroPlayer | null>(null);
 
   useEffect(() => {
+    const video = videoRef.current;
+    const frame = frameRef.current;
+    if (!video || !frame) return;
+
+    video.muted = true;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return;
-
-    let player: HeroPlayer | undefined;
-    let cancelled = false;
-    let loopLock = false;
-    let loopTimer = 0;
-
-    const restartFromMark = (target: HeroPlayer, resume: boolean) => {
-      if (loopLock) return;
-      loopLock = true;
-      target.seekTo(HERO_VIDEO_START, true);
-      if (resume) target.playVideo();
-      window.setTimeout(() => {
-        loopLock = false;
-      }, 1200);
-    };
-
-    const mount = () => {
-      if (cancelled || !hostRef.current || !window.YT?.Player) return;
-      player = new window.YT.Player(hostRef.current, {
-        videoId: HERO_VIDEO_ID,
-        width: "100%",
-        height: "100%",
-        host: "https://www.youtube-nocookie.com",
-        playerVars: {
-          autoplay: 1,
-          mute: 1,
-          controls: 0,
-          start: HERO_VIDEO_START,
-          modestbranding: 1,
-          playsinline: 1,
-          rel: 0,
-          iv_load_policy: 3,
-          disablekb: 1,
-          fs: 0,
-          cc_load_policy: 0,
-        },
-        events: {
-          onReady: (event: { target: HeroPlayer }) => {
-            playerRef.current = event.target;
-            hideCaptions(event.target);
-            event.target.mute();
-            event.target.seekTo(HERO_VIDEO_START, true);
-            event.target.playVideo();
-          },
-          onApiChange: (event: { target: HeroPlayer }) => {
-            hideCaptions(event.target);
-          },
-          onStateChange: (event: { data: number; target: HeroPlayer }) => {
-            if (event.data !== window.YT?.PlayerState.ENDED) return;
-            if (loopLock) {
-              event.target.playVideo();
-              return;
-            }
-            restartFromMark(event.target, true);
-          },
-        },
-      });
-    };
-
-    if (window.YT?.Player) {
-      mount();
-    } else {
-      const previous = window.onYouTubeIframeAPIReady;
-      window.onYouTubeIframeAPIReady = () => {
-        previous?.();
-        mount();
-      };
-      if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
-        const tag = document.createElement("script");
-        tag.src = "https://www.youtube.com/iframe_api";
-        document.head.appendChild(tag);
-      }
+    if (reduceMotion) {
+      video.pause();
+      return;
     }
 
-    loopTimer = window.setInterval(() => {
-      const current = playerRef.current;
-      if (!current || loopLock) return;
-      let time = 0;
-      let duration = 0;
-      try {
-        time = current.getCurrentTime();
-        duration = current.getDuration();
-      } catch {
-        return;
-      }
-      // Seek before the video ends so YouTube never shows the suggested-video screen.
-      if (duration > HERO_VIDEO_START + 5 && time >= duration - 1) {
-        restartFromMark(current, false);
-      }
-    }, 200);
-
-    const frame = frameRef.current;
-    const observer = new IntersectionObserver(([entry]) => {
-      const current = playerRef.current;
-      if (!current) return;
-      try {
-        if (entry.isIntersecting) current.playVideo();
-        else current.pauseVideo();
-      } catch {
-        // Player is not ready yet.
-      }
-    }, { threshold: 0.15 });
-    if (frame) observer.observe(frame);
-
-    return () => {
-      cancelled = true;
-      window.clearInterval(loopTimer);
-      observer.disconnect();
-      playerRef.current = null;
-      player?.destroy();
+    const play = () => {
+      const attempt = video.play();
+      if (attempt) attempt.catch(() => {});
     };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) play();
+      else video.pause();
+    }, { threshold: 0.15 });
+    observer.observe(frame);
+    play();
+
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div ref={frameRef} className="absolute inset-0 overflow-hidden" aria-hidden>
-      <img
-        src={`https://i.ytimg.com/vi/${HERO_VIDEO_ID}/hqdefault.jpg`}
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover"
+      <video
+        ref={videoRef}
+        className="absolute inset-0 h-full w-full object-cover pointer-events-none"
+        src="/venture-assessment.mp4"
+        poster="/venture-assessment-poster.jpg"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        disablePictureInPicture
       />
-      <div className="absolute left-1/2 top-1/2 h-[56.25vw] w-screen min-h-full min-w-[177.78vh] -translate-x-1/2 -translate-y-1/2 [&_iframe]:pointer-events-none [&_iframe]:h-full [&_iframe]:w-full">
-        <div ref={hostRef} className="h-full w-full" />
-      </div>
     </div>
   );
 }
