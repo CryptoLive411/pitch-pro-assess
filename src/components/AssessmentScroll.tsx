@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ChevronDown } from "lucide-react";
 import { AssessmentData } from "./AssessmentEditor";
 import { Button } from "@/components/ui/button";
 import ventureLogo from "@/assets/venture-logo-white.png";
@@ -665,6 +665,7 @@ function Report({ data, labels }: { data: AssessmentData; labels: Record<string,
 }
 
 function Costs({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) {
+  const [open, setOpen] = useState<Record<string, boolean>>({});
   const items = [
     { name: t(labels, "satExams", "SAT Exams"), amount: money(data.currency, data.costSat, "200-400"), status: t(labels, "satExamsStatus", "1-3 exams"), description: t(labels, "satExamsDescription", "The SAT is a standardized test that students may have to take to get accepted into certain schools. This score helps universities evaluate academic readiness.") },
     { name: t(labels, "applications", "Applications"), amount: money(data.currency, data.costApplications, "300-500"), status: t(labels, "applicationsStatus", "4-6 schools"), description: t(labels, "applicationsDescription", "Application fees for submitting your profile to multiple universities. Each school charges an application fee to process your admission materials.") },
@@ -680,17 +681,37 @@ function Costs({ data, labels }: { data: AssessmentData; labels: Record<string, 
       </h2>
       <p className="mt-3 text-sm text-[#F2F1E8]/70">{t(labels, "yourPathToCollegeSoccer", "Your path to college soccer in the USA")}</p>
       <div className="mt-10 divide-y divide-white/15 max-w-4xl">
-        {items.map((item, i) => (
-          <div key={item.name} className="py-6 grid grid-cols-1 md:grid-cols-[auto_1fr_auto] gap-3 md:gap-8 items-start">
-            <span className="font-display text-3xl text-[#6ec7f9]">{String(i + 1).padStart(2, "0")}</span>
-            <div>
-              <p className="font-display font-bold uppercase text-2xl md:text-3xl">{item.name}</p>
-              <p className="font-label text-[10px] tracking-[0.22em] uppercase text-white/50 mt-1">{item.status}</p>
-              <p className="mt-2 text-sm text-white/70 max-w-xl leading-relaxed">{item.description}</p>
-            </div>
-            <p className="font-display text-3xl md:text-4xl text-[#f9fc72]">{item.amount}</p>
-          </div>
-        ))}
+        {items.map((item, i) => {
+          const expanded = !!open[item.name];
+          return (
+            <button
+              key={item.name}
+              type="button"
+              aria-expanded={expanded}
+              onClick={() => setOpen((current) => ({ ...current, [item.name]: !current[item.name] }))}
+              className="w-full py-5 text-left"
+            >
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-4 min-w-0">
+                  <span className="font-display text-3xl text-[#6ec7f9]">{String(i + 1).padStart(2, "0")}</span>
+                  <div className="min-w-0">
+                    <p className="font-display font-bold uppercase text-2xl md:text-3xl leading-none">{item.name}</p>
+                    <p className="font-label text-[10px] tracking-[0.22em] uppercase text-white/50 mt-1">{item.status}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 shrink-0">
+                  <p className="font-display text-3xl md:text-4xl text-[#f9fc72]">{item.amount}</p>
+                  <ChevronDown className={`h-5 w-5 text-[#F2F1E8]/70 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
+                </div>
+              </div>
+              <div className={`grid transition-[grid-template-rows] duration-200 ${expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                <div className="overflow-hidden">
+                  <p className="pt-3 pl-12 md:pl-14 max-w-xl text-sm leading-relaxed text-white/70">{item.description}</p>
+                </div>
+              </div>
+            </button>
+          );
+        })}
       </div>
       <p className="mt-8 text-xs text-white/50 max-w-xl">{t(labels, "costsNote", "All costs are estimates and may vary.")}</p>
     </section>

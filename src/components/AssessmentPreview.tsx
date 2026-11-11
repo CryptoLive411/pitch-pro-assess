@@ -58,7 +58,7 @@ const DEFAULT_LABELS: Record<string, string> = {
   universityYearlyBudget: "University Yearly Budget",
   universityYearlyBudgetStatus: "Varies",
   universityYearlyBudgetDescription: "Average yearly cost after scholarships, discussed with family. Some students earn full scholarships while others may not receive any financial aid.",
-  costsNote: "All costs are estimates and may vary. Click the info buttons for details.",
+  costsNote: "All costs are estimates and may vary.",
   note: "Note",
   
   // Packages slide
