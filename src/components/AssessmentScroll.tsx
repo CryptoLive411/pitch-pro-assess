@@ -286,6 +286,8 @@ type HeroPlayer = {
   playVideo: () => void;
   pauseVideo: () => void;
   destroy: () => void;
+  getCurrentTime: () => number;
+  getDuration: () => number;
   unloadModule: (module: string) => void;
   setOption: (module: string, option: string, value: unknown) => void;
 };
@@ -321,6 +323,18 @@ function HeroVideo() {
 
     let player: HeroPlayer | undefined;
     let cancelled = false;
+    let loopLock = false;
+    let loopTimer = 0;
+
+    const restartFromMark = (target: HeroPlayer, resume: boolean) => {
+      if (loopLock) return;
+      loopLock = true;
+      target.seekTo(HERO_VIDEO_START, true);
+      if (resume) target.playVideo();
+      window.setTimeout(() => {
+        loopLock = false;
+      }, 1200);
+    };
 
     const mount = () => {
       if (cancelled || !hostRef.current || !window.YT?.Player) return;
@@ -354,11 +368,12 @@ function HeroVideo() {
             hideCaptions(event.target);
           },
           onStateChange: (event: { data: number; target: HeroPlayer }) => {
-            hideCaptions(event.target);
-            if (event.data === window.YT?.PlayerState.ENDED) {
-              event.target.seekTo(HERO_VIDEO_START, true);
+            if (event.data !== window.YT?.PlayerState.ENDED) return;
+            if (loopLock) {
               event.target.playVideo();
+              return;
             }
+            restartFromMark(event.target, true);
           },
         },
       });
@@ -379,6 +394,23 @@ function HeroVideo() {
       }
     }
 
+    loopTimer = window.setInterval(() => {
+      const current = playerRef.current;
+      if (!current || loopLock) return;
+      let time = 0;
+      let duration = 0;
+      try {
+        time = current.getCurrentTime();
+        duration = current.getDuration();
+      } catch {
+        return;
+      }
+      // Seek before the video ends so YouTube never shows the suggested-video screen.
+      if (duration > HERO_VIDEO_START + 5 && time >= duration - 1) {
+        restartFromMark(current, false);
+      }
+    }, 200);
+
     const frame = frameRef.current;
     const observer = new IntersectionObserver(([entry]) => {
       const current = playerRef.current;
@@ -394,6 +426,7 @@ function HeroVideo() {
 
     return () => {
       cancelled = true;
+      window.clearInterval(loopTimer);
       observer.disconnect();
       playerRef.current = null;
       player?.destroy();
