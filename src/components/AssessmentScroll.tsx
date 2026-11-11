@@ -382,9 +382,9 @@ function Hero({ labels, showPro, showCollege }: { labels: Record<string, string>
 function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; labels: Record<string, string>; showProAddon: boolean; sym: string }) {
   const [open, setOpen] = useState<string | null>(null);
   const packages = [
-    { key: "p1", num: "01", title: t(labels, "fullService", "Full Service"), price: data.packagePrice1, idx: 0, bg: "linear-gradient(165deg, #F8E7A8 0%, #E0BE4A 55%, #C9962A 100%)", ink: "#6E5010" },
-    { key: "p2", num: "02", title: t(labels, "standard", "Standard"), price: data.packagePrice2, idx: 1, bg: "linear-gradient(165deg, #F7F8FA 0%, #D5DBE3 55%, #B7C0CA 100%)", ink: "#4E5966" },
-    { key: "p3", num: "03", title: t(labels, "essential", "Essential"), price: data.packagePrice3, idx: 2, bg: "linear-gradient(165deg, #F0D0B0 0%, #C9844A 55%, #A86A32 100%)", ink: "#6A3A16" },
+    { key: "p1", num: "01", title: t(labels, "fullService", "Full Service"), price: data.packagePrice1, idx: 0, bg: "linear-gradient(165deg, #1C5FAE 0%, #12448A 55%, #0B2F66 100%)", color: "#F2F1E8", ink: "#D5E8FA" },
+    { key: "p2", num: "02", title: t(labels, "standard", "Standard"), price: data.packagePrice2, idx: 1, bg: "linear-gradient(165deg, #B7E6FC 0%, #6EC7F9 55%, #3AABEA 100%)", color: "#06183A", ink: "#0A3A66" },
+    { key: "p3", num: "03", title: t(labels, "essential", "Essential"), price: data.packagePrice3, idx: 2, bg: "linear-gradient(165deg, #F4FAFE 0%, #D4ECF8 55%, #B7D9EF 100%)", color: "#06183A", ink: "#3D6F92" },
   ];
 
   const packageLabels = ["package1", "package2", "package3"];
@@ -406,7 +406,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
               {t(labels, "service", "Service")}
             </p>
             {packages.map((pkg) => (
-              <div key={pkg.key} className="px-2 py-3 md:px-3 md:py-4 text-[#06183A]" style={{ background: pkg.bg }}>
+              <div key={pkg.key} className="px-2 py-3 md:px-3 md:py-4" style={{ background: pkg.bg, color: pkg.color }}>
                 <p className="font-label text-[9px] md:text-[10px] tracking-[0.18em] uppercase" style={{ color: pkg.ink }}>
                   {t(labels, packageLabels[pkg.idx], `Package ${pkg.idx + 1}`)}
                 </p>
@@ -414,7 +414,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                 {pkg.price?.trim() && (
                   <p className="mt-2 font-display text-base md:text-xl leading-none">
                     {sym}{pkg.price}
-                    <span className="block font-label text-[9px] tracking-[0.18em] uppercase text-[#06183A]/55 mt-1">+7% for tax</span>
+                    <span className="block font-label text-[9px] tracking-[0.18em] uppercase opacity-70 mt-1">+7% for tax</span>
                   </p>
                 )}
               </div>
