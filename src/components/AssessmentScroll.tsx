@@ -405,7 +405,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
   }, 0);
   const extrasTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (!extra.monthly && !extra.quote && picked.includes(extra.id) ? sum + extra.price : sum), 0);
   const monthlyTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (extra.monthly && picked.includes(extra.id) ? sum + extra.price : sum), 0);
-  const customTotal = essentialAmount + addedServices + extrasTotal;
+  const customTotal = essentialAmount + addedServices;
   const canSaveChoices = Boolean(data.slug && data.slug !== "sample");
 
   useEffect(() => {
@@ -571,7 +571,8 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
         <div className="mt-8">
           <div className="text-center">
             <h3 className="font-display font-bold uppercase italic text-4xl md:text-6xl leading-none">Venture Performance</h3>
-            <p className="mt-4 font-display font-bold text-4xl md:text-5xl leading-none">{sym}{formatAmount(monthlyTotal)}<span className="text-2xl md:text-3xl">/mo</span></p>
+            <p className="mt-4 font-display font-bold text-4xl md:text-5xl leading-none">{sym}{formatAmount(extrasTotal)}</p>
+            <p className="mt-2 font-display font-bold text-3xl md:text-4xl leading-none">{sym}{formatAmount(monthlyTotal)}<span className="text-2xl md:text-3xl">/mo</span></p>
             {canSaveChoices && choiceStatus === "saved" && (
               <p className="mt-2 text-xs text-[#06183A]/60">Saved on this link</p>
             )}
