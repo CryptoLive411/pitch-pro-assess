@@ -97,7 +97,7 @@ const DEFAULT_LABELS: Record<string, string> = {
   universityPlacement: "University Placement",
   universityPlacementDescription: "End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.",
   transferSupport: "Transfer Support",
-  transferSupportDescription: "Support through one college transfer if you move to a new program. Included with Elite.",
+  transferSupportDescription: "Support through one college transfer if you move to a new program. Included with Elite and Standard.",
   
   // Timeline slide
   yourJourney: "YOUR JOURNEY",

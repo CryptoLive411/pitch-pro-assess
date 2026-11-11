@@ -112,10 +112,10 @@ const COLLEGE_SERVICES = [
   { id: "coach", name: "Coach Connections", description: "Direct introductions and ongoing communication with college coaches who match your athletic and academic profile.", p: [true, true, true] },
   { id: "eligibility", name: "Eligibility Center", description: "Complete support with NCAA Eligibility Center registration and requirements to ensure you can compete collegiately.", p: [true, false, false] },
   { id: "scholarship", name: "Scholarship Offers", description: "Strategic guidance to secure the best possible scholarship offers and financial aid packages from universities.", p: [true, true, true] },
-  { id: "visa", name: "VISA Support", description: "Complete assistance with F-1 Student Visa application process, documentation, and interview preparation.", p: [true, true, false] },
+  { id: "visa", name: "VISA Support", description: "Complete assistance with F-1 Student Visa application process, documentation, and interview preparation.", p: [true, false, false] },
   { id: "arrival", name: "USA Arrival Support", description: "Help with logistics and orientation when arriving in the USA, ensuring a smooth transition to your new university.", p: [true, true, false] },
   { id: "placement", name: "University Placement", description: "End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.", p: [true, true, true] },
-  { id: "transferSupport", name: "Transfer Support", description: "Support through one college transfer if you move to a new program. Included with Elite.", p: [true, false, false] },
+  { id: "transferSupport", name: "Transfer Support", description: "Support through one college transfer if you move to a new program. Included with Elite and Standard.", p: [true, true, false] },
 ];
 
 const SUPPORT_NOTES = [
