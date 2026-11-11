@@ -285,7 +285,19 @@ type HeroPlayer = {
   seekTo: (seconds: number, allowSeekAhead: boolean) => void;
   playVideo: () => void;
   destroy: () => void;
+  unloadModule: (module: string) => void;
+  setOption: (module: string, option: string, value: unknown) => void;
 };
+
+function hideCaptions(player: HeroPlayer) {
+  try {
+    player.unloadModule("captions");
+    player.unloadModule("cc");
+    player.setOption("captions", "track", {});
+  } catch {
+    // The captions module is not ready on the first call.
+  }
+}
 
 declare global {
   interface Window {
@@ -325,14 +337,20 @@ function HeroVideo() {
           iv_load_policy: 3,
           disablekb: 1,
           fs: 0,
+          cc_load_policy: 0,
         },
         events: {
           onReady: (event: { target: HeroPlayer }) => {
+            hideCaptions(event.target);
             event.target.mute();
             event.target.seekTo(HERO_VIDEO_START, true);
             event.target.playVideo();
           },
+          onApiChange: (event: { target: HeroPlayer }) => {
+            hideCaptions(event.target);
+          },
           onStateChange: (event: { data: number; target: HeroPlayer }) => {
+            hideCaptions(event.target);
             if (event.data === window.YT?.PlayerState.ENDED) {
               event.target.seekTo(HERO_VIDEO_START, true);
               event.target.playVideo();
