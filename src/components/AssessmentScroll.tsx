@@ -233,7 +233,7 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
 
   return (
     <div className="assessment-scroll font-label">
-      <header className="sticky top-0 z-40 flex items-center justify-between gap-3 px-4 md:px-8 py-3 bg-[#06183A]/90 backdrop-blur border-b border-white/10">
+      <header className="sticky top-0 z-40 flex items-center justify-between gap-3 px-4 md:px-8 py-3 bg-[#06183A] border-b border-white/10">
         <div className="flex items-center gap-3 min-w-0">
           {!isPublicView && (
             <Button onClick={onBack} variant="ghost" className="text-[#F2F1E8] hover:bg-white/10 hover:text-white px-2 md:px-3">
@@ -284,6 +284,7 @@ type HeroPlayer = {
   mute: () => void;
   seekTo: (seconds: number, allowSeekAhead: boolean) => void;
   playVideo: () => void;
+  pauseVideo: () => void;
   destroy: () => void;
   unloadModule: (module: string) => void;
   setOption: (module: string, option: string, value: unknown) => void;
@@ -311,6 +312,8 @@ declare global {
 
 function HeroVideo() {
   const hostRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const playerRef = useRef<HeroPlayer | null>(null);
 
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -341,6 +344,7 @@ function HeroVideo() {
         },
         events: {
           onReady: (event: { target: HeroPlayer }) => {
+            playerRef.current = event.target;
             hideCaptions(event.target);
             event.target.mute();
             event.target.seekTo(HERO_VIDEO_START, true);
@@ -375,14 +379,29 @@ function HeroVideo() {
       }
     }
 
+    const frame = frameRef.current;
+    const observer = new IntersectionObserver(([entry]) => {
+      const current = playerRef.current;
+      if (!current) return;
+      try {
+        if (entry.isIntersecting) current.playVideo();
+        else current.pauseVideo();
+      } catch {
+        // Player is not ready yet.
+      }
+    }, { threshold: 0.15 });
+    if (frame) observer.observe(frame);
+
     return () => {
       cancelled = true;
+      observer.disconnect();
+      playerRef.current = null;
       player?.destroy();
     };
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden" aria-hidden>
+    <div ref={frameRef} className="absolute inset-0 overflow-hidden" aria-hidden>
       <img
         src={`https://i.ytimg.com/vi/${HERO_VIDEO_ID}/hqdefault.jpg`}
         alt=""
@@ -397,7 +416,7 @@ function HeroVideo() {
 
 function Hero({ data, labels, name, showPro, showCollege }: { data: AssessmentData; labels: Record<string, string>; name: string; showPro: boolean; showCollege: boolean }) {
   return (
-    <section data-snap className="relative min-h-[calc(100dvh+24px)] -mt-16 pt-16 flex items-center justify-center px-5 pb-16 overflow-hidden">
+    <section className="relative min-h-[calc(100svh-4rem)] flex items-center justify-center px-5 py-16 overflow-hidden">
       <HeroVideo />
       <div className="absolute inset-0 bg-gradient-to-b from-[#06183A]/55 via-[#06183A]/40 to-[#06183A]/75" />
       <div className="relative z-10 w-full text-center">
@@ -432,7 +451,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
   ];
 
   return (
-    <section data-snap className="bg-[#E6E6EA] text-[#06183A]">
+    <section className="bg-[#E6E6EA] text-[#06183A]">
       <div className="px-5 md:px-10 pt-12 md:pt-16">
         <Eyebrow color={NAVY}>{t(labels, "serviceOptions", "What we do")}</Eyebrow>
         <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">
@@ -499,7 +518,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
 
 function ProProcess() {
   return (
-    <section data-snap className="bg-[#E6E6EA] text-[#06183A]">
+    <section className="bg-[#E6E6EA] text-[#06183A]">
       <div className="px-5 md:px-10 pt-12 md:pt-16 pb-6">
         <Eyebrow color={NAVY}>Pro Pathway</Eyebrow>
         <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">The process<br />to a tryout</h2>
@@ -541,14 +560,14 @@ function LogoRail({ title, logos }: { title: string; logos: string[] }) {
 
 function Stories() {
   return (
-    <section data-snap className="bg-[#06183A]">
+    <section className="bg-[#06183A]">
       <div className="px-5 md:px-10 pt-14 md:pt-20">
         <Eyebrow>How we've helped</Eyebrow>
         <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">The athlete<br />first</h2>
       </div>
-      <div className="mt-8 flex gap-4 overflow-x-auto snap-x snap-mandatory px-5 md:px-10 pb-14">
+      <div className="assessment-rail mt-8 flex gap-4 px-5 md:px-10 pb-14">
         {PHOTO_STORIES.map((story) => (
-          <article key={story.name} className="snap-start shrink-0 w-[86vw] md:w-[640px] bg-white text-[#06183A]">
+          <article key={story.name} className="shrink-0 w-[86vw] md:w-[640px] bg-white text-[#06183A]">
             <img src={story.image} alt={story.name} className="w-full h-[360px] object-cover object-top" />
             <div className="p-6 md:p-8">
               <p className="font-label text-[10px] tracking-[0.28em] uppercase text-[#06183A]/50">Success story</p>
@@ -559,7 +578,7 @@ function Stories() {
           </article>
         ))}
         {PLACED.map((player) => (
-          <article key={player.name} className="snap-start shrink-0 w-[78vw] md:w-[420px] relative min-h-[560px] bg-black">
+          <article key={player.name} className="shrink-0 w-[78vw] md:w-[420px] relative min-h-[560px] bg-black">
             <img src={player.image} alt={player.name} className="absolute inset-0 w-full h-full object-contain" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
             <div className="absolute bottom-0 p-6 text-[#F2F1E8]">
@@ -576,7 +595,7 @@ function Stories() {
 
 function Impact({ labels }: { labels: Record<string, string> }) {
   return (
-    <section data-snap className="min-h-[70vh] bg-[#06183A] px-5 md:px-10 py-20 flex flex-col justify-end">
+    <section className="min-h-[70vh] bg-[#06183A] px-5 md:px-10 py-20 flex flex-col justify-end">
       <Eyebrow>Our impact</Eyebrow>
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-10">
         <div>
@@ -600,7 +619,7 @@ function Statement({ labels, showCollege }: { labels: Record<string, string>; sh
     : "Your path to the professional game";
   const words = line.split(" ");
   return (
-    <section data-snap className="min-h-[80vh] bg-[#06183A] px-5 md:px-10 py-20 flex items-center">
+    <section className="min-h-[80vh] bg-[#06183A] px-5 md:px-10 py-20 flex items-center">
       <h2 className="font-display font-bold uppercase italic leading-[0.86] text-[clamp(3.4rem,9vw,8rem)] max-w-5xl">
         {words.map((word, i) => (
           <span key={`${word}-${i}`} className="block">{word}</span>
@@ -619,7 +638,7 @@ function Profile({ data, labels }: { data: AssessmentData; labels: Record<string
     ...(data.budget?.trim() ? [[t(labels, "budget", "Budget"), data.budget]] : []),
   ];
   return (
-    <section data-snap id="profile" className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
+    <section id="profile" className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
       <Eyebrow color={NAVY}>{t(labels, "playerProfile", "Player profile")}</Eyebrow>
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
         <div className="bg-[#06183A] min-h-[420px] flex items-center justify-center overflow-hidden">
@@ -651,7 +670,7 @@ function Profile({ data, labels }: { data: AssessmentData; labels: Record<string
 function Recommendation({ data, labels, name }: { data: AssessmentData; labels: Record<string, string>; name: string }) {
   const divisions = data.targetDivisions?.length ? data.targetDivisions : [];
   return (
-    <section data-snap className="bg-[#06183A] px-5 md:px-10 py-20">
+    <section className="bg-[#06183A] px-5 md:px-10 py-20">
       <Eyebrow>{t(labels, "ourRecommendation", "Our recommendation")}</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-8xl leading-[0.88] mt-4 max-w-4xl">{name}</h2>
       <p className="mt-4 text-[#F2F1E8]/70">Player assessment and recommendation · Venture USA</p>
@@ -674,7 +693,7 @@ function Recommendation({ data, labels, name }: { data: AssessmentData; labels: 
 
 function Targets({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) {
   return (
-    <section id="targets" data-snap className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
+    <section id="targets" className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
       <Eyebrow color={NAVY}>{t(labels, "placementTargets", "Placement targets")}</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">
         {t(labels, "targetDivisions", "Target divisions")}
@@ -708,7 +727,7 @@ function Targets({ data, labels }: { data: AssessmentData; labels: Record<string
 function Report({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) {
   const paragraphs = (data.departmentNotes || "").split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
   return (
-    <section data-snap className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24 border-t border-[#06183A]/10">
+    <section className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24 border-t border-[#06183A]/10">
       <Eyebrow color={NAVY}>{t(labels, "scoutingReport", "Scouting report")}</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-[0.9] mt-2 max-w-3xl">
         {t(labels, "departmentAssessment", "Department assessment")}
@@ -737,7 +756,7 @@ function Costs({ data, labels }: { data: AssessmentData; labels: Record<string, 
     { name: t(labels, "universityYearlyBudget", "University Yearly Budget"), amount: money(data.currency, data.costUniversity, "10K-20K"), status: t(labels, "universityYearlyBudgetStatus", "Varies"), description: t(labels, "universityYearlyBudgetDescription", "Average yearly cost after scholarships, discussed with family. Some students earn full scholarships while others may not receive any financial aid.") },
   ];
   return (
-    <section data-snap className="bg-[#06183A] px-5 md:px-10 py-16 md:py-24">
+    <section className="bg-[#06183A] px-5 md:px-10 py-16 md:py-24">
       <Eyebrow>{t(labels, "investment", "Investment")}</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">
         {t(labels, "estimatedCosts", "Estimated costs")}
@@ -774,7 +793,7 @@ function Timeline({ labels }: { labels: Record<string, string> }) {
     [t(labels, "startCollegeJourney", "Start College Journey"), "August", t(labels, "startCollegeJourneyDescription", "Arrival at your university, orientation, meeting your team, and beginning your college soccer and academic career in the USA.")],
   ];
   return (
-    <section data-snap className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
+    <section className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
       <Eyebrow color={NAVY}>{t(labels, "yourJourney", "Your journey")}</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">
         {t(labels, "stepByStep", "Step by step")}
@@ -801,7 +820,7 @@ function Timeline({ labels }: { labels: Record<string, string> }) {
 
 function ProWhy() {
   return (
-    <section data-snap className="bg-[#06183A] px-5 md:px-10 py-16 md:py-24">
+    <section className="bg-[#06183A] px-5 md:px-10 py-16 md:py-24">
       <Eyebrow>Pro Pathway</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-[0.9] mt-2">Why working<br />with us</h2>
       <p className="mt-3 text-sm text-white/60">Honest evaluation — even when it's hard.</p>
@@ -868,7 +887,7 @@ function ProPricing({ price, sym, addon }: { price?: string; sym: string; addon:
   ];
   const perks = ["Player Evaluation", "Transportation", "Accommodation", "Meal Plan", "Tryout Support"];
   return (
-    <section data-snap className="bg-[#06183A] px-5 md:px-10 py-16 md:py-24">
+    <section className="bg-[#06183A] px-5 md:px-10 py-16 md:py-24">
       <Eyebrow>{addon ? "Pro Pathway add-on" : "Pro Pathway · packages"}</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">Tryout<br />packages</h2>
       {price?.trim() && (
@@ -898,9 +917,9 @@ function QuoteRail() {
         <Eyebrow color={NAVY}>More from our athletes</Eyebrow>
         <h2 className="font-display font-bold uppercase italic text-5xl md:text-6xl leading-none mt-2">Hear from<br />even more</h2>
       </div>
-      <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-5 md:px-10 pb-2">
+      <div className="assessment-rail flex gap-4 px-5 md:px-10 pb-2">
         {MORE_QUOTES.map((quote) => (
-          <article key={quote.name} className="snap-start shrink-0 w-[84vw] md:w-[460px] bg-[#06183A] text-[#F2F1E8] p-6 md:p-8 min-h-[280px] flex flex-col justify-between">
+          <article key={quote.name} className="shrink-0 w-[84vw] md:w-[460px] bg-[#06183A] text-[#F2F1E8] p-6 md:p-8 min-h-[280px] flex flex-col justify-between">
             <p className="text-sm leading-relaxed text-white/85">"{quote.quote}"</p>
             <div className="mt-6">
               <p className="font-display uppercase italic text-2xl leading-none">{quote.name}</p>
@@ -915,7 +934,7 @@ function QuoteRail() {
 
 function Close({ labels, manager }: { labels: Record<string, string>; manager?: string }) {
   return (
-    <section data-snap className="min-h-[100dvh] bg-[#06183A] px-5 py-20 flex items-center">
+    <section className="min-h-[100svh] bg-[#06183A] px-5 py-20 flex items-center">
       <div className="w-full">
         <Frame>
           <h2 className="font-display font-bold uppercase italic text-center leading-[0.88] text-[clamp(3rem,8vw,6.5rem)]">
