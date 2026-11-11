@@ -72,6 +72,8 @@ const DEFAULT_LABELS: Record<string, string> = {
   fullService: "Full Service",
   standard: "Standard",
   essential: "Essential",
+  package4: "PACKAGE 4",
+  customPackage: "Custom",
   yearlySupport: "Yearly Support",
   yearlySupportDescription: "Full Service includes four years of support, Standard includes two years, and Essential includes one year.",
   englishExamSupport: "English Exam Support",
