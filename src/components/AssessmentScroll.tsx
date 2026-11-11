@@ -141,9 +141,9 @@ const SERVICE_ADD: Record<string, number> = {
   transferSupport: 400,
 };
 
-const CUSTOM_EXTRAS: { id: string; name: string; detail: string; price: number; monthly?: boolean }[] = [
+const CUSTOM_EXTRAS: { id: string; name: string; detail: string; price: number; monthly?: boolean; unit?: string }[] = [
   { id: "summer", name: "Summer league", detail: "USL 2 or NPSL", price: 1000 },
-  { id: "tutoring", name: "Tutoring", detail: "SAT and Duolingo", price: 750 },
+  { id: "tutoring", name: "Tutoring", detail: "SAT and Duolingo", price: 85, unit: "class" },
   { id: "psych", name: "Psychologist", detail: "2 meetings a month", price: 360, monthly: true },
   { id: "nutrition", name: "Nutritionist", detail: "3 sessions a month", price: 900 },
   { id: "trainer", name: "Online fitness trainer", detail: "2 meetings a month", price: 300, monthly: true },
@@ -397,7 +397,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
     if (!customOn[service.id] || service.p[2]) return sum;
     return sum + (SERVICE_ADD[service.id] || 0);
   }, 0);
-  const extrasTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (!extra.monthly && picked.includes(extra.id) ? sum + extra.price : sum), 0);
+  const extrasTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (!extra.monthly && !extra.unit && picked.includes(extra.id) ? sum + extra.price : sum), 0);
   const monthlyTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (extra.monthly && picked.includes(extra.id) ? sum + extra.price : sum), 0);
   const customTotal = essentialAmount + addedServices + extrasTotal;
   const headGrid = "grid grid-cols-[minmax(0,1.15fr)_repeat(4,minmax(0,0.72fr))] gap-1.5 md:gap-2 items-stretch";
@@ -445,6 +445,9 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
               {monthlyTotal > 0 && (
                 <p className="mt-1 font-display font-bold text-lg md:text-2xl leading-none">+{sym}{formatAmount(monthlyTotal)}/mo</p>
               )}
+              {CUSTOM_EXTRAS.filter((extra) => extra.unit && picked.includes(extra.id)).map((extra) => (
+                <p key={extra.id} className="mt-1 font-display font-bold text-lg md:text-2xl leading-none">+{sym}{formatAmount(extra.price)}/{extra.unit}</p>
+              ))}
             </div>
           </div>
           <div className="mt-2 space-y-2">
@@ -568,7 +571,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                     <span className="block text-xs md:text-sm text-[#06183A]/60">{extra.detail}</span>
                   </span>
                   <span className="shrink-0 font-display font-bold text-lg md:text-2xl leading-none">
-                    +{sym}{formatAmount(extra.price)}{extra.monthly ? "/mo" : ""}
+                    +{sym}{formatAmount(extra.price)}{extra.monthly ? "/mo" : extra.unit ? `/${extra.unit}` : ""}
                   </span>
                 </label>
               );
