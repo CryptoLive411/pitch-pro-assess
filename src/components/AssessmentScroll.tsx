@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft, Check, ChevronDown, X } from "lucide-react";
 import { AssessmentData } from "./AssessmentEditor";
 import { Button } from "@/components/ui/button";
-import ventureLogo from "@/assets/venture-logo-white.png";
 import ventureLogoCircle from "@/assets/venture-logo-circle.png";
 import pedroBaischFinal from "@/assets/pedro-baisch-final.png";
 import miloPetersFinal from "@/assets/milo-peters-final.png";
@@ -228,7 +227,6 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
               <span className="hidden sm:inline ml-1">Back to editor</span>
             </Button>
           )}
-          <img src={ventureLogo} alt="Venture" className="h-7 md:h-8 w-auto" />
         </div>
         <p className="font-label text-[10px] md:text-xs tracking-[0.28em] uppercase text-[#F2F1E8]/70 truncate">
           {name}
