@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import ventureLogoCircle from "@/assets/venture-logo-circle.png";
+import ventureWordmark from "@/assets/venture-wordmark-white.png";
 import pedroBaischFinal from "@/assets/pedro-baisch-final.png";
 import miloPetersFinal from "@/assets/milo-peters-final.png";
 import afonsoVaz from "@/assets/afonso-vaz.png";
@@ -366,6 +367,7 @@ function Hero({ labels, showPro, showCollege }: { labels: Record<string, string>
       <HeroVideo />
       <div className="absolute inset-0 bg-gradient-to-b from-[#06183A]/55 via-[#06183A]/40 to-[#06183A]/75" />
       <div className="relative z-10 w-full text-center">
+        <img src={ventureWordmark} alt="Venture" className="mx-auto mb-8 h-12 md:h-16 w-auto" />
         <Frame>
           <Eyebrow>Assessment Report</Eyebrow>
           <h1 className="font-display font-bold italic uppercase leading-[0.88] tracking-tight text-[clamp(2.15rem,6.2vw,5.4rem)] mt-4 whitespace-nowrap">
