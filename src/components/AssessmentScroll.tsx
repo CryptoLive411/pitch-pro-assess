@@ -149,7 +149,6 @@ const CUSTOM_EXTRAS: { id: string; name: string; detail: string; price: number; 
   { id: "nutrition", name: "Nutritionist", detail: "3 sessions a month", price: 900 },
   { id: "trainer", name: "Online fitness trainer", detail: "4 sessions a month", price: 800 },
   { id: "scouting", name: "Full-match scouting report", detail: "A professional scout reviews your full games", price: 600 },
-  { id: "transfer", name: "1 transfer", detail: "One college transfer", price: 900 },
 ];
 
 const SERVICE_KEYS: Record<string, [string, string]> = {
