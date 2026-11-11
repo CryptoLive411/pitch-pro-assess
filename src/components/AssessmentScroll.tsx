@@ -464,7 +464,7 @@ function LogoRail({ title, logos }: { title: string; logos: string[] }) {
       <div className="overflow-hidden">
         <div className="logo-marquee flex items-center gap-10 w-max px-6">
           {loop.map((logo, i) => (
-            <img key={`${logo}-${i}`} src={logo} alt="" className="h-12 md:h-16 w-auto object-contain grayscale opacity-80" />
+            <img key={`${logo}-${i}`} src={logo} alt="" className="h-12 md:h-16 w-auto object-contain" />
           ))}
         </div>
       </div>
