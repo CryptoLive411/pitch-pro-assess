@@ -8,7 +8,7 @@ import ventureLogoCircle from "@/assets/venture-logo-circle.png";
 import pedroBaischFinal from "@/assets/pedro-baisch-final.png";
 import miloPetersFinal from "@/assets/milo-peters-final.png";
 import afonsoVaz from "@/assets/afonso-vaz.png";
-import henriqueSantos from "@/assets/henrique-santos.jpg";
+import henriqueSantosStory from "@/assets/henrique-santos-story.jpg";
 import bernardoMonteiro from "@/assets/bernardo-monteiro.jpg";
 import filipJauk from "@/assets/filip-jauk.jpg";
 import creightonLogo from "@/assets/logos/creighton.png";
@@ -142,7 +142,7 @@ const PHOTO_STORIES = [
   {
     name: "Henrique Santos",
     school: "NC State - D1 Soccer",
-    image: henriqueSantos,
+    image: henriqueSantosStory,
     fit: "contain",
     quote: "I have worked with agents and people that tried to help my soccer career for a big part of my life and the focus and the personal touch that I get from João is exceptional. Along with myself I owe a lot of my success to João as it's been a great journey since we started working together. He is very experienced and has a deep knowledge about soccer because it's his passion and hungry for success. Due to his vast soccer background and wide range of connections around the world, not only he knows what it takes to make it, but he can also provide the best counseling and options.",
   },
@@ -484,7 +484,7 @@ function Stories() {
             <img
               src={story.image}
               alt={story.name}
-              className={`w-full h-[360px] ${story.fit === "contain" ? "object-contain bg-[#f3f3f3]" : "object-cover object-top"}`}
+              className={`w-full h-[360px] ${story.fit === "contain" ? "object-contain bg-white" : "object-cover object-top"}`}
             />
             <div className="p-6 md:p-8">
               <p className="font-label text-[10px] tracking-[0.28em] uppercase text-[#06183A]/50">Success story</p>
