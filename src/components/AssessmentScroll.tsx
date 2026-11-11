@@ -475,7 +475,7 @@ function Stories() {
     <section className="bg-[#06183A]">
       <div className="px-5 md:px-10 pt-14 md:pt-20">
         <Eyebrow>How we've helped</Eyebrow>
-        <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">The athlete<br />first</h2>
+        <h2 className="font-display font-bold uppercase italic leading-none mt-2 whitespace-nowrap text-[clamp(2.1rem,7vw,4.5rem)]">The athlete first</h2>
       </div>
       <div className="assessment-rail mt-8 flex gap-4 px-5 md:px-10 pb-14">
         {PHOTO_STORIES.map((story) => (
