@@ -661,7 +661,7 @@ export const AssessmentEditor = ({ data, onChange, onPreview, pipedriveInfo }: A
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
             <div className="space-y-2">
-              <Label htmlFor="packagePrice1">Package 1 (Full Service)</Label>
+              <Label htmlFor="packagePrice1">Package 1 (Elite)</Label>
               <Input
                 id="packagePrice1"
                 value={data.packagePrice1 || ""}

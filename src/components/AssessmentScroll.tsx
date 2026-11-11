@@ -115,7 +115,7 @@ const COLLEGE_SERVICES = [
   { id: "visa", name: "VISA Support", description: "Complete assistance with F-1 Student Visa application process, documentation, and interview preparation.", p: [true, true, false] },
   { id: "arrival", name: "USA Arrival Support", description: "Help with logistics and orientation when arriving in the USA, ensuring a smooth transition to your new university.", p: [true, true, false] },
   { id: "placement", name: "University Placement", description: "End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.", p: [true, true, true] },
-  { id: "transferSupport", name: "Transfer Support", description: "Support through one college transfer if you move to a new program. Included with Full Service.", p: [true, false, false] },
+  { id: "transferSupport", name: "Transfer Support", description: "Support through one college transfer if you move to a new program. Included with Elite.", p: [true, false, false] },
 ];
 
 const SUPPORT_NOTES = [
@@ -376,7 +376,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
   const [baseIdx, setBaseIdx] = useState(2);
   const [picked, setPicked] = useState<string[]>([]);
   const packages = [
-    { key: "p1", num: "01", title: t(labels, "fullService", "Full Service"), price: data.packagePrice1, idx: 0, bg: "linear-gradient(165deg, #1C5FAE 0%, #12448A 55%, #0B2F66 100%)", color: "#F2F1E8", ink: "#D5E8FA" },
+    { key: "p1", num: "01", title: t(labels, "fullService", "Elite"), price: data.packagePrice1, idx: 0, bg: "linear-gradient(165deg, #1C5FAE 0%, #12448A 55%, #0B2F66 100%)", color: "#F2F1E8", ink: "#D5E8FA" },
     { key: "p2", num: "02", title: t(labels, "standard", "Standard"), price: data.packagePrice2, idx: 1, bg: "linear-gradient(165deg, #B7E6FC 0%, #6EC7F9 55%, #3AABEA 100%)", color: "#06183A", ink: "#0A3A66" },
     { key: "p3", num: "03", title: t(labels, "essential", "Essential"), price: data.packagePrice3, idx: 2, bg: "linear-gradient(165deg, #F4FAFE 0%, #D4ECF8 55%, #B7D9EF 100%)", color: "#06183A", ink: "#3D6F92" },
   ];
@@ -475,7 +475,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                 <div className="overflow-hidden">
                   <div className="px-3 pb-5 max-w-2xl">
                     <p className="text-sm leading-relaxed text-[#06183A]/70">
-                      {t(labels, "yearlySupportDescription", "Full Service includes four years of support, Standard includes two years, and Essential includes one year.")}
+                      {t(labels, "yearlySupportDescription", "Elite includes four years of support, Standard includes two years, and Essential includes one year.")}
                     </p>
                     <p className="mt-4 font-label text-[11px] tracking-[0.28em] uppercase text-[#06183A]/50">Support</p>
                     <dl className="mt-3 space-y-3">
@@ -557,7 +557,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                   />
                   <span className="min-w-0 flex-1">
                     <span className="block font-display uppercase text-base md:text-xl leading-tight">{extra.name}</span>
-                    <span className="block text-xs md:text-sm text-[#06183A]/60">{included ? "Included with Full Service" : extra.detail}</span>
+                    <span className="block text-xs md:text-sm text-[#06183A]/60">{included ? "Included with Elite" : extra.detail}</span>
                   </span>
                   <span className="shrink-0 font-display font-bold text-lg md:text-2xl leading-none">
                     {included ? "Included" : `+${sym}${formatAmount(extra.price)}`}

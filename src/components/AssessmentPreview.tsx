@@ -69,13 +69,13 @@ const DEFAULT_LABELS: Record<string, string> = {
   package1: "PACKAGE 1",
   package2: "PACKAGE 2",
   package3: "PACKAGE 3",
-  fullService: "Full Service",
+  fullService: "Elite",
   standard: "Standard",
   essential: "Essential",
   package4: "PACKAGE 4",
   customPackage: "Custom",
   yearlySupport: "Yearly Support",
-  yearlySupportDescription: "Full Service includes four years of support, Standard includes two years, and Essential includes one year.",
+  yearlySupportDescription: "Elite includes four years of support, Standard includes two years, and Essential includes one year.",
   englishExamSupport: "English Exam Support",
   englishExamSupportDescription: "Comprehensive preparation and guidance for English proficiency exams like TOEFL, helping you achieve the scores needed for university admission.",
   videoEditing: "Video Editing",
@@ -97,7 +97,7 @@ const DEFAULT_LABELS: Record<string, string> = {
   universityPlacement: "University Placement",
   universityPlacementDescription: "End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.",
   transferSupport: "Transfer Support",
-  transferSupportDescription: "Support through one college transfer if you move to a new program. Included with Full Service.",
+  transferSupportDescription: "Support through one college transfer if you move to a new program. Included with Elite.",
   
   // Timeline slide
   yourJourney: "YOUR JOURNEY",
@@ -154,7 +154,10 @@ const getLabel = (labels: Record<string, string> | null | undefined, key: string
 };
 
 export const AssessmentPreview = ({ data, onBack, isPublicView = false }: AssessmentPreviewProps) => {
-  const labels = data.translatedLabels || DEFAULT_LABELS;
+  const labels = { ...(data.translatedLabels || DEFAULT_LABELS), fullService: "Elite" };
+  for (const key of ["yearlySupportDescription", "transferSupportDescription"]) {
+    if (labels[key]?.includes("Full Service")) labels[key] = labels[key].replaceAll("Full Service", "Elite");
+  }
   const programMode: 'college' | 'pro' | 'both' =
     data.programMode || (data.includeProAcademy ? 'both' : 'college');
 

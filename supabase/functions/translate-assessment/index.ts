@@ -67,7 +67,7 @@ const UI_LABELS = {
   package1: "PACKAGE 1",
   package2: "PACKAGE 2",
   package3: "PACKAGE 3",
-  fullService: "Full Service",
+  fullService: "Elite",
   standard: "Standard",
   essential: "Essential",
   englishExamSupport: "English Exam Support",
