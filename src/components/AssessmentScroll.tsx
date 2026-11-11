@@ -543,7 +543,8 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
         </div>
         <div className="mt-8">
           <div className="text-center">
-            <p className="font-label text-[11px] md:text-xs tracking-[0.28em] uppercase text-[#06183A]/50">Add to custom</p>
+            <h3 className="font-display font-bold uppercase italic text-4xl md:text-6xl leading-none">Venture Performance</h3>
+            <p className="mt-4 font-label text-[11px] md:text-xs tracking-[0.28em] uppercase text-[#06183A]/50">Add to custom</p>
             <p className="mt-2 text-sm md:text-base text-[#06183A]/70">
               Custom starts at Essential. Select any service in that column to add it, or add an extra below.
             </p>
