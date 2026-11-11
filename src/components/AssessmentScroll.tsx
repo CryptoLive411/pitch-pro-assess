@@ -142,7 +142,7 @@ const SERVICE_ADD: Record<string, number> = {
 };
 
 const CUSTOM_EXTRAS: { id: string; name: string; detail: string; price: number; includedOn?: number }[] = [
-  { id: "summer", name: "Summer league", detail: "USL 2 or NPSL", price: 1200 },
+  { id: "summer", name: "Summer league", detail: "USL 2 or NPSL", price: 1000 },
   { id: "tutoring", name: "Tutoring", detail: "SAT and Duolingo", price: 750 },
   { id: "psych", name: "Psychologist", detail: "3 meetings a month", price: 1500 },
   { id: "nutrition", name: "Nutritionist", detail: "3 sessions a month", price: 900 },
