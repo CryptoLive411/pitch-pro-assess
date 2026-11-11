@@ -441,7 +441,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
               <p className="font-display font-bold uppercase italic text-lg md:text-3xl leading-[0.9] mt-1">
                 {t(labels, "customPackage", "Custom")}
               </p>
-              <p className="mt-2 font-label text-[9px] md:text-[10px] tracking-[0.14em] uppercase">Starts at Essential</p>
+              <p className="mt-2 font-label text-[9px] md:text-[10px] tracking-[0.14em] uppercase">Select services</p>
               <p className="mt-2 font-display font-bold text-2xl md:text-4xl leading-none">{sym}{formatAmount(customTotal)}</p>
             </div>
           </div>
@@ -518,17 +518,15 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                     <button
                       type="button"
                       aria-pressed={!!customOn[service.id]}
+                      aria-label={customOn[service.id] ? `Remove ${name}` : `Add ${name}`}
                       onClick={() => setCustomOn((cur) => ({ ...cur, [service.id]: !cur[service.id] }))}
-                      className="flex flex-col items-center justify-center gap-1 self-stretch bg-white py-2"
+                      className="mx-auto my-1.5 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-[#4DA3FF] bg-[#4DA3FF]/15 transition hover:bg-[#4DA3FF]/35"
                     >
                       {customOn[service.id] ? (
                         <Check className="h-5 w-5 text-[#06183A]" strokeWidth={2.5} />
                       ) : (
-                        <X className="h-4 w-4 text-[#06183A]/25" strokeWidth={2.5} />
+                        <X className="h-4 w-4 text-[#06183A]/40" strokeWidth={2.5} />
                       )}
-                      {!service.p[2] && SERVICE_ADD[service.id] ? (
-                        <span className="font-label text-[9px] tracking-wide text-[#06183A]/45">+{sym}{formatAmount(SERVICE_ADD[service.id])}</span>
-                      ) : null}
                     </button>
                   </div>
                   <div className={`grid transition-[grid-template-rows] duration-200 ${expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
@@ -548,7 +546,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
           <div className="text-center">
             <p className="font-label text-[11px] md:text-xs tracking-[0.28em] uppercase text-[#06183A]/50">Add to custom</p>
             <p className="mt-2 text-sm md:text-base text-[#06183A]/70">
-              Custom starts at Essential. Check a service in that column to add it, or add an extra below.
+              Custom starts at Essential. Select any service in that column to add it, or add an extra below.
             </p>
           </div>
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 text-left">
