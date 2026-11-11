@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { AssessmentData } from "./AssessmentEditor";
@@ -277,13 +277,111 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
   );
 };
 
+const HERO_VIDEO_ID = "GWA615LZP-c";
+const HERO_VIDEO_START = 3 * 60 + 44;
+
+type HeroPlayer = {
+  mute: () => void;
+  seekTo: (seconds: number, allowSeekAhead: boolean) => void;
+  playVideo: () => void;
+  destroy: () => void;
+};
+
+declare global {
+  interface Window {
+    YT?: {
+      Player: new (el: HTMLElement, options: Record<string, unknown>) => HeroPlayer;
+      PlayerState: { ENDED: number };
+    };
+    onYouTubeIframeAPIReady?: () => void;
+  }
+}
+
+function HeroVideo() {
+  const hostRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return;
+
+    let player: HeroPlayer | undefined;
+    let cancelled = false;
+
+    const mount = () => {
+      if (cancelled || !hostRef.current || !window.YT?.Player) return;
+      player = new window.YT.Player(hostRef.current, {
+        videoId: HERO_VIDEO_ID,
+        width: "100%",
+        height: "100%",
+        host: "https://www.youtube-nocookie.com",
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          start: HERO_VIDEO_START,
+          modestbranding: 1,
+          playsinline: 1,
+          rel: 0,
+          iv_load_policy: 3,
+          disablekb: 1,
+          fs: 0,
+        },
+        events: {
+          onReady: (event: { target: HeroPlayer }) => {
+            event.target.mute();
+            event.target.seekTo(HERO_VIDEO_START, true);
+            event.target.playVideo();
+          },
+          onStateChange: (event: { data: number; target: HeroPlayer }) => {
+            if (event.data === window.YT?.PlayerState.ENDED) {
+              event.target.seekTo(HERO_VIDEO_START, true);
+              event.target.playVideo();
+            }
+          },
+        },
+      });
+    };
+
+    if (window.YT?.Player) {
+      mount();
+    } else {
+      const previous = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = () => {
+        previous?.();
+        mount();
+      };
+      if (!document.querySelector('script[src="https://www.youtube.com/iframe_api"]')) {
+        const tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(tag);
+      }
+    }
+
+    return () => {
+      cancelled = true;
+      player?.destroy();
+    };
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden" aria-hidden>
+      <img
+        src={`https://i.ytimg.com/vi/${HERO_VIDEO_ID}/hqdefault.jpg`}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute left-1/2 top-1/2 h-[56.25vw] w-screen min-h-full min-w-[177.78vh] -translate-x-1/2 -translate-y-1/2 [&_iframe]:pointer-events-none [&_iframe]:h-full [&_iframe]:w-full">
+        <div ref={hostRef} className="h-full w-full" />
+      </div>
+    </div>
+  );
+}
+
 function Hero({ data, labels, name, showPro, showCollege }: { data: AssessmentData; labels: Record<string, string>; name: string; showPro: boolean; showCollege: boolean }) {
   return (
     <section data-snap className="relative min-h-[calc(100dvh+24px)] -mt-16 pt-16 flex items-center justify-center px-5 pb-16 overflow-hidden">
-      {data.playerPhoto && (
-        <img src={data.playerPhoto} alt="" className="absolute inset-0 w-full h-full object-cover opacity-40" />
-      )}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#06183A]/80 via-[#06183A]/75 to-[#06183A]" />
+      <HeroVideo />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#06183A]/55 via-[#06183A]/40 to-[#06183A]/75" />
       <div className="relative z-10 w-full text-center">
         <Frame>
           <Eyebrow>{t(labels, "assessmentReport", "Assessment Report")}</Eyebrow>
