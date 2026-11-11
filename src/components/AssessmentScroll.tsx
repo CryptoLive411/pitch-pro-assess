@@ -502,13 +502,8 @@ function Stories() {
         <Eyebrow>How we've helped</Eyebrow>
         <h2 className="font-display font-bold uppercase italic leading-none mt-2 whitespace-nowrap text-[clamp(2.1rem,7vw,4.5rem)]">The athlete first</h2>
       </div>
-      <p className="px-5 md:px-10 mt-8 font-label text-[10px] tracking-[0.28em] uppercase text-white/50">In the news</p>
-      <div className="mt-3">
-        <PhotoMarquee photos={NEWS_PHOTOS} />
-      </div>
-      <p className="px-5 md:px-10 mt-8 font-label text-[10px] tracking-[0.28em] uppercase text-white/50">On the field</p>
-      <div className="mt-3">
-        <PhotoMarquee photos={PLAY_PHOTOS} reverse />
+      <div className="mt-8">
+        <PhotoMarquee photos={PLAY_PHOTOS} />
       </div>
     </section>
   );
@@ -522,24 +517,29 @@ const PLACED_CARDS = [
 
 function Impact({ labels }: { labels: Record<string, string> }) {
   return (
-    <section className="bg-[#06183A] px-5 md:px-10 py-12 md:py-16">
-      <Eyebrow>Our impact</Eyebrow>
-      <p className="mt-3 font-display font-bold italic leading-none text-[clamp(3.2rem,7vw,5.5rem)] text-[#f9fc72]">600+</p>
-      <p className="mt-2 font-display uppercase italic text-2xl md:text-3xl">
-        {t(labels, "athletesPlaced", "Athletes placed")}
-      </p>
-      <div className="mt-8 flex gap-4 overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 md:overflow-visible">
-        {PLACED_CARDS.map((player) => (
-          <figure key={player.name} className="snap-start shrink-0 w-[82vw] md:w-auto bg-[#071433]">
-            <img src={player.image} alt={player.name} className="w-full h-auto object-contain" />
-            <figcaption className="px-4 py-3">
-              <p className="font-display font-bold uppercase italic text-2xl leading-none">{player.name}</p>
-              <p className="mt-1 text-sm text-[#F2F1E8]/70">{player.school}</p>
-            </figcaption>
-          </figure>
-        ))}
+    <section className="bg-[#06183A] overflow-hidden py-12 md:py-16">
+      <div className="px-5 md:px-10">
+        <Eyebrow>Our impact</Eyebrow>
+        <p className="mt-3 font-display font-bold italic leading-none text-[clamp(3.2rem,7vw,5.5rem)] text-[#f9fc72]">600+</p>
+        <p className="mt-2 font-display uppercase italic text-2xl md:text-3xl">
+          {t(labels, "athletesPlaced", "Athletes placed")}
+        </p>
+        <div className="mt-8 flex gap-4 overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 md:overflow-visible">
+          {PLACED_CARDS.map((player) => (
+            <figure key={player.name} className="snap-start shrink-0 w-[82vw] md:w-auto bg-[#071433]">
+              <img src={player.image} alt={player.name} className="w-full h-auto object-contain" />
+              <figcaption className="px-4 py-3">
+                <p className="font-display font-bold uppercase italic text-2xl leading-none">{player.name}</p>
+                <p className="mt-1 text-sm text-[#F2F1E8]/70">{player.school}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
-      <h2 className="mt-10 font-display font-bold uppercase italic leading-[0.95] text-[clamp(1.8rem,4.2vw,3.4rem)] max-w-3xl">
+      <div className="mt-10">
+        <PhotoMarquee photos={NEWS_PHOTOS} />
+      </div>
+      <h2 className="px-5 md:px-10 mt-10 font-display font-bold uppercase italic leading-[0.95] text-[clamp(1.8rem,4.2vw,3.4rem)] max-w-3xl">
         {t(labels, "letsMakeYourDream", "Let's make your college soccer dream a reality")}
       </h2>
     </section>
