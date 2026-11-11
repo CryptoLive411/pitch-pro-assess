@@ -280,7 +280,7 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
       </header>
 
       <Hero labels={labels} showPro={showPro} showCollege={showCollege} />
-      {showCollege && <LogoRail title="Programs we place into" logos={UNIVERSITY_LOGOS} />}
+      {showCollege && <LogoRail title="Partners" logos={UNIVERSITY_LOGOS} />}
       <Profile data={data} labels={labels} />
       <Recommendation data={data} labels={labels} name={name} />
       <Report data={data} labels={labels} />
