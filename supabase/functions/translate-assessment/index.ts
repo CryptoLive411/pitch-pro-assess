@@ -86,7 +86,7 @@ const UI_LABELS = {
   scholarshipOffersDescription: "Strategic guidance to secure the best possible scholarship offers and financial aid packages from universities.",
   visaSupport: "VISA Support",
   visaSupportDescription: "Complete assistance with F-1 Student Visa application process, documentation, and interview preparation.",
-  usaArrivalSupport: "USA Arrival Support",
+  usaArrivalSupport: "University Arrival Support",
   usaArrivalSupportDescription: "Help with logistics and orientation when arriving in the USA, ensuring a smooth transition to your new university.",
   universityPlacement: "University Placement",
   universityPlacementDescription: "End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.",
