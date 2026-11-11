@@ -255,6 +255,7 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
       <Hero labels={labels} showPro={showPro} showCollege={showCollege} />
       {showCollege && <LogoRail title="Programs we place into" logos={UNIVERSITY_LOGOS} />}
       <Profile data={data} labels={labels} />
+      <Recommendation data={data} labels={labels} name={name} />
 
       {showCollege && <WhatWeDo data={data} labels={labels} showProAddon={showPro} sym={sym} />}
       {showPro && !showCollege && <ProProcess />}
@@ -264,7 +265,6 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
       {showCollege && <Impact labels={labels} />}
       <Statement labels={labels} showCollege={showCollege} />
 
-      <Recommendation data={data} labels={labels} name={name} />
       {showCollege && <Targets data={data} labels={labels} />}
       <Report data={data} labels={labels} />
       {showCollege && <Costs data={data} labels={labels} />}
@@ -584,11 +584,11 @@ function Profile({ data, labels }: { data: AssessmentData; labels: Record<string
 function Recommendation({ data, labels, name }: { data: AssessmentData; labels: Record<string, string>; name: string }) {
   const divisions = data.targetDivisions?.length ? data.targetDivisions : [];
   return (
-    <section className="bg-[#06183A] px-5 md:px-10 py-20">
+    <section className="bg-[#06183A] min-h-[calc(100svh-4rem)] px-5 md:px-10 py-16 md:py-24 flex flex-col justify-center">
       <Eyebrow>{t(labels, "ourRecommendation", "Our recommendation")}</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-8xl leading-[0.88] mt-4 max-w-4xl">{name}</h2>
       <p className="mt-4 text-[#F2F1E8]/70">Player assessment and recommendation · Venture USA</p>
-      {divisions.length > 0 && (
+      {divisions.length > 0 ? (
         <div className="mt-10 flex flex-wrap gap-3">
           {divisions.map((division) => {
             const logo = leagueLogo(division);
@@ -600,6 +600,8 @@ function Recommendation({ data, labels, name }: { data: AssessmentData; labels: 
             );
           })}
         </div>
+      ) : (
+        <p className="mt-10 text-[#F2F1E8]/50">Divisions chosen in the editor appear here.</p>
       )}
     </section>
   );
