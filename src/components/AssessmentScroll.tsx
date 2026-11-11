@@ -669,15 +669,102 @@ function LogoRail({ title, logos }: { title: string; logos: string[] }) {
 
 function PhotoMarquee({ photos, reverse }: { photos: string[]; reverse?: boolean }) {
   const loop = [...photos, ...photos];
+  const scroller = useRef<HTMLDivElement>(null);
+  const paused = useRef(false);
+  const hovering = useRef(false);
+  const offset = useRef(0);
+  const drag = useRef<{ x: number; y: number; scroll: number; active: boolean } | null>(null);
+
+  const moveTo = (next: number) => {
+    const el = scroller.current;
+    if (!el) return;
+    const half = el.scrollWidth / 2;
+    if (half <= 1) return;
+    offset.current = ((next % half) + half) % half;
+    el.scrollLeft = offset.current;
+  };
+
+  useEffect(() => {
+    const el = scroller.current;
+    if (!el) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let frame = 0;
+    const tick = () => {
+      if (!reduce && !paused.current && !drag.current?.active) {
+        const half = el.scrollWidth / 2;
+        if (half > 1) {
+          const delta = (half / 70) / 60;
+          moveTo(offset.current + (reverse ? -delta : delta));
+        }
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    const onWheel = (event: WheelEvent) => {
+      if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+      if (el.scrollWidth / 2 <= 1) return;
+      event.preventDefault();
+      moveTo(offset.current + event.deltaX);
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      cancelAnimationFrame(frame);
+      el.removeEventListener("wheel", onWheel);
+    };
+  }, [reverse, photos.length]);
+
   return (
-    <div className="overflow-hidden">
-      <div className={`flex w-max gap-3 ${reverse ? "athlete-marquee-reverse" : "athlete-marquee"}`}>
+    <div
+      ref={scroller}
+      className="overflow-hidden cursor-grab select-none active:cursor-grabbing"
+      style={{ touchAction: "pan-y" }}
+      onMouseEnter={() => {
+        hovering.current = true;
+        paused.current = true;
+      }}
+      onMouseLeave={() => {
+        hovering.current = false;
+        if (!drag.current?.active) paused.current = false;
+      }}
+      onPointerDown={(event) => {
+        const el = scroller.current;
+        if (!el) return;
+        drag.current = { x: event.clientX, y: event.clientY, scroll: el.scrollLeft, active: false };
+      }}
+      onPointerMove={(event) => {
+        const el = scroller.current;
+        const state = drag.current;
+        if (!el || !state) return;
+        const dx = event.clientX - state.x;
+        const dy = event.clientY - state.y;
+        if (!state.active) {
+          if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(dy)) return;
+          state.active = true;
+          state.x = event.clientX;
+          state.scroll = el.scrollLeft;
+          paused.current = true;
+          el.setPointerCapture(event.pointerId);
+        }
+        moveTo(state.scroll - (event.clientX - state.x));
+      }}
+      onPointerUp={(event) => {
+        if (drag.current?.active) scroller.current?.releasePointerCapture(event.pointerId);
+        drag.current = null;
+        paused.current = hovering.current;
+      }}
+      onPointerCancel={() => {
+        drag.current = null;
+        paused.current = hovering.current;
+      }}
+    >
+      <div className="flex w-max gap-3">
         {loop.map((src, i) => (
           <img
             key={`${src}-${i}`}
             src={src}
             alt=""
-            className="h-[240px] md:h-[340px] w-auto aspect-[4/5] shrink-0 object-cover"
+            draggable={false}
+            className="pointer-events-none h-[240px] md:h-[340px] w-auto aspect-[4/5] shrink-0 object-cover"
           />
         ))}
       </div>
