@@ -753,7 +753,7 @@ function Timeline({ labels }: { labels: Record<string, string> }) {
       <ol className="mt-10 max-w-3xl">
         {steps.map(([name, when, desc], i) => (
           <li key={name} className="grid grid-cols-[auto_1fr] gap-4 py-5 border-t border-[#06183A]/15">
-            <span className="font-display text-3xl" style={{ color: ACCENTS[i % 4] }}>{String(i + 1).padStart(2, "0")}</span>
+            <span className="font-display text-3xl" style={{ color: ["#c9aae6", "#1C5FAE", "#6ec7f9", "#ff93ca"][i % 4] }}>{String(i + 1).padStart(2, "0")}</span>
             <div>
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <h3 className="font-display font-bold uppercase text-2xl md:text-3xl">{name}</h3>
