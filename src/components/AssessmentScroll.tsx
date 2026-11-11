@@ -370,7 +370,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                 </p>
                 <p className="font-display font-bold uppercase italic text-lg md:text-3xl leading-[0.9] mt-1">{pkg.title}</p>
                 {pkg.price?.trim() && (
-                  <p className="mt-2 font-display text-base md:text-xl leading-none">{sym}{pkg.price}</p>
+                  <p className="mt-2 font-display font-bold text-2xl md:text-4xl leading-none">{sym}{pkg.price}</p>
                 )}
               </div>
             ))}
@@ -716,7 +716,7 @@ function Costs({ data, labels }: { data: AssessmentData; labels: Record<string, 
                   </div>
                 </div>
                 <div className="flex items-center gap-3 shrink-0">
-                  <p className="font-display text-3xl md:text-4xl text-[#f9fc72]">{item.amount}</p>
+                  <p className="font-display font-bold text-4xl md:text-5xl leading-none text-[#f9fc72]">{item.amount}</p>
                   <ChevronDown className={`h-5 w-5 text-[#F2F1E8]/70 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
                 </div>
               </div>
