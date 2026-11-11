@@ -248,7 +248,7 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
         </p>
       </header>
 
-      <Hero />
+      <Hero labels={labels} showPro={showPro} showCollege={showCollege} />
       <Profile data={data} labels={labels} />
 
       {showCollege && <WhatWeDo data={data} labels={labels} showProAddon={showPro} sym={sym} />}
@@ -326,7 +326,13 @@ function HeroVideo() {
   );
 }
 
-function Hero() {
+function Hero({ labels, showPro, showCollege }: { labels: Record<string, string>; showPro: boolean; showCollege: boolean }) {
+  const subtitle = showCollege && showPro
+    ? "College placement, with a Pro Pathway alongside it."
+    : showPro
+      ? "Your path to the professional game — built on real connections, not promises."
+      : t(labels, "collegeSoccerPlacementConsulting", "College Soccer Placement Consulting");
+
   return (
     <section className="relative min-h-[calc(100svh-4rem)] flex items-center justify-center px-5 py-16 overflow-hidden">
       <HeroVideo />
@@ -337,6 +343,9 @@ function Hero() {
           <h1 className="font-display font-bold italic uppercase leading-[0.88] tracking-tight text-[clamp(2.15rem,6.2vw,5.4rem)] mt-4 whitespace-nowrap">
             Venture Sports USA
           </h1>
+          <p className="mt-5 text-sm md:text-base text-[#F2F1E8]/80 max-w-md mx-auto leading-relaxed">
+            {subtitle}
+          </p>
         </Frame>
       </div>
     </section>
