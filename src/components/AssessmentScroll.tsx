@@ -598,6 +598,7 @@ function Profile({ data, labels }: { data: AssessmentData; labels: Record<string
 }
 
 function Recommendation({ data, labels, name }: { data: AssessmentData; labels: Record<string, string>; name: string }) {
+  const location = useLocation();
   const chosen = new Set(data.targetDivisions || []);
   return (
     <section id="targets" className="bg-[#06183A] px-5 md:px-10 py-16 md:py-24">
@@ -613,7 +614,7 @@ function Recommendation({ data, labels, name }: { data: AssessmentData; labels: 
             <Link
               key={division.name}
               to={`/division/${division.slug}`}
-              state={{ fromSlide: 3, data, labels }}
+              state={{ fromSlide: 3, data, labels, returnTo: `${location.pathname}${location.search}` }}
               className={`group min-h-[230px] p-6 flex flex-col justify-between border transition-transform duration-200 hover:-translate-y-1 ${
                 selected
                   ? "bg-[#F2F1E8] text-[#06183A] border-[#F2F1E8]"

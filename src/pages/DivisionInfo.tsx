@@ -1,7 +1,21 @@
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, Trophy, DollarSign, GraduationCap, Users, Target, Award, BookOpen } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import ventureLogo from "@/assets/venture-logo-white.png";
 import ventureLogoCircle from "@/assets/venture-logo-circle.png";
+import ncaaLogo from "@/assets/logos/ncaa.png";
+import naiaLogo from "@/assets/logos/naia.png";
+import njcaaLogo from "@/assets/logos/njcaa-mark.png";
+
+const ACCENTS = ["#c9aae6", "#f9fc72", "#6ec7f9", "#ff93ca"];
+
+const DIVISION_LOGOS: Record<string, { src: string; className: string }> = {
+  "ncaa-d1": { src: ncaaLogo, className: "h-16 md:h-20 w-auto" },
+  "ncaa-d2": { src: ncaaLogo, className: "h-16 md:h-20 w-auto" },
+  "ncaa-d3": { src: ncaaLogo, className: "h-16 md:h-20 w-auto" },
+  naia: { src: naiaLogo, className: "h-16 md:h-20 w-auto" },
+  juco: { src: njcaaLogo, className: "h-16 md:h-20 w-auto" },
+  "gap-year": { src: ventureLogoCircle, className: "h-20 w-20" },
+};
 
 // Helper to get translated label
 const getLabel = (labels: Record<string, string> | null, key: string, fallback: string): string => {
@@ -166,184 +180,155 @@ export default function DivisionInfo() {
   const { division } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const divisionKey = division || "ncaa-d1";
   const fromSlide = location.state?.fromSlide;
   const labels = location.state?.labels as Record<string, string> | null;
-  
-  // Get division data with translations
+  const assessment = location.state?.data as { playerName?: string; targetDivisions?: string[] } | undefined;
+
   const divisionData = getDivisionData(labels);
   const info = divisionData[divisionKey as keyof typeof divisionData];
+  const logo = DIVISION_LOGOS[divisionKey];
+  const recommended = !!info && (assessment?.targetDivisions || []).includes(info.shortName);
+
+  const handleBack = () => {
+    const returnTo = location.state?.returnTo as string | undefined;
+    if (returnTo) {
+      navigate(returnTo, {
+        state: {
+          returnToSlide: fromSlide ?? 3,
+          data: location.state?.data,
+        },
+      });
+      return;
+    }
+    navigate(-1);
+  };
 
   if (!info) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">
+      <div className="min-h-screen bg-[#06183A] text-[#F2F1E8] font-label flex flex-col">
+        <header className="flex items-center justify-between px-4 md:px-8 py-3 border-b border-white/10">
+          <button type="button" onClick={handleBack} className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.18em]">
+            <ArrowLeft className="h-4 w-4" />
+            {getLabel(labels, "goBack", "Go back")}
+          </button>
+          <img src={ventureLogo} alt="Venture" className="h-7 md:h-8 w-auto" />
+        </header>
+        <div className="flex-1 flex items-center px-5 md:px-10">
+          <h1 className="font-display font-bold uppercase italic text-5xl md:text-7xl">
             {getLabel(labels, "divisionNotFound", "Division not found")}
           </h1>
-          <Button onClick={() => navigate(-1)}>
-            {getLabel(labels, "goBack", "Go Back")}
-          </Button>
         </div>
       </div>
     );
   }
 
-  const handleBack = () => {
-    navigate('/preview', { 
-      state: { 
-        returnToSlide: fromSlide,
-        data: location.state?.data 
-      } 
-    });
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
-      {/* Header with Soccer Field Pattern */}
-      <header className="relative bg-gradient-to-r from-[hsl(var(--venture-navy))] via-[hsl(var(--venture-blue))] to-[hsl(var(--venture-navy))] text-white py-6 sticky top-0 z-50 shadow-2xl overflow-hidden">
-        {/* Subtle soccer field lines pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-0 right-0 h-px bg-white"></div>
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-white"></div>
-          <div className="absolute top-1/2 left-0 right-0 h-px bg-white"></div>
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-white"></div>
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex items-center justify-between">
-            <Button 
-              onClick={handleBack} 
-              variant="ghost"
-              className="gap-2 text-white hover:bg-white/10 transition-all hover:scale-105"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              {getLabel(labels, "backToAssessment", "Back to Assessment")}
-            </Button>
-            <img src={ventureLogoCircle} alt="Venture USA" className="h-14 w-14 rounded-full shadow-lg border-2 border-white/20" />
-          </div>
-        </div>
+    <div className="min-h-screen bg-[#06183A] text-[#F2F1E8] font-label">
+      <header className="sticky top-0 z-40 flex items-center justify-between gap-3 px-4 md:px-8 py-3 bg-[#06183A] border-b border-white/10">
+        <button
+          type="button"
+          onClick={handleBack}
+          className="inline-flex items-center gap-2 text-sm hover:text-white"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          <span>{getLabel(labels, "backToAssessment", "Back to assessment")}</span>
+        </button>
+        <img src={ventureLogo} alt="Venture" className="h-7 md:h-8 w-auto" />
       </header>
 
-      <main className="container mx-auto px-4 py-6 max-w-7xl">
-        {/* Compact Hero Section */}
-        <div className="relative bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-xl p-4 md:p-6 mb-6 text-white shadow-lg">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 text-white text-xs font-bold rounded-full mb-2">
-            <Trophy className="h-3 w-3" />
-            {getLabel(labels, "divisionOverview", "DIVISION OVERVIEW")}
-          </div>
-          <h1 className="text-2xl md:text-3xl font-black mb-2 leading-tight">{info.name}</h1>
-          <p className="text-sm md:text-base text-white/90 leading-snug">{info.description}</p>
+      <section className="px-5 md:px-10 py-16 md:py-24">
+        <p className="font-label text-[11px] md:text-xs tracking-[0.35em] uppercase text-[#F2F1E8]">
+          {getLabel(labels, "divisionOverview", "Division overview")}
+        </p>
+        <div className="mt-6 flex items-end justify-between gap-6">
+          <h1 className="font-display font-bold uppercase italic leading-[0.86] text-[clamp(3.4rem,9vw,7.5rem)] max-w-4xl">
+            {info.name}
+          </h1>
+          {logo && <img src={logo.src} alt="" className={`${logo.className} object-contain shrink-0`} />}
         </div>
+        {recommended && (
+          <p className="mt-6 font-label text-[11px] tracking-[0.28em] uppercase text-[#f9fc72]">
+            {getLabel(labels, "recommended", "Recommended")}
+            {assessment?.playerName ? ` · ${assessment.playerName}` : ""}
+          </p>
+        )}
+        <p className="mt-6 max-w-2xl text-base md:text-lg leading-relaxed text-[#F2F1E8]/75">{info.description}</p>
+      </section>
 
-        {/* Scholarships & Academic Requirements Grid */}
-        <div className="grid md:grid-cols-2 gap-4 mb-6">
-          {/* Scholarships Card */}
-          <div className="bg-white rounded-xl p-5 shadow-md border border-blue-100">
-            <div className="flex items-center gap-2.5 mb-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-lg flex items-center justify-center">
-                <DollarSign className="h-5 w-5 text-white" />
-              </div>
-              <h2 className="text-xl font-black text-[hsl(var(--venture-navy))]">
-                {getLabel(labels, "scholarships", "Scholarships")}
-              </h2>
-            </div>
-            <p className="text-gray-700 leading-relaxed text-sm">{info.scholarships}</p>
-          </div>
-
-          {/* Academic Requirements Card */}
-          <div className="bg-white rounded-xl p-5 shadow-md border border-blue-100">
-            <div className="flex items-center gap-2.5 mb-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-lg flex items-center justify-center">
-                <GraduationCap className="h-5 w-5 text-white" />
-              </div>
-              <h2 className="text-xl font-black text-[hsl(var(--venture-navy))]">
-                {getLabel(labels, "academicRequirements", "Academic Requirements")}
-              </h2>
-            </div>
-            <p className="text-gray-700 leading-relaxed text-sm">{info.academicRequirements}</p>
-          </div>
-        </div>
-
-        {/* Benefits Section */}
-        <div className="bg-white rounded-xl p-5 shadow-md mb-6 border border-blue-100">
-          <div className="flex items-center gap-2.5 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-lg flex items-center justify-center">
-              <Trophy className="h-5 w-5 text-white" />
-            </div>
-            <h2 className="text-xl font-black text-[hsl(var(--venture-navy))]">
-              {getLabel(labels, "keyBenefits", "Key Benefits")}
+      <section className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 max-w-5xl">
+          <div>
+            <p className="font-display text-4xl text-[#c9aae6]">01</p>
+            <h2 className="mt-2 font-display font-bold uppercase italic text-4xl md:text-5xl leading-none">
+              {getLabel(labels, "scholarships", "Scholarships")}
             </h2>
+            <p className="mt-4 text-base leading-relaxed text-[#06183A]/80">{info.scholarships}</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-2.5">
-            {info.benefits.map((benefit, idx) => (
-              <div key={idx} className="flex items-start gap-2.5 p-3 bg-blue-50/50 rounded-lg border border-blue-100">
-                <div className="flex-shrink-0 w-6 h-6 bg-gradient-to-br from-[hsl(var(--venture-blue))]/20 to-[hsl(var(--venture-navy))]/10 rounded-full flex items-center justify-center mt-0.5">
-                  <Award className="h-3 w-3 text-[hsl(var(--venture-blue))]" />
-                </div>
-                <p className="text-gray-700 leading-snug flex-1 text-sm">{benefit}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Key Differences Section */}
-        <div className="bg-white rounded-xl p-5 shadow-md mb-6 border border-blue-100">
-          <div className="flex items-center gap-2.5 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-lg flex items-center justify-center">
-              <Target className="h-5 w-5 text-white" />
-            </div>
-            <h2 className="text-xl font-black text-[hsl(var(--venture-navy))]">
-              {getLabel(labels, "keyDifferences", "Key Differences")}
+          <div>
+            <p className="font-display text-4xl text-[#6ec7f9]">02</p>
+            <h2 className="mt-2 font-display font-bold uppercase italic text-4xl md:text-5xl leading-none">
+              {getLabel(labels, "academicRequirements", "Academic requirements")}
             </h2>
-          </div>
-          <div className="space-y-2.5">
-            {info.differences.map((diff, idx) => (
-              <div key={idx} className="flex items-start gap-3 p-3 bg-blue-50/50 rounded-lg border border-blue-100">
-                <div className="flex-shrink-0 w-7 h-7 bg-gradient-to-br from-[hsl(var(--venture-blue))]/20 to-[hsl(var(--venture-navy))]/10 rounded-md flex items-center justify-center border border-[hsl(var(--venture-blue))]/20">
-                  <span className="text-[hsl(var(--venture-blue))] font-black text-xs">{idx + 1}</span>
-                </div>
-                <p className="text-gray-700 leading-snug flex-1 pt-0.5 text-sm">{diff}</p>
-              </div>
-            ))}
+            <p className="mt-4 text-base leading-relaxed text-[#06183A]/80">{info.academicRequirements}</p>
           </div>
         </div>
+      </section>
 
-        {/* Ideal For Section */}
-        <div className="bg-gradient-to-br from-[hsl(var(--venture-blue))]/10 to-white rounded-xl p-5 shadow-md border-2 border-[hsl(var(--venture-blue))]/30 mb-6">
-          <div className="flex items-center gap-2.5 mb-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] rounded-lg flex items-center justify-center">
-              <Users className="h-5 w-5 text-white" />
+      <section className="px-5 md:px-10 py-16 md:py-24">
+        <p className="font-label text-[11px] md:text-xs tracking-[0.35em] uppercase">{getLabel(labels, "keyBenefits", "Key benefits")}</p>
+        <div className="mt-8 divide-y divide-white/15 max-w-4xl">
+          {info.benefits.map((benefit, idx) => (
+            <div key={benefit} className="py-5 grid grid-cols-[auto_1fr] gap-4 md:gap-8 items-baseline">
+              <span className="font-display text-3xl" style={{ color: ACCENTS[idx % ACCENTS.length] }}>
+                {String(idx + 1).padStart(2, "0")}
+              </span>
+              <p className="text-base md:text-lg leading-relaxed text-[#F2F1E8]/85">{benefit}</p>
             </div>
-            <h2 className="text-xl font-black text-[hsl(var(--venture-navy))]">
-              {getLabel(labels, "idealFor", "Ideal For")}
-            </h2>
-          </div>
-          <div className="flex items-start gap-2.5 p-4 bg-white rounded-lg border border-[hsl(var(--venture-blue))]/20">
-            <BookOpen className="h-4 w-4 text-[hsl(var(--venture-blue))] flex-shrink-0 mt-0.5" />
-            <p className="text-gray-800 leading-snug font-medium text-sm">{info.idealFor}</p>
-          </div>
+          ))}
         </div>
+      </section>
 
-        {/* CTA Section */}
-        <div className="text-center">
-          <div className="bg-gradient-to-br from-white to-blue-50 rounded-xl p-6 shadow-md border border-blue-200">
-            <h3 className="text-xl font-black text-[hsl(var(--venture-navy))] mb-2">
-              {getLabel(labels, "readyToExplore", "Ready to explore")} {info.shortName}?
-            </h3>
-            <p className="text-gray-600 text-sm mb-4 max-w-2xl mx-auto">
-              {getLabel(labels, "contactVenture", "Contact Venture USA to discuss your college soccer placement options")}
-            </p>
-            <Button 
-              onClick={handleBack}
-              className="bg-gradient-to-r from-[hsl(var(--venture-navy))] to-[hsl(var(--venture-blue))] hover:opacity-90 text-white px-6 py-5 text-sm rounded-lg shadow-lg hover:shadow-xl transition-all hover:scale-105 font-bold"
-            >
-              {getLabel(labels, "returnToAssessment", "Return to Assessment")}
-            </Button>
-          </div>
+      <section className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
+        <p className="font-label text-[11px] md:text-xs tracking-[0.35em] uppercase text-[#06183A]/60">
+          {getLabel(labels, "keyDifferences", "Key differences")}
+        </p>
+        <div className="mt-8 max-w-4xl space-y-8">
+          {info.differences.map((diff, idx) => (
+            <div key={diff} className="grid grid-cols-[auto_1fr] gap-4 md:gap-8 items-baseline">
+              <span className="font-display text-3xl text-[#c9aae6]">{String(idx + 1).padStart(2, "0")}</span>
+              <p className="text-base md:text-lg leading-relaxed">{diff}</p>
+            </div>
+          ))}
         </div>
-      </main>
+      </section>
+
+      <section className="px-5 md:px-10 py-16 md:py-24">
+        <p className="font-label text-[11px] md:text-xs tracking-[0.35em] uppercase text-[#ff93ca]">
+          {getLabel(labels, "idealFor", "Ideal for")}
+        </p>
+        <p className="mt-4 max-w-4xl font-display font-bold uppercase italic leading-[0.92] text-[clamp(2rem,5vw,4.2rem)]">
+          {info.idealFor}
+        </p>
+      </section>
+
+      <section className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-20">
+        <h2 className="font-display font-bold uppercase italic text-4xl md:text-6xl leading-none">
+          {getLabel(labels, "readyToExplore", "Ready to explore")} {info.shortName}
+        </h2>
+        <p className="mt-4 max-w-xl text-[#06183A]/70">
+          {getLabel(labels, "contactVenture", "Contact Venture USA to discuss your college soccer placement options")}
+        </p>
+        <button
+          type="button"
+          onClick={handleBack}
+          className="mt-8 inline-flex items-center gap-2 font-label text-[11px] tracking-[0.28em] uppercase border border-[#06183A] px-5 py-3 hover:bg-[#06183A] hover:text-[#F2F1E8]"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          {getLabel(labels, "returnToAssessment", "Return to assessment")}
+        </button>
+      </section>
     </div>
   );
 }
