@@ -605,12 +605,12 @@ function Profile({ data, labels }: { data: AssessmentData; labels: Record<string
   return (
     <section id="profile" className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
       <Eyebrow color={NAVY}>{t(labels, "playerProfile", "Player profile")}</Eyebrow>
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-        <div className="bg-[#06183A] min-h-[420px] flex items-center justify-center overflow-hidden">
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
+        <div className="relative bg-[#06183A] min-h-[480px] md:min-h-full overflow-hidden">
           {data.playerPhoto ? (
-            <img src={data.playerPhoto} alt={data.playerName} className="w-full h-full max-h-[640px] object-cover" />
+            <img src={data.playerPhoto} alt={data.playerName} className="absolute inset-0 w-full h-full object-cover object-top" />
           ) : (
-            <img src={ventureLogoCircle} alt="Venture" className="w-40 h-40 object-contain opacity-80" />
+            <img src={ventureLogoCircle} alt="Venture" className="absolute left-1/2 top-1/2 w-40 h-40 -translate-x-1/2 -translate-y-1/2 object-contain opacity-80" />
           )}
         </div>
         <div>
