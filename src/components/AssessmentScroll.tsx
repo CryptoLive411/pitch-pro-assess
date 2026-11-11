@@ -212,13 +212,13 @@ const PRO_CLUBS = [
   { name: "Athlone Town", logo: ppAthlone, country: "Ireland" },
 ];
 
-const DIVISION_CARDS = [
+const DIVISION_CARDS: { name: string; slug: string; logo: string; logoClass?: string }[] = [
   { name: "NCAA D1", slug: "ncaa-d1", logo: ncaaLogo },
   { name: "NCAA D2", slug: "ncaa-d2", logo: ncaaLogo },
   { name: "NCAA D3", slug: "ncaa-d3", logo: ncaaLogo },
   { name: "NAIA", slug: "naia", logo: naiaLogo },
   { name: "JUCO", slug: "juco", logo: njcaaLogo },
-  { name: "Gap Year", slug: "gap-year", logo: ventureLogoCircle },
+  { name: "Gap Year", slug: "gap-year", logo: ventureLogoCircle, logoClass: "h-20 w-20" },
 ];
 
 export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicView = false }: Props) => {
@@ -606,7 +606,7 @@ function Recommendation({ data, labels, name }: { data: AssessmentData; labels: 
                 <span className="font-display text-3xl leading-none" style={{ color: ACCENTS[i % ACCENTS.length] }}>
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <img src={division.logo} alt="" className="h-14 w-16 object-contain" />
+                <img src={division.logo} alt="" className={`${division.logoClass || "h-14 w-16"} object-contain`} />
               </div>
               <div>
                 <p className="font-display font-bold uppercase italic text-4xl md:text-5xl leading-none">{division.name}</p>
