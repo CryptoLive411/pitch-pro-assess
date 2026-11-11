@@ -219,7 +219,7 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
 
   return (
     <div className="assessment-scroll font-body">
-      <header className="sticky top-0 z-40 flex items-center justify-between gap-3 px-4 md:px-8 py-3 bg-[#06183A] border-b border-white/10">
+      <header className="sticky top-0 z-40 flex h-14 shrink-0 items-center justify-between gap-3 px-4 md:px-8 bg-[#06183A] border-b border-white/10">
         <div className="flex items-center gap-3 min-w-0">
           {!isPublicView && (
             <Button onClick={onBack} variant="ghost" className="text-[#F2F1E8] hover:bg-white/10 hover:text-white px-2 md:px-3">
@@ -292,7 +292,7 @@ function HeroVideo() {
   }, []);
 
   return (
-    <div ref={frameRef} className="absolute inset-0 overflow-hidden" aria-hidden>
+    <div ref={frameRef} className="hero-video absolute inset-0 overflow-hidden" aria-hidden>
       <video
         ref={videoRef}
         className="absolute inset-0 h-full w-full object-cover pointer-events-none"
@@ -317,7 +317,7 @@ function Hero({ labels, showPro, showCollege }: { labels: Record<string, string>
       : t(labels, "collegeSoccerPlacementConsulting", "College Soccer Placement Consulting");
 
   return (
-    <section className="relative min-h-[calc(100svh-4rem)] flex items-center justify-center px-5 py-16 overflow-hidden">
+    <section className="hero-screen relative flex h-[calc(100dvh-3.5rem)] items-center justify-center overflow-hidden px-5 py-16">
       <HeroVideo />
       <div className="absolute inset-0 bg-gradient-to-b from-[#06183A]/55 via-[#06183A]/40 to-[#06183A]/75" />
       <div className="relative z-10 w-full text-center">
