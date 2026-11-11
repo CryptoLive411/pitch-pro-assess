@@ -655,7 +655,24 @@ function Recommendation({ data, labels, name }: { data: AssessmentData; labels: 
 }
 
 function Report({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) {
-  const paragraphs = (data.departmentNotes || "").split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
+  const [open, setOpen] = useState<Record<number, boolean>>({});
+  const notes = (data.departmentNotes || "")
+    .split(/\n\n+/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .map((paragraph, i) => {
+      const lines = paragraph.split("\n");
+      const first = lines[0].trim();
+      const titled = first.endsWith(":") && first.length < 90 && lines.length > 1;
+      if (titled) {
+        return { title: first.replace(/:$/, ""), body: lines.slice(1).join("\n").trim() };
+      }
+      if (i === 0) {
+        return { title: t(labels, "recommendation", "Recommendation"), body: paragraph };
+      }
+      return { title: first, body: lines.slice(1).join("\n").trim() };
+    });
+
   return (
     <section className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24 border-t border-[#06183A]/10">
       <Eyebrow color={NAVY}>{t(labels, "scoutingReport", "Scouting report")}</Eyebrow>
@@ -663,14 +680,30 @@ function Report({ data, labels }: { data: AssessmentData; labels: Record<string,
         {t(labels, "departmentAssessment", "Department assessment")}
       </h2>
       <p className="mt-3 text-sm text-[#06183A]/60">{t(labels, "professionalEvaluation", "Professional evaluation and recommendations")}</p>
-      <div className="mt-10 max-w-3xl space-y-8">
-        {paragraphs.length === 0 && <p className="text-[#06183A]/50">Department notes will appear here.</p>}
-        {paragraphs.map((paragraph, i) => (
-          <div key={i} className="grid grid-cols-[auto_1fr] gap-4">
-            <span className="font-display text-3xl text-[#c9aae6]">{String(i + 1).padStart(2, "0")}</span>
-            <p className="text-base md:text-lg leading-relaxed whitespace-pre-wrap">{paragraph}</p>
-          </div>
-        ))}
+      <div className="mt-10 max-w-3xl divide-y divide-[#06183A]/15">
+        {notes.length === 0 && <p className="text-[#06183A]/50">Department notes will appear here.</p>}
+        {notes.map((note, i) => {
+          const expanded = !!open[i];
+          return (
+            <div key={note.title} className="py-4">
+              <button
+                type="button"
+                aria-expanded={expanded}
+                onClick={() => setOpen((current) => ({ ...current, [i]: !current[i] }))}
+                className="w-full grid grid-cols-[auto_1fr_auto] gap-4 items-center text-left"
+              >
+                <span className="font-display text-3xl text-[#c9aae6]">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-bold text-lg md:text-xl leading-snug">{note.title}</span>
+                <ChevronDown className={`h-5 w-5 shrink-0 text-[#06183A]/50 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
+              </button>
+              <div className={`grid transition-[grid-template-rows] duration-200 ${expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                <div className="overflow-hidden">
+                  <p className="pt-3 pl-12 md:pl-14 max-w-2xl text-base leading-relaxed whitespace-pre-wrap text-[#06183A]/80">{note.body}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
       <p className="mt-10 font-label text-[10px] tracking-[0.22em] uppercase text-[#06183A]/50">Venture USA Soccer Department · Official assessment</p>
     </section>
