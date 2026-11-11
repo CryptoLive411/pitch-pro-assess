@@ -72,6 +72,8 @@ const DEFAULT_LABELS: Record<string, string> = {
   fullService: "Full Service",
   standard: "Standard",
   essential: "Essential",
+  yearlySupport: "Yearly Support",
+  yearlySupportDescription: "Full Service includes four years of support, Standard includes two years, and Essential includes one year.",
   englishExamSupport: "English Exam Support",
   englishExamSupportDescription: "Comprehensive preparation and guidance for English proficiency exams like TOEFL, helping you achieve the scores needed for university admission.",
   videoEditing: "Video Editing",

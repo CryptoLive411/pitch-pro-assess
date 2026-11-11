@@ -108,6 +108,11 @@ const COLLEGE_SERVICES = [
   { id: "placement", name: "University Placement", description: "End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.", p: [true, true, true] },
 ];
 
+const YEARLY_SUPPORT = {
+  id: "yearly",
+  years: ["4 years", "2 years", "1 year"],
+};
+
 const SERVICE_KEYS: Record<string, [string, string]> = {
   english: ["englishExamSupport", "English Exam Support"],
   video: ["videoEditing", "Video Editing"],
@@ -376,6 +381,35 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
             ))}
           </div>
           <div className="mt-2 space-y-2">
+            <div className="bg-white">
+              <div className="grid grid-cols-[minmax(0,1.35fr)_repeat(3,minmax(0,0.8fr))] gap-1.5 md:gap-2 items-center">
+                <button
+                  type="button"
+                  aria-expanded={open === YEARLY_SUPPORT.id}
+                  onClick={() => setOpen(open === YEARLY_SUPPORT.id ? null : YEARLY_SUPPORT.id)}
+                  className="flex items-center gap-2 px-2 md:px-3 py-3.5 text-left bg-white min-w-0"
+                >
+                  <span className="font-display uppercase text-sm md:text-xl leading-tight">
+                    {t(labels, "yearlySupport", "Yearly Support")}
+                  </span>
+                  <ChevronDown className={`h-4 w-4 shrink-0 text-[#06183A]/50 transition-transform duration-200 ${open === YEARLY_SUPPORT.id ? "rotate-180" : ""}`} />
+                </button>
+                {packages.map((pkg) => (
+                  <div key={pkg.key} className="flex justify-center self-stretch items-center bg-white px-1">
+                    <span className="font-display font-bold uppercase text-sm md:text-xl leading-none text-center">
+                      {YEARLY_SUPPORT.years[pkg.idx]}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className={`grid transition-[grid-template-rows] duration-200 ${open === YEARLY_SUPPORT.id ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                <div className="overflow-hidden">
+                  <p className="px-3 pb-4 max-w-xl text-sm leading-relaxed text-[#06183A]/70">
+                    {t(labels, "yearlySupportDescription", "Full Service includes four years of support, Standard includes two years, and Essential includes one year.")}
+                  </p>
+                </div>
+              </div>
+            </div>
             {COLLEGE_SERVICES.map((service) => {
               const expanded = open === service.id;
               const name = t(labels, SERVICE_KEYS[service.id][0], SERVICE_KEYS[service.id][1]);
