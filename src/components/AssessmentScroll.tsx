@@ -117,6 +117,14 @@ const COLLEGE_SERVICES = [
   { id: "placement", name: "University Placement", description: "End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.", p: [true, true, true] },
 ];
 
+const PLACEMENT_SUPPORT = [
+  { title: "Missing Documentation", text: "We find and sort out any missing paperwork so nothing holds up your application." },
+  { title: "Admissions & Logistics", text: "Help with questions about enrolment, housing, and the other practical steps of moving to college." },
+  { title: "College Point of Contact", text: "We’re your direct line to the college and handle questions and updates on your behalf when needed." },
+  { title: "Season Performance Feedback", text: "Feedback on your performance during the soccer season." },
+  { title: "Player–Coach Communication", text: "We help keep communication between you and your coach clear, consistent, and productive." },
+];
+
 const YEARLY_SUPPORT = {
   id: "yearly",
   years: ["4 years", "2 years", "1 year"],
@@ -502,9 +510,23 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                   </div>
                   <div className={`grid transition-[grid-template-rows] duration-200 ${expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
                     <div className="overflow-hidden">
-                      <p className="px-3 pb-4 max-w-xl text-sm leading-relaxed text-[#06183A]/70">
-                        {t(labels, SERVICE_DESC_KEYS[service.id][0], SERVICE_DESC_KEYS[service.id][1])}
-                      </p>
+                      {service.id === "placement" ? (
+                        <div className="px-3 pb-5 max-w-2xl">
+                          <p className="font-label text-[11px] tracking-[0.28em] uppercase text-[#06183A]/50">Support</p>
+                          <dl className="mt-3 space-y-3">
+                            {PLACEMENT_SUPPORT.map((item) => (
+                              <div key={item.title}>
+                                <dt className="font-display uppercase text-base md:text-lg leading-tight">{item.title}</dt>
+                                <dd className="mt-0.5 text-sm leading-relaxed text-[#06183A]/70">{item.text}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                        </div>
+                      ) : (
+                        <p className="px-3 pb-4 max-w-xl text-sm leading-relaxed text-[#06183A]/70">
+                          {t(labels, SERVICE_DESC_KEYS[service.id][0], SERVICE_DESC_KEYS[service.id][1])}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
