@@ -5,13 +5,13 @@ import { AssessmentData } from "./AssessmentEditor";
 import { Button } from "@/components/ui/button";
 import ventureLogo from "@/assets/venture-logo-white.png";
 import ventureLogoCircle from "@/assets/venture-logo-circle.png";
-import henriqueSantosStory from "@/assets/henrique-santos-story.jpg";
-import bernardoMonteiro from "@/assets/bernardo-monteiro.jpg";
-import filipJauk from "@/assets/filip-jauk-story.jpg";
-import player1 from "@/assets/player-1.jpg";
-import player2 from "@/assets/player-2.jpg";
-import player3 from "@/assets/player-3.jpg";
-import player4 from "@/assets/player-4.jpg";
+import storyMatch from "@/assets/ingame/01-match.jpg";
+import storyLouisville from "@/assets/ingame/02-louisville.jpg";
+import storyNight from "@/assets/ingame/03-night.jpg";
+import storyFau from "@/assets/ingame/04-fau.jpg";
+import storyDribble from "@/assets/ingame/05-dribble.jpg";
+import storyVirginia from "@/assets/ingame/06-virginia.jpg";
+import storyMercer from "@/assets/ingame/07-mercer.jpg";
 import pedroBaischFinal from "@/assets/pedro-baisch-final.png";
 import miloPetersFinal from "@/assets/milo-peters-final.png";
 import afonsoVaz from "@/assets/afonso-vaz.png";
@@ -146,49 +146,43 @@ const PHOTO_STORIES = [
   {
     name: "Henrique Santos",
     school: "NC State - D1 Soccer",
-    image: henriqueSantosStory,
-    fit: "contain",
+    image: storyMatch,
     quote: "I have worked with agents and people that tried to help my soccer career for a big part of my life and the focus and the personal touch that I get from João is exceptional. Along with myself I owe a lot of my success to João as it's been a great journey since we started working together. He is very experienced and has a deep knowledge about soccer because it's his passion and hungry for success. Due to his vast soccer background and wide range of connections around the world, not only he knows what it takes to make it, but he can also provide the best counseling and options.",
   },
   {
     name: "Bernardo Monteiro",
     school: "FIU - D1 Soccer",
-    image: bernardoMonteiro,
+    image: storyNight,
     quote: "Meeting Delgado and working with him has been a pleasure. Since the first moment we started this journey together, he has always been there for me and in constant contact with me and my family to help in anything needed. He has always been committed with me and to help me to get a professional opportunity. Besides being a very professional person, he's also a great friend now. Any players working with him, will be lucky enough to achieve their goals.",
   },
   {
     name: "Filip Jauk",
     school: "FAU - D1 Soccer",
-    image: filipJauk,
-    fit: "contain",
+    image: storyFau,
     quote: "I really enjoyed working with Joao. Without him I wouldn't have been able to have a full scholarship at such a great school at one of the best soccer programs. For everything that I have here in the US, he is the first man to say thank you! He was with me from the beginning and every time made sure that everything is perfect for my education and my soccer improvement.",
   },
   {
     name: "Player 1",
     school: "Virginia — D1 Soccer",
-    image: player1,
-    fit: "contain",
+    image: storyVirginia,
     quote: "João treated my move like it was his own. He stayed on the coaches, kept my family in the loop, and made sure I landed somewhere I could play and study at a high level. I always knew where I stood with him, and that honesty is what made the difference.",
   },
   {
     name: "Player 2",
     school: "Hofstra — D1 Soccer",
-    image: player2,
-    fit: "contain",
+    image: storyLouisville,
     quote: "From the first call, João was clear about what it would take and which programs actually fit me. He did not disappear after the introduction. He stayed through the visits, the paperwork, and the decision, and he pushed me toward a place where I could compete right away.",
   },
   {
     name: "Player 3",
     school: "Saint Louis — D1 Soccer",
-    image: player3,
-    fit: "contain",
+    image: storyMercer,
     quote: "I had people promise opportunities before and nothing came of it. Working with João was different. He knew the coaches, he knew the level I could play at, and he kept showing up until the offer was real. He took the time to understand what I wanted, and the program felt like home because of that.",
   },
   {
     name: "Player 4",
     school: "UCF — D1 Soccer",
-    image: player4,
-    fit: "contain",
+    image: storyDribble,
     quote: "João and his team made a big move feel simple. They handled the conversations with the program, kept my family involved, and never rushed me into a school that was not a fit. I got a real shot at a top program, and I knew someone was in my corner the whole way.",
   },
 ];
@@ -534,7 +528,7 @@ function Stories() {
             <img
               src={story.image}
               alt={story.name}
-              className={`w-full h-[360px] ${story.fit === "contain" ? "object-contain bg-white" : "object-cover object-top"}`}
+              className="w-full aspect-[16/9] object-cover"
             />
             <div className="p-6 md:p-8">
               <p className="font-label text-[10px] tracking-[0.28em] uppercase text-[#06183A]/50">Success story</p>
