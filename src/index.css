@@ -108,6 +108,27 @@ All colors MUST be HSL.
   }
 }
 
+@keyframes logo-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.logo-marquee {
+  animation: logo-marquee 42s linear infinite;
+}
+
+.assessment-scroll {
+  height: 100dvh;
+  overflow-y: auto;
+  scroll-snap-type: y proximity;
+  background: #06183a;
+  color: #f2f1e8;
+}
+
+.assessment-scroll section[data-snap] {
+  scroll-snap-align: start;
+}
+
 /* Assessment Print Styles */
 .assessment-slides {
   @apply space-y-0;

@@ -4,6 +4,27 @@ import { AssessmentData } from "@/components/AssessmentEditor";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2 } from "lucide-react";
+import samplePhoto from "@/assets/henrique-santos.jpg";
+
+const SAMPLE_ASSESSMENT: AssessmentData = {
+  playerName: "Henrique Santos",
+  enrollmentYear: "August 2027",
+  schoolYear: "Freshman",
+  gpa: "3.8",
+  manager: "João Delgado",
+  budget: "$18,000",
+  departmentNotes: "The Venture Soccer Department believes Henrique Santos has the ability to successfully compete at the NCAA D1 level, with an estimated budget of $18,000 per year.\n\nSoccer Ability & Development:\nHenrique is a versatile player with solid fundamentals and good game understanding. Continued development in technical skills, positioning, and consistency will help make an immediate impact at the college level.\n\nRecruitment Strategy & Pathway:\nBased on current level and budget, Henrique fits the NCAA D1 pathway. NC State is the kind of program this route is built to reach.",
+  playerPhoto: samplePhoto,
+  targetDivisions: ["NCAA D1", "NCAA D2"],
+  packagePrice1: "5,395",
+  packagePrice2: "4,795",
+  packagePrice3: "4,495",
+  currency: "USD",
+  language: "English",
+  translatedLabels: null,
+  includeProAcademy: false,
+  programMode: "college",
+};
 
 const Preview = () => {
   const navigate = useNavigate();
@@ -63,6 +84,12 @@ const Preview = () => {
 
   useEffect(() => {
     // If we have a slug and no data, fetch from database
+    if (slug === "sample" && import.meta.env.DEV) {
+      setData(SAMPLE_ASSESSMENT);
+      setLoading(false);
+      return;
+    }
+
     if (slug && !data) {
       const fetchAssessment = async () => {
         try {
