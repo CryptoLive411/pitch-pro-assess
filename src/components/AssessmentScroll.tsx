@@ -146,7 +146,7 @@ const photosNamed = (prefix: string) =>
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([, src]) => src);
 
-const NEWS_PHOTOS = photosNamed("news");
+const NEWS_PHOTOS = [pedroBaischFinal, miloPetersFinal, afonsoVaz, ...photosNamed("news")];
 const PLAY_PHOTOS = photosNamed("play");
 
 const MORE_QUOTES = [
@@ -509,12 +509,6 @@ function Stories() {
   );
 }
 
-const PLACED_CARDS = [
-  { name: "Pedro Baisch", school: "Merrimack College", image: pedroBaischFinal },
-  { name: "Milo Peters", school: "Dartmouth", image: miloPetersFinal },
-  { name: "Afonso Vaz", school: "Davis & Elkins", image: afonsoVaz },
-];
-
 function Impact({ labels }: { labels: Record<string, string> }) {
   return (
     <section className="bg-[#06183A] overflow-hidden py-12 md:py-16">
@@ -524,19 +518,8 @@ function Impact({ labels }: { labels: Record<string, string> }) {
         <p className="mt-2 font-display uppercase italic text-2xl md:text-3xl">
           {t(labels, "athletesPlaced", "Athletes placed")}
         </p>
-        <div className="mt-8 flex gap-4 overflow-x-auto snap-x snap-mandatory md:grid md:grid-cols-3 md:overflow-visible">
-          {PLACED_CARDS.map((player) => (
-            <figure key={player.name} className="snap-start shrink-0 w-[82vw] md:w-auto bg-[#071433]">
-              <img src={player.image} alt={player.name} className="w-full h-auto object-contain" />
-              <figcaption className="px-4 py-3">
-                <p className="font-display font-bold uppercase italic text-2xl leading-none">{player.name}</p>
-                <p className="mt-1 text-sm text-[#F2F1E8]/70">{player.school}</p>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
       </div>
-      <div className="mt-10">
+      <div className="mt-8">
         <PhotoMarquee photos={NEWS_PHOTOS} />
       </div>
       <h2 className="px-5 md:px-10 mt-10 font-display font-bold uppercase italic leading-[0.95] text-[clamp(1.8rem,4.2vw,3.4rem)] max-w-3xl">
