@@ -141,10 +141,10 @@ const SERVICE_ADD: Record<string, number> = {
   transferSupport: 400,
 };
 
-const CUSTOM_EXTRAS: { id: string; name: string; detail: string; price: number; includedOn?: number }[] = [
+const CUSTOM_EXTRAS: { id: string; name: string; detail: string; price: number; monthly?: boolean }[] = [
   { id: "summer", name: "Summer league", detail: "USL 2 or NPSL", price: 1000 },
   { id: "tutoring", name: "Tutoring", detail: "SAT and Duolingo", price: 750 },
-  { id: "psych", name: "Psychologist", detail: "3 meetings a month", price: 1500 },
+  { id: "psych", name: "Psychologist", detail: "3 meetings a month", price: 500, monthly: true },
   { id: "nutrition", name: "Nutritionist", detail: "3 sessions a month", price: 900 },
   { id: "trainer", name: "Online fitness trainer", detail: "2 meetings a month", price: 800 },
   { id: "scouting", name: "Full-match scouting report", detail: "A professional scout reviews your full games", price: 600 },
@@ -397,7 +397,8 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
     if (!customOn[service.id] || service.p[2]) return sum;
     return sum + (SERVICE_ADD[service.id] || 0);
   }, 0);
-  const extrasTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (picked.includes(extra.id) ? sum + extra.price : sum), 0);
+  const extrasTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (!extra.monthly && picked.includes(extra.id) ? sum + extra.price : sum), 0);
+  const monthlyTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (extra.monthly && picked.includes(extra.id) ? sum + extra.price : sum), 0);
   const customTotal = essentialAmount + addedServices + extrasTotal;
   const headGrid = "grid grid-cols-[minmax(0,1.15fr)_repeat(4,minmax(0,0.72fr))] gap-1.5 md:gap-2 items-stretch";
   const rowGrid = "grid grid-cols-[minmax(0,1.15fr)_repeat(4,minmax(0,0.72fr))] gap-1.5 md:gap-2 items-center";
@@ -441,6 +442,9 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
               </p>
               <p className="mt-2 font-label text-[9px] md:text-[10px] tracking-[0.14em] uppercase">Select services</p>
               <p className="mt-2 font-display font-bold text-2xl md:text-4xl leading-none">{sym}{formatAmount(customTotal)}</p>
+              {monthlyTotal > 0 && (
+                <p className="mt-1 font-display font-bold text-lg md:text-2xl leading-none">+{sym}{formatAmount(monthlyTotal)}/mo</p>
+              )}
             </div>
           </div>
           <div className="mt-2 space-y-2">
@@ -564,7 +568,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                     <span className="block text-xs md:text-sm text-[#06183A]/60">{extra.detail}</span>
                   </span>
                   <span className="shrink-0 font-display font-bold text-lg md:text-2xl leading-none">
-                    +{sym}{formatAmount(extra.price)}
+                    +{sym}{formatAmount(extra.price)}{extra.monthly ? "/mo" : ""}
                   </span>
                 </label>
               );
