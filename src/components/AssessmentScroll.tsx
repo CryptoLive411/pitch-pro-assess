@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowLeft, ChevronDown } from "lucide-react";
+import { ArrowLeft, Check, ChevronDown, X } from "lucide-react";
 import { AssessmentData } from "./AssessmentEditor";
 import { Button } from "@/components/ui/button";
 import ventureLogo from "@/assets/venture-logo-white.png";
@@ -387,48 +387,79 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
     { key: "p3", num: "03", title: t(labels, "essential", "Essential"), price: data.packagePrice3, idx: 2, bg: "linear-gradient(165deg, #F0D0B0 0%, #C9844A 55%, #A86A32 100%)", ink: "#6A3A16" },
   ];
 
+  const packageLabels = ["package1", "package2", "package3"];
+
   return (
-    <section className="bg-[#E6E6EA] text-[#06183A]">
-      <div className="px-5 md:px-10 pt-12 md:pt-16">
-        <Eyebrow color={NAVY}>{t(labels, "serviceOptions", "What we do")}</Eyebrow>
-        <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">
-          {t(labels, "servicePackages", "Service packages")}
-        </h2>
-        <p className="mt-3 max-w-xl text-sm md:text-base text-[#06183A]/70">
-          {t(labels, "choosePackage", "Choose the right package for your journey")}
-        </p>
+    <>
+    <section className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
+      <Eyebrow color={NAVY}>{t(labels, "serviceOptions", "What we do")}</Eyebrow>
+      <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">
+        {t(labels, "servicePackages", "Service packages")}
+      </h2>
+      <p className="mt-3 max-w-xl text-sm md:text-base text-[#06183A]/70">
+        {t(labels, "choosePackage", "Choose the right package for your journey")}
+      </p>
+      <div className="mt-10">
+        <div>
+          <div className="grid grid-cols-[minmax(0,1.35fr)_repeat(3,minmax(0,0.8fr))] gap-1.5 md:gap-2 items-stretch">
+            <p className="self-end pb-3 font-label text-[10px] tracking-[0.28em] uppercase text-[#06183A]/50">
+              {t(labels, "service", "Service")}
+            </p>
+            {packages.map((pkg) => (
+              <div key={pkg.key} className="px-2 py-3 md:px-3 md:py-4 text-[#06183A]" style={{ background: pkg.bg }}>
+                <p className="font-label text-[9px] md:text-[10px] tracking-[0.18em] uppercase" style={{ color: pkg.ink }}>
+                  {t(labels, packageLabels[pkg.idx], `Package ${pkg.idx + 1}`)}
+                </p>
+                <p className="font-display font-bold uppercase italic text-lg md:text-3xl leading-[0.9] mt-1">{pkg.title}</p>
+                {pkg.price?.trim() && (
+                  <p className="mt-2 font-display text-base md:text-xl leading-none">
+                    {sym}{pkg.price}
+                    <span className="block font-label text-[9px] tracking-[0.18em] uppercase text-[#06183A]/55 mt-1">+7% for tax</span>
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="mt-2 space-y-2">
+            {COLLEGE_SERVICES.map((service) => {
+              const expanded = open === service.id;
+              const name = t(labels, SERVICE_KEYS[service.id][0], SERVICE_KEYS[service.id][1]);
+              return (
+                <div key={service.id} className="bg-white">
+                  <div className="grid grid-cols-[minmax(0,1.35fr)_repeat(3,minmax(0,0.8fr))] gap-1.5 md:gap-2 items-center">
+                    <button
+                      type="button"
+                      aria-expanded={expanded}
+                      onClick={() => setOpen(expanded ? null : service.id)}
+                      className="flex items-center gap-2 px-2 md:px-3 py-3.5 text-left bg-white min-w-0"
+                    >
+                      <span className="font-display uppercase text-sm md:text-xl leading-tight">{name}</span>
+                      <ChevronDown className={`h-4 w-4 shrink-0 text-[#06183A]/50 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
+                    </button>
+                    {packages.map((pkg) => (
+                      <div key={pkg.key} className="flex justify-center self-stretch items-center bg-white">
+                        {service.p[pkg.idx] ? (
+                          <Check className="h-5 w-5 text-[#06183A]" strokeWidth={2.5} />
+                        ) : (
+                          <X className="h-4 w-4 text-[#06183A]/25" strokeWidth={2.5} />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <div className={`grid transition-[grid-template-rows] duration-200 ${expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                    <div className="overflow-hidden">
+                      <p className="px-3 pb-4 max-w-xl text-sm leading-relaxed text-[#06183A]/70">
+                        {t(labels, SERVICE_DESC_KEYS[service.id][0], SERVICE_DESC_KEYS[service.id][1])}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-3">
-        {packages.map((pkg) => (
-          <article key={pkg.key} className="flex flex-col p-6 md:p-8 text-[#06183A]" style={{ background: pkg.bg }}>
-            <p className="font-display font-bold text-5xl md:text-6xl leading-none" style={{ color: pkg.ink }}>{pkg.num}.</p>
-            <h3 className="font-display font-bold uppercase italic text-5xl md:text-6xl leading-[0.9] mt-2">{pkg.title}</h3>
-            {pkg.price?.trim() && (
-              <p className="mt-4 font-display text-3xl font-semibold">
-                {sym}{pkg.price}
-                <span className="block font-label text-[10px] tracking-[0.2em] uppercase text-[#06183A]/60 mt-1">+7% for tax</span>
-              </p>
-            )}
-            <ul className="mt-5 space-y-1">
-              {COLLEGE_SERVICES.filter((s) => s.p[pkg.idx]).map((s) => (
-                <li key={s.id}>
-                  <button
-                    className="text-left text-sm text-[#06183A]/80 hover:text-[#06183A]"
-                    onClick={() => setOpen(open === `${pkg.key}-${s.id}` ? null : `${pkg.key}-${s.id}`)}
-                  >
-                    {t(labels, SERVICE_KEYS[s.id][0], SERVICE_KEYS[s.id][1])}
-                  </button>
-                  {open === `${pkg.key}-${s.id}` && (
-                    <p className="mt-1 mb-2 text-xs text-[#06183A]/70 leading-relaxed max-w-sm">
-                      {t(labels, SERVICE_DESC_KEYS[s.id][0], SERVICE_DESC_KEYS[s.id][1])}
-                    </p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
+    </section>
       {showProAddon && (
         <div className="relative min-h-[60vh] overflow-hidden">
           <img src={ppHero} alt="" className="absolute inset-0 w-full h-full object-cover" />
@@ -445,7 +476,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
           </div>
         </div>
       )}
-    </section>
+    </>
   );
 }
 
