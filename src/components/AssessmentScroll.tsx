@@ -382,9 +382,9 @@ function Hero({ labels, showPro, showCollege }: { labels: Record<string, string>
 function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; labels: Record<string, string>; showProAddon: boolean; sym: string }) {
   const [open, setOpen] = useState<string | null>(null);
   const packages = [
-    { key: "p1", num: "01", title: t(labels, "fullService", "Full Service"), price: data.packagePrice1, image: ppStep1, idx: 0 },
-    { key: "p2", num: "02", title: t(labels, "standard", "Standard"), price: data.packagePrice2, image: ppStep2, idx: 1 },
-    { key: "p3", num: "03", title: t(labels, "essential", "Essential"), price: data.packagePrice3, image: ppStep3, idx: 2 },
+    { key: "p1", num: "01", title: t(labels, "fullService", "Full Service"), price: data.packagePrice1, idx: 0, bg: "linear-gradient(165deg, #F8E7A8 0%, #E0BE4A 55%, #C9962A 100%)", ink: "#6E5010" },
+    { key: "p2", num: "02", title: t(labels, "standard", "Standard"), price: data.packagePrice2, idx: 1, bg: "linear-gradient(165deg, #F7F8FA 0%, #D5DBE3 55%, #B7C0CA 100%)", ink: "#4E5966" },
+    { key: "p3", num: "03", title: t(labels, "essential", "Essential"), price: data.packagePrice3, idx: 2, bg: "linear-gradient(165deg, #F0D0B0 0%, #C9844A 55%, #A86A32 100%)", ink: "#6A3A16" },
   ];
 
   return (
@@ -400,36 +400,32 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
       </div>
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3">
         {packages.map((pkg) => (
-          <article key={pkg.key} className="relative min-h-[70vh] overflow-hidden">
-            <img src={pkg.image} alt="" className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/55 to-black/20" />
-            <div className="relative z-10 h-full min-h-[70vh] flex flex-col justify-end p-6 md:p-8 text-[#F2F1E8]">
-              <p className="font-display font-bold text-5xl md:text-6xl leading-none" style={{ color: ACCENTS[pkg.idx] }}>{pkg.num}.</p>
-              <h3 className="font-display font-bold uppercase italic text-5xl md:text-6xl leading-[0.9] mt-2">{pkg.title}</h3>
-              {pkg.price?.trim() && (
-                <p className="mt-4 font-display text-3xl font-semibold">
-                  {sym}{pkg.price}
-                  <span className="block font-label text-[10px] tracking-[0.2em] uppercase text-white/70 mt-1">+7% for tax</span>
-                </p>
-              )}
-              <ul className="mt-5 space-y-1">
-                {COLLEGE_SERVICES.filter((s) => s.p[pkg.idx]).map((s) => (
-                  <li key={s.id}>
-                    <button
-                      className="text-left text-sm text-white/85 hover:text-white"
-                      onClick={() => setOpen(open === `${pkg.key}-${s.id}` ? null : `${pkg.key}-${s.id}`)}
-                    >
-                      {t(labels, SERVICE_KEYS[s.id][0], SERVICE_KEYS[s.id][1])}
-                    </button>
-                    {open === `${pkg.key}-${s.id}` && (
-                      <p className="mt-1 mb-2 text-xs text-white/70 leading-relaxed max-w-sm">
-                        {t(labels, SERVICE_DESC_KEYS[s.id][0], SERVICE_DESC_KEYS[s.id][1])}
-                      </p>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <article key={pkg.key} className="flex flex-col p-6 md:p-8 text-[#06183A]" style={{ background: pkg.bg }}>
+            <p className="font-display font-bold text-5xl md:text-6xl leading-none" style={{ color: pkg.ink }}>{pkg.num}.</p>
+            <h3 className="font-display font-bold uppercase italic text-5xl md:text-6xl leading-[0.9] mt-2">{pkg.title}</h3>
+            {pkg.price?.trim() && (
+              <p className="mt-4 font-display text-3xl font-semibold">
+                {sym}{pkg.price}
+                <span className="block font-label text-[10px] tracking-[0.2em] uppercase text-[#06183A]/60 mt-1">+7% for tax</span>
+              </p>
+            )}
+            <ul className="mt-5 space-y-1">
+              {COLLEGE_SERVICES.filter((s) => s.p[pkg.idx]).map((s) => (
+                <li key={s.id}>
+                  <button
+                    className="text-left text-sm text-[#06183A]/80 hover:text-[#06183A]"
+                    onClick={() => setOpen(open === `${pkg.key}-${s.id}` ? null : `${pkg.key}-${s.id}`)}
+                  >
+                    {t(labels, SERVICE_KEYS[s.id][0], SERVICE_KEYS[s.id][1])}
+                  </button>
+                  {open === `${pkg.key}-${s.id}` && (
+                    <p className="mt-1 mb-2 text-xs text-[#06183A]/70 leading-relaxed max-w-sm">
+                      {t(labels, SERVICE_DESC_KEYS[s.id][0], SERVICE_DESC_KEYS[s.id][1])}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ul>
           </article>
         ))}
       </div>
