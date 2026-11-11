@@ -29,7 +29,7 @@ import yaleLogo from "@/assets/logos/yale-mark.png";
 import bostonCollegeLogo from "@/assets/logos/boston-college-mark.png";
 import ncaaLogo from "@/assets/logos/ncaa.png";
 import naiaLogo from "@/assets/logos/naia.png";
-import njcaaLogo from "@/assets/logos/njcaa.png";
+import njcaaLogo from "@/assets/logos/njcaa-mark.png";
 import ppHero from "@/assets/pro-pathway/hero.jpeg";
 import ppStep1 from "@/assets/pro-pathway/step1.jpeg";
 import ppStep2 from "@/assets/pro-pathway/step2.jpeg";
@@ -212,15 +212,14 @@ const PRO_CLUBS = [
   { name: "Athlone Town", logo: ppAthlone, country: "Ireland" },
 ];
 
-const DIVISIONS = ["NCAA D1", "NCAA D2", "NCAA D3", "NAIA", "JUCO", "Gap Year"];
-
-const leagueLogo = (division: string) => {
-  const d = division.toUpperCase();
-  if (d.includes("NCAA")) return ncaaLogo;
-  if (d.includes("NAIA")) return naiaLogo;
-  if (d.includes("JUCO") || d.includes("NJCAA")) return njcaaLogo;
-  return null;
-};
+const DIVISION_CARDS = [
+  { name: "NCAA D1", slug: "ncaa-d1", logo: ncaaLogo },
+  { name: "NCAA D2", slug: "ncaa-d2", logo: ncaaLogo },
+  { name: "NCAA D3", slug: "ncaa-d3", logo: ncaaLogo },
+  { name: "NAIA", slug: "naia", logo: naiaLogo },
+  { name: "JUCO", slug: "juco", logo: njcaaLogo },
+  { name: "Gap Year", slug: "gap-year", logo: ventureLogoCircle },
+];
 
 export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicView = false }: Props) => {
   const location = useLocation();
@@ -265,7 +264,6 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
       {showCollege && <Impact labels={labels} />}
       <Statement labels={labels} showCollege={showCollege} />
 
-      {showCollege && <Targets data={data} labels={labels} />}
       <Report data={data} labels={labels} />
       {showCollege && <Costs data={data} labels={labels} />}
       {showCollege && <Timeline labels={labels} />}
@@ -582,53 +580,37 @@ function Profile({ data, labels }: { data: AssessmentData; labels: Record<string
 }
 
 function Recommendation({ data, labels, name }: { data: AssessmentData; labels: Record<string, string>; name: string }) {
-  const divisions = data.targetDivisions?.length ? data.targetDivisions : [];
+  const chosen = new Set(data.targetDivisions || []);
   return (
-    <section className="bg-[#06183A] min-h-[calc(100svh-4rem)] px-5 md:px-10 py-16 md:py-24 flex flex-col justify-center">
+    <section id="targets" className="bg-[#06183A] px-5 md:px-10 py-16 md:py-24">
       <Eyebrow>{t(labels, "ourRecommendation", "Our recommendation")}</Eyebrow>
       <h2 className="font-display font-bold uppercase italic text-5xl md:text-8xl leading-[0.88] mt-4 max-w-4xl">{name}</h2>
-      <p className="mt-4 text-[#F2F1E8]/70">Player assessment and recommendation · Venture USA</p>
-      {divisions.length > 0 ? (
-        <div className="mt-10 flex flex-wrap gap-3">
-          {divisions.map((division) => {
-            const logo = leagueLogo(division);
-            return (
-              <div key={division} className="flex items-center gap-3 bg-[#F2F1E8] text-[#06183A] px-4 py-3">
-                {logo && <img src={logo} alt="" className="h-8 w-auto" />}
-                <span className="font-display font-bold uppercase text-2xl">{division}</span>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <p className="mt-10 text-[#F2F1E8]/50">Divisions chosen in the editor appear here.</p>
-      )}
-    </section>
-  );
-}
-
-function Targets({ data, labels }: { data: AssessmentData; labels: Record<string, string> }) {
-  return (
-    <section id="targets" className="bg-[#F2F1E8] text-[#06183A] px-5 md:px-10 py-16 md:py-24">
-      <Eyebrow color={NAVY}>{t(labels, "placementTargets", "Placement targets")}</Eyebrow>
-      <h2 className="font-display font-bold uppercase italic text-5xl md:text-7xl leading-none mt-2">
-        {t(labels, "targetDivisions", "Target divisions")}
-      </h2>
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {DIVISIONS.map((division, i) => {
-          const selected = data.targetDivisions?.includes(division);
-          const slug = division.toLowerCase().replace(/ /g, "-");
+      <p className="mt-4 max-w-xl text-[#F2F1E8]/70">
+        The divisions chosen for this player are marked. Open any card to see scholarships, academics, and who it fits.
+      </p>
+      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {DIVISION_CARDS.map((division, i) => {
+          const selected = chosen.has(division.name);
           return (
             <Link
-              key={division}
-              to={`/division/${slug}`}
+              key={division.name}
+              to={`/division/${division.slug}`}
               state={{ fromSlide: 3, data, labels }}
-              className={`min-h-[180px] p-6 flex flex-col justify-between border ${selected ? "bg-[#06183A] text-[#F2F1E8] border-[#06183A]" : "bg-transparent border-[#06183A]/20 hover:border-[#06183A]"}`}
+              className={`group min-h-[230px] p-6 flex flex-col justify-between border transition-transform duration-200 hover:-translate-y-1 ${
+                selected
+                  ? "bg-[#F2F1E8] text-[#06183A] border-[#F2F1E8]"
+                  : "bg-transparent text-[#F2F1E8] border-white/20 hover:border-white/70"
+              }`}
             >
-              <span className="font-display text-3xl" style={{ color: selected ? ACCENTS[i % 4] : "#c9aae6" }}>{String(i + 1).padStart(2, "0")}</span>
+              <div className="flex items-start justify-between gap-4">
+                <span className="font-display text-3xl leading-none" style={{ color: ACCENTS[i % ACCENTS.length] }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <img src={division.logo} alt="" className="h-14 w-16 object-contain" />
+              </div>
               <div>
-                <p className="font-display font-bold uppercase italic text-4xl leading-none">{division}</p>
-                <p className="mt-2 font-label text-[10px] tracking-[0.22em] uppercase opacity-70">
+                <p className="font-display font-bold uppercase italic text-4xl md:text-5xl leading-none">{division.name}</p>
+                <p className={`mt-3 font-label text-[10px] tracking-[0.22em] uppercase ${selected ? "text-[#06183A]/60" : "text-white/55 group-hover:text-white"}`}>
                   {selected ? t(labels, "recommended", "Recommended") : t(labels, "clickToLearnMore", "Click to learn more")}
                 </p>
               </div>
