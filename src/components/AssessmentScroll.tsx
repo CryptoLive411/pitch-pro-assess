@@ -256,12 +256,12 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
       <Profile data={data} labels={labels} />
       <Recommendation data={data} labels={labels} name={name} />
       <Report data={data} labels={labels} />
+      {showCollege && <Stories />}
 
       {showCollege && <WhatWeDo data={data} labels={labels} showProAddon={showPro} sym={sym} />}
       {showPro && !showCollege && <ProProcess />}
       {showPro && <LogoRail title="Pro club partners" logos={PRO_CLUBS.map((c) => c.logo)} />}
 
-      {showCollege && <Stories />}
       {showCollege && <Impact labels={labels} />}
       <Statement labels={labels} showCollege={showCollege} />
 
