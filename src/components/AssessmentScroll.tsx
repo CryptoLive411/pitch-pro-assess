@@ -339,11 +339,6 @@ function Hero({ labels, showPro, showCollege }: { labels: Record<string, string>
       <div className="absolute inset-0 bg-gradient-to-b from-[#06183A]/55 via-[#06183A]/40 to-[#06183A]/75" />
       <div className="relative z-10 w-full text-center">
         <Frame>
-          <img
-            src={ventureLogoCircle}
-            alt="Venture"
-            className="h-16 w-16 md:h-20 md:w-20 mx-auto mb-5 object-contain"
-          />
           <Eyebrow>Assessment Report</Eyebrow>
           <h1 className="font-display font-bold italic uppercase leading-[0.88] tracking-tight text-[clamp(2.15rem,6.2vw,5.4rem)] mt-4 whitespace-nowrap">
             Venture Sports USA
