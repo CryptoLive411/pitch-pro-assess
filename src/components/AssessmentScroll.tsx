@@ -862,7 +862,7 @@ function Report({ data, labels }: { data: AssessmentData; labels: Record<string,
                 onClick={() => setOpen((current) => ({ ...current, [i]: !current[i] }))}
                 className="w-full grid grid-cols-[auto_1fr_auto] gap-4 items-center text-left"
               >
-                <span className="font-display text-3xl text-[#c9aae6]">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-display text-3xl text-[#1C5FAE]">{String(i + 1).padStart(2, "0")}</span>
                 <span className="font-bold text-lg md:text-xl leading-snug">{note.title}</span>
                 <ChevronDown className={`h-5 w-5 shrink-0 text-[#06183A]/50 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`} />
               </button>
