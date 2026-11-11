@@ -123,7 +123,7 @@ const DEFAULT_LABELS: Record<string, string> = {
   emailUs: "Email Us",
   getStarted: "Get Started",
   callYourAgent: "Call Your Agent",
-  joinAthletes: "Join 350+ athletes who have successfully placed at top universities across the United States",
+  joinAthletes: "600+ athletes placed",
   
   // Division info page
   divisionOverview: "DIVISION OVERVIEW",

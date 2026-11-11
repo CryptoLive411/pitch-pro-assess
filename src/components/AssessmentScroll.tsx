@@ -549,20 +549,12 @@ function Stories() {
 
 function Impact({ labels }: { labels: Record<string, string> }) {
   return (
-    <section className="min-h-[70vh] bg-[#06183A] px-5 md:px-10 py-20 flex flex-col justify-end">
+    <section className="bg-[#06183A] px-5 md:px-10 py-12 md:py-16">
       <Eyebrow>Our impact</Eyebrow>
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div>
-          <p className="font-display font-bold italic text-[clamp(4rem,12vw,9rem)] leading-none text-[#f9fc72]">350+</p>
-          <p className="mt-2 max-w-sm text-sm md:text-base text-[#F2F1E8]/75">
-            {t(labels, "joinAthletes", "Athletes who have successfully placed at top universities across the United States")}
-          </p>
-        </div>
-        <div>
-          <p className="font-display font-bold italic text-[clamp(4rem,12vw,9rem)] leading-none">+347</p>
-          <p className="mt-2 text-sm md:text-base text-[#F2F1E8]/75">More success stories beyond the ones on this page.</p>
-        </div>
-      </div>
+      <p className="mt-3 font-display font-bold italic leading-none text-[clamp(3.2rem,7vw,5.5rem)] text-[#f9fc72]">600+</p>
+      <p className="mt-2 font-display uppercase italic text-2xl md:text-3xl">
+        {t(labels, "athletesPlaced", "Athletes placed")}
+      </p>
     </section>
   );
 }
@@ -571,13 +563,10 @@ function Statement({ labels, showCollege }: { labels: Record<string, string>; sh
   const line = showCollege
     ? t(labels, "letsMakeYourDream", "Let's make your college soccer dream a reality")
     : "Your path to the professional game";
-  const words = line.split(" ");
   return (
-    <section className="min-h-[80vh] bg-[#06183A] px-5 md:px-10 py-20 flex items-center">
-      <h2 className="font-display font-bold uppercase italic leading-[0.86] text-[clamp(3.4rem,9vw,8rem)] max-w-5xl">
-        {words.map((word, i) => (
-          <span key={`${word}-${i}`} className="block">{word}</span>
-        ))}
+    <section className="bg-[#06183A] px-5 md:px-10 py-12 md:py-16 border-t border-white/10">
+      <h2 className="font-display font-bold uppercase italic leading-[0.95] text-[clamp(1.8rem,4.2vw,3.4rem)] max-w-3xl">
+        {line}
       </h2>
     </section>
   );
