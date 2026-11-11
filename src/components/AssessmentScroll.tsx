@@ -143,6 +143,7 @@ const PHOTO_STORIES = [
     name: "Henrique Santos",
     school: "NC State - D1 Soccer",
     image: henriqueSantos,
+    fit: "contain",
     quote: "I have worked with agents and people that tried to help my soccer career for a big part of my life and the focus and the personal touch that I get from João is exceptional. Along with myself I owe a lot of my success to João as it's been a great journey since we started working together. He is very experienced and has a deep knowledge about soccer because it's his passion and hungry for success. Due to his vast soccer background and wide range of connections around the world, not only he knows what it takes to make it, but he can also provide the best counseling and options.",
   },
   {
@@ -480,7 +481,11 @@ function Stories() {
       <div className="assessment-rail mt-8 flex gap-4 px-5 md:px-10 pb-14">
         {PHOTO_STORIES.map((story) => (
           <article key={story.name} className="shrink-0 w-[86vw] md:w-[640px] bg-white text-[#06183A]">
-            <img src={story.image} alt={story.name} className="w-full h-[360px] object-cover object-top" />
+            <img
+              src={story.image}
+              alt={story.name}
+              className={`w-full h-[360px] ${story.fit === "contain" ? "object-contain bg-[#f3f3f3]" : "object-cover object-top"}`}
+            />
             <div className="p-6 md:p-8">
               <p className="font-label text-[10px] tracking-[0.28em] uppercase text-[#06183A]/50">Success story</p>
               <h3 className="font-display font-bold uppercase italic text-4xl leading-none mt-2">{story.name}</h3>
