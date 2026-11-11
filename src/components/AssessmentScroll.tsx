@@ -115,6 +115,7 @@ const COLLEGE_SERVICES = [
   { id: "visa", name: "VISA Support", description: "Complete assistance with F-1 Student Visa application process, documentation, and interview preparation.", p: [true, true, false] },
   { id: "arrival", name: "USA Arrival Support", description: "Help with logistics and orientation when arriving in the USA, ensuring a smooth transition to your new university.", p: [true, true, false] },
   { id: "placement", name: "University Placement", description: "End-to-end support to secure your final placement at a university that matches your athletic, academic, and personal goals.", p: [true, true, true] },
+  { id: "transferSupport", name: "Transfer Support", description: "Support through one college transfer if you move to a new program. Included with Full Service.", p: [true, false, false] },
 ];
 
 const SUPPORT_NOTES = [
@@ -152,6 +153,7 @@ const SERVICE_KEYS: Record<string, [string, string]> = {
   visa: ["visaSupport", "VISA Support"],
   arrival: ["usaArrivalSupport", "USA Arrival Support"],
   placement: ["universityPlacement", "University Placement"],
+  transferSupport: ["transferSupport", "Transfer Support"],
 };
 
 const SERVICE_DESC_KEYS: Record<string, [string, string]> = {
@@ -165,6 +167,7 @@ const SERVICE_DESC_KEYS: Record<string, [string, string]> = {
   visa: ["visaSupportDescription", COLLEGE_SERVICES[7].description],
   arrival: ["usaArrivalSupportDescription", COLLEGE_SERVICES[8].description],
   placement: ["universityPlacementDescription", COLLEGE_SERVICES[9].description],
+  transferSupport: ["transferSupportDescription", COLLEGE_SERVICES[10].description],
 };
 
 const athleteRail = import.meta.glob("../assets/athlete-rail/*.jpg", {
