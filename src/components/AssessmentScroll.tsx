@@ -24,6 +24,9 @@ import templeLogo from "@/assets/logos/temple.png";
 import kentuckyLogo from "@/assets/logos/kentucky.png";
 import georgiaStateLogo from "@/assets/logos/georgia-state.png";
 import ucIrvineLogo from "@/assets/logos/uc-irvine.png";
+import harvardLogo from "@/assets/logos/harvard.png";
+import yaleLogo from "@/assets/logos/yale.png";
+import bostonCollegeLogo from "@/assets/logos/boston-college-new.png";
 import ncaaLogo from "@/assets/logos/ncaa.png";
 import naiaLogo from "@/assets/logos/naia.png";
 import njcaaLogo from "@/assets/logos/njcaa.png";
@@ -48,7 +51,8 @@ const ACCENTS = ["#c9aae6", "#f9fc72", "#6ec7f9", "#ff93ca"];
 const UNIVERSITY_LOGOS = [
   creightonLogo, ncStateLogo, charlestonLogo, providenceLogo, caltechLogo,
   wakeForestLogo, ucfLogo, coastalCarolinaLogo, westVirginiaLogo, templeLogo,
-  kentuckyLogo, georgiaStateLogo, ucIrvineLogo, ncaaLogo, naiaLogo, njcaaLogo,
+  kentuckyLogo, georgiaStateLogo, ucIrvineLogo, njcaaLogo,
+  harvardLogo, yaleLogo, bostonCollegeLogo,
 ];
 
 type ProgramMode = "college" | "pro" | "both";
