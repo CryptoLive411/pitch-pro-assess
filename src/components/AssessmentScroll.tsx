@@ -282,6 +282,7 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
       <Recommendation data={data} labels={labels} name={name} />
       <Report data={data} labels={labels} />
       {showCollege && <Stories />}
+      {showCollege && <Costs data={data} labels={labels} />}
 
       {showCollege && <WhatWeDo data={data} labels={labels} showProAddon={showPro} sym={sym} />}
       {showPro && !showCollege && <ProProcess />}
@@ -290,7 +291,6 @@ export const AssessmentScroll = ({ data, labels, programMode, onBack, isPublicVi
       {showCollege && <Impact labels={labels} />}
       <Statement labels={labels} showCollege={showCollege} />
 
-      {showCollege && <Costs data={data} labels={labels} />}
       {showCollege && <Timeline labels={labels} />}
 
       {showPro && <ProWhy />}
