@@ -4,7 +4,6 @@ import { ArrowLeft } from "lucide-react";
 import { AssessmentData } from "./AssessmentEditor";
 import { Button } from "@/components/ui/button";
 import ventureLogo from "@/assets/venture-logo-white.png";
-import ventureMark from "@/assets/venture-logo-mark.png";
 import ventureLogoCircle from "@/assets/venture-logo-circle.png";
 import pedroBaischFinal from "@/assets/pedro-baisch-final.png";
 import miloPetersFinal from "@/assets/milo-peters-final.png";
@@ -341,9 +340,9 @@ function Hero({ labels, showPro, showCollege }: { labels: Record<string, string>
       <div className="relative z-10 w-full text-center">
         <Frame>
           <img
-            src={ventureMark}
+            src={ventureLogoCircle}
             alt="Venture"
-            className="h-10 md:h-14 w-auto mx-auto mb-5"
+            className="h-16 w-16 md:h-20 md:w-20 mx-auto mb-5 object-contain"
           />
           <Eyebrow>Assessment Report</Eyebrow>
           <h1 className="font-display font-bold italic uppercase leading-[0.88] tracking-tight text-[clamp(2.15rem,6.2vw,5.4rem)] mt-4 whitespace-nowrap">
