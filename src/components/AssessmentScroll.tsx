@@ -133,15 +133,25 @@ const YEARLY_SUPPORT = {
   years: ["4 years", "2 years", "1 year"],
 };
 
-const SERVICE_ADD: Record<string, number> = {
-  english: 350,
-  admissions: 200,
-  translation: 200,
-  eligibility: 250,
-  visa: 300,
-  arrival: 200,
-  transferSupport: 400,
-};
+function splitBundle(total: number, serviceIds: string[]) {
+  const dollars = Math.round(total);
+  const each = Math.floor(dollars / (serviceIds.length + 1));
+  const services = Object.fromEntries(serviceIds.map((id) => [id, each]));
+  return { services, year: dollars - each * serviceIds.length };
+}
+
+function customQuote(elite: number, standard: number, essential: number, on: Record<string, boolean>, years: 1 | 2 | 4) {
+  const core = COLLEGE_SERVICES.filter((service) => service.p[2]).map((service) => service.id);
+  const mid = COLLEGE_SERVICES.filter((service) => service.p[1] && !service.p[2]).map((service) => service.id);
+  const top = COLLEGE_SERVICES.filter((service) => service.p[0] && !service.p[1]).map((service) => service.id);
+  const essentialParts = splitBundle(essential, core);
+  const standardParts = splitBundle(standard - essential, mid);
+  const eliteParts = splitBundle(elite - standard, top);
+  const prices = { ...essentialParts.services, ...standardParts.services, ...eliteParts.services };
+  const yearPrice = essentialParts.year + (years >= 2 ? standardParts.year : 0) + (years === 4 ? eliteParts.year : 0);
+  const services = COLLEGE_SERVICES.reduce((sum, service) => (on[service.id] ? sum + (prices[service.id] || 0) : sum), 0);
+  return services + yearPrice;
+}
 
 const CUSTOM_EXTRAS: { id: string; name: string; detail: string; price: number; monthly?: boolean; quote?: boolean }[] = [
   { id: "summer", name: "Summer league", detail: "USL 2 or NPSL", price: 1000 },
@@ -389,6 +399,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
     ...Object.fromEntries(COLLEGE_SERVICES.map((service) => [service.id, service.p[2]])),
     ...(data.packageChoices?.services ?? {}),
   }));
+  const [supportYears, setSupportYears] = useState<1 | 2 | 4>(data.packageChoices?.supportYears === 2 || data.packageChoices?.supportYears === 4 ? data.packageChoices.supportYears : 1);
   const [choiceStatus, setChoiceStatus] = useState<"idle" | "saving" | "saved">("idle");
   const skipSave = useRef(true);
   const packages = [
@@ -398,14 +409,12 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
   ];
 
   const packageLabels = ["package1", "package2", "package3"];
+  const eliteAmount = parseAmount(packages[0].price?.trim() || "5395");
+  const standardAmount = parseAmount(packages[1].price?.trim() || "4795");
   const essentialAmount = parseAmount(packages[2].price?.trim() || "4495");
-  const addedServices = COLLEGE_SERVICES.reduce((sum, service) => {
-    if (!customOn[service.id] || service.p[2]) return sum;
-    return sum + (SERVICE_ADD[service.id] || 0);
-  }, 0);
   const extrasTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (!extra.monthly && !extra.quote && picked.includes(extra.id) ? sum + extra.price : sum), 0);
   const monthlyTotal = CUSTOM_EXTRAS.reduce((sum, extra) => (extra.monthly && picked.includes(extra.id) ? sum + extra.price : sum), 0);
-  const customTotal = essentialAmount + addedServices;
+  const customTotal = customQuote(eliteAmount, standardAmount, essentialAmount, customOn, supportYears);
   const canSaveChoices = Boolean(data.slug && data.slug !== "sample");
 
   useEffect(() => {
@@ -416,7 +425,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
     }
     const handle = window.setTimeout(async () => {
       setChoiceStatus("saving");
-      const body = JSON.stringify({ services: customOn, extras: picked });
+      const body = JSON.stringify({ services: customOn, extras: picked, supportYears });
       const { error } = await supabase.storage.from("player-photos").upload(
         `package-choices/${data.slug}.json`,
         new Blob([body], { type: "application/json" }),
@@ -425,7 +434,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
       setChoiceStatus(error ? "idle" : "saved");
     }, 400);
     return () => window.clearTimeout(handle);
-  }, [canSaveChoices, customOn, picked, data.slug]);
+  }, [canSaveChoices, customOn, picked, supportYears, data.slug]);
 
   const headGrid = "grid grid-cols-[minmax(0,1.15fr)_repeat(4,minmax(0,0.72fr))] gap-1.5 md:gap-2 items-stretch";
   const rowGrid = "grid grid-cols-[minmax(0,1.15fr)_repeat(4,minmax(0,0.72fr))] gap-1.5 md:gap-2 items-center";
@@ -492,10 +501,18 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
                     </span>
                   </div>
                 ))}
-                <div className="flex justify-center self-stretch items-center bg-white px-1">
-                  <span className="font-display font-bold uppercase text-sm md:text-xl leading-none text-center">
-                    {YEARLY_SUPPORT.years[2]}
-                  </span>
+                <div className="flex flex-col items-center justify-center gap-1 self-stretch bg-white px-1 py-2">
+                  {([1, 2, 4] as const).map((year) => (
+                    <button
+                      key={year}
+                      type="button"
+                      aria-pressed={supportYears === year}
+                      onClick={() => setSupportYears(year)}
+                      className={`rounded-full border px-2 py-1 font-display text-[11px] md:text-sm uppercase leading-none ${supportYears === year ? "border-[#2E86E0] bg-[#4DA3FF] text-[#06183A]" : "border-[#4DA3FF]/40 bg-white text-[#06183A]/45"}`}
+                    >
+                      {year} yr
+                    </button>
+                  ))}
                 </div>
               </div>
               <div className={`grid transition-[grid-template-rows] duration-200 ${open === YEARLY_SUPPORT.id ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
@@ -578,7 +595,7 @@ function WhatWeDo({ data, labels, showProAddon, sym }: { data: AssessmentData; l
             )}
             <p className="mt-4 font-label text-[11px] md:text-xs tracking-[0.28em] uppercase text-[#06183A]/50">Add to custom</p>
             <p className="mt-2 text-sm md:text-base text-[#06183A]/70">
-              Custom starts at Essential. Select any service in that column to add it, or add an extra below.
+              Choose 1, 2, or 4 years of support and the services you want. The total matches Elite, Standard, or Essential when the same things are selected.
             </p>
           </div>
           <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 text-left">

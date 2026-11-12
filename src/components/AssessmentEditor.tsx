@@ -38,7 +38,7 @@ export interface AssessmentData {
   proAcademyAddonPrice?: string; // price when sold alongside college placement
   programMode?: 'college' | 'pro' | 'both';
   slug?: string;
-  packageChoices?: { services: Record<string, boolean>; extras: string[] } | null;
+  packageChoices?: { services: Record<string, boolean>; extras: string[]; supportYears?: 1 | 2 | 4 } | null;
 }
 
 const LANGUAGES = [

@@ -10,11 +10,13 @@ async function loadPackageChoices(slug: string) {
   const { data: file, error } = await supabase.storage.from("player-photos").download(`package-choices/${slug}.json`);
   if (error || !file) return null;
   try {
-    const parsed = JSON.parse(await file.text()) as { services?: Record<string, boolean>; extras?: string[] };
-    return {
-      services: parsed.services && typeof parsed.services === "object" ? parsed.services : {},
-      extras: Array.isArray(parsed.extras) ? parsed.extras.filter((item) => typeof item === "string") : [],
-    };
+      const parsed = JSON.parse(await file.text()) as { services?: Record<string, boolean>; extras?: string[]; supportYears?: number };
+      const supportYears = parsed.supportYears === 2 || parsed.supportYears === 4 ? parsed.supportYears : 1;
+      return {
+        services: parsed.services && typeof parsed.services === "object" ? parsed.services : {},
+        extras: Array.isArray(parsed.extras) ? parsed.extras.filter((item) => typeof item === "string") : [],
+        supportYears: supportYears as 1 | 2 | 4,
+      };
   } catch {
     return null;
   }
