@@ -917,14 +917,21 @@ function Report({ data, labels }: { data: AssessmentData; labels: Record<string,
     .map((paragraph, i) => {
       const lines = paragraph.split("\n");
       const first = lines[0].trim();
-      const titled = first.endsWith(":") && first.length < 90 && lines.length > 1;
-      if (titled) {
-        return { title: first.replace(/:$/, ""), body: lines.slice(1).join("\n").trim() };
+      const rest = lines.slice(1).join("\n").trim();
+      // "Title:" on its own line, body on following lines
+      if (first.endsWith(":") && first.length < 90 && rest) {
+        return { title: first.replace(/:$/, ""), body: rest };
+      }
+      // "Title: body text..." on the same line — split at the first colon
+      const colon = first.indexOf(":");
+      if (colon > 0 && colon < 60 && first.slice(colon + 1).trim()) {
+        const inlineBody = [first.slice(colon + 1).trim(), rest].filter(Boolean).join("\n");
+        return { title: first.slice(0, colon).trim(), body: inlineBody };
       }
       if (i === 0) {
         return { title: t(labels, "recommendation", "Recommendation"), body: paragraph };
       }
-      return { title: first, body: lines.slice(1).join("\n").trim() };
+      return { title: first, body: rest };
     });
 
   return (
