@@ -154,9 +154,9 @@ const getLabel = (labels: Record<string, string> | null | undefined, key: string
 };
 
 export const AssessmentPreview = ({ data, onBack, isPublicView = false }: AssessmentPreviewProps) => {
-  const labels = { ...(data.translatedLabels || DEFAULT_LABELS), fullService: "Elite", usaArrivalSupport: "University Arrival Support", satExams: "English Exams" };
+  const labels: Record<string, string> = { ...(data.translatedLabels || DEFAULT_LABELS), fullService: "Elite", usaArrivalSupport: "University Arrival Support", satExams: "English Exams" };
   for (const key of ["yearlySupportDescription", "transferSupportDescription"]) {
-    if (labels[key]?.includes("Full Service")) labels[key] = labels[key].replaceAll("Full Service", "Elite");
+    if (labels[key]?.includes("Full Service")) labels[key] = labels[key].split("Full Service").join("Elite");
   }
   if (labels.satExamsDescription?.includes("The SAT is a standardized test")) {
     labels.satExamsDescription = DEFAULT_LABELS.satExamsDescription;
